@@ -35,8 +35,14 @@ Module MiniCTI
 
     Public gsConString As String                  ' DB Con String
     Public Const file_path As String = "C:\MiniCTI"
-    Public Const config_file As String = "\config\MiniCTI_config.xml"
-    Public Const gsAppVersion As String = "Ver 2.1.1.2"
+    Public config_file As String
+
+
+    Public Const CONFIG_FILE_DEMO As String = "\config\MiniCTI_config_demo.xml"
+    Public Const CONFIG_FILE_PRODUCT As String = "\config\MiniCTI_config.xml"
+    Public Const VERSION_DEMO As String = "Ver 2.1.1.4B"
+    Public Const VERSION_PRODUCT As String = "Ver 2.1.1.4"
+    Public gsAppVersion As String
     Public gsPopUpOption As String = "MDI"
 
     Public gsUseARS As String = "N"
@@ -50,6 +56,7 @@ Module MiniCTI
     Public Const gsExcelSheetCustomer As String = "고객정보"
     Public Const gsCheckCustomerColumnName As String = "고객명"
     Public Const giCustomerImportColCount As Integer = 9
+
 
 
     Public Function gfTelNoTransReturn(ByVal telno As String) As String
@@ -135,6 +142,14 @@ Module MiniCTI
     Public Function XmlRead(ByVal n As Integer, ByVal keyname As String) As String
         Try
             Dim doc As XmlDocument = New XmlDocument()
+            Dim appName As String = System.Reflection.Assembly.GetExecutingAssembly.GetName.Name()
+            If appName.ToLower().Contains("demo") Then
+                config_file = CONFIG_FILE_DEMO
+                gsAppVersion = VERSION_DEMO
+            Else
+                config_file = CONFIG_FILE_PRODUCT
+                gsAppVersion = VERSION_PRODUCT
+            End If
             doc.Load(file_path & config_file)
 
             Dim root As XmlElement = doc.DocumentElement
@@ -174,7 +189,7 @@ Module MiniCTI
         'FRM_MAIN.toolExit.Enabled = exitbol
 
     End Sub
-    Public  Function Find_Query(ByVal s_code As String) As String
+    Public Function Find_Query(ByVal s_code As String) As String
         Dim SQL As String = ""
         Try
             SQL = " SELECT '' S_MENU_NM,'XXXX' S_MENU_CD UNION ALL SELECT S_MENU_NM,S_MENU_CD FROM T_S_CODE WHERE  COM_CD = '" & gsCOM_CD & "' AND L_MENU_CD = '" & s_code & "'"
@@ -914,7 +929,7 @@ Module MiniCTI
 
             excelBook = excelApp.Workbooks.Add
             excelWorksheet = CType(excelBook.Worksheets(1), Microsoft.Office.Interop.Excel.Worksheet)
-            
+
             With excelWorksheet
                 .Columns.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignLeft '셀 텍스트 맞춤을 left 로 지정. 
                 .Columns.NumberFormat = "@"   '셀서식을 텍스트 타입으로 지정. 회사번호나 전화번호가 0으로 시작되므로 필요.

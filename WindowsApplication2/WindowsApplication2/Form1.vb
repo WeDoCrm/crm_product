@@ -8,7 +8,7 @@ Public Class Form1
     Private WithEvents kk As New CRMmanager.CRMmanager
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
-        ss.SetUserInfo("9997", "0001", "0001", "127.0.0.1", "8886", True)
+        ss.SetUserInfo("0001", "0011", "0011", "127.0.0.1", "8886", True)
     End Sub
 
     Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click

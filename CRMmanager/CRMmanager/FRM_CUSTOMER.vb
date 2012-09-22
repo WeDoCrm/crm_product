@@ -170,8 +170,7 @@
             SQL = SQL & " ,(SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = '" & gsCOM_CD & "' AND L_MENU_CD = '004' AND S_MENU_CD = CONSULT_RESULT ) CONSULT_RESULT"
             SQL = SQL & " ,TONG_USER,TONG_CONTENTS "
             SQL = SQL & " FROM T_CUSTOMER_HISTORY "
-            SQL = SQL & " WHERE TONG_USER LIKE '" & gsUSER_ID & "%' "
-            SQL = SQL & " AND CUSTOMER_ID = " & mCustomer.Trim
+            SQL = SQL & " WHERE CUSTOMER_ID = " & mCustomer.Trim
             SQL = SQL & " ORDER BY TOND_DD + TONG_TIME DESC "
 
 
@@ -803,5 +802,15 @@
         If e.KeyCode = Keys.Enter Then
             Call gsSelect()
         End If
+    End Sub
+
+    Private Sub DataGridView2_CellContentDoubleClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles DataGridView2.CellContentDoubleClick
+        Dim frm As FRM_MAIN = Me.MdiParent
+        Dim telNo As String = DataGridView2.Rows(e.RowIndex).Cells(3).Value
+        Dim tongDate As String = DataGridView2.Rows(e.RowIndex).Cells(1).Value
+        Dim tongTime As String = DataGridView2.Rows(e.RowIndex).Cells(2).Value
+
+        Call frm.OpenCustomerPopupMod(telNo, tongDate, tongTime)
+
     End Sub
 End Class

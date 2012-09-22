@@ -11,15 +11,13 @@ Public Class FRM_CUSTOMER_POPUP1
     Dim mWoopyonNumber As String = ""
 
     Dim dgTelNocol_DeleteRecord As DataGridViewButtonColumn = New DataGridViewButtonColumn()
-    Dim mIsEnteringNoQueried As Boolean = False
+    'Dim mIsEnteringNoQueried As Boolean = False
     'Dim mIsCustomerTablePatched As Boolean = False
+    Dim actionStatus As ActionStatus = ConstDef.ActionStatus.OpenEmpty
 
-    Public Enum PANEL_FOCUS
-        NONE = -1
-        CUSTOMER_INFO = 0
-        CONSULT_INFO = 1
-        CONSULT_HISTORY = 2
-    End Enum
+    Public Sub SetActionStatus(ByVal status As ActionStatus)
+        Me.actionStatus = status
+    End Sub
 
     Private Sub Call_history_Init()
         '***************** 화면 맨 아래 상담이력 수정 화면 데이터 클리어 시킴****************************************
@@ -110,7 +108,10 @@ Public Class FRM_CUSTOMER_POPUP1
         Try
             Call Customer_info_init()
             Call Call_history_Init()
-            Call Call_Consult_Init()
+            If (actionStatus <> ConstDef.ActionStatus.PopUpNoUser _
+                And actionStatus <> ConstDef.ActionStatus.PopUpUserExist) Then
+                Call Call_Consult_Init()
+            End If
             Call switchFocus(PANEL_FOCUS.NONE)
         Catch ex As Exception
             Call WriteLog(Me.Name.ToString & " : " & ex.ToString)
@@ -156,7 +157,7 @@ Public Class FRM_CUSTOMER_POPUP1
 
 
     Public Sub switchFocus(ByVal focus As PANEL_FOCUS)
-       
+
         Select Case focus
             Case PANEL_FOCUS.CUSTOMER_INFO
                 'gbCustomerInfo.BackColor = Color.FromArgb(224, 224, 224) 'System.Drawing.SystemColors.GradientActiveCaption
@@ -211,7 +212,13 @@ Public Class FRM_CUSTOMER_POPUP1
 
         txtEnteringNo.Text = tel_no
 
-        If txtEnteringNo.Text.Trim = "" Then Exit Sub
+        If txtEnteringNo.Text.Trim = "" Then
+            Call SetActionStatus(ConstDef.ActionStatus.OpenEmpty)
+            Call gsInit()                   ' 모든 항목을 초기화 시킨다.
+            Exit Sub
+        End If
+
+        Call SetActionStatus(ConstDef.ActionStatus.PopUpCalled)
         Call gsInit()                   ' 모든 항목을 초기화 시킨다.
 
         Call WriteLog("CUSTOMER_POP_UP Var_Trans1:tel_no[" & tel_no & "]" & "tong_date[" & tong_date & "]tong_time[" & tong_time & "]")
@@ -314,13 +321,23 @@ Public Class FRM_CUSTOMER_POPUP1
     End Sub
     Public Sub gsSelectPopUp()
         Call gsSelect()
-        mIsEnteringNoQueried = True
+        'mIsEnteringNoQueried = True
         btnFindId.Enabled = True
 
         If (txtCustomerID.Text.Trim = "") Then
+            If (actionStatus = ConstDef.ActionStatus.PopUpCalled) Then
+                actionStatus = ConstDef.ActionStatus.PopUpNoUser
+            ElseIf (actionStatus = ConstDef.ActionStatus.OpenEmpty) Then
+                actionStatus = ConstDef.ActionStatus.OpenNoUserSearched
+            End If
             switchFocus(PANEL_FOCUS.CUSTOMER_INFO)
             chModification1.Focus()
         Else
+            If (actionStatus = ConstDef.ActionStatus.PopUpCalled) Then
+                actionStatus = ConstDef.ActionStatus.PopUpUserExist
+            ElseIf (actionStatus = ConstDef.ActionStatus.OpenEmpty) Then
+                actionStatus = ConstDef.ActionStatus.OpenUserSearched
+            End If
             switchFocus(PANEL_FOCUS.CONSULT_INFO)
             cboConsultType2.Focus()
         End If
@@ -1707,9 +1724,6 @@ Public Class FRM_CUSTOMER_POPUP1
         End Try
     End Sub
 
-    Private Sub cboCustomerType_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cboCustomerType.SelectedIndexChanged
-
-    End Sub
 
     Private Sub txtEnteringNo_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtEnteringNo.KeyDown
         If e.KeyCode = Keys.Enter Then
@@ -1726,21 +1740,19 @@ Public Class FRM_CUSTOMER_POPUP1
         End If
     End Sub
 
-    Private Sub btnIni1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnIni1.Click
-
-    End Sub
-
     Private Sub btnFindId_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFindId.Click
         Try
-            FRM_FIND_ID_BY_TELNO.ParentFrm = Me
-            FRM_FIND_ID_BY_TELNO.setInfo(txtEnteringNo.Text.Trim, txtCustomerName.Text.Trim)
-            AddHandler FRM_FIND_ID_BY_TELNO.btnConfirm.Click, AddressOf Setting_CustomerId
-            FRM_FIND_ID_BY_TELNO.ShowDialog()
-            FRM_FIND_ID_BY_TELNO.Focus()
+            Dim pop As New FRM_FIND_ID_BY_TELNO
+            pop.ParentFrm = Me
+            pop.setInfo(txtEnteringNo.Text.Trim, txtCustomerName.Text.Trim)
+            AddHandler pop.btnConfirm.Click, AddressOf Setting_CustomerId
+            pop.ShowDialog()
+            pop.Focus()
         Catch ex As Exception
             Call WriteLog(Me.Name & " : " & ex.ToString)
         End Try
     End Sub
+
     Private Sub Setting_CustomerId(ByVal sender As Object, ByVal e As System.EventArgs)
         Try
             'Dim str As String = Me.Tag.ToString
@@ -1751,7 +1763,15 @@ Public Class FRM_CUSTOMER_POPUP1
     End Sub
 
     Private Sub chModification1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chModification1.Click
-        If (chModification1.Checked = True And mIsEnteringNoQueried = False) Then
+        '고객정보수정은 
+        '1.조회되었으나 정보가 없는 경우, 
+        '2.정상조회된 경우, 
+        '수정불가인 경우는,
+        '1. 메뉴선택으로 오픈 했으나, 고객정보 조회한 적이 없는 경우 
+        ' => mIsEnteringNoQueried = false
+        ' => ActionStatus = OpenEmpty
+        'If (chModification1.Checked = True And mIsEnteringNoQueried = False) Then
+        If (chModification1.Checked = True And actionStatus = ConstDef.ActionStatus.OpenEmpty) Then
             MsgBox("고객번호를 조회 후 등록하세요.", MsgBoxStyle.OkOnly, "알림")
             chModification1.Checked = False
         End If
@@ -1759,8 +1779,9 @@ Public Class FRM_CUSTOMER_POPUP1
     End Sub
 
     Private Sub txtEnteringNo_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtEnteringNo.TextChanged
-        mIsEnteringNoQueried = False
+        'mIsEnteringNoQueried = False
         btnFindId.Enabled = False
+        actionStatus = ConstDef.ActionStatus.OpenEmpty
     End Sub
 
 
@@ -1792,11 +1813,12 @@ Public Class FRM_CUSTOMER_POPUP1
 
     Private Sub btnCustomerTelNo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCustomerTelNo.Click
         Try
-            FRM_CUSTOMER_TELNO.ParentFrm = Me
-            FRM_CUSTOMER_TELNO.setInfo(txtCustomerID.Text, txtCustomerName.Text)
-            AddHandler FRM_CUSTOMER_TELNO.btnConfirm.Click, AddressOf Setting_TelNo
-            FRM_CUSTOMER_TELNO.ShowDialog()
-            FRM_CUSTOMER_TELNO.Focus()
+            Dim pop As New FRM_CUSTOMER_TELNO
+            pop.ParentFrm = Me
+            pop.setInfo(txtCustomerID.Text, txtCustomerName.Text)
+            AddHandler pop.btnConfirm.Click, AddressOf Setting_TelNo
+            pop.ShowDialog()
+            pop.Focus()
         Catch ex As Exception
             Call WriteLog(Me.Name & " : " & ex.ToString)
         End Try

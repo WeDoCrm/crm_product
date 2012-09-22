@@ -94,6 +94,7 @@
     <Compile Include="AboutBox.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ConstDef.vb" />
     <Compile Include="FRM_CALL_STATISTICS1.designer.vb">
       <DependentUpon>FRM_CALL_STATISTICS1.vb</DependentUpon>
     </Compile>

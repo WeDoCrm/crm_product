@@ -715,9 +715,12 @@ Public Class FRM_MAIN
             pop.txtEnteringNo.Text = tel_no
 
             If pop.txtEnteringNo.Text.Trim = "" Then
+                Call pop.SetActionStatus(ActionStatus.OpenEmpty)
                 Call pop.gsInit()                   ' 모든 항목을 초기화 시킨다.
                 Exit Sub
             End If
+
+            Call pop.SetActionStatus(ActionStatus.PopUpCalled)
             Call pop.gsInit()                   ' 모든 항목을 초기화 시킨다.
 
             'txtEnteringNo.Text = tel_no
@@ -726,7 +729,6 @@ Public Class FRM_MAIN
             pop.txtTongUser2.Text = gsUSER_ID & "." & gsUSER_NM
 
             Call pop.gsSelectPopUp()
-
             'Call Me.menu_popuu("FRM_CUSTOMER_POPUP1")
             'RaiseEvent Var_Trans(tel_no, tong_date, tong_time, CALL_TYPE)
 
@@ -759,9 +761,11 @@ Public Class FRM_MAIN
             pop.txtEnteringNo.Text = tel_no
 
             If pop.txtEnteringNo.Text.Trim = "" Then
+                Call pop.SetActionStatus(ActionStatus.OpenEmpty)
                 Call pop.gsInit()                   ' 모든 항목을 초기화 시킨다.
                 Exit Sub
             End If
+            Call pop.SetActionStatus(ActionStatus.PopUpCalled)
             Call pop.gsInit()                   ' 모든 항목을 초기화 시킨다.
 
             '이관전송자명을 가져옴
@@ -817,9 +821,12 @@ Public Class FRM_MAIN
             pop.txtEnteringNo.Text = tel_no
 
             If pop.txtEnteringNo.Text.Trim = "" Then
+                Call pop.SetActionStatus(ActionStatus.OpenEmpty)
                 Call pop.gsInit()                   ' 모든 항목을 초기화 시킨다.
                 Exit Sub
             End If
+
+            pop.SetActionStatus(ActionStatus.PopUpDetail)
             Call pop.gsInit()                   ' 모든 항목을 초기화 시킨다.
 
             'txtEnteringNo.Text = tel_no
@@ -831,7 +838,7 @@ Public Class FRM_MAIN
 
             Call pop.gsDisplayTransferDetail(tel_no, TONG_DT, TONG_TM, False)
             pop.txtTongEtcInfo4.Focus()
-            pop.switchFocus(FRM_CUSTOMER_POPUP1.PANEL_FOCUS.CONSULT_HISTORY)
+            pop.switchFocus(PANEL_FOCUS.CONSULT_HISTORY)
 
         Catch ex As Exception
             Call WriteLog(Me.Name.ToString & " OpenCustomerPopupMod : " & ex.ToString)

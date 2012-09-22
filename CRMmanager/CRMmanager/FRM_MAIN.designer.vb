@@ -412,6 +412,7 @@ Partial Class FRM_MAIN
         Me.NavigationBarItem15.Size = New System.Drawing.Size(183, 18)
         Me.NavigationBarItem15.TabIndex = 4
         Me.NavigationBarItem15.Text = "   고객정보 가져오기"
+        Me.NavigationBarItem15.Visible = False
         '
         'NavigationBarItem16
         '
@@ -514,7 +515,7 @@ Partial Class FRM_MAIN
         '
         Me.txtCallback.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtCallback.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtCallback.Font = New System.Drawing.Font("Gulim", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.txtCallback.Font = New System.Drawing.Font("굴림", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.txtCallback.ForeColor = System.Drawing.Color.Tomato
         Me.txtCallback.Location = New System.Drawing.Point(600, 12)
         Me.txtCallback.Name = "txtCallback"
@@ -527,7 +528,7 @@ Partial Class FRM_MAIN
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label3.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Label3.Location = New System.Drawing.Point(545, 12)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(53, 12)
@@ -536,7 +537,7 @@ Partial Class FRM_MAIN
         '
         'Label1
         '
-        Me.Label1.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label1.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Label1.Location = New System.Drawing.Point(5, 13)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(106, 12)
@@ -555,7 +556,7 @@ Partial Class FRM_MAIN
         '
         Me.txtTransCall.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtTransCall.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtTransCall.Font = New System.Drawing.Font("Gulim", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.txtTransCall.Font = New System.Drawing.Font("굴림", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.txtTransCall.ForeColor = System.Drawing.Color.Tomato
         Me.txtTransCall.Location = New System.Drawing.Point(495, 12)
         Me.txtTransCall.Name = "txtTransCall"
@@ -568,7 +569,7 @@ Partial Class FRM_MAIN
         'Label75
         '
         Me.Label75.AutoSize = True
-        Me.Label75.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label75.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Label75.Location = New System.Drawing.Point(440, 12)
         Me.Label75.Name = "Label75"
         Me.Label75.Size = New System.Drawing.Size(53, 12)
@@ -587,7 +588,7 @@ Partial Class FRM_MAIN
         '
         Me.txtReceiveCall.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtReceiveCall.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtReceiveCall.Font = New System.Drawing.Font("Gulim", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.txtReceiveCall.Font = New System.Drawing.Font("굴림", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.txtReceiveCall.ForeColor = System.Drawing.Color.Tomato
         Me.txtReceiveCall.Location = New System.Drawing.Point(280, 12)
         Me.txtReceiveCall.Name = "txtReceiveCall"
@@ -600,7 +601,7 @@ Partial Class FRM_MAIN
         'Label77
         '
         Me.Label77.AutoSize = True
-        Me.Label77.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label77.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Label77.Location = New System.Drawing.Point(229, 12)
         Me.Label77.Name = "Label77"
         Me.Label77.Size = New System.Drawing.Size(41, 12)
@@ -619,7 +620,7 @@ Partial Class FRM_MAIN
         '
         Me.txtConsultCall.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtConsultCall.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtConsultCall.Font = New System.Drawing.Font("Gulim", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.txtConsultCall.Font = New System.Drawing.Font("굴림", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.txtConsultCall.ForeColor = System.Drawing.Color.Tomato
         Me.txtConsultCall.Location = New System.Drawing.Point(391, 12)
         Me.txtConsultCall.Name = "txtConsultCall"
@@ -632,7 +633,7 @@ Partial Class FRM_MAIN
         'Label73
         '
         Me.Label73.AutoSize = True
-        Me.Label73.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label73.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Label73.Location = New System.Drawing.Point(330, 12)
         Me.Label73.Name = "Label73"
         Me.Label73.Size = New System.Drawing.Size(53, 12)
@@ -651,7 +652,7 @@ Partial Class FRM_MAIN
         '
         Me.txtTotalCall.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtTotalCall.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtTotalCall.Font = New System.Drawing.Font("Gulim", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.txtTotalCall.Font = New System.Drawing.Font("굴림", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.txtTotalCall.ForeColor = System.Drawing.Color.Tomato
         Me.txtTotalCall.Location = New System.Drawing.Point(179, 12)
         Me.txtTotalCall.Name = "txtTotalCall"
@@ -664,7 +665,7 @@ Partial Class FRM_MAIN
         'Label69
         '
         Me.Label69.AutoSize = True
-        Me.Label69.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label69.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Label69.Location = New System.Drawing.Point(123, 12)
         Me.Label69.Name = "Label69"
         Me.Label69.Size = New System.Drawing.Size(53, 12)
@@ -788,7 +789,7 @@ Partial Class FRM_MAIN
         '
         'btnRefresh
         '
-        Me.btnRefresh.Font = New System.Drawing.Font("Gulim", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnRefresh.Font = New System.Drawing.Font("굴림", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnRefresh.Location = New System.Drawing.Point(822, 1)
         Me.btnRefresh.Name = "btnRefresh"
         Me.btnRefresh.Size = New System.Drawing.Size(57, 21)
