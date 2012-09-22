@@ -103,13 +103,13 @@
                 End If
 
                 If i = 0 Then
-                    SQL_TEMP = SQL_TEMP & " WHERE  COM_CD = '" & gsCOM_CD & "' AND  CUSTOMER_NM LIKE '" & txtCustomerNM.Text.Trim & "%' ORDER BY CUSTOMER_NM ASC"
+                    SQL_TEMP = SQL_TEMP & " WHERE  COM_CD = '" & gsCOM_CD & "' AND  CUSTOMER_NM LIKE '" & txtCustomerNM.Text.Trim & "%' ORDER BY CUSTOMER_ID ASC"
                 Else
-                    SQL_TEMP = SQL_TEMP & " AND COM_CD = '" & gsCOM_CD & "' AND   CUSTOMER_NM LIKE '" & txtCustomerNM.Text.Trim & "%'  ORDER BY CUSTOMER_NM ASC"
+                    SQL_TEMP = SQL_TEMP & " AND COM_CD = '" & gsCOM_CD & "' AND   CUSTOMER_NM LIKE '" & txtCustomerNM.Text.Trim & "%'  ORDER BY CUSTOMER_ID ASC"
                 End If
 
             Else
-                SQL_TEMP = SQL_TEMP & " WHERE  customer_id = " & custom_id & " AND  CUSTOMER_NM LIKE '" & txtCustomerNM.Text.Trim & "%' ORDER BY CUSTOMER_NM ASC"
+                SQL_TEMP = SQL_TEMP & " WHERE  customer_id = " & custom_id & " AND  CUSTOMER_NM LIKE '" & txtCustomerNM.Text.Trim & "%' ORDER BY CUSTOMER_ID ASC"
 
             End If
 
