@@ -27,17 +27,21 @@ Partial Class FRM_CALLER_LIST
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FRM_CALLER_LIST))
         Me.DataGridView2 = New System.Windows.Forms.DataGridView
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.btnExcel = New System.Windows.Forms.Button
         Me.btnSelect = New System.Windows.Forms.Button
         Me.cboUser = New System.Windows.Forms.ComboBox
         Me.Label27 = New System.Windows.Forms.Label
         Me.Label35 = New System.Windows.Forms.Label
-        Me.cboConsultResult = New System.Windows.Forms.ComboBox
-        Me.Label34 = New System.Windows.Forms.Label
-        Me.cboConsultType = New System.Windows.Forms.ComboBox
+        Me.cboCallResult = New System.Windows.Forms.ComboBox
         Me.Label4 = New System.Windows.Forms.Label
-        Me.Label15 = New System.Windows.Forms.Label
         Me.Label26 = New System.Windows.Forms.Label
         Me.Label25 = New System.Windows.Forms.Label
         Me.dpt2 = New System.Windows.Forms.DateTimePicker
@@ -54,40 +58,7 @@ Partial Class FRM_CALLER_LIST
         Me.Label2 = New System.Windows.Forms.Label
         Me.dpt1 = New System.Windows.Forms.DateTimePicker
         Me.Label1 = New System.Windows.Forms.Label
-        Me.txtSubCustomerName = New System.Windows.Forms.TextBox
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.txtDate = New System.Windows.Forms.TextBox
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.txtTongTime = New System.Windows.Forms.TextBox
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.txtSubTongNo = New System.Windows.Forms.TextBox
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.txtConsultType = New System.Windows.Forms.TextBox
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.txtSubTongUser = New System.Windows.Forms.TextBox
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.txtConsultResult = New System.Windows.Forms.TextBox
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.txtTongEtcInfo = New System.Windows.Forms.TextBox
-        Me.Label16 = New System.Windows.Forms.Label
-        Me.btnDetail = New System.Windows.Forms.Button
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog
-        Me.Label23 = New System.Windows.Forms.Label
-        Me.Label22 = New System.Windows.Forms.Label
-        Me.Label21 = New System.Windows.Forms.Label
-        Me.Label20 = New System.Windows.Forms.Label
-        Me.Label19 = New System.Windows.Forms.Label
-        Me.Label18 = New System.Windows.Forms.Label
-        Me.Label17 = New System.Windows.Forms.Label
-        Me.Label46 = New System.Windows.Forms.Label
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -101,14 +72,14 @@ Partial Class FRM_CALLER_LIST
         Me.DataGridView2.BackgroundColor = System.Drawing.Color.White
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
         DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DataGridView2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView2.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.DataGridViewTextBoxColumn6, Me.DataGridViewTextBoxColumn7})
+        Me.DataGridView2.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.DataGridViewTextBoxColumn6})
         Me.DataGridView2.GridColor = System.Drawing.SystemColors.ActiveCaption
         Me.DataGridView2.Location = New System.Drawing.Point(12, 93)
         Me.DataGridView2.MultiSelect = False
@@ -116,7 +87,7 @@ Partial Class FRM_CALLER_LIST
         Me.DataGridView2.ReadOnly = True
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
         DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
@@ -125,8 +96,54 @@ Partial Class FRM_CALLER_LIST
         Me.DataGridView2.RowHeadersVisible = False
         Me.DataGridView2.RowTemplate.Height = 23
         Me.DataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridView2.Size = New System.Drawing.Size(872, 411)
+        Me.DataGridView2.Size = New System.Drawing.Size(872, 571)
         Me.DataGridView2.TabIndex = 80
+        '
+        'Column1
+        '
+        Me.Column1.HeaderText = "통화번호"
+        Me.Column1.Name = "Column1"
+        Me.Column1.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn1
+        '
+        Me.DataGridViewTextBoxColumn1.HeaderText = "고객명"
+        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
+        Me.DataGridViewTextBoxColumn1.ReadOnly = True
+        Me.DataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridViewTextBoxColumn1.Width = 150
+        '
+        'DataGridViewTextBoxColumn2
+        '
+        Me.DataGridViewTextBoxColumn2.HeaderText = "통화일자"
+        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
+        Me.DataGridViewTextBoxColumn2.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn3
+        '
+        Me.DataGridViewTextBoxColumn3.HeaderText = "통화시간"
+        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
+        Me.DataGridViewTextBoxColumn3.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn4
+        '
+        Me.DataGridViewTextBoxColumn4.HeaderText = "통화자"
+        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
+        Me.DataGridViewTextBoxColumn4.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn5
+        '
+        Me.DataGridViewTextBoxColumn5.HeaderText = "통화결과"
+        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
+        Me.DataGridViewTextBoxColumn5.ReadOnly = True
+        Me.DataGridViewTextBoxColumn5.Width = 150
+        '
+        'DataGridViewTextBoxColumn6
+        '
+        Me.DataGridViewTextBoxColumn6.HeaderText = "상담결과"
+        Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
+        Me.DataGridViewTextBoxColumn6.ReadOnly = True
+        Me.DataGridViewTextBoxColumn6.Width = 150
         '
         'GroupBox1
         '
@@ -135,11 +152,8 @@ Partial Class FRM_CALLER_LIST
         Me.GroupBox1.Controls.Add(Me.cboUser)
         Me.GroupBox1.Controls.Add(Me.Label27)
         Me.GroupBox1.Controls.Add(Me.Label35)
-        Me.GroupBox1.Controls.Add(Me.cboConsultResult)
-        Me.GroupBox1.Controls.Add(Me.Label34)
-        Me.GroupBox1.Controls.Add(Me.cboConsultType)
+        Me.GroupBox1.Controls.Add(Me.cboCallResult)
         Me.GroupBox1.Controls.Add(Me.Label4)
-        Me.GroupBox1.Controls.Add(Me.Label15)
         Me.GroupBox1.Controls.Add(Me.Label26)
         Me.GroupBox1.Controls.Add(Me.Label25)
         Me.GroupBox1.Controls.Add(Me.dpt2)
@@ -184,9 +198,9 @@ Partial Class FRM_CALLER_LIST
         '
         Me.cboUser.BackColor = System.Drawing.Color.MintCream
         Me.cboUser.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboUser.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.cboUser.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.cboUser.FormattingEnabled = True
-        Me.cboUser.Location = New System.Drawing.Point(721, 50)
+        Me.cboUser.Location = New System.Drawing.Point(506, 51)
         Me.cboUser.Name = "cboUser"
         Me.cboUser.Size = New System.Drawing.Size(114, 20)
         Me.cboUser.TabIndex = 211
@@ -202,58 +216,31 @@ Partial Class FRM_CALLER_LIST
         'Label35
         '
         Me.Label35.Image = CType(resources.GetObject("Label35.Image"), System.Drawing.Image)
-        Me.Label35.Location = New System.Drawing.Point(655, 53)
+        Me.Label35.Location = New System.Drawing.Point(440, 54)
         Me.Label35.Name = "Label35"
         Me.Label35.Size = New System.Drawing.Size(13, 12)
         Me.Label35.TabIndex = 209
         '
-        'cboConsultResult
+        'cboCallResult
         '
-        Me.cboConsultResult.BackColor = System.Drawing.Color.MintCream
-        Me.cboConsultResult.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboConsultResult.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.cboConsultResult.FormattingEnabled = True
-        Me.cboConsultResult.Location = New System.Drawing.Point(509, 50)
-        Me.cboConsultResult.Name = "cboConsultResult"
-        Me.cboConsultResult.Size = New System.Drawing.Size(114, 20)
-        Me.cboConsultResult.TabIndex = 50
-        '
-        'Label34
-        '
-        Me.Label34.Image = CType(resources.GetObject("Label34.Image"), System.Drawing.Image)
-        Me.Label34.Location = New System.Drawing.Point(435, 53)
-        Me.Label34.Name = "Label34"
-        Me.Label34.Size = New System.Drawing.Size(13, 12)
-        Me.Label34.TabIndex = 207
-        '
-        'cboConsultType
-        '
-        Me.cboConsultType.BackColor = System.Drawing.Color.MintCream
-        Me.cboConsultType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboConsultType.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.cboConsultType.FormattingEnabled = True
-        Me.cboConsultType.Location = New System.Drawing.Point(297, 50)
-        Me.cboConsultType.Name = "cboConsultType"
-        Me.cboConsultType.Size = New System.Drawing.Size(114, 20)
-        Me.cboConsultType.TabIndex = 49
+        Me.cboCallResult.BackColor = System.Drawing.Color.MintCream
+        Me.cboCallResult.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboCallResult.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.cboCallResult.FormattingEnabled = True
+        Me.cboCallResult.Items.AddRange(New Object() {"전체", "부재중", "수신", "발신"})
+        Me.cboCallResult.Location = New System.Drawing.Point(297, 50)
+        Me.cboCallResult.Name = "cboCallResult"
+        Me.cboCallResult.Size = New System.Drawing.Size(114, 20)
+        Me.cboCallResult.TabIndex = 49
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(668, 53)
+        Me.Label4.Location = New System.Drawing.Point(453, 54)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(41, 12)
         Me.Label4.TabIndex = 204
         Me.Label4.Text = "통화자"
-        '
-        'Label15
-        '
-        Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(448, 53)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(53, 12)
-        Me.Label15.TabIndex = 203
-        Me.Label15.Text = "상담결과"
         '
         'Label26
         '
@@ -347,7 +334,7 @@ Partial Class FRM_CALLER_LIST
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(53, 12)
         Me.Label12.TabIndex = 89
-        Me.Label12.Text = "전화번호"
+        Me.Label12.Text = "통화번호"
         '
         'Label14
         '
@@ -356,7 +343,7 @@ Partial Class FRM_CALLER_LIST
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(53, 12)
         Me.Label14.TabIndex = 85
-        Me.Label14.Text = "상담유형"
+        Me.Label14.Text = "통화결과"
         '
         'Label3
         '
@@ -394,301 +381,25 @@ Partial Class FRM_CALLER_LIST
         Me.Label1.TabIndex = 3
         Me.Label1.Text = "통화일자"
         '
-        'txtSubCustomerName
-        '
-        Me.txtSubCustomerName.Location = New System.Drawing.Point(82, 514)
-        Me.txtSubCustomerName.Name = "txtSubCustomerName"
-        Me.txtSubCustomerName.Size = New System.Drawing.Size(130, 21)
-        Me.txtSubCustomerName.TabIndex = 52
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(22, 517)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(41, 12)
-        Me.Label6.TabIndex = 91
-        Me.Label6.Text = "고객명"
-        '
-        'txtDate
-        '
-        Me.txtDate.Location = New System.Drawing.Point(303, 514)
-        Me.txtDate.Name = "txtDate"
-        Me.txtDate.Size = New System.Drawing.Size(130, 21)
-        Me.txtDate.TabIndex = 53
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(244, 517)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(53, 12)
-        Me.Label7.TabIndex = 93
-        Me.Label7.Text = "통화일자"
-        '
-        'txtTongTime
-        '
-        Me.txtTongTime.Location = New System.Drawing.Point(519, 514)
-        Me.txtTongTime.Name = "txtTongTime"
-        Me.txtTongTime.Size = New System.Drawing.Size(130, 21)
-        Me.txtTongTime.TabIndex = 54
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(458, 520)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(53, 12)
-        Me.Label8.TabIndex = 95
-        Me.Label8.Text = "통화시간"
-        '
-        'txtSubTongNo
-        '
-        Me.txtSubTongNo.Location = New System.Drawing.Point(729, 541)
-        Me.txtSubTongNo.Name = "txtSubTongNo"
-        Me.txtSubTongNo.Size = New System.Drawing.Size(130, 21)
-        Me.txtSubTongNo.TabIndex = 55
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(670, 547)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(53, 12)
-        Me.Label9.TabIndex = 97
-        Me.Label9.Text = "통화번호"
-        '
-        'txtConsultType
-        '
-        Me.txtConsultType.Location = New System.Drawing.Point(82, 541)
-        Me.txtConsultType.Name = "txtConsultType"
-        Me.txtConsultType.Size = New System.Drawing.Size(130, 21)
-        Me.txtConsultType.TabIndex = 56
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(22, 544)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(53, 12)
-        Me.Label10.TabIndex = 99
-        Me.Label10.Text = "상담유형"
-        '
-        'txtSubTongUser
-        '
-        Me.txtSubTongUser.Location = New System.Drawing.Point(519, 541)
-        Me.txtSubTongUser.Name = "txtSubTongUser"
-        Me.txtSubTongUser.Size = New System.Drawing.Size(130, 21)
-        Me.txtSubTongUser.TabIndex = 58
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(458, 547)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(41, 12)
-        Me.Label11.TabIndex = 103
-        Me.Label11.Text = "통화자"
-        '
-        'txtConsultResult
-        '
-        Me.txtConsultResult.Location = New System.Drawing.Point(303, 541)
-        Me.txtConsultResult.Name = "txtConsultResult"
-        Me.txtConsultResult.Size = New System.Drawing.Size(130, 21)
-        Me.txtConsultResult.TabIndex = 57
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(244, 544)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(53, 12)
-        Me.Label13.TabIndex = 101
-        Me.Label13.Text = "상담결과"
-        '
-        'txtTongEtcInfo
-        '
-        Me.txtTongEtcInfo.Location = New System.Drawing.Point(82, 571)
-        Me.txtTongEtcInfo.Multiline = True
-        Me.txtTongEtcInfo.Name = "txtTongEtcInfo"
-        Me.txtTongEtcInfo.Size = New System.Drawing.Size(800, 53)
-        Me.txtTongEtcInfo.TabIndex = 59
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(22, 570)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(53, 12)
-        Me.Label16.TabIndex = 105
-        Me.Label16.Text = "상담정보"
-        '
-        'btnDetail
-        '
-        Me.btnDetail.Location = New System.Drawing.Point(816, 512)
-        Me.btnDetail.Name = "btnDetail"
-        Me.btnDetail.Size = New System.Drawing.Size(66, 25)
-        Me.btnDetail.TabIndex = 214
-        Me.btnDetail.Text = "상세조회"
-        Me.btnDetail.UseVisualStyleBackColor = True
-        '
         'SaveFileDialog1
         '
         Me.SaveFileDialog1.FileName = "c"
-        '
-        'Label23
-        '
-        Me.Label23.Image = CType(resources.GetObject("Label23.Image"), System.Drawing.Image)
-        Me.Label23.Location = New System.Drawing.Point(10, 570)
-        Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(13, 12)
-        Me.Label23.TabIndex = 205
-        '
-        'Label22
-        '
-        Me.Label22.Image = CType(resources.GetObject("Label22.Image"), System.Drawing.Image)
-        Me.Label22.Location = New System.Drawing.Point(10, 544)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(13, 12)
-        Me.Label22.TabIndex = 204
-        '
-        'Label21
-        '
-        Me.Label21.Image = CType(resources.GetObject("Label21.Image"), System.Drawing.Image)
-        Me.Label21.Location = New System.Drawing.Point(656, 547)
-        Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(13, 12)
-        Me.Label21.TabIndex = 203
-        '
-        'Label20
-        '
-        Me.Label20.Image = CType(resources.GetObject("Label20.Image"), System.Drawing.Image)
-        Me.Label20.Location = New System.Drawing.Point(447, 547)
-        Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(13, 12)
-        Me.Label20.TabIndex = 202
-        '
-        'Label19
-        '
-        Me.Label19.Image = CType(resources.GetObject("Label19.Image"), System.Drawing.Image)
-        Me.Label19.Location = New System.Drawing.Point(447, 520)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(13, 12)
-        Me.Label19.TabIndex = 201
-        '
-        'Label18
-        '
-        Me.Label18.Image = CType(resources.GetObject("Label18.Image"), System.Drawing.Image)
-        Me.Label18.Location = New System.Drawing.Point(232, 544)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(13, 12)
-        Me.Label18.TabIndex = 200
-        '
-        'Label17
-        '
-        Me.Label17.Image = CType(resources.GetObject("Label17.Image"), System.Drawing.Image)
-        Me.Label17.Location = New System.Drawing.Point(232, 517)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(13, 12)
-        Me.Label17.TabIndex = 199
-        '
-        'Label46
-        '
-        Me.Label46.Image = CType(resources.GetObject("Label46.Image"), System.Drawing.Image)
-        Me.Label46.Location = New System.Drawing.Point(10, 517)
-        Me.Label46.Name = "Label46"
-        Me.Label46.Size = New System.Drawing.Size(13, 12)
-        Me.Label46.TabIndex = 198
-        '
-        'Column1
-        '
-        Me.Column1.HeaderText = "통화번호"
-        Me.Column1.Name = "Column1"
-        Me.Column1.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn1
-        '
-        Me.DataGridViewTextBoxColumn1.HeaderText = "고객명"
-        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
-        Me.DataGridViewTextBoxColumn1.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn2
-        '
-        Me.DataGridViewTextBoxColumn2.HeaderText = "통화일자"
-        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
-        Me.DataGridViewTextBoxColumn2.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn3
-        '
-        Me.DataGridViewTextBoxColumn3.HeaderText = "통화시간"
-        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
-        Me.DataGridViewTextBoxColumn3.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn4
-        '
-        Me.DataGridViewTextBoxColumn4.HeaderText = "통화자"
-        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
-        Me.DataGridViewTextBoxColumn4.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn5
-        '
-        Me.DataGridViewTextBoxColumn5.HeaderText = "통화결과"
-        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
-        Me.DataGridViewTextBoxColumn5.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn6
-        '
-        Me.DataGridViewTextBoxColumn6.HeaderText = "상담결과"
-        Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
-        Me.DataGridViewTextBoxColumn6.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn7
-        '
-        Me.DataGridViewTextBoxColumn7.HeaderText = "상담유형"
-        Me.DataGridViewTextBoxColumn7.Name = "DataGridViewTextBoxColumn7"
-        Me.DataGridViewTextBoxColumn7.ReadOnly = True
         '
         'FRM_CALLER_LIST
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(896, 676)
-        Me.Controls.Add(Me.btnDetail)
-        Me.Controls.Add(Me.Label23)
-        Me.Controls.Add(Me.Label22)
-        Me.Controls.Add(Me.Label21)
-        Me.Controls.Add(Me.Label20)
-        Me.Controls.Add(Me.Label19)
-        Me.Controls.Add(Me.Label18)
-        Me.Controls.Add(Me.Label17)
-        Me.Controls.Add(Me.Label46)
-        Me.Controls.Add(Me.txtTongEtcInfo)
-        Me.Controls.Add(Me.Label16)
-        Me.Controls.Add(Me.txtSubTongUser)
-        Me.Controls.Add(Me.Label11)
-        Me.Controls.Add(Me.txtConsultResult)
-        Me.Controls.Add(Me.Label13)
-        Me.Controls.Add(Me.txtConsultType)
-        Me.Controls.Add(Me.Label10)
-        Me.Controls.Add(Me.txtSubTongNo)
-        Me.Controls.Add(Me.Label9)
-        Me.Controls.Add(Me.txtTongTime)
-        Me.Controls.Add(Me.Label8)
-        Me.Controls.Add(Me.txtDate)
-        Me.Controls.Add(Me.Label7)
-        Me.Controls.Add(Me.txtSubCustomerName)
-        Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.DataGridView2)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FRM_CALLER_LIST"
-        Me.Text = "수발신목록"
+        Me.Text = "수/발신목록"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
     Friend WithEvents DataGridView2 As System.Windows.Forms.DataGridView
@@ -701,48 +412,20 @@ Partial Class FRM_CALLER_LIST
     Friend WithEvents txtTongNo As System.Windows.Forms.TextBox
     Friend WithEvents Label12 As System.Windows.Forms.Label
     Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents txtSubCustomerName As System.Windows.Forms.TextBox
-    Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents txtDate As System.Windows.Forms.TextBox
-    Friend WithEvents Label7 As System.Windows.Forms.Label
-    Friend WithEvents txtTongTime As System.Windows.Forms.TextBox
-    Friend WithEvents Label8 As System.Windows.Forms.Label
-    Friend WithEvents txtSubTongNo As System.Windows.Forms.TextBox
-    Friend WithEvents Label9 As System.Windows.Forms.Label
-    Friend WithEvents txtConsultType As System.Windows.Forms.TextBox
-    Friend WithEvents Label10 As System.Windows.Forms.Label
-    Friend WithEvents txtSubTongUser As System.Windows.Forms.TextBox
-    Friend WithEvents Label11 As System.Windows.Forms.Label
-    Friend WithEvents txtConsultResult As System.Windows.Forms.TextBox
-    Friend WithEvents Label13 As System.Windows.Forms.Label
-    Friend WithEvents txtTongEtcInfo As System.Windows.Forms.TextBox
-    Friend WithEvents Label16 As System.Windows.Forms.Label
     Friend WithEvents cbT2 As System.Windows.Forms.ComboBox
     Friend WithEvents cbH2 As System.Windows.Forms.ComboBox
     Friend WithEvents cbT1 As System.Windows.Forms.ComboBox
     Friend WithEvents cbH1 As System.Windows.Forms.ComboBox
-    Friend WithEvents Label46 As System.Windows.Forms.Label
-    Friend WithEvents Label17 As System.Windows.Forms.Label
-    Friend WithEvents Label18 As System.Windows.Forms.Label
-    Friend WithEvents Label19 As System.Windows.Forms.Label
-    Friend WithEvents Label20 As System.Windows.Forms.Label
-    Friend WithEvents Label21 As System.Windows.Forms.Label
-    Friend WithEvents Label22 As System.Windows.Forms.Label
-    Friend WithEvents Label23 As System.Windows.Forms.Label
     Friend WithEvents Label26 As System.Windows.Forms.Label
     Friend WithEvents Label25 As System.Windows.Forms.Label
     Friend WithEvents dpt2 As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label24 As System.Windows.Forms.Label
     Friend WithEvents Label35 As System.Windows.Forms.Label
-    Friend WithEvents cboConsultResult As System.Windows.Forms.ComboBox
-    Friend WithEvents Label34 As System.Windows.Forms.Label
-    Friend WithEvents cboConsultType As System.Windows.Forms.ComboBox
+    Friend WithEvents cboCallResult As System.Windows.Forms.ComboBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
-    Friend WithEvents Label15 As System.Windows.Forms.Label
     Friend WithEvents Label27 As System.Windows.Forms.Label
     Friend WithEvents cboUser As System.Windows.Forms.ComboBox
     Friend WithEvents btnSelect As System.Windows.Forms.Button
-    Friend WithEvents btnDetail As System.Windows.Forms.Button
     Friend WithEvents btnExcel As System.Windows.Forms.Button
     Friend WithEvents SaveFileDialog1 As System.Windows.Forms.SaveFileDialog
     Friend WithEvents Column1 As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -752,5 +435,4 @@ Partial Class FRM_CALLER_LIST
     Friend WithEvents DataGridViewTextBoxColumn4 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn5 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn6 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn7 As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class

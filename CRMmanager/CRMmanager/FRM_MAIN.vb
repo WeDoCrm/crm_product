@@ -470,10 +470,10 @@ Public Class FRM_MAIN
         Call menu_popuu("FRM_CUSTOMER")
     End Sub
 
-    'Private Sub NavigationBarItem21_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NavigationBarItem21.Click
-    '    ' 수발신 목록
-    '    Call menu_popuu("FRM_CALLER_LIST")
-    'End Sub
+    Private Sub NavigationBarItem21_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NavigationBarItem21.Click
+        ' 수발신 목록
+        Call menu_popuu("FRM_CALLER_LIST")
+    End Sub
 
     Private Sub NavigationBarItem3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NavigationBarItem3.Click
         ' 상담이력조회
