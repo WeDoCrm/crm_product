@@ -683,13 +683,7 @@ Public Class FRM_MAIN
 
     '메신저에서 팝업호출
     Public Sub OpenCustomerPopup(ByVal tel_no As String, ByVal TONG_TM As String, ByVal CALL_TYPE As String)
-        'Dim tm As String
-        'If TONG_TM.Trim = "" Then
-        '    tm = Format(Now, "yyyyMMddhhmmss")
-        'Else
-        '    tm = TONG_TM
-        'End If
-        'ss.POPUP(tel_no, tm, "1")
+
         Try
             '*************************** 전역변수를 설정해서 전역변수에 값을 넣자 *********************************************
             Dim tong_date As String = TONG_TM.Substring(0, 4) + "-" + TONG_TM.Substring(4, 2) + "-" + TONG_TM.Substring(6, 2)
@@ -698,9 +692,7 @@ Public Class FRM_MAIN
             If FRM_CUSTOMER_POPUP1 Is Nothing Then
                 Call WriteLog(Me.Name.ToString & "FRM_CUSTOMER_POPUP1" & " is Nothing")
                 pop = New FRM_CUSTOMER_POPUP1
-                Call WriteLog(Me.Name.ToString & "FRM_CUSTOMER_POPUP2" & " is Nothing")
                 pop.MdiParent = Me
-                Call WriteLog(Me.Name.ToString & "FRM_CUSTOMER_POPUP3" & " is Nothing")
                 pop.Show()
             Else
                 Call WriteLog(Me.Name.ToString & "FRM_CUSTOMER_POPUP1" & " is Not Nothing")
@@ -720,7 +712,12 @@ Public Class FRM_MAIN
                 Exit Sub
             End If
 
-            Call pop.SetActionStatus(ActionStatus.PopUpCalled)
+            If (CALL_TYPE = "2") Then
+                Call pop.SetActionStatus(ActionStatus.PopUpOutBound)
+            Else
+                Call pop.SetActionStatus(ActionStatus.PopUpInBound)
+            End If
+
             Call pop.gsInit()                   ' 모든 항목을 초기화 시킨다.
 
             'txtEnteringNo.Text = tel_no
@@ -765,7 +762,7 @@ Public Class FRM_MAIN
                 Call pop.gsInit()                   ' 모든 항목을 초기화 시킨다.
                 Exit Sub
             End If
-            Call pop.SetActionStatus(ActionStatus.PopUpCalled)
+            Call pop.SetActionStatus(ActionStatus.PopUpInBound)
             Call pop.gsInit()                   ' 모든 항목을 초기화 시킨다.
 
             '이관전송자명을 가져옴

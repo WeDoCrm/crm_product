@@ -8,19 +8,13 @@ Public Class Form1
     Private WithEvents kk As New CRMmanager.CRMmanager
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
-        ss.SetUserInfo("0001", "0011", "0011", "127.0.0.1", "8886", True)
+        ss.SetUserInfo(tbCompany1.Text, tbUserId1.Text, tbPwd1.Text, "127.0.0.1", "8886", True)
     End Sub
 
     Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
-        ss.SetUserInfo("9997", "0005", "0005", "127.0.0.1", "8886", True)
+        ss.SetUserInfo(tbCompany2.Text, tbUserId2.Text, tbPwd2.Text, "127.0.0.1", "8886", True)
     End Sub
 
-    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
-        Dim tm As String = Format(Now, "yyyyMMddHHmmss")
-
-        ss.POPUP(TextBox1.Text.Trim, tm, "1")
-
-    End Sub
 
 
     'Private Sub trans_call_Call_Trans(ByVal telno As String) Handles trans_call.Call_Trans
@@ -32,4 +26,12 @@ Public Class Form1
 
     'End Sub
 
+    Private Sub Button2_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+        Dim tm As String = Format(Now, "yyyyMMddHHmmss")
+        If rbInBound.Checked Then
+            ss.POPUP(TextBox1.Text.Trim, tm, "1")
+        Else
+            ss.POPUP(TextBox1.Text.Trim, tm, "2")
+        End If
+    End Sub
 End Class

@@ -12,7 +12,6 @@
         Try
             btnTelNoAdd.Enabled = False
 
-            cboTelType.SelectedIndex = 0
             cboHP.SelectedIndex = 0
 
             Call SettoolBar(True, True, True, True, False, True, True)
@@ -56,61 +55,24 @@
             End If
             SQL_TEMP = SQL_TEMP & " ,CONCAT(CUSTOMER_TYPE ,'.', (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = '" & gsCOM_CD & "' AND L_MENU_CD = '006' AND S_MENU_CD = CUSTOMER_TYPE )) CUSTOMER_TYPE  "
             SQL_TEMP = SQL_TEMP & ",WOO_NO ,CUSTOMER_ADDR ,CUSTOMER_ETC "
-            SQL_TEMP = SQL_TEMP & " FROM T_CUSTOMER "
+            SQL_TEMP = SQL_TEMP & " FROM T_CUSTOMER a "
 
-            Dim custom_id As String = "0"
-            Dim dt1 As DataTable
+            If txtSearch.Text.Trim <> "" Then
+                SQL_TEMP = SQL_TEMP & " WHERE  COM_CD = '" & gsCOM_CD & "' "
+                SQL_TEMP = SQL_TEMP & " AND ( EXISTS (SELECT * FROM t_customer_telno b WHERE COM_CD ='" & gsCOM_CD & "'"
+                SQL_TEMP = SQL_TEMP & " AND B.CUSTOMER_ID = A.CUSTOMER_ID "
+                SQL_TEMP = SQL_TEMP & " AND TELNO LIKE '%" & txtSearch.Text.Trim.Replace("-", "") & "%') "
 
-            If txtTelNo.Text.Trim <> "" Then
-                Dim SQL As String = " SELECT ifnull(max(CUSTOMER_ID),'0') FROM t_customer_telno  WHERE COM_CD ='" & gsCOM_CD & "'"
-                'SQL = SQL & " AND CUSTOMER_ID = " & txtFrmTelNoID.Text.Trim
-                SQL = SQL & " AND TELNO = '" & txtTelNo.Text.Trim.Replace("-", "") & "'"
+                SQL_TEMP = SQL_TEMP & " OR  EXISTS (SELECT * FROM t_customer_history b WHERE COM_CD ='" & gsCOM_CD & "'"
+                SQL_TEMP = SQL_TEMP & " AND B.CUSTOMER_ID = A.CUSTOMER_ID "
+                SQL_TEMP = SQL_TEMP & " AND TONG_CONTENTS LIKE '%" & txtSearch.Text.Trim.Replace("-", "") & "%') "
 
-                dt1 = GetData_table1(gsConString, SQL)
+                SQL_TEMP = SQL_TEMP & " OR C_TELNO LIKE '%" & txtSearch.Text.Trim & "%'"
+                SQL_TEMP = SQL_TEMP & " OR H_TELNO LIKE '%" & txtSearch.Text.Trim & "%'"
+                SQL_TEMP = SQL_TEMP & " OR COMPANY LIKE '%" & txtSearch.Text.Trim & "%'"
+                SQL_TEMP = SQL_TEMP & " OR DEPARTMENT LIKE '%" & txtSearch.Text.Trim & "%'"
 
-                Dim CNT As String = "0"
-                Dim i As Integer
-
-                If dt1.Rows.Count > 0 Then
-
-                    For i = 0 To dt1.Rows.Count - 1
-                        custom_id = dt1.Rows(i).Item(0).ToString
-                    Next
-                Else
-                    custom_id = "0"
-                End If
-                dt1 = Nothing
-
-            End If
-
-            If custom_id = "0" Then
-
-                Dim i As Integer = 0
-
-                If cboTelType.SelectedIndex = 0 Then
-                    i = 1
-                    SQL_TEMP = SQL_TEMP & " WHERE  C_TELNO LIKE '" & txtTelNo.Text.Trim & "%'"
-                End If
-
-                If cboTelType.SelectedIndex = 1 Then
-                    i = 1
-                    SQL_TEMP = SQL_TEMP & " WHERE H_TELNO LIKE '" & txtTelNo.Text.Trim & "%'"
-                End If
-
-                If cboTelType.SelectedIndex = 2 Then
-                    i = 1
-                    SQL_TEMP = SQL_TEMP & " WHERE FAX_NO LIKE '" & txtTelNo.Text.Trim & "%'"
-                End If
-
-                If i = 0 Then
-                    SQL_TEMP = SQL_TEMP & " WHERE  COM_CD = '" & gsCOM_CD & "' AND  CUSTOMER_NM LIKE '" & txtCustomerNM.Text.Trim & "%' ORDER BY CUSTOMER_ID ASC"
-                Else
-                    SQL_TEMP = SQL_TEMP & " AND COM_CD = '" & gsCOM_CD & "' AND   CUSTOMER_NM LIKE '" & txtCustomerNM.Text.Trim & "%'  ORDER BY CUSTOMER_ID ASC"
-                End If
-
-            Else
-                SQL_TEMP = SQL_TEMP & " WHERE  customer_id = " & custom_id & " AND  CUSTOMER_NM LIKE '" & txtCustomerNM.Text.Trim & "%' ORDER BY CUSTOMER_ID ASC"
-
+                SQL_TEMP = SQL_TEMP & " OR CUSTOMER_NM LIKE '%" & txtSearch.Text.Trim & "%') ORDER BY CUSTOMER_ID ASC"
             End If
 
 
@@ -119,9 +81,6 @@
 
             Dim dt2 As DataTable = GetData_table1(gsConString, SQL_TEMP)
             DataGridView1.DataSource = Nothing
-
-
-            'Dim i, j As Integer
 
             DataGridView1.Columns.Clear()
 
@@ -170,7 +129,7 @@
             SQL = SQL & " ,(SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = '" & gsCOM_CD & "' AND L_MENU_CD = '004' AND S_MENU_CD = CONSULT_RESULT ) CONSULT_RESULT"
             SQL = SQL & " ,TONG_USER,TONG_CONTENTS "
             SQL = SQL & " FROM T_CUSTOMER_HISTORY "
-            SQL = SQL & " WHERE CUSTOMER_ID = " & mCustomer.Trim
+            SQL = SQL & " WHERE CUSTOMER_ID = '" & mCustomer.Trim & "'"
             SQL = SQL & " ORDER BY TOND_DD + TONG_TIME DESC "
 
 
@@ -750,14 +709,6 @@
         End Try
     End Sub
 
-    Private Sub GroupBox1_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GroupBox1.Enter
-
-    End Sub
-
-    Private Sub cboHP_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cboHP.SelectedIndexChanged
-
-    End Sub
-
     Private Sub btnExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExcel.Click
         Try
             With SaveFileDialog1
@@ -790,15 +741,33 @@
         Dim btnClick As Button = sender
         Dim telNo As String = ""
         If btnClick.Name = btnTelNoCpy.Name Then
-            Clipboard.SetText(txtWorkTelNo1.Text.Trim + txtWorkTelNo2.Text.Trim + txtWorkTelNo3.Text.Trim)
+            telNo = txtWorkTelNo1.Text.Trim + txtWorkTelNo2.Text.Trim + txtWorkTelNo3.Text.Trim
         ElseIf btnClick.Name = btnHPCpy.Name Then
-            Clipboard.SetText(cboHP.SelectedItem.ToString.Trim.Replace("XXXX", "") + txtHP1.Text.Trim + txtHP2.Text.Trim)
+            telNo = cboHP.SelectedItem.ToString.Trim.Replace("XXXX", "") + txtHP1.Text.Trim + txtHP2.Text.Trim
         ElseIf btnClick.Name = btnFaxCpy.Name Then
-            Clipboard.SetText(txtFaxNo1.Text.Trim + txtFaxNo2.Text.Trim + txtFaxNo3.Text.Trim)
+            telNo = txtFaxNo1.Text.Trim + txtFaxNo2.Text.Trim + txtFaxNo3.Text.Trim
         End If
+
+        If (telNo.Trim = "") Then
+            Exit Sub
+        End If
+
+        Clipboard.SetText(telNo)
+
+        Try
+            Dim frm As FRM_NOTI_MSG = New FRM_NOTI_MSG
+            frm.Location = btnClick.Location
+            frm.Show("전화번호를 복사했습니다:" & vbCrLf & telNo, 8)
+            System.Threading.Thread.Sleep(1000)
+            frm.Hide()
+            frm.Close()
+        Catch ex As Exception
+            WriteLog(ex.ToString)
+        End Try
+
     End Sub
 
-    Private Sub Search_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtTelNo.KeyDown, txtCustomerNM.KeyDown
+    Private Sub Search_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtSearch.KeyDown
         If e.KeyCode = Keys.Enter Then
             Call gsSelect()
         End If
@@ -811,6 +780,5 @@
         Dim tongTime As String = DataGridView2.Rows(e.RowIndex).Cells(2).Value
 
         Call frm.OpenCustomerPopupMod(telNo, tongDate, tongTime)
-
     End Sub
 End Class

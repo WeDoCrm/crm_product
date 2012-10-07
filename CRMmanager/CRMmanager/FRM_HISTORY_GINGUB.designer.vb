@@ -22,9 +22,9 @@ Partial Class FRM_HISTORY_GINGUB
     '코드 편집기를 사용하여 수정하지 마십시오.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FRM_HISTORY_GINGUB))
         Me.DataGridView2 = New System.Windows.Forms.DataGridView
         Me.dgColCustomerId = New System.Windows.Forms.DataGridViewTextBoxColumn
@@ -38,6 +38,7 @@ Partial Class FRM_HISTORY_GINGUB
         Me.dgColTongUser = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.dgColCallType = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
+        Me.btnExcel = New System.Windows.Forms.Button
         Me.cboHandleType = New System.Windows.Forms.ComboBox
         Me.btnSelect = New System.Windows.Forms.Button
         Me.cboUser = New System.Windows.Forms.ComboBox
@@ -91,8 +92,10 @@ Partial Class FRM_HISTORY_GINGUB
         Me.txtHandleType = New System.Windows.Forms.TextBox
         Me.Label29 = New System.Windows.Forms.Label
         Me.btnDetail = New System.Windows.Forms.Button
-        Me.btnExcel = New System.Windows.Forms.Button
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog
+        Me.Label32 = New System.Windows.Forms.Label
+        Me.txtSearch = New System.Windows.Forms.TextBox
+        Me.Label33 = New System.Windows.Forms.Label
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -101,36 +104,36 @@ Partial Class FRM_HISTORY_GINGUB
         '
         Me.DataGridView2.AllowUserToAddRows = False
         Me.DataGridView2.AllowUserToDeleteRows = False
-        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.DataGridView2.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.DataGridView2.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.DataGridView2.BackgroundColor = System.Drawing.Color.White
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle11.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView2.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.dgColCustomerId, Me.dgColCustomerName, Me.dgColTongDate, Me.dgColTongTime, Me.dgColTongNo, Me.dgColHandleType, Me.dgColConsultType, Me.dgColConsultResult, Me.dgColTongUser, Me.dgColCallType})
         Me.DataGridView2.GridColor = System.Drawing.SystemColors.ActiveCaption
-        Me.DataGridView2.Location = New System.Drawing.Point(12, 96)
+        Me.DataGridView2.Location = New System.Drawing.Point(12, 123)
         Me.DataGridView2.MultiSelect = False
         Me.DataGridView2.Name = "DataGridView2"
         Me.DataGridView2.ReadOnly = True
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle12.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView2.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView2.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.DataGridView2.RowHeadersVisible = False
         Me.DataGridView2.RowTemplate.Height = 23
         Me.DataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridView2.Size = New System.Drawing.Size(871, 411)
+        Me.DataGridView2.Size = New System.Drawing.Size(871, 384)
         Me.DataGridView2.TabIndex = 80
         '
         'dgColCustomerId
@@ -195,6 +198,9 @@ Partial Class FRM_HISTORY_GINGUB
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.Label32)
+        Me.GroupBox1.Controls.Add(Me.txtSearch)
+        Me.GroupBox1.Controls.Add(Me.Label33)
         Me.GroupBox1.Controls.Add(Me.btnExcel)
         Me.GroupBox1.Controls.Add(Me.cboHandleType)
         Me.GroupBox1.Controls.Add(Me.btnSelect)
@@ -223,9 +229,18 @@ Partial Class FRM_HISTORY_GINGUB
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(871, 78)
+        Me.GroupBox1.Size = New System.Drawing.Size(871, 105)
         Me.GroupBox1.TabIndex = 86
         Me.GroupBox1.TabStop = False
+        '
+        'btnExcel
+        '
+        Me.btnExcel.Location = New System.Drawing.Point(809, 17)
+        Me.btnExcel.Name = "btnExcel"
+        Me.btnExcel.Size = New System.Drawing.Size(45, 25)
+        Me.btnExcel.TabIndex = 218
+        Me.btnExcel.Text = "Excel"
+        Me.btnExcel.UseVisualStyleBackColor = True
         '
         'cboHandleType
         '
@@ -680,18 +695,33 @@ Partial Class FRM_HISTORY_GINGUB
         Me.btnDetail.Text = "상세조회"
         Me.btnDetail.UseVisualStyleBackColor = True
         '
-        'btnExcel
-        '
-        Me.btnExcel.Location = New System.Drawing.Point(809, 17)
-        Me.btnExcel.Name = "btnExcel"
-        Me.btnExcel.Size = New System.Drawing.Size(45, 25)
-        Me.btnExcel.TabIndex = 218
-        Me.btnExcel.Text = "Excel"
-        Me.btnExcel.UseVisualStyleBackColor = True
-        '
         'SaveFileDialog1
         '
         Me.SaveFileDialog1.FileName = "c"
+        '
+        'Label32
+        '
+        Me.Label32.Image = CType(resources.GetObject("Label32.Image"), System.Drawing.Image)
+        Me.Label32.Location = New System.Drawing.Point(7, 80)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Size = New System.Drawing.Size(13, 12)
+        Me.Label32.TabIndex = 223
+        '
+        'txtSearch
+        '
+        Me.txtSearch.Location = New System.Drawing.Point(453, 77)
+        Me.txtSearch.Name = "txtSearch"
+        Me.txtSearch.Size = New System.Drawing.Size(169, 21)
+        Me.txtSearch.TabIndex = 222
+        '
+        'Label33
+        '
+        Me.Label33.AutoSize = True
+        Me.Label33.Location = New System.Drawing.Point(20, 80)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(363, 12)
+        Me.Label33.TabIndex = 221
+        Me.Label33.Text = "검색 ( 통화번호/직장전화/핸드폰/고객명/회사명/소속/상담내용 )"
         '
         'FRM_HISTORY_GINGUB
         '
@@ -806,4 +836,7 @@ Partial Class FRM_HISTORY_GINGUB
     Friend WithEvents btnDetail As System.Windows.Forms.Button
     Friend WithEvents btnExcel As System.Windows.Forms.Button
     Friend WithEvents SaveFileDialog1 As System.Windows.Forms.SaveFileDialog
+    Friend WithEvents Label32 As System.Windows.Forms.Label
+    Friend WithEvents txtSearch As System.Windows.Forms.TextBox
+    Friend WithEvents Label33 As System.Windows.Forms.Label
 End Class

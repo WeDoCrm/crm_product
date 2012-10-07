@@ -23,33 +23,29 @@ Partial Class FRM_CUSTOMER
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FRM_CUSTOMER))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Me.txtTelNo = New System.Windows.Forms.TextBox
+        Dim DataGridViewCellStyle52 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle53 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle65 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle54 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle55 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle56 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle57 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle58 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle59 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle60 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle61 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle62 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle63 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle64 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle66 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle67 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle68 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.Label1 = New System.Windows.Forms.Label
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.btnExcel = New System.Windows.Forms.Button
         Me.btnSelect = New System.Windows.Forms.Button
-        Me.cboTelType = New System.Windows.Forms.ComboBox
-        Me.Label12 = New System.Windows.Forms.Label
         Me.Label30 = New System.Windows.Forms.Label
-        Me.txtCustomerNM = New System.Windows.Forms.TextBox
-        Me.Label2 = New System.Windows.Forms.Label
+        Me.txtSearch = New System.Windows.Forms.TextBox
         Me.DataGridView1 = New System.Windows.Forms.DataGridView
         Me.CUSTOMER_ID = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.CUSTOMER_NM = New System.Windows.Forms.DataGridViewTextBoxColumn
@@ -174,32 +170,21 @@ Partial Class FRM_CUSTOMER
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'txtTelNo
-        '
-        Me.txtTelNo.Location = New System.Drawing.Point(194, 22)
-        Me.txtTelNo.Name = "txtTelNo"
-        Me.txtTelNo.Size = New System.Drawing.Size(115, 21)
-        Me.txtTelNo.TabIndex = 102
-        '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(15, 26)
+        Me.Label1.Location = New System.Drawing.Point(22, 26)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(53, 12)
+        Me.Label1.Size = New System.Drawing.Size(309, 12)
         Me.Label1.TabIndex = 3
-        Me.Label1.Text = "조회조건"
+        Me.Label1.Text = "검색 ( 직장전화/핸드폰/고객명/회사명/소속/상담내용 )"
         '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.btnExcel)
         Me.GroupBox1.Controls.Add(Me.btnSelect)
-        Me.GroupBox1.Controls.Add(Me.cboTelType)
-        Me.GroupBox1.Controls.Add(Me.Label12)
         Me.GroupBox1.Controls.Add(Me.Label30)
-        Me.GroupBox1.Controls.Add(Me.txtCustomerNM)
-        Me.GroupBox1.Controls.Add(Me.Label2)
-        Me.GroupBox1.Controls.Add(Me.txtTelNo)
+        Me.GroupBox1.Controls.Add(Me.txtSearch)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Location = New System.Drawing.Point(13, 4)
         Me.GroupBox1.Name = "GroupBox1"
@@ -225,26 +210,6 @@ Partial Class FRM_CUSTOMER
         Me.btnSelect.Text = "조회"
         Me.btnSelect.UseVisualStyleBackColor = True
         '
-        'cboTelType
-        '
-        Me.cboTelType.BackColor = System.Drawing.Color.MintCream
-        Me.cboTelType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboTelType.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.cboTelType.FormattingEnabled = True
-        Me.cboTelType.Items.AddRange(New Object() {"직장전화번호", "핸드폰번호", "팩스번호"})
-        Me.cboTelType.Location = New System.Drawing.Point(73, 22)
-        Me.cboTelType.Name = "cboTelType"
-        Me.cboTelType.Size = New System.Drawing.Size(114, 20)
-        Me.cboTelType.TabIndex = 101
-        '
-        'Label12
-        '
-        Me.Label12.Image = CType(resources.GetObject("Label12.Image"), System.Drawing.Image)
-        Me.Label12.Location = New System.Drawing.Point(323, 26)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(13, 12)
-        Me.Label12.TabIndex = 107
-        '
         'Label30
         '
         Me.Label30.Image = CType(resources.GetObject("Label30.Image"), System.Drawing.Image)
@@ -253,38 +218,29 @@ Partial Class FRM_CUSTOMER
         Me.Label30.Size = New System.Drawing.Size(13, 12)
         Me.Label30.TabIndex = 106
         '
-        'txtCustomerNM
+        'txtSearch
         '
-        Me.txtCustomerNM.Location = New System.Drawing.Point(383, 22)
-        Me.txtCustomerNM.Name = "txtCustomerNM"
-        Me.txtCustomerNM.Size = New System.Drawing.Size(115, 21)
-        Me.txtCustomerNM.TabIndex = 103
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(335, 26)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(41, 12)
-        Me.Label2.TabIndex = 33
-        Me.Label2.Text = "고객명"
+        Me.txtSearch.Location = New System.Drawing.Point(340, 23)
+        Me.txtSearch.Name = "txtSearch"
+        Me.txtSearch.Size = New System.Drawing.Size(169, 21)
+        Me.txtSearch.TabIndex = 103
         '
         'DataGridView1
         '
         Me.DataGridView1.AllowUserToAddRows = False
         Me.DataGridView1.AllowUserToDeleteRows = False
         Me.DataGridView1.AllowUserToOrderColumns = True
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.DataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle52.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.DataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle52
         Me.DataGridView1.BackgroundColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle53.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle53.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle53.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle53.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle53.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle53.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle53.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle53
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.CUSTOMER_ID, Me.CUSTOMER_NM, Me.C_TELNO, Me.H_TELNO, Me.FAX_NO, Me.COMPANY, Me.DEPARTMENT, Me.JOB_TITLE, Me.EMAIL, Me.CUSTOMER_TYPE, Me.WOO_NO, Me.CUSTOMER_ADDR, Me.CUSTOMER_ETC})
         Me.DataGridView1.GridColor = System.Drawing.SystemColors.ActiveCaption
@@ -292,14 +248,14 @@ Partial Class FRM_CUSTOMER
         Me.DataGridView1.MultiSelect = False
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
-        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle14.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle14
+        DataGridViewCellStyle65.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle65.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle65.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle65.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle65.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle65.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle65.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle65
         Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.RowTemplate.Height = 23
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
@@ -308,8 +264,8 @@ Partial Class FRM_CUSTOMER
         '
         'CUSTOMER_ID
         '
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.CUSTOMER_ID.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle54.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.CUSTOMER_ID.DefaultCellStyle = DataGridViewCellStyle54
         Me.CUSTOMER_ID.HeaderText = "고객아이디"
         Me.CUSTOMER_ID.Name = "CUSTOMER_ID"
         Me.CUSTOMER_ID.ReadOnly = True
@@ -317,8 +273,8 @@ Partial Class FRM_CUSTOMER
         '
         'CUSTOMER_NM
         '
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.CUSTOMER_NM.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle55.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.CUSTOMER_NM.DefaultCellStyle = DataGridViewCellStyle55
         Me.CUSTOMER_NM.HeaderText = "고객명"
         Me.CUSTOMER_NM.Name = "CUSTOMER_NM"
         Me.CUSTOMER_NM.ReadOnly = True
@@ -326,72 +282,72 @@ Partial Class FRM_CUSTOMER
         '
         'C_TELNO
         '
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.C_TELNO.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle56.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.C_TELNO.DefaultCellStyle = DataGridViewCellStyle56
         Me.C_TELNO.HeaderText = "전화번호"
         Me.C_TELNO.Name = "C_TELNO"
         Me.C_TELNO.ReadOnly = True
         '
         'H_TELNO
         '
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.H_TELNO.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle57.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.H_TELNO.DefaultCellStyle = DataGridViewCellStyle57
         Me.H_TELNO.HeaderText = "휴대폰번호"
         Me.H_TELNO.Name = "H_TELNO"
         Me.H_TELNO.ReadOnly = True
         '
         'FAX_NO
         '
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.FAX_NO.DefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle58.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.FAX_NO.DefaultCellStyle = DataGridViewCellStyle58
         Me.FAX_NO.HeaderText = "팩스번호"
         Me.FAX_NO.Name = "FAX_NO"
         Me.FAX_NO.ReadOnly = True
         '
         'COMPANY
         '
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.COMPANY.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle59.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.COMPANY.DefaultCellStyle = DataGridViewCellStyle59
         Me.COMPANY.HeaderText = "회사"
         Me.COMPANY.Name = "COMPANY"
         Me.COMPANY.ReadOnly = True
         '
         'DEPARTMENT
         '
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.DEPARTMENT.DefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle60.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.DEPARTMENT.DefaultCellStyle = DataGridViewCellStyle60
         Me.DEPARTMENT.HeaderText = "소속"
         Me.DEPARTMENT.Name = "DEPARTMENT"
         Me.DEPARTMENT.ReadOnly = True
         '
         'JOB_TITLE
         '
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.JOB_TITLE.DefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle61.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.JOB_TITLE.DefaultCellStyle = DataGridViewCellStyle61
         Me.JOB_TITLE.HeaderText = "직급"
         Me.JOB_TITLE.Name = "JOB_TITLE"
         Me.JOB_TITLE.ReadOnly = True
         '
         'EMAIL
         '
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.EMAIL.DefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle62.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.EMAIL.DefaultCellStyle = DataGridViewCellStyle62
         Me.EMAIL.HeaderText = "이메일"
         Me.EMAIL.Name = "EMAIL"
         Me.EMAIL.ReadOnly = True
         '
         'CUSTOMER_TYPE
         '
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.CUSTOMER_TYPE.DefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle63.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.CUSTOMER_TYPE.DefaultCellStyle = DataGridViewCellStyle63
         Me.CUSTOMER_TYPE.HeaderText = "고객유형"
         Me.CUSTOMER_TYPE.Name = "CUSTOMER_TYPE"
         Me.CUSTOMER_TYPE.ReadOnly = True
         '
         'WOO_NO
         '
-        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.WOO_NO.DefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle64.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.WOO_NO.DefaultCellStyle = DataGridViewCellStyle64
         Me.WOO_NO.HeaderText = "우편번호"
         Me.WOO_NO.Name = "WOO_NO"
         Me.WOO_NO.ReadOnly = True
@@ -983,17 +939,17 @@ Partial Class FRM_CUSTOMER
         Me.DataGridView2.AllowUserToAddRows = False
         Me.DataGridView2.AllowUserToDeleteRows = False
         Me.DataGridView2.AllowUserToOrderColumns = True
-        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.DataGridView2.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle15
+        DataGridViewCellStyle66.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.DataGridView2.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle66
         Me.DataGridView2.BackgroundColor = System.Drawing.Color.White
-        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle16.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle16
+        DataGridViewCellStyle67.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle67.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle67.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle67.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle67.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle67.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle67.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle67
         Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView2.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.DataGridViewTextBoxColumn6, Me.DataGridViewTextBoxColumn7, Me.Column10})
         Me.DataGridView2.GridColor = System.Drawing.SystemColors.ActiveCaption
@@ -1001,14 +957,14 @@ Partial Class FRM_CUSTOMER
         Me.DataGridView2.MultiSelect = False
         Me.DataGridView2.Name = "DataGridView2"
         Me.DataGridView2.ReadOnly = True
-        DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle17.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView2.RowHeadersDefaultCellStyle = DataGridViewCellStyle17
+        DataGridViewCellStyle68.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle68.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle68.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle68.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle68.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle68.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle68.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView2.RowHeadersDefaultCellStyle = DataGridViewCellStyle68
         Me.DataGridView2.RowHeadersVisible = False
         Me.DataGridView2.RowTemplate.Height = 23
         Me.DataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
@@ -1334,7 +1290,6 @@ Partial Class FRM_CUSTOMER
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents txtTelNo As System.Windows.Forms.TextBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
@@ -1399,10 +1354,7 @@ Partial Class FRM_CUSTOMER
     Friend WithEvents TextBox12 As System.Windows.Forms.TextBox
     Friend WithEvents Label36 As System.Windows.Forms.Label
     Friend WithEvents cboCustomerType As System.Windows.Forms.ComboBox
-    Friend WithEvents cboTelType As System.Windows.Forms.ComboBox
-    Friend WithEvents Label12 As System.Windows.Forms.Label
-    Friend WithEvents txtCustomerNM As System.Windows.Forms.TextBox
-    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents txtSearch As System.Windows.Forms.TextBox
     Friend WithEvents cboHP As System.Windows.Forms.ComboBox
     Friend WithEvents txtWorkTelNo2 As System.Windows.Forms.TextBox
     Friend WithEvents txtHP2 As System.Windows.Forms.TextBox

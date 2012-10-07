@@ -73,28 +73,34 @@ Public Class FRM_CUSTOMER_POPUP1
         setComboSelect(cboConsultType2, 1) 'cboConsultType2.SelectedIndex = 1 '일반상담
         setComboSelect(cboCustomerType2, 3) 'cboCustomerType2.SelectedIndex = 3 '일반고객
         setComboSelect(cboHandleType2, 1) 'cboHandleType2.SelectedIndex = 1 '보통0
-        setComboSelect(cboCallType2, 1) 'cboCallType2.SelectedIndex = 1 '인바운드
-            txtDate2.Text = ""
-            txtTongTime2.Text = ""
-            txtTongUser2.Text = ""
-            chCallBack2.Checked = False
-            txtTongEtcInfo2.Text = ""
 
-            mIsTransfered = False
-            '외부업무등록
-            dpt333.Value = Format(Now, "yyyy-MM-dd")
+        If (actionStatus = ConstDef.ActionStatus.PopUpOutBound) Then
+            setComboSelect(cboCallType2, 2) 'cboCallType2.SelectedIndex = 2 '아웃바운드
+        Else
+            setComboSelect(cboCallType2, 1) 'cboCallType2.SelectedIndex = 1 '인바운드
+        End If
 
-            CB_Set2(drpHour3, "datetime", 0, 23, 1, "")
-            CB_Set2(drpMin3, "datetime", 0, 55, 5, "")
-            drpHour3.Text = "00"
-            drpMin3.Text = "00"
+        txtDate2.Text = ""
+        txtTongTime2.Text = ""
+        txtTongUser2.Text = ""
+        chCallBack2.Checked = False
+        txtTongEtcInfo2.Text = ""
 
-            cboCoWorker3.SelectedValue = "XXXX"
-            cboWorkReason3.SelectedValue = "XXXX"
-            txtWorkArea3.Text = ""
-            txtWorkContents3.Text = ""
-            '이관담당자
-            cboDamdangja.SelectedValue = "XXXX"
+        mIsTransfered = False
+        '외부업무등록
+        dpt333.Value = Format(Now, "yyyy-MM-dd")
+
+        CB_Set2(drpHour3, "datetime", 0, 23, 1, "")
+        CB_Set2(drpMin3, "datetime", 0, 55, 5, "")
+        drpHour3.Text = "00"
+        drpMin3.Text = "00"
+
+        cboCoWorker3.SelectedValue = "XXXX"
+        cboWorkReason3.SelectedValue = "XXXX"
+        txtWorkArea3.Text = ""
+        txtWorkContents3.Text = ""
+        '이관담당자
+        cboDamdangja.SelectedValue = "XXXX"
 
     End Sub
 
@@ -119,60 +125,21 @@ Public Class FRM_CUSTOMER_POPUP1
 
     End Sub
 
-    Declare Function FlashWindowEx Lib "user32" (ByVal pfwi As FLASHWINFO) As Boolean
-
-
-    <Runtime.InteropServices.StructLayout(Runtime.InteropServices.LayoutKind.Sequential)> _
-       Class FLASHWINFO
-        Public Size As Int32
-        Public Hwnd As IntPtr
-        Public Flags As FlashWindowFlags
-        Public Count As Int32
-        Public TimeOut As Int32
-
-        Sub New(ByVal hwnd As IntPtr, ByVal flags As FlashWindowFlags, ByVal count As Int32)
-            Me.New(hwnd, flags, Count, 0)
-        End Sub
-
-        Sub New(ByVal hwnd As IntPtr, ByVal flags As FlashWindowFlags, ByVal count As Int32, ByVal timeout As Int32)
-            With Me
-                .Size = Runtime.InteropServices.Marshal.SizeOf(GetType(FLASHWINFO))
-                Debug.WriteLine(.Size)
-                .Hwnd = hwnd
-                .Flags = flags
-                .Count = Count
-                .TimeOut = timeout
-            End With
-        End Sub
-    End Class
-
-    Enum FlashWindowFlags
-        [Stop] = 0
-        Caption = 1
-        Tray = 2
-        All = Caption Or Tray
-        Timer = 4
-        TimertillforeGround = &HC
-    End Enum
-
 
     Public Sub switchFocus(ByVal focus As PANEL_FOCUS)
-
+        Call WriteLog("switchFocus PANEL_FOCUS=" & focus)
         Select Case focus
             Case PANEL_FOCUS.CUSTOMER_INFO
-                'gbCustomerInfo.BackColor = Color.FromArgb(224, 224, 224) 'System.Drawing.SystemColors.GradientActiveCaption
                 blinkFocus(gbCustomerInfo)
                 gbConsultInfo.BackColor = System.Drawing.SystemColors.Control
                 gbCustomerHistory.BackColor = System.Drawing.SystemColors.Control
             Case PANEL_FOCUS.CONSULT_INFO
                 gbCustomerInfo.BackColor = System.Drawing.SystemColors.Control
-                'gbConsultInfo.BackColor = Color.FromArgb(224, 224, 224) 'System.Drawing.SystemColors.GradientActiveCaption
                 blinkFocus(gbConsultInfo)
                 gbCustomerHistory.BackColor = System.Drawing.SystemColors.Control
             Case PANEL_FOCUS.CONSULT_HISTORY
                 gbCustomerInfo.BackColor = System.Drawing.SystemColors.Control
                 gbConsultInfo.BackColor = System.Drawing.SystemColors.Control
-                'gbCustomerHistory.BackColor = Color.FromArgb(224, 224, 224) 'System.Drawing.SystemColors.GradientActiveCaption
                 blinkFocus(gbCustomerHistory)
             Case PANEL_FOCUS.NONE
                 gbCustomerInfo.BackColor = System.Drawing.SystemColors.Control
@@ -184,148 +151,21 @@ Public Class FRM_CUSTOMER_POPUP1
 
     Private Sub blinkFocus(ByVal sender As System.Object)
         Dim gBox As GroupBox = sender
-        'gBox.BackColor = Color.FromArgb(224, 224, 224)
-        'System.Threading.Thread.Sleep(500)
-        'gBox.BackColor = System.Drawing.SystemColors.Control
-        'System.Threading.Thread.Sleep(500)
-        'gBox.BackColor = Color.FromArgb(224, 224, 224)
-        'System.Threading.Thread.Sleep(500)
-        'gBox.BackColor = System.Drawing.SystemColors.Control
-        'System.Threading.Thread.Sleep(500)
-        gBox.BackColor = Color.MistyRose 'Color.FromArgb(224, 224, 224)
-        Dim x As New FLASHWINFO(Me.Handle, FlashWindowFlags.All, 2)
-        FlashWindowEx(x)
-    End Sub
-
-
-    '팝업호출 테스트용
-    Private Sub ss_Var_Trans(ByVal tel_no As String, _
-                             ByVal tong_date As String, _
-                             ByVal tong_time As String, _
-                             ByVal CALL_TYPE As String) Handles ss.Var_Trans
-
-        If chModification1.Checked = True Then
-            Call Control_disable(True)
-        Else
-            Call Control_disable(False)
-        End If
-
-        txtEnteringNo.Text = tel_no
-
-        If txtEnteringNo.Text.Trim = "" Then
-            Call SetActionStatus(ConstDef.ActionStatus.OpenEmpty)
-            Call gsInit()                   ' 모든 항목을 초기화 시킨다.
-            Exit Sub
-        End If
-
-        Call SetActionStatus(ConstDef.ActionStatus.PopUpCalled)
-        Call gsInit()                   ' 모든 항목을 초기화 시킨다.
-
-        Call WriteLog("CUSTOMER_POP_UP Var_Trans1:tel_no[" & tel_no & "]" & "tong_date[" & tong_date & "]tong_time[" & tong_time & "]")
-
-        'txtEnteringNo.Text = tel_no
-        txtDate2.Text = tong_date
-        txtTongTime2.Text = tong_time
-        txtTongUser2.Text = gsUSER_ID & "." & gsUSER_NM
-
-
-        'Call WriteLog("ss_Var_Trans: " & "tel_no=" & tel_no & " tong_date=" & tong_date & " tong_time=" & tong_time & " CALL_TYPE=" & CALL_TYPE)
-
-        Call gsSelectPopUp()
-
-        'cboConsultType2.Focus()
-
-    End Sub
-
-    '이관용 팝업호출 테스트용
-    Public Sub Var_Trans2(ByVal tel_no As String, _
-                              ByVal tong_date As String, _
-                              ByVal tong_time As String)
-        Call ss_Var_Trans2(tel_no, tong_date, tong_time)
-    End Sub
-
-
-    Private Sub ss_Var_Trans2(ByVal tel_no As String, _
-                              ByVal tong_date As String, _
-                              ByVal tong_time As String) Handles ss.Var_Trans2
-
-        Call WriteLog("CUSTOMER_POP_UP Var_Trans2 1")
-        If chModification1.Checked = True Then
-            Call WriteLog("CUSTOMER_POP_UP Var_Trans2 2")
-            Call Control_disable(True)
-        Else
-            Call WriteLog("CUSTOMER_POP_UP Var_Trans2 3")
-            Call Control_disable(False)
-        End If
-
-        Call WriteLog("CUSTOMER_POP_UP Var_Trans2 4")
-        txtEnteringNo.Text = tel_no
-
-        Call WriteLog("CUSTOMER_POP_UP Var_Trans2 5")
-        If txtEnteringNo.Text.Trim = "" Then Exit Sub
-        Call WriteLog("CUSTOMER_POP_UP Var_Trans2 6")
-        Call gsInit()                   ' 모든 항목을 초기화 시킨다.
-        Call WriteLog("CUSTOMER_POP_UP Var_Trans2 7")
-
-        Call WriteLog("CUSTOMER_POP_UP Var_Trans2:tel_no[" & tel_no & "]" & "tong_date[" & tong_date & "]tong_time[" & tong_time & "]")
-        'txtEnteringNo.Text = tel_no
-        txtDate2.Text = tong_date
-        txtTongTime2.Text = tong_time
-        txtTongUser2.Text = gsUSER_ID & "." & gsUSER_NM
-
-        Call gsSelectPopUp()
-
-        'Call findCellInDataGridView2(tel_no, tong_date, tong_time, False)
-        'Call gsStatistics()
-        'txtTongEtcInfo4.Focus()
-
+        gBox.BackColor = Color.MistyRose
     End Sub
 
     Public Sub setIsTransfer(ByVal isTransfer As Boolean)
         mIsTransfered = isTransfer
     End Sub
 
-    '이관처리호출 테스트용
-    '실제 함수는 FRM_MAIN.OpenCustomerPopupTransfer
-    Private Sub ss_Var_Trans3(ByVal tel_no As String, _
-                                ByVal tong_date As String, _
-                                ByVal tong_time As String, _
-                                ByVal CALL_TYPE As String) Handles ss.Var_Trans3
 
-        If chModification1.Checked = True Then
-            Call Control_disable(True)
-        Else
-            Call Control_disable(False)
-        End If
-
-        txtEnteringNo.Text = tel_no
-
-        If txtEnteringNo.Text.Trim = "" Then Exit Sub
-        Call gsInit()                   ' 모든 항목을 초기화 시킨다.
-
-        Call WriteLog("CUSTOMER_POP_UP Var_Trans3:tel_no[" & tel_no & "]" & "tong_date[" & tong_date & "]tong_time[" & tong_time & "]")
-
-        '이관된 건은 현재시간을 새로운 처리시간으로 하여 상담건을 생성한다.
-        Dim tm As String = Format(Now, "yyyyMMddhhmmss")
-        txtDate2.Text = tm.Substring(0, 4) + "-" + tm.Substring(4, 2) + "-" + tm.Substring(6, 2)
-        txtTongTime2.Text = tm.Substring(8, 2) + ":" + tm.Substring(10, 2) + ":" + tm.Substring(12, 2)
-        txtTongUser2.Text = gsUSER_ID & "." & gsUSER_NM
-
-        Call gsSelectPopUp()
-
-        mIsTransfered = True
-
-        Call findCellInDataGridView2(tel_no, tong_date, tong_time, True)
-
-        txtTongEtcInfo2.Focus()
-    End Sub
     Public Sub gsSelectPopUp()
         Call gsSelect()
         'mIsEnteringNoQueried = True
         btnFindId.Enabled = True
 
         If (txtCustomerID.Text.Trim = "") Then
-            If (actionStatus = ConstDef.ActionStatus.PopUpCalled) Then
+            If (actionStatus = ConstDef.ActionStatus.PopUpInBound Or actionStatus = ConstDef.ActionStatus.PopUpOutBound) Then
                 actionStatus = ConstDef.ActionStatus.PopUpNoUser
             ElseIf (actionStatus = ConstDef.ActionStatus.OpenEmpty) Then
                 actionStatus = ConstDef.ActionStatus.OpenNoUserSearched
@@ -333,11 +173,12 @@ Public Class FRM_CUSTOMER_POPUP1
             switchFocus(PANEL_FOCUS.CUSTOMER_INFO)
             chModification1.Focus()
         Else
-            If (actionStatus = ConstDef.ActionStatus.PopUpCalled) Then
+            If (actionStatus = ConstDef.ActionStatus.PopUpInBound Or actionStatus = ConstDef.ActionStatus.PopUpOutBound) Then
                 actionStatus = ConstDef.ActionStatus.PopUpUserExist
             ElseIf (actionStatus = ConstDef.ActionStatus.OpenEmpty) Then
                 actionStatus = ConstDef.ActionStatus.OpenUserSearched
             End If
+            Call WriteLog("gsSelectPopUp actionStatus=" & actionStatus)
             switchFocus(PANEL_FOCUS.CONSULT_INFO)
             cboConsultType2.Focus()
         End If
@@ -358,7 +199,9 @@ Public Class FRM_CUSTOMER_POPUP1
                 Exit Sub
             End If
 
-            If selectPhoneNumber.Trim.Length >= 3 Then
+            If selectPhoneNumber.Trim.Length < 3 Then
+                SQL = ""
+            Else
 
                 If selectPhoneNumber.Trim <> "" Then
                     SQL = " SELECT ifnull(max(CUSTOMER_ID),'0') FROM t_customer_telno  WHERE COM_CD ='" & gsCOM_CD & "'"
@@ -405,9 +248,7 @@ Public Class FRM_CUSTOMER_POPUP1
                     End If
                     SQL = SQL & " LIMIT 1"
                 End If
-            Else
-                SQL = ""
-            End If
+            End If 'If selectPhoneNumber.Trim.Length < 3 Then
 
             If SQL <> "" Then
 
@@ -568,11 +409,19 @@ Public Class FRM_CUSTOMER_POPUP1
             DataGridView2.Columns.Item(10).HeaderText = "콜백"
             DataGridView2.Columns.Item(11).HeaderText = "처리유형"
             dt1 = Nothing
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+
+            '조회된 첫번째건을 보여줌: 상세조회나 조회정보가 없는 경우를 제외하고
+            If Not (actionStatus = ConstDef.ActionStatus.PopUpDetail _
+                Or actionStatus = ConstDef.ActionStatus.OpenNoUserSearched _
+                Or actionStatus = ConstDef.ActionStatus.PopUpNoUser) Then
+                Call setSubDetailByGridCell(0)
+            End If
+
 
         Catch ex As Exception
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
             Call WriteLog("FRM_CUSTOMER : " & ex.ToString)
+        Finally
+            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
         End Try
     End Sub
 
@@ -610,11 +459,10 @@ Public Class FRM_CUSTOMER_POPUP1
             End With
 
             dt1 = Nothing
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
-
         Catch ex As Exception
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
             Call WriteLog("FRM_CUSTOMER_POPUP : " & ex.ToString)
+        Finally
+            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
         End Try
     End Sub
 
@@ -870,6 +718,10 @@ Public Class FRM_CUSTOMER_POPUP1
     End Sub
 
     Private Sub setSubDetailByGridCell(ByVal idx As Integer)
+        If (idx >= DataGridView2.RowCount) Then
+            Exit Sub
+        End If
+
         With DataGridView2.Rows(idx)
             txtDate4.Text = .Cells(2).Value.ToString   ' 통화일자
             txtTongTime4.Text = .Cells(3).Value.ToString ' 통화시간
@@ -945,6 +797,10 @@ Public Class FRM_CUSTOMER_POPUP1
     End Sub
 
     Private Sub setTransDetailByGridCell(ByVal idx As Integer)
+        If (idx >= DataGridView2.RowCount) Then
+            Exit Sub
+        End If
+
         With DataGridView2.Rows(idx)
             txtDate2.Text = .Cells(2).Value.ToString   ' 통화일자
             txtTongTime2.Text = .Cells(3).Value.ToString ' 통화시간
@@ -1105,13 +961,10 @@ Public Class FRM_CUSTOMER_POPUP1
             Call gsSubSelect(txtCCId4.Text.Trim)
             Call Call_history_Init()
             txtCCId4.Text = ""
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
         Catch ex As Exception
-            Call gsSubSelect(txtCCId4.Text.Trim)
-            Call Call_history_Init()
-            txtCCId4.Text = ""
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
             Call WriteLog("FRM_CUSTOMER : " & ex.ToString)
+        Finally
+            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
         End Try
 
 
@@ -1133,15 +986,44 @@ Public Class FRM_CUSTOMER_POPUP1
         End If
 
         If CallHistorySave() Then
-            FRM_NOTI_MSG.Show("저장되었습니다.")
+            Dim frm As FRM_NOTI_MSG = New FRM_NOTI_MSG
+            frm.Show("저장되었습니다.")
             System.Threading.Thread.Sleep(1000)
-            FRM_NOTI_MSG.Hide()
+            frm.Hide()
+            frm.Close()
 
             Call gsFormExit()
         Else
             ''
         End If
     End Sub
+
+    '***********************상담이력저장*************************************************
+    '1. 일자,시간값이 없으면 오류
+    '2. 고객ID가 없을때
+    '  - 이관이면 정상==>이전단계에서 고객등록오류 처리 <===dead code
+    '  - else 일반이면 고객등록 오류
+    '3. 상담이력 기등록 여부 확인
+    '  - 기등록일때
+    '    - 이관온 경우 정상처리
+    '    - else 일반인 경우 
+    '      - 이관이면 상세조회 포커스이동 <= 이관불가 메시지 추가 필요
+    '      - else 일반등록인 경우 오류메시지 후 상세조회 포커스 이동
+    '  - else 정상처리
+    '4. insert문 생성
+    ' - 고객ID없는 경우(이관인 경우) 고객ID=0 <===dead code
+    ' - 이관온 경우
+    '   - 이관온 시간으로 변경, ***넘어온 이관시간은 이전 통화시간으로 처리
+    ' - else 일반인 경우
+    '   - 설정 시간을 사용
+    ' - 이관인 경우 상담결과='이관처리'
+    ' - 고객ID없는 경우 '미등록고객' <===dead code
+    ' - 이관온경우 넘어온 이관시간은 이전 통화시간으로 처리
+
+    ' - 입력처리
+
+    ' - 이관처리아닐 경우 하단 상세조회
+    '************************************************************************************
 
     Private Function CallHistorySave(Optional ByVal flag As String = "") As Boolean
         Try
@@ -1163,9 +1045,9 @@ Public Class FRM_CUSTOMER_POPUP1
             Dim SQL As String = ""
 
             If txtCustomerID.Text.Trim = "" Then
-                If flag <> "trans" Then
-                    MsgBox("확인할 수 없는 고객입니다.고객정보를 신규 등록후 상담이력을 등록하세요.", MsgBoxStyle.OkOnly, "알림")
-                End If
+                'If flag <> "trans" Then  '<==dead code
+                MsgBox("확인할 수 없는 고객입니다.고객정보를 신규 등록후 상담이력을 등록하세요.", MsgBoxStyle.OkOnly, "알림")
+                'End If
 
                 Exit Function
             End If
@@ -1191,18 +1073,20 @@ Public Class FRM_CUSTOMER_POPUP1
                 dt1 = Nothing
 
                 If CNT <> "0" Then
-                    If mIsTransfered = False Then
-
-                        If flag = "trans" Then '이관처리할 경우
-                            ''
-                        Else '이관건이 아니고 수정하려고 할때
-                            MsgBox("이미 데이터가 저장 되어 있습니다.상담이력건을 선택한후 하단 통화이력 상세내역에서 수정하세요.", MsgBoxStyle.OkOnly, "알림")
-                        End If
+                    If mIsTransfered Then
+                        '이관넘어온 경우
+                        '이관처리건, 이관넘어온 건은 새로운 통화시간으로 별개건으로 처리하므로, 정상처리함.
+                    Else
+                        '일반인 경우 오류처리
+                        '==> dead code
+                        'If flag = "trans" Then '이관처리할 경우 
+                        '    ''
+                        'Else '이관건이 아니고 수정하려고 할때
+                        '    MsgBox("이미 데이터가 저장 되어 있습니다.상담이력건을 선택한후 하단 통화이력 상세내역에서 수정하세요.", MsgBoxStyle.OkOnly, "알림")
+                        'End If
+                        MsgBox("이미 데이터가 저장 되어 있습니다.상담이력건을 선택한후 하단 통화이력 상세내역에서 수정하세요.", MsgBoxStyle.OkOnly, "알림")
                         Call gsSubSelect(txtCustomerID.Text.Trim)
                         Exit Function
-                    Else
-                        '이관건을 insert로 처리
-                        'NeedUpdate = True
                     End If
                 End If
 
@@ -1215,11 +1099,14 @@ Public Class FRM_CUSTOMER_POPUP1
             SQL = "INSERT INTO T_CUSTOMER_HISTORY(COM_CD,CUSTOMER_ID,TOND_DD,TONG_TIME,CALL_TYPE,CONSULT_RESULT, CONSULT_TYPE, TONG_CONTENTS,TONG_USER,CUSTOMER_NM,TONG_TELNO,HANDLE_TYPE,CALL_BACK_YN,UPDATE_DATE, PREV_TONG_DD, PREV_TONG_TIME, PREV_TONG_USER, TRANS_YN) "
             SQL = SQL & " values( '" & gsCOM_CD & "'"
 
-            If txtCustomerID.Text.Trim = "" Then
-                SQL = SQL & " ,'0'"
-            Else
-                SQL = SQL & " ," & txtCustomerID.Text.Trim
-            End If
+            '==>dead code
+            'If txtCustomerID.Text.Trim = "" Then
+            '    SQL = SQL & " ,'0'"
+            'Else
+            '    SQL = SQL & " ," & txtCustomerID.Text.Trim
+            'End If
+            SQL = SQL & " ," & txtCustomerID.Text.Trim
+
             If mIsTransfered Then '이관된 건은 이관후 통화시간으로 변경함
                 Dim tm As String = Format(Now, "yyyyMMddHHmmss")
                 SQL = SQL & " ,'" & tm.Substring(0, 8) & "'"   ' 변경된 통화일자
@@ -1260,11 +1147,13 @@ Public Class FRM_CUSTOMER_POPUP1
                 SQL = SQL & " ,'" & txtTongUser2.Text.Trim & "'"    ' 통화자
             End If
 
-            If txtCustomerID.Text.Trim = "" Then
-                SQL = SQL & " ,'미등록고객'"    ' 고객명
-            Else
-                SQL = SQL & " ,'" & txtCustomerName.Text.Trim & "'"    ' 고객명
-            End If
+            '==>dead code
+            'If txtCustomerID.Text.Trim = "" Then
+            '    SQL = SQL & " ,'미등록고객'"    ' 고객명
+            'Else
+            '    SQL = SQL & " ,'" & txtCustomerName.Text.Trim & "'"    ' 고객명
+            'End If
+            SQL = SQL & " ,'" & txtCustomerName.Text.Trim & "'"    ' 고객명
 
             SQL = SQL & " ,'" & txtEnteringNo.Text.Trim.Replace("-", "") & "'"    ' 통화전화번호
 
@@ -1280,7 +1169,7 @@ Public Class FRM_CUSTOMER_POPUP1
                 SQL = SQL & " ,'N'"    ' 콜백여부
             End If
             SQL = SQL & ",'" & Format(Now, "yyyyMMddHHmmss") & "'"
-            If mIsTransfered = True Then
+            If mIsTransfered Then
                 SQL = SQL & " ,'" & txtDate2.Text.Trim.Replace("-", "") & "'"   ' 이전통화일자
                 SQL = SQL & " ,'" & txtTongTime2.Text.Trim.Replace(":", "") & "'"  ' 이전통화시간
                 SQL = SQL & " ,'" & txtTongUser2.Text.Trim & "'"    ' 통화자
@@ -1301,10 +1190,11 @@ Public Class FRM_CUSTOMER_POPUP1
                 Dim dt As DataTable = GetData_table1(gsConString, SQL)
                 dt = Nothing
 
-                If flag <> "trans" Then
-                    Call gsSubSelect(txtCustomerID.Text.Trim)
-                End If
-
+                '==>dead code
+                '이관인 경우 창을 닫아야 하고 아닌 경우 상세화면조회
+                'If flag <> "trans" Then
+                '    Call gsSubSelect(txtCustomerID.Text.Trim)
+                'End If
 
                 Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
                 'btnContentsSave.Enabled = False
@@ -1624,11 +1514,11 @@ Public Class FRM_CUSTOMER_POPUP1
         Try
             'Call CustomerInfoSave()  고객정보를 저장할 이유가 없잔여
             If CallHistorySave("trans") Then
-
-                FRM_NOTI_MSG.Show("이관되었습니다.")
+                Dim frm As FRM_NOTI_MSG = New FRM_NOTI_MSG
+                frm.Show("이관되었습니다.")
                 System.Threading.Thread.Sleep(1000)
-                FRM_NOTI_MSG.Hide()
-
+                frm.Hide()
+                frm.Close()
                 Call gsFormExit()
             End If
 

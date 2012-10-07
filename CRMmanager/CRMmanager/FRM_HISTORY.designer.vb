@@ -22,9 +22,9 @@ Partial Class FRM_HISTORY
     '코드 편집기를 사용하여 수정하지 마십시오.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FRM_HISTORY))
         Me.DataGridView2 = New System.Windows.Forms.DataGridView
         Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn
@@ -37,6 +37,7 @@ Partial Class FRM_HISTORY
         Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
+        Me.btnExcel = New System.Windows.Forms.Button
         Me.btnSelect = New System.Windows.Forms.Button
         Me.cboUser = New System.Windows.Forms.ComboBox
         Me.Label27 = New System.Windows.Forms.Label
@@ -47,7 +48,6 @@ Partial Class FRM_HISTORY
         Me.Label4 = New System.Windows.Forms.Label
         Me.Label15 = New System.Windows.Forms.Label
         Me.Label26 = New System.Windows.Forms.Label
-        Me.Label25 = New System.Windows.Forms.Label
         Me.dpt2 = New System.Windows.Forms.DateTimePicker
         Me.Label24 = New System.Windows.Forms.Label
         Me.cbT2 = New System.Windows.Forms.ComboBox
@@ -55,8 +55,6 @@ Partial Class FRM_HISTORY
         Me.cbT1 = New System.Windows.Forms.ComboBox
         Me.cbH1 = New System.Windows.Forms.ComboBox
         Me.Label5 = New System.Windows.Forms.Label
-        Me.txtTongNo = New System.Windows.Forms.TextBox
-        Me.Label12 = New System.Windows.Forms.Label
         Me.Label14 = New System.Windows.Forms.Label
         Me.Label3 = New System.Windows.Forms.Label
         Me.Label2 = New System.Windows.Forms.Label
@@ -87,8 +85,10 @@ Partial Class FRM_HISTORY
         Me.Label17 = New System.Windows.Forms.Label
         Me.Label46 = New System.Windows.Forms.Label
         Me.btnDetail = New System.Windows.Forms.Button
-        Me.btnExcel = New System.Windows.Forms.Button
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog
+        Me.Label30 = New System.Windows.Forms.Label
+        Me.txtSearch = New System.Windows.Forms.TextBox
+        Me.Label28 = New System.Windows.Forms.Label
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -97,36 +97,36 @@ Partial Class FRM_HISTORY
         '
         Me.DataGridView2.AllowUserToAddRows = False
         Me.DataGridView2.AllowUserToDeleteRows = False
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.DataGridView2.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.DataGridView2.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle10
         Me.DataGridView2.BackgroundColor = System.Drawing.Color.White
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle11.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle11
         Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView2.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.DataGridViewTextBoxColumn6, Me.DataGridViewTextBoxColumn7, Me.Column2})
         Me.DataGridView2.GridColor = System.Drawing.SystemColors.ActiveCaption
-        Me.DataGridView2.Location = New System.Drawing.Point(12, 96)
+        Me.DataGridView2.Location = New System.Drawing.Point(12, 126)
         Me.DataGridView2.MultiSelect = False
         Me.DataGridView2.Name = "DataGridView2"
         Me.DataGridView2.ReadOnly = True
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView2.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle12.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView2.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
         Me.DataGridView2.RowHeadersVisible = False
         Me.DataGridView2.RowTemplate.Height = 23
         Me.DataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridView2.Size = New System.Drawing.Size(872, 411)
+        Me.DataGridView2.Size = New System.Drawing.Size(872, 381)
         Me.DataGridView2.TabIndex = 80
         '
         'Column1
@@ -185,6 +185,9 @@ Partial Class FRM_HISTORY
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.Label30)
+        Me.GroupBox1.Controls.Add(Me.txtSearch)
+        Me.GroupBox1.Controls.Add(Me.Label28)
         Me.GroupBox1.Controls.Add(Me.btnExcel)
         Me.GroupBox1.Controls.Add(Me.btnSelect)
         Me.GroupBox1.Controls.Add(Me.cboUser)
@@ -196,7 +199,6 @@ Partial Class FRM_HISTORY
         Me.GroupBox1.Controls.Add(Me.Label4)
         Me.GroupBox1.Controls.Add(Me.Label15)
         Me.GroupBox1.Controls.Add(Me.Label26)
-        Me.GroupBox1.Controls.Add(Me.Label25)
         Me.GroupBox1.Controls.Add(Me.dpt2)
         Me.GroupBox1.Controls.Add(Me.Label24)
         Me.GroupBox1.Controls.Add(Me.cbT2)
@@ -204,8 +206,6 @@ Partial Class FRM_HISTORY
         Me.GroupBox1.Controls.Add(Me.cbT1)
         Me.GroupBox1.Controls.Add(Me.cbH1)
         Me.GroupBox1.Controls.Add(Me.Label5)
-        Me.GroupBox1.Controls.Add(Me.txtTongNo)
-        Me.GroupBox1.Controls.Add(Me.Label12)
         Me.GroupBox1.Controls.Add(Me.Label14)
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.Label2)
@@ -213,9 +213,18 @@ Partial Class FRM_HISTORY
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(872, 78)
+        Me.GroupBox1.Size = New System.Drawing.Size(872, 108)
         Me.GroupBox1.TabIndex = 86
         Me.GroupBox1.TabStop = False
+        '
+        'btnExcel
+        '
+        Me.btnExcel.Location = New System.Drawing.Point(812, 17)
+        Me.btnExcel.Name = "btnExcel"
+        Me.btnExcel.Size = New System.Drawing.Size(45, 25)
+        Me.btnExcel.TabIndex = 214
+        Me.btnExcel.Text = "Excel"
+        Me.btnExcel.UseVisualStyleBackColor = True
         '
         'btnSelect
         '
@@ -232,7 +241,7 @@ Partial Class FRM_HISTORY
         Me.cboUser.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboUser.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.cboUser.FormattingEnabled = True
-        Me.cboUser.Location = New System.Drawing.Point(721, 50)
+        Me.cboUser.Location = New System.Drawing.Point(506, 49)
         Me.cboUser.Name = "cboUser"
         Me.cboUser.Size = New System.Drawing.Size(114, 20)
         Me.cboUser.TabIndex = 211
@@ -248,7 +257,7 @@ Partial Class FRM_HISTORY
         'Label35
         '
         Me.Label35.Image = CType(resources.GetObject("Label35.Image"), System.Drawing.Image)
-        Me.Label35.Location = New System.Drawing.Point(655, 53)
+        Me.Label35.Location = New System.Drawing.Point(440, 52)
         Me.Label35.Name = "Label35"
         Me.Label35.Size = New System.Drawing.Size(13, 12)
         Me.Label35.TabIndex = 209
@@ -259,7 +268,7 @@ Partial Class FRM_HISTORY
         Me.cboConsultResult.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboConsultResult.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.cboConsultResult.FormattingEnabled = True
-        Me.cboConsultResult.Location = New System.Drawing.Point(509, 50)
+        Me.cboConsultResult.Location = New System.Drawing.Point(294, 49)
         Me.cboConsultResult.Name = "cboConsultResult"
         Me.cboConsultResult.Size = New System.Drawing.Size(114, 20)
         Me.cboConsultResult.TabIndex = 50
@@ -267,7 +276,7 @@ Partial Class FRM_HISTORY
         'Label34
         '
         Me.Label34.Image = CType(resources.GetObject("Label34.Image"), System.Drawing.Image)
-        Me.Label34.Location = New System.Drawing.Point(435, 53)
+        Me.Label34.Location = New System.Drawing.Point(220, 52)
         Me.Label34.Name = "Label34"
         Me.Label34.Size = New System.Drawing.Size(13, 12)
         Me.Label34.TabIndex = 207
@@ -278,7 +287,7 @@ Partial Class FRM_HISTORY
         Me.cboConsultType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboConsultType.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.cboConsultType.FormattingEnabled = True
-        Me.cboConsultType.Location = New System.Drawing.Point(297, 50)
+        Me.cboConsultType.Location = New System.Drawing.Point(76, 49)
         Me.cboConsultType.Name = "cboConsultType"
         Me.cboConsultType.Size = New System.Drawing.Size(114, 20)
         Me.cboConsultType.TabIndex = 49
@@ -286,7 +295,7 @@ Partial Class FRM_HISTORY
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(668, 53)
+        Me.Label4.Location = New System.Drawing.Point(453, 52)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(41, 12)
         Me.Label4.TabIndex = 204
@@ -295,7 +304,7 @@ Partial Class FRM_HISTORY
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(448, 53)
+        Me.Label15.Location = New System.Drawing.Point(233, 52)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(53, 12)
         Me.Label15.TabIndex = 203
@@ -304,18 +313,10 @@ Partial Class FRM_HISTORY
         'Label26
         '
         Me.Label26.Image = CType(resources.GetObject("Label26.Image"), System.Drawing.Image)
-        Me.Label26.Location = New System.Drawing.Point(227, 53)
+        Me.Label26.Location = New System.Drawing.Point(6, 52)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(13, 12)
         Me.Label26.TabIndex = 202
-        '
-        'Label25
-        '
-        Me.Label25.Image = CType(resources.GetObject("Label25.Image"), System.Drawing.Image)
-        Me.Label25.Location = New System.Drawing.Point(6, 53)
-        Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(13, 12)
-        Me.Label25.TabIndex = 201
         '
         'dpt2
         '
@@ -379,26 +380,10 @@ Partial Class FRM_HISTORY
         Me.Label5.TabIndex = 94
         Me.Label5.Text = "~"
         '
-        'txtTongNo
-        '
-        Me.txtTongNo.Location = New System.Drawing.Point(89, 50)
-        Me.txtTongNo.Name = "txtTongNo"
-        Me.txtTongNo.Size = New System.Drawing.Size(114, 21)
-        Me.txtTongNo.TabIndex = 48
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(19, 53)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(53, 12)
-        Me.Label12.TabIndex = 89
-        Me.Label12.Text = "전화번호"
-        '
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(238, 53)
+        Me.Label14.Location = New System.Drawing.Point(17, 52)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(53, 12)
         Me.Label14.TabIndex = 85
@@ -642,18 +627,33 @@ Partial Class FRM_HISTORY
         Me.btnDetail.Text = "상세조회"
         Me.btnDetail.UseVisualStyleBackColor = True
         '
-        'btnExcel
-        '
-        Me.btnExcel.Location = New System.Drawing.Point(812, 17)
-        Me.btnExcel.Name = "btnExcel"
-        Me.btnExcel.Size = New System.Drawing.Size(45, 25)
-        Me.btnExcel.TabIndex = 214
-        Me.btnExcel.Text = "Excel"
-        Me.btnExcel.UseVisualStyleBackColor = True
-        '
         'SaveFileDialog1
         '
         Me.SaveFileDialog1.FileName = "c"
+        '
+        'Label30
+        '
+        Me.Label30.Image = CType(resources.GetObject("Label30.Image"), System.Drawing.Image)
+        Me.Label30.Location = New System.Drawing.Point(5, 78)
+        Me.Label30.Name = "Label30"
+        Me.Label30.Size = New System.Drawing.Size(13, 12)
+        Me.Label30.TabIndex = 217
+        '
+        'txtSearch
+        '
+        Me.txtSearch.Location = New System.Drawing.Point(451, 75)
+        Me.txtSearch.Name = "txtSearch"
+        Me.txtSearch.Size = New System.Drawing.Size(169, 21)
+        Me.txtSearch.TabIndex = 216
+        '
+        'Label28
+        '
+        Me.Label28.AutoSize = True
+        Me.Label28.Location = New System.Drawing.Point(18, 78)
+        Me.Label28.Name = "Label28"
+        Me.Label28.Size = New System.Drawing.Size(363, 12)
+        Me.Label28.TabIndex = 215
+        Me.Label28.Text = "검색 ( 통화번호/직장전화/핸드폰/고객명/회사명/소속/상담내용 )"
         '
         'FRM_HISTORY
         '
@@ -705,8 +705,6 @@ Partial Class FRM_HISTORY
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents dpt1 As System.Windows.Forms.DateTimePicker
-    Friend WithEvents txtTongNo As System.Windows.Forms.TextBox
-    Friend WithEvents Label12 As System.Windows.Forms.Label
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents txtSubCustomerName As System.Windows.Forms.TextBox
     Friend WithEvents Label6 As System.Windows.Forms.Label
@@ -737,7 +735,6 @@ Partial Class FRM_HISTORY
     Friend WithEvents Label22 As System.Windows.Forms.Label
     Friend WithEvents Label23 As System.Windows.Forms.Label
     Friend WithEvents Label26 As System.Windows.Forms.Label
-    Friend WithEvents Label25 As System.Windows.Forms.Label
     Friend WithEvents dpt2 As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label24 As System.Windows.Forms.Label
     Friend WithEvents Label35 As System.Windows.Forms.Label
@@ -761,4 +758,7 @@ Partial Class FRM_HISTORY
     Friend WithEvents btnDetail As System.Windows.Forms.Button
     Friend WithEvents btnExcel As System.Windows.Forms.Button
     Friend WithEvents SaveFileDialog1 As System.Windows.Forms.SaveFileDialog
+    Friend WithEvents Label30 As System.Windows.Forms.Label
+    Friend WithEvents txtSearch As System.Windows.Forms.TextBox
+    Friend WithEvents Label28 As System.Windows.Forms.Label
 End Class

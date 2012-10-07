@@ -89,14 +89,13 @@ Public Class FRM_HISTORY_CALLBACK
             SQL = SQL & " ,CONCAT(CONSULT_RESULT , '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = '" & gsCOM_CD & "' AND L_MENU_CD = '004' AND S_MENU_CD = CONSULT_RESULT )) CONSULT_RESULT"
             SQL = SQL & " ,TONG_USER,TONG_CONTENTS "
             SQL = SQL & " ,CONCAT(CALL_TYPE , '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = '" & gsCOM_CD & "' AND L_MENU_CD = '005' AND S_MENU_CD = CALL_TYPE )) CALL_TYPE "
-            SQL = SQL & " FROM T_CUSTOMER_HISTORY "
+            SQL = SQL & " FROM T_CUSTOMER_HISTORY a "
             SQL = SQL & " WHERE COM_CD = '" & gsCOM_CD & "'"
             If Not isInit Then
                 SQL = SQL & " AND TOND_DD >= '" & dpt1.Text.ToString.Replace("-", "") & "'"
                 SQL = SQL & " AND TOND_DD <= '" & dpt2.Text.ToString.Replace("-", "") & "'"
                 SQL = SQL & " AND TONG_TIME >= '" & cbH1.Text & cbT1.Text & "00" & "'"
                 SQL = SQL & " AND TONG_TIME <= '" & cbH2.Text & cbT2.Text & "00" & "'"
-                SQL = SQL & " AND TONG_TELNO LIKE  '" & txtTongNo.Text.Trim & "%'"
                 SQL = SQL & " AND TONG_USER LIKE  '" & cboUser.SelectedValue.ToString.Replace("XXXX", "") & "%'"
                 SQL = SQL & " AND CALL_BACK_YN = 'Y'"
                 'If cboConsultType.SelectedIndex >= 0 Then
@@ -115,6 +114,24 @@ Public Class FRM_HISTORY_CALLBACK
                 If cboConsultResult.SelectedValue.ToString <> "" Then
                     SQL = SQL & " AND CONSULT_RESULT LIKE  '" & cboConsultResult.SelectedValue.ToString.Replace("XXXX", "") & "%'"
                 End If
+
+                '멀티검색조건  <----
+                SQL = SQL & " AND ( EXISTS (SELECT * FROM t_customer_telno b WHERE COM_CD ='" & gsCOM_CD & "'"
+                SQL = SQL & " AND B.CUSTOMER_ID = A.CUSTOMER_ID "
+                SQL = SQL & " AND TELNO LIKE '%" & txtSearch.Text.Trim.Replace("-", "") & "%') "
+                SQL = SQL & " OR  TONG_TELNO LIKE  '" & txtSearch.Text.Trim & "%'"
+                SQL = SQL & " OR  TONG_CONTENTS LIKE '%" & txtSearch.Text.Trim.Replace("-", "") & "%' "
+                SQL = SQL & " OR  EXISTS (SELECT * FROM t_customer b WHERE COM_CD ='" & gsCOM_CD & "'"
+                SQL = SQL & " AND B.CUSTOMER_ID = A.CUSTOMER_ID "
+
+                SQL = SQL & " AND ( C_TELNO LIKE '%" & txtSearch.Text.Trim & "%'"
+                SQL = SQL & " OR H_TELNO LIKE '%" & txtSearch.Text.Trim & "%'"
+                SQL = SQL & " OR COMPANY LIKE '%" & txtSearch.Text.Trim & "%'"
+                SQL = SQL & " OR DEPARTMENT LIKE '%" & txtSearch.Text.Trim & "%'"
+
+                SQL = SQL & " OR CUSTOMER_NM LIKE '%" & txtSearch.Text.Trim & "%'))) "
+                '멀티검색조건 --->
+
             Else
                 Dim tm As String = Format(Now, "yyyyMMdd")
                 SQL = SQL & " AND TOND_DD >= '" & tm & "'"
@@ -149,6 +166,7 @@ Public Class FRM_HISTORY_CALLBACK
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
 
             Call subVarInit()
+            Call DisplaySubDetail(0)
 
         Catch ex As Exception
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
@@ -190,30 +208,30 @@ Public Class FRM_HISTORY_CALLBACK
             If e.RowIndex < 0 Then Exit Try
             Dim i As Integer = e.RowIndex
 
-
-            With DataGridView2.Rows(i)
-                Call subVarInit()
-
-                txtSubCustomerName.Text = .Cells(1).Value.ToString
-                txtDate.Text = .Cells(2).Value.ToString
-                txtTongTime.Text = .Cells(3).Value.ToString
-                txtSubTongNo.Text = gfTelNoTransReturn(.Cells(4).Value.ToString)
-
-                txtCallBackResult.Text = .Cells(5).Value.ToString
-                txtConsultType.Text = .Cells(6).Value.ToString
-                txtConsultResult.Text = .Cells(7).Value.ToString
-                txtSubTongUser.Text = .Cells(8).Value.ToString
-                txtTongEtcInfo.Text = .Cells(9).Value.ToString
-            End With
+            DisplaySubDetail(i)
 
         Catch ex As Exception
             Call WriteLog(ex.ToString)
         End Try
     End Sub
 
-    Private Sub DataGridView2_CellContentClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles DataGridView2.CellContentClick
+    Private Sub DisplaySubDetail(ByVal index As Integer)
+        With DataGridView2.Rows(index)
+            Call subVarInit()
 
+            txtSubCustomerName.Text = .Cells(1).Value.ToString
+            txtDate.Text = .Cells(2).Value.ToString
+            txtTongTime.Text = .Cells(3).Value.ToString
+            txtSubTongNo.Text = gfTelNoTransReturn(.Cells(4).Value.ToString)
+
+            txtCallBackResult.Text = .Cells(5).Value.ToString
+            txtConsultType.Text = .Cells(6).Value.ToString
+            txtConsultResult.Text = .Cells(7).Value.ToString
+            txtSubTongUser.Text = .Cells(8).Value.ToString
+            txtTongEtcInfo.Text = .Cells(9).Value.ToString
+        End With
     End Sub
+
 
     Private Sub btnDetail_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDetail.Click
         'Dim tm As String = Format(Now, "yyyyMMddhhmmss")
@@ -225,6 +243,13 @@ Public Class FRM_HISTORY_CALLBACK
     Private Sub FRM_HISTORY_CALLBACK_Deactivate(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Deactivate
         Call gsFormExit()
 
+    End Sub
+
+
+    Private Sub Search_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtSearch.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            Call gsSelect(False)
+        End If
     End Sub
 
     Private Sub btnExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExcel.Click

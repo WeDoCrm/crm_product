@@ -138,36 +138,39 @@ Public Class CRMmanager
 
     '팝업 테스트용
     Public Sub POPUP(ByVal tel_no As String, ByVal TONG_TM As String, ByVal CALL_TYPE As String)
-
         Try
+            'Dim frm As FRM_MAIN = New FRM_MAIN
             '*************************** 전역변수를 설정해서 전역변수에 값을 넣자 *********************************************
             Dim tong_date As String = TONG_TM.Substring(0, 4) + "-" + TONG_TM.Substring(4, 2) + "-" + TONG_TM.Substring(6, 2)
             Dim tong_time As String = TONG_TM.Substring(8, 2) + ":" + TONG_TM.Substring(10, 2) + ":" + TONG_TM.Substring(12, 2)
 
-            Call FRM_MAIN.menu_popuu("FRM_CUSTOMER_POPUP1")
+            'Call frm.menu_popuu("FRM_CUSTOMER_POPUP1")
             Call WriteLog("CUSTOMER_POP_UP POPUP:tel_no[" & tel_no & "]" & "tong_date[" & tong_date & "]tong_time[" & tong_time & "]")
 
-            RaiseEvent Var_Trans(tel_no, tong_date, tong_time, CALL_TYPE)
+            Call FRM_MAIN.OpenCustomerPopup(tel_no, TONG_TM, CALL_TYPE)
+            'RaiseEvent Var_Trans(tel_no, tong_date, tong_time, CALL_TYPE)
 
         Catch ex As Exception
 
         End Try
-
-
     End Sub
 
-    '팝업 테스트용
+    '이관팝업 테스트용
     Public Sub POPUP_Transfer(ByVal tel_no As String, _
+                              ByVal user_id As String, _
                                 ByVal TONG_TM As String, _
                                 ByVal CALL_TYPE As String)
 
         Try
+            'Dim frm As FRM_MAIN = New FRM_MAIN
             '*************************** 전역변수를 설정해서 전역변수에 값을 넣자 *********************************************
             Dim tong_date As String = TONG_TM.Substring(0, 4) + "-" + TONG_TM.Substring(4, 2) + "-" + TONG_TM.Substring(6, 2)
             Dim tong_time As String = TONG_TM.Substring(8, 2) + ":" + TONG_TM.Substring(10, 2) + ":" + TONG_TM.Substring(12, 2)
 
-            Call FRM_MAIN.menu_popuu("FRM_CUSTOMER_POPUP1")
-            RaiseEvent Var_Trans3(tel_no.Replace("-", ""), tong_date, tong_time, CALL_TYPE)
+            'Call frm.menu_popuu("FRM_CUSTOMER_POPUP1")
+            Call FRM_MAIN.OpenCustomerPopupTransfer(tel_no, user_id, tong_date, tong_time, CALL_TYPE)
+
+            'RaiseEvent Var_Trans3(tel_no.Replace("-", ""), tong_date, tong_time, CALL_TYPE)
 
         Catch ex As Exception
 
