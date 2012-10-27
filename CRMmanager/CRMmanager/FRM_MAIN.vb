@@ -689,14 +689,10 @@ Public Class FRM_MAIN
             Dim tong_date As String = TONG_TM.Substring(0, 4) + "-" + TONG_TM.Substring(4, 2) + "-" + TONG_TM.Substring(6, 2)
             Dim tong_time As String = TONG_TM.Substring(8, 2) + ":" + TONG_TM.Substring(10, 2) + ":" + TONG_TM.Substring(12, 2)
 
-            If FRM_CUSTOMER_POPUP1 Is Nothing Then
-                Call WriteLog(Me.Name.ToString & "FRM_CUSTOMER_POPUP1" & " is Nothing")
-                pop = New FRM_CUSTOMER_POPUP1
-                pop.MdiParent = Me
-                pop.Show()
-            Else
-                Call WriteLog(Me.Name.ToString & "FRM_CUSTOMER_POPUP1" & " is Not Nothing")
-            End If
+            Me.Show()
+            Dim pop As New FRM_CUSTOMER_POPUP1
+            pop.MdiParent = Me
+            pop.Show()
 
             If pop.chModification1.Checked = True Then
                 Call pop.Control_disable(True)
@@ -745,6 +741,7 @@ Public Class FRM_MAIN
             Dim tong_time As String = Tongtime
             Dim tong_user_nm As String = ""
 
+            Me.Show()
             Dim pop As New FRM_CUSTOMER_POPUP1
             pop.MdiParent = Me
             pop.Show()
@@ -805,6 +802,7 @@ Public Class FRM_MAIN
         ' TONG_DT YYYY-MM-DD TONG_TM hh:mm:ss
 
         Try
+            Me.Show()
             Dim pop As New FRM_CUSTOMER_POPUP1
             pop.MdiParent = Me
             pop.Show()

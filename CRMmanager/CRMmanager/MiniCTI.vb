@@ -41,7 +41,7 @@ Module MiniCTI
     Public Const CONFIG_FILE_DEMO As String = "\config\MiniCTI_config_demo.xml"
     Public Const CONFIG_FILE_PRODUCT As String = "\config\MiniCTI_config.xml"
     Public Const VERSION_DEMO As String = "Ver 2.1.1.5B"
-    Public Const VERSION_PRODUCT As String = "Ver 2.1.1.5"
+    Public Const VERSION_PRODUCT As String = "Ver 2.1.1.6"
     Public gsAppVersion As String
     Public gsPopUpOption As String = "MDI"
 
@@ -124,9 +124,14 @@ Module MiniCTI
     End Function
 
     Public Function IsHPNumber(ByVal num As String) As String
-        Dim tel_no As String = num.Trim.Substring(0, 3)
+        Dim TelNo As String
+        If num.Trim() = "" Or num.Length > 11 Or num.Length < 10 Then
+            Return False
+        End If
 
-        If tel_no = "010" Or tel_no = "011" Or tel_no = "016" Or tel_no = "017" Or tel_no = "018" Or tel_no = "019" Then
+        TelNo = num.Trim.Substring(0, 3)
+
+        If TelNo = "010" Or TelNo = "011" Or TelNo = "016" Or TelNo = "017" Or TelNo = "018" Or TelNo = "019" Then
             Return True
         Else
             Return False
