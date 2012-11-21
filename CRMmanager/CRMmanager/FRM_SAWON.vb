@@ -30,8 +30,12 @@
             txtId.MaxLength = 20
             txtName.MaxLength = 20
             txtPW.MaxLength = 50
-            txtTel.MaxLength = 20
-            txtHP.MaxLength = 20
+            txtWorkTelNo1.MaxLength = 4
+            txtWorkTelNo2.MaxLength = 4
+            txtWorkTelNo3.MaxLength = 4
+            cboHP.MaxLength = 3
+            txtHP1.MaxLength = 4
+            txtHP2.MaxLength = 4
             txtWP1.MaxLength = 3
             txtWP2.MaxLength = 3
             txtExt.MaxLength = 10
@@ -114,6 +118,7 @@
                   ",a.EXTENSION_NO, a.ADDR1, a.USER_EMAIL, a.DEPART_CD, a.DEPART_NM, a.GRADE, a.WORK_AREA, a.TEAM_CD " & _
                   ",if (length(a.ENTERING_DD) = 8, CONCAT(SUBSTRING(a.ENTERING_DD,1,4) , '-' , SUBSTRING(a.ENTERING_DD,5,2) , '-' , SUBSTRING(a.ENTERING_DD,7,2)),'') ENTERING_DD " & _
                   ",if (length(a.RETIRE_DD) = 8, CONCAT(SUBSTRING(a.RETIRE_DD,1,4) , '-' , SUBSTRING(a.RETIRE_DD,5,2) , '-' , SUBSTRING(a.RETIRE_DD,7,2)),'') RETIRE_DD " & _
+                  ",IFNULL(MOBILE_USE_YN,'N') MOBILE_USE_YN " & _
                   "From t_user a " & _
                   "Where a.COM_CD='" & tmp(0).Trim & "' " & _
                   "and a.USER_ID = '" & tmp(1).Trim & "' "
@@ -125,8 +130,8 @@
                     txtId.Text = .Item("USER_ID").ToString
                     txtName.Text = .Item("USER_NM").ToString
                     txtPW.Text = .Item("USER_PWD").ToString
-                    txtTel.Text = Get_TELNO(.Item("H_TELNO").ToString)
-                    txtHP.Text = Get_TELNO(.Item("USR_HP").ToString)
+                    'txtTel.Text = Get_TELNO(.Item("H_TELNO").ToString)
+                    'txtHP.Text = Get_TELNO(.Item("USR_HP").ToString)
                     txtWP1.Text = .Item("WOO_NO1").ToString
                     txtWP2.Text = .Item("WOO_NO2").ToString
                     txtExt.Text = .Item("EXTENSION_NO").ToString
@@ -135,6 +140,31 @@
                     cboPosition.SelectedValue = .Item("GRADE").ToString
                     cboGrade.SelectedValue = .Item("WORK_AREA").ToString
                     cboTeam.SelectedValue = .Item("TEAM_CD").ToString
+                    ckbMobileUser.Checked = (.Item("MOBILE_USE_YN").ToString = "Y")
+
+                    If (.Item("H_TELNO").ToString.Trim.Replace("-", "").Length < 9) Then
+                        txtWorkTelNo1.Text = ""
+                        txtWorkTelNo2.Text = ""
+                        txtWorkTelNo3.Text = ""
+                    Else
+                        Dim telno() As String = gfTelNoTransReturn(.Item("H_TELNO").ToString.Trim.Replace("-", "")).Split("-")
+
+                        txtWorkTelNo1.Text = telno(0)
+                        txtWorkTelNo2.Text = telno(1)
+                        txtWorkTelNo3.Text = telno(2)
+                    End If
+
+
+                    If (.Item("USR_HP").ToString.Replace("-", "").Length < 9) Then
+                        cboHP.SelectedItem = ""
+                        txtHP1.Text = ""
+                        txtHP2.Text = ""
+                    Else
+                        Dim txthp() As String = gfTelNoTransReturn(.Item("USR_HP").ToString.Trim.Replace("-", "")).Split("-")
+                        cboHP.SelectedItem = txthp(0).Trim
+                        txtHP1.Text = txthp(1).Trim
+                        txtHP2.Text = txthp(2).Trim
+                    End If
 
                     If .Item("ENTERING_DD").ToString = "" Then
                         DPDate1.Value = Now
@@ -143,10 +173,10 @@
                     End If
 
                     If .Item("RETIRE_DD").ToString.Trim = "" Then
-                        chkRetire.Checked = False
+                        ckbRetire.Checked = False
                         DPDate2.Value = Now
                     Else
-                        chkRetire.Checked = True
+                        ckbRetire.Checked = True
                         DPDate2.Value = CDate(.Item("RETIRE_DD").ToString)
                     End If
 
@@ -165,6 +195,7 @@
 
     Public Sub gsSave()
         Dim dt As DataTable
+        Dim dt2 As DataTable
         Try
             If txtId.Text.Trim = "" Then
                 MsgBox("사원번호를 입력하십시오.", MsgBoxStyle.OkOnly, "정보")
@@ -192,24 +223,48 @@
             End If
 
             ''처리
-            temp = "SELECT count(a.USER_ID) From t_user a " & _
+            temp = "SELECT count(*) From t_user a " & _
                   "Where a.COM_CD='" & gsCOM_CD & "' and a.USER_ID='" & txtId.Text.Trim & "' "
             dt = Mysql_GetData_table(gsConString, temp)
 
-            If dt.Rows(0).Item(0).ToString.Trim = "0" Then
-                temp = "Insert into t_user(COM_CD,USER_ID,USER_NM,USR_HP,ADDR1,WOO_NO,H_TELNO,GRADE,EXTENSION_NO,WORK_TYPE,ENTERING_DD,RETIRE_DD,USER_EMAIL,USER_PWD,WORK_AREA,TEAM_CD,TEAM_NM) " & _
-                       " values('" & gsCOM_CD & "','" & txtId.Text.Trim & "','" & txtName.Text.Trim & "','" & txtHP.Text.Trim.Replace("-", "").Replace(" ", "") & "','" & txtAddress.Text.Trim & "','" & txtWP1.Text.Trim & txtWP2.Text.Trim & _
-                       "','" & txtTel.Text.Trim.Replace("-", "").Replace(" ", "") & "','" & cboPosition.SelectedValue.ToString.Trim & "','" & txtExt.Text.Trim & "','','" & _
-                       DPDate1.Text.Replace("-", "").Replace("/", "").Trim & "','" & If(chkRetire.Checked = False, "", DPDate2.Text.Replace("-", "").Replace("/", "").Trim) & "','" & txtEmail.Text.Trim & _
-                       "','" & txtPW.Text.Trim & "','" & cboGrade.SelectedValue.ToString.Trim & "','" & cboTeam.SelectedValue.ToString.Trim & _
-                       "','" & If(cboTeam.Text.Trim = "-", "", cboTeam.Text.Trim) & "') "
-            Else
-                temp = "Update t_user set USER_ID='" & txtId.Text.Trim & "',USER_NM='" & txtName.Text.Trim & "',USR_HP='" & txtHP.Text.Trim.Replace("-", "") & "',ADDR1='" & txtAddress.Text.Trim & "',WOO_NO='" & txtWP1.Text.Trim & txtWP2.Text.Trim & _
-                       "',H_TELNO='" & txtTel.Text.Trim.Replace("-", "") & "',GRADE='" & cboPosition.SelectedValue.ToString.Trim & "',EXTENSION_NO='" & txtExt.Text.Trim & _
-                       "',ENTERING_DD='" & DPDate1.Text.Replace("-", "").Replace("/", "").Trim & "',RETIRE_DD='" & If(chkRetire.Checked = False, "", DPDate2.Text.Replace("-", "").Replace("/", "").Trim) & _
-                       "',USER_EMAIL='" & txtEmail.Text.Trim & "',USER_PWD='" & txtPW.Text.Trim & _
-                       "',WORK_AREA='" & cboGrade.SelectedValue.ToString.Trim & "',TEAM_CD='" & cboTeam.SelectedValue.ToString.Trim & "',TEAM_NM='" & If(cboTeam.Text.Trim = "-", "", cboTeam.Text.Trim) & _
-                       "' Where COM_CD='" & gsCOM_CD & "' and USER_ID='" & txtId.Text.Trim & "' "
+            Dim hpNo As String = cboHP.Text.Trim & txtHP1.Text & txtHP2.Text
+            Dim telNo As String = txtWorkTelNo1.Text.Trim & txtWorkTelNo2.Text.Trim & txtWorkTelNo3.Text.Trim
+
+            '모바일사용자인 경우 동일 핸드폰번호가 중복이면 에러
+            temp = "SELECT count(a.USER_ID) From t_user a " & _
+                  "Where a.COM_CD='" & gsCOM_CD & "' and a.USR_HP='" & hpNo & "' and a.USER_ID<>'" & txtId.Text.Trim & "' "
+            dt2 = Mysql_GetData_table(gsConString, temp)
+
+            Dim userCount As Integer = Integer.Parse(dt.Rows(0).Item(0).ToString.Trim)
+            Dim hpCount As Integer = Integer.Parse(dt2.Rows(0).Item(0).ToString.Trim)
+            Dim isMobileUser As Boolean = ckbMobileUser.Checked
+
+            If (userCount = 0) Then ' Insert
+                If (Not isMobileUser Or hpCount = 0) Then
+                    temp = "Insert into t_user(COM_CD,USER_ID,USER_NM,USR_HP,ADDR1,WOO_NO,H_TELNO,GRADE,EXTENSION_NO,WORK_TYPE,ENTERING_DD,RETIRE_DD,USER_EMAIL,USER_PWD,WORK_AREA,TEAM_CD,TEAM_NM, MOBILE_USE_YN) " & _
+                           " values('" & gsCOM_CD & "','" & txtId.Text.Trim & "','" & txtName.Text.Trim & "','" & hpNo & "','" & txtAddress.Text.Trim & "','" & txtWP1.Text.Trim & txtWP2.Text.Trim & _
+                           "','" & telNo & "','" & cboPosition.SelectedValue.ToString.Trim & "','" & txtExt.Text.Trim & "','','" & _
+                           DPDate1.Text.Replace("-", "").Replace("/", "").Trim & "','" & If(ckbRetire.Checked = False, "", DPDate2.Text.Replace("-", "").Replace("/", "").Trim) & "','" & txtEmail.Text.Trim & _
+                           "','" & txtPW.Text.Trim & "','" & cboGrade.SelectedValue.ToString.Trim & "','" & cboTeam.SelectedValue.ToString.Trim & _
+                           "','" & If(cboTeam.Text.Trim = "-", "", cboTeam.Text.Trim) & "','" & If(isMobileUser, "Y", "N") & "') "
+                Else
+                    MsgBox("이미 등록된 핸드폰 번호입니다." & vbCrLf & "모바일앱사용자는 다른 사용자와 핸드폰번호를 중복등록할 수 없습니다.", MsgBoxStyle.Critical, "정보")
+                    Return
+                End If
+            ElseIf (userCount = 1) Then
+                If (Not isMobileUser Or hpCount = 0) Then
+                    temp = "Update t_user set USER_ID='" & txtId.Text.Trim & "',USER_NM='" & txtName.Text.Trim & "',USR_HP='" & hpNo & "',ADDR1='" & txtAddress.Text.Trim & "',WOO_NO='" & txtWP1.Text.Trim & txtWP2.Text.Trim & _
+                           "',H_TELNO='" & telNo & "',GRADE='" & cboPosition.SelectedValue.ToString.Trim & "',EXTENSION_NO='" & txtExt.Text.Trim & _
+                           "',ENTERING_DD='" & DPDate1.Text.Replace("-", "").Replace("/", "").Trim & "',RETIRE_DD='" & If(ckbRetire.Checked = False, "", DPDate2.Text.Replace("-", "").Replace("/", "").Trim) & _
+                           "',USER_EMAIL='" & txtEmail.Text.Trim & "',USER_PWD='" & txtPW.Text.Trim & _
+                           "',WORK_AREA='" & cboGrade.SelectedValue.ToString.Trim & "',TEAM_CD='" & cboTeam.SelectedValue.ToString.Trim & _
+                           "',TEAM_NM='" & If(cboTeam.Text.Trim = "-", "", cboTeam.Text.Trim) & _
+                           "',MOBILE_USE_YN='" & If(isMobileUser, "Y", "N") & _
+                           "' Where COM_CD='" & gsCOM_CD & "' and USER_ID='" & txtId.Text.Trim & "' "
+                Else
+                    MsgBox("이미 등록된 핸드폰 번호입니다." & vbCrLf & "모바일앱사용자는 다른 사용자와 핸드폰번호를 중복등록할 수 없습니다.", MsgBoxStyle.Critical, "정보")
+                    Return
+                End If
             End If
 
             Dim iReturn As Integer = Mysql_Transact_Data(gsConString, temp)
@@ -226,12 +281,14 @@
                 MsgBox("등록에 실패했습니다.", MsgBoxStyle.Critical, "정보")
             End If
             Controls_Setting2("")
+
         Catch ex As Exception
             Call WriteLog(Me.Name & " : " & ex.ToString)
             MsgBox("등록에 실패했습니다.", MsgBoxStyle.Critical, "정보")
         Finally
             dt = Nothing
         End Try
+
     End Sub
 
     Public Sub gsDelete()
@@ -272,8 +329,12 @@
             txtId.Text = ""
             txtName.Text = ""
             txtPW.Text = ""
-            txtHP.Text = ""
-            txtTel.Text = ""
+            cboHP.SelectedIndex = 0
+            txtHP1.Text = ""
+            txtHP2.Text = ""
+            txtWorkTelNo1.Text = ""
+            txtWorkTelNo2.Text = ""
+            txtWorkTelNo3.Text = ""
             txtExt.Text = ""
             txtWP1.Text = ""
             txtWP2.Text = ""
@@ -284,7 +345,8 @@
             cboTeam.SelectedValue = ""
             DPDate1.Value = Now
             DPDate2.Value = Now
-            chkRetire.Checked = False
+            ckbRetire.Checked = False
+            ckbMobileUser.Checked = False
         Catch ex As Exception
             Call WriteLog(Me.Name & " : " & ex.ToString)
         End Try

@@ -22,9 +22,9 @@ Partial Class FRM_SAWON
     '코드 편집기를 사용하여 수정하지 마십시오.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FRM_SAWON))
         Me.DataGridView1 = New System.Windows.Forms.DataGridView
         Me.COM_NM = New System.Windows.Forms.DataGridViewTextBoxColumn
@@ -43,6 +43,13 @@ Partial Class FRM_SAWON
         Me.Label28 = New System.Windows.Forms.Label
         Me.TabControl1 = New System.Windows.Forms.TabControl
         Me.TabPage1 = New System.Windows.Forms.TabPage
+        Me.txtWorkTelNo3 = New System.Windows.Forms.TextBox
+        Me.txtWorkTelNo2 = New System.Windows.Forms.TextBox
+        Me.txtWorkTelNo1 = New System.Windows.Forms.TextBox
+        Me.txtHP2 = New System.Windows.Forms.TextBox
+        Me.cboHP = New System.Windows.Forms.ComboBox
+        Me.txtHP1 = New System.Windows.Forms.TextBox
+        Me.Label4 = New System.Windows.Forms.Label
         Me.btnZipCode = New System.Windows.Forms.Button
         Me.Label25 = New System.Windows.Forms.Label
         Me.Label12 = New System.Windows.Forms.Label
@@ -84,19 +91,18 @@ Partial Class FRM_SAWON
         Me.txtWP1 = New System.Windows.Forms.TextBox
         Me.Label11 = New System.Windows.Forms.Label
         Me.DPDate2 = New System.Windows.Forms.DateTimePicker
-        Me.chkRetire = New System.Windows.Forms.CheckBox
+        Me.ckbRetire = New System.Windows.Forms.CheckBox
         Me.DPDate1 = New System.Windows.Forms.DateTimePicker
         Me.Label10 = New System.Windows.Forms.Label
         Me.txtEmail = New System.Windows.Forms.TextBox
         Me.Label9 = New System.Windows.Forms.Label
         Me.txtAddress = New System.Windows.Forms.TextBox
-        Me.txtHP = New System.Windows.Forms.TextBox
-        Me.txtTel = New System.Windows.Forms.TextBox
         Me.Label7 = New System.Windows.Forms.Label
         Me.cboPosition = New System.Windows.Forms.ComboBox
         Me.txtName = New System.Windows.Forms.TextBox
         Me.txtId = New System.Windows.Forms.TextBox
         Me.Label2 = New System.Windows.Forms.Label
+        Me.ckbMobileUser = New System.Windows.Forms.CheckBox
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
@@ -108,17 +114,17 @@ Partial Class FRM_SAWON
         Me.DataGridView1.AllowUserToAddRows = False
         Me.DataGridView1.AllowUserToDeleteRows = False
         Me.DataGridView1.AllowUserToOrderColumns = True
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.DataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.DataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle13
         Me.DataGridView1.BackgroundColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle14.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle14
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.COM_NM, Me.TEAM_NM, Me.USER_ID, Me.USER_NM, Me.COM_CD})
         Me.DataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
@@ -127,14 +133,14 @@ Partial Class FRM_SAWON
         Me.DataGridView1.MultiSelect = False
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle15.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle15
         Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.RowTemplate.Height = 23
         Me.DataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
@@ -273,6 +279,14 @@ Partial Class FRM_SAWON
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.ckbMobileUser)
+        Me.TabPage1.Controls.Add(Me.txtWorkTelNo3)
+        Me.TabPage1.Controls.Add(Me.txtWorkTelNo2)
+        Me.TabPage1.Controls.Add(Me.txtWorkTelNo1)
+        Me.TabPage1.Controls.Add(Me.txtHP2)
+        Me.TabPage1.Controls.Add(Me.cboHP)
+        Me.TabPage1.Controls.Add(Me.txtHP1)
+        Me.TabPage1.Controls.Add(Me.Label4)
         Me.TabPage1.Controls.Add(Me.btnZipCode)
         Me.TabPage1.Controls.Add(Me.Label25)
         Me.TabPage1.Controls.Add(Me.Label12)
@@ -314,14 +328,12 @@ Partial Class FRM_SAWON
         Me.TabPage1.Controls.Add(Me.txtWP1)
         Me.TabPage1.Controls.Add(Me.Label11)
         Me.TabPage1.Controls.Add(Me.DPDate2)
-        Me.TabPage1.Controls.Add(Me.chkRetire)
+        Me.TabPage1.Controls.Add(Me.ckbRetire)
         Me.TabPage1.Controls.Add(Me.DPDate1)
         Me.TabPage1.Controls.Add(Me.Label10)
         Me.TabPage1.Controls.Add(Me.txtEmail)
         Me.TabPage1.Controls.Add(Me.Label9)
         Me.TabPage1.Controls.Add(Me.txtAddress)
-        Me.TabPage1.Controls.Add(Me.txtHP)
-        Me.TabPage1.Controls.Add(Me.txtTel)
         Me.TabPage1.Controls.Add(Me.Label7)
         Me.TabPage1.Controls.Add(Me.cboPosition)
         Me.TabPage1.Controls.Add(Me.txtName)
@@ -334,6 +346,66 @@ Partial Class FRM_SAWON
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "사원정보"
         Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'txtWorkTelNo3
+        '
+        Me.txtWorkTelNo3.Location = New System.Drawing.Point(162, 105)
+        Me.txtWorkTelNo3.MaxLength = 4
+        Me.txtWorkTelNo3.Name = "txtWorkTelNo3"
+        Me.txtWorkTelNo3.Size = New System.Drawing.Size(35, 21)
+        Me.txtWorkTelNo3.TabIndex = 216
+        '
+        'txtWorkTelNo2
+        '
+        Me.txtWorkTelNo2.Location = New System.Drawing.Point(123, 105)
+        Me.txtWorkTelNo2.MaxLength = 4
+        Me.txtWorkTelNo2.Name = "txtWorkTelNo2"
+        Me.txtWorkTelNo2.Size = New System.Drawing.Size(35, 21)
+        Me.txtWorkTelNo2.TabIndex = 215
+        '
+        'txtWorkTelNo1
+        '
+        Me.txtWorkTelNo1.Location = New System.Drawing.Point(82, 105)
+        Me.txtWorkTelNo1.MaxLength = 4
+        Me.txtWorkTelNo1.Name = "txtWorkTelNo1"
+        Me.txtWorkTelNo1.Size = New System.Drawing.Size(35, 21)
+        Me.txtWorkTelNo1.TabIndex = 214
+        '
+        'txtHP2
+        '
+        Me.txtHP2.Location = New System.Drawing.Point(357, 105)
+        Me.txtHP2.MaxLength = 4
+        Me.txtHP2.Name = "txtHP2"
+        Me.txtHP2.Size = New System.Drawing.Size(35, 21)
+        Me.txtHP2.TabIndex = 213
+        '
+        'cboHP
+        '
+        Me.cboHP.BackColor = System.Drawing.Color.MintCream
+        Me.cboHP.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboHP.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.cboHP.FormattingEnabled = True
+        Me.cboHP.Items.AddRange(New Object() {"", "010", "011", "016", "017", "018", "019"})
+        Me.cboHP.Location = New System.Drawing.Point(266, 105)
+        Me.cboHP.Name = "cboHP"
+        Me.cboHP.Size = New System.Drawing.Size(49, 20)
+        Me.cboHP.TabIndex = 211
+        '
+        'txtHP1
+        '
+        Me.txtHP1.Location = New System.Drawing.Point(316, 105)
+        Me.txtHP1.MaxLength = 4
+        Me.txtHP1.Name = "txtHP1"
+        Me.txtHP1.Size = New System.Drawing.Size(35, 21)
+        Me.txtHP1.TabIndex = 212
+        '
+        'Label4
+        '
+        Me.Label4.Image = CType(resources.GetObject("Label4.Image"), System.Drawing.Image)
+        Me.Label4.Location = New System.Drawing.Point(207, 136)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(13, 12)
+        Me.Label4.TabIndex = 137
         '
         'btnZipCode
         '
@@ -538,7 +610,7 @@ Partial Class FRM_SAWON
         '
         Me.cboGrade.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboGrade.FormattingEnabled = True
-        Me.cboGrade.Location = New System.Drawing.Point(277, 47)
+        Me.cboGrade.Location = New System.Drawing.Point(266, 47)
         Me.cboGrade.Name = "cboGrade"
         Me.cboGrade.Size = New System.Drawing.Size(115, 20)
         Me.cboGrade.TabIndex = 28
@@ -659,16 +731,16 @@ Partial Class FRM_SAWON
         Me.DPDate2.TabIndex = 41
         Me.DPDate2.Value = New Date(2011, 7, 12, 20, 59, 36, 0)
         '
-        'chkRetire
+        'ckbRetire
         '
-        Me.chkRetire.Font = New System.Drawing.Font("굴림", 8.99!)
-        Me.chkRetire.Location = New System.Drawing.Point(211, 253)
-        Me.chkRetire.Margin = New System.Windows.Forms.Padding(3, 0, 3, 0)
-        Me.chkRetire.Name = "chkRetire"
-        Me.chkRetire.Size = New System.Drawing.Size(60, 16)
-        Me.chkRetire.TabIndex = 40
-        Me.chkRetire.Text = "퇴사일"
-        Me.chkRetire.UseVisualStyleBackColor = True
+        Me.ckbRetire.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.ckbRetire.Location = New System.Drawing.Point(211, 253)
+        Me.ckbRetire.Margin = New System.Windows.Forms.Padding(3, 0, 3, 0)
+        Me.ckbRetire.Name = "ckbRetire"
+        Me.ckbRetire.Size = New System.Drawing.Size(60, 16)
+        Me.ckbRetire.TabIndex = 40
+        Me.ckbRetire.Text = "퇴사일"
+        Me.ckbRetire.UseVisualStyleBackColor = True
         '
         'DPDate1
         '
@@ -711,20 +783,6 @@ Partial Class FRM_SAWON
         Me.txtAddress.Size = New System.Drawing.Size(313, 21)
         Me.txtAddress.TabIndex = 37
         '
-        'txtHP
-        '
-        Me.txtHP.Location = New System.Drawing.Point(277, 104)
-        Me.txtHP.Name = "txtHP"
-        Me.txtHP.Size = New System.Drawing.Size(115, 21)
-        Me.txtHP.TabIndex = 32
-        '
-        'txtTel
-        '
-        Me.txtTel.Location = New System.Drawing.Point(81, 104)
-        Me.txtTel.Name = "txtTel"
-        Me.txtTel.Size = New System.Drawing.Size(115, 21)
-        Me.txtTel.TabIndex = 31
-        '
         'Label7
         '
         Me.Label7.AutoSize = True
@@ -738,14 +796,14 @@ Partial Class FRM_SAWON
         '
         Me.cboPosition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboPosition.FormattingEnabled = True
-        Me.cboPosition.Location = New System.Drawing.Point(277, 76)
+        Me.cboPosition.Location = New System.Drawing.Point(266, 76)
         Me.cboPosition.Name = "cboPosition"
         Me.cboPosition.Size = New System.Drawing.Size(115, 20)
         Me.cboPosition.TabIndex = 30
         '
         'txtName
         '
-        Me.txtName.Location = New System.Drawing.Point(277, 18)
+        Me.txtName.Location = New System.Drawing.Point(266, 18)
         Me.txtName.Name = "txtName"
         Me.txtName.Size = New System.Drawing.Size(115, 21)
         Me.txtName.TabIndex = 26
@@ -765,6 +823,18 @@ Partial Class FRM_SAWON
         Me.Label2.Size = New System.Drawing.Size(53, 12)
         Me.Label2.TabIndex = 24
         Me.Label2.Text = "사원번호"
+        '
+        'ckbMobileUser
+        '
+        Me.ckbMobileUser.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.ckbMobileUser.Font = New System.Drawing.Font("굴림체", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.ckbMobileUser.Location = New System.Drawing.Point(221, 135)
+        Me.ckbMobileUser.Margin = New System.Windows.Forms.Padding(3, 0, 3, 0)
+        Me.ckbMobileUser.Name = "ckbMobileUser"
+        Me.ckbMobileUser.Size = New System.Drawing.Size(138, 19)
+        Me.ckbMobileUser.TabIndex = 217
+        Me.ckbMobileUser.Text = "모바일앱사용자여부"
+        Me.ckbMobileUser.UseVisualStyleBackColor = True
         '
         'FRM_SAWON
         '
@@ -799,9 +869,7 @@ Partial Class FRM_SAWON
     Friend WithEvents txtEmail As System.Windows.Forms.TextBox
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents txtAddress As System.Windows.Forms.TextBox
-    Friend WithEvents txtHP As System.Windows.Forms.TextBox
     Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents txtTel As System.Windows.Forms.TextBox
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents cboPosition As System.Windows.Forms.ComboBox
     Friend WithEvents Label5 As System.Windows.Forms.Label
@@ -849,7 +917,7 @@ Partial Class FRM_SAWON
     Friend WithEvents btnInit As System.Windows.Forms.Button
     Friend WithEvents btnDelete As System.Windows.Forms.Button
     Friend WithEvents DPDate2 As System.Windows.Forms.DateTimePicker
-    Friend WithEvents chkRetire As System.Windows.Forms.CheckBox
+    Friend WithEvents ckbRetire As System.Windows.Forms.CheckBox
     Friend WithEvents Label43 As System.Windows.Forms.Label
     Friend WithEvents cboTeam As System.Windows.Forms.ComboBox
     Friend WithEvents Label44 As System.Windows.Forms.Label
@@ -859,4 +927,12 @@ Partial Class FRM_SAWON
     Friend WithEvents USER_ID As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents USER_NM As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents COM_CD As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents txtHP2 As System.Windows.Forms.TextBox
+    Friend WithEvents cboHP As System.Windows.Forms.ComboBox
+    Friend WithEvents txtHP1 As System.Windows.Forms.TextBox
+    Friend WithEvents txtWorkTelNo3 As System.Windows.Forms.TextBox
+    Friend WithEvents txtWorkTelNo2 As System.Windows.Forms.TextBox
+    Friend WithEvents txtWorkTelNo1 As System.Windows.Forms.TextBox
+    Friend WithEvents ckbMobileUser As System.Windows.Forms.CheckBox
 End Class

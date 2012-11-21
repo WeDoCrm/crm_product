@@ -17,15 +17,37 @@
             Call SettoolBar(True, True, True, True, False, True, True)
 
             '******************************************* 고객 유형 입력 ***********************************************************
-            Dim SQL_TEMP As String = " SELECT '' S_MENU_NM,'XXXX' S_MENU_CD UNION ALL SELECT S_MENU_NM,S_MENU_CD FROM T_S_CODE WHERE  COM_CD = '" & gsCOM_CD & "' AND L_MENU_CD = '006' "
+            'Dim SQL_TEMP As String = " SELECT '' S_MENU_NM,'XXXX' S_MENU_CD UNION ALL SELECT S_MENU_NM,S_MENU_CD FROM T_S_CODE WHERE  COM_CD = '" & gsCOM_CD & "' AND L_MENU_CD = '006' "
 
+            'dt1 = GetData_table1(gsConString, SQL_TEMP)
+
+            'cboCustomerType.DataSource = dt1
+            'cboCustomerType.DisplayMember = dt1.Columns(0).ToString
+            'cboCustomerType.ValueMember = dt1.Columns(1).ToString
+
+            'cboCustomerType.SelectedIndex = 0
+
+            '******************************************* 고객 유형 입력 ***********************************************************
+            Dim SQL_TEMP As String = Find_Query("006")
             dt1 = GetData_table1(gsConString, SQL_TEMP)
 
             cboCustomerType.DataSource = dt1
             cboCustomerType.DisplayMember = dt1.Columns(0).ToString
             cboCustomerType.ValueMember = dt1.Columns(1).ToString
 
-            cboCustomerType.SelectedIndex = 0
+            setComboSelect(cboCustomerType, 0) 'cboCustomerType.SelectedIndex = 0 '3 '일반고객
+
+            cboCustomerType2.DataSource = dt1
+            cboCustomerType2.DisplayMember = dt1.Columns(0).ToString
+            cboCustomerType2.ValueMember = dt1.Columns(1).ToString
+
+            setComboSelect(cboCustomerType2, 0) 'cboCustomerType.SelectedIndex = 0 '3 '일반고객
+
+
+            dt1 = Nothing
+
+
+
             If Not gbIsCustomerTablePatched Then
                 pnlCustomerMiddle.Hide()
                 pnlCustomerBottom.Top = pnlCustomerMiddle.Top
@@ -56,9 +78,9 @@
             SQL_TEMP = SQL_TEMP & " ,CONCAT(CUSTOMER_TYPE ,'.', (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = '" & gsCOM_CD & "' AND L_MENU_CD = '006' AND S_MENU_CD = CUSTOMER_TYPE )) CUSTOMER_TYPE  "
             SQL_TEMP = SQL_TEMP & ",WOO_NO ,CUSTOMER_ADDR ,CUSTOMER_ETC "
             SQL_TEMP = SQL_TEMP & " FROM T_CUSTOMER a "
+            SQL_TEMP = SQL_TEMP & " WHERE  COM_CD = '" & gsCOM_CD & "' "
 
             If txtSearch.Text.Trim <> "" Then
-                SQL_TEMP = SQL_TEMP & " WHERE  COM_CD = '" & gsCOM_CD & "' "
                 SQL_TEMP = SQL_TEMP & " AND ( EXISTS (SELECT * FROM t_customer_telno b WHERE COM_CD ='" & gsCOM_CD & "'"
                 SQL_TEMP = SQL_TEMP & " AND B.CUSTOMER_ID = A.CUSTOMER_ID "
                 SQL_TEMP = SQL_TEMP & " AND TELNO LIKE '%" & txtSearch.Text.Trim.Replace("-", "") & "%') "
@@ -73,6 +95,10 @@
                 SQL_TEMP = SQL_TEMP & " OR DEPARTMENT LIKE '%" & txtSearch.Text.Trim & "%'"
 
                 SQL_TEMP = SQL_TEMP & " OR CUSTOMER_NM LIKE '%" & txtSearch.Text.Trim & "%') ORDER BY CUSTOMER_ID ASC"
+            End If
+
+            If cboCustomerType.SelectedIndex > 0 Then
+                SQL_TEMP = SQL_TEMP & " AND CUSTOMER_TYPE ='" & cboCustomerType2.SelectedValue.ToString.Replace("XXXX", "") & "'" ' CUSTOMER TYPE
             End If
 
 

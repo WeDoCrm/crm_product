@@ -41,7 +41,7 @@ Module MiniCTI
     Public Const CONFIG_FILE_DEMO As String = "\config\MiniCTI_config_demo.xml"
     Public Const CONFIG_FILE_PRODUCT As String = "\config\MiniCTI_config.xml"
     Public Const VERSION_DEMO As String = "Ver 2.1.1.5B"
-    Public Const VERSION_PRODUCT As String = "Ver 2.1.1.6"
+    Public Const VERSION_PRODUCT As String = "Ver 2.1.1.7"
     Public gsAppVersion As String
     Public gsPopUpOption As String = "MDI"
 
