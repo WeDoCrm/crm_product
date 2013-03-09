@@ -1346,6 +1346,7 @@ Partial Class FRM_SCHEDULE
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FRM_SCHEDULE"
         Me.Padding = New System.Windows.Forms.Padding(1)
+        Me.ShowIcon = False
         Me.Text = "일정관리"
         Me.FlowLayoutPanel1.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()

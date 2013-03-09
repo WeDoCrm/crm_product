@@ -48,7 +48,6 @@ Partial Class FRM_CALL_STATISTICS3
         Me.DPDate1 = New System.Windows.Forms.DateTimePicker
         Me.Label1 = New System.Windows.Forms.Label
         Me.DataGridView1 = New System.Windows.Forms.DataGridView
-        Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog
         Me.Gubun = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.Call_Total = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.Call_Received = New System.Windows.Forms.DataGridViewTextBoxColumn
@@ -63,6 +62,7 @@ Partial Class FRM_CALL_STATISTICS3
         Me.Sawon_Name = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.Consult_AS = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.Consult_Etc = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog
         Me.GroupBox1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -213,9 +213,6 @@ Partial Class FRM_CALL_STATISTICS3
         Me.DataGridView1.Size = New System.Drawing.Size(872, 594)
         Me.DataGridView1.TabIndex = 88
         '
-        'SaveFileDialog1
-        '
-        '
         'Gubun
         '
         Me.Gubun.DataPropertyName = "Gubun"
@@ -350,6 +347,9 @@ Partial Class FRM_CALL_STATISTICS3
         Me.Consult_Etc.ReadOnly = True
         Me.Consult_Etc.Visible = False
         '
+        'SaveFileDialog1
+        '
+        '
         'FRM_CALL_STATISTICS3
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -359,6 +359,7 @@ Partial Class FRM_CALL_STATISTICS3
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FRM_CALL_STATISTICS3"
+        Me.ShowIcon = False
         Me.Text = "팀통화건수"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()

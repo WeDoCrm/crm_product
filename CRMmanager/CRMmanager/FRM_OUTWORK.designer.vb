@@ -23,10 +23,11 @@ Partial Class FRM_OUTWORK
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FRM_OUTWORK))
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
+        Me.btnExcel = New System.Windows.Forms.Button
         Me.btnSelect = New System.Windows.Forms.Button
         Me.cboUser = New System.Windows.Forms.ComboBox
         Me.Label27 = New System.Windows.Forms.Label
@@ -40,6 +41,11 @@ Partial Class FRM_OUTWORK
         Me.dpt1 = New System.Windows.Forms.DateTimePicker
         Me.Label9 = New System.Windows.Forms.Label
         Me.DataGridView1 = New System.Windows.Forms.DataGridView
+        Me.CUSTOMER_ID = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.CUSTOMER_NM = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.C_TELNO = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.H_TELNO = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.FAX_NO = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.dpt3 = New System.Windows.Forms.DateTimePicker
         Me.Label2 = New System.Windows.Forms.Label
         Me.txtWorkArea = New System.Windows.Forms.TextBox
@@ -61,12 +67,6 @@ Partial Class FRM_OUTWORK
         Me.Label5 = New System.Windows.Forms.Label
         Me.Label10 = New System.Windows.Forms.Label
         Me.Label3 = New System.Windows.Forms.Label
-        Me.btnExcel = New System.Windows.Forms.Button
-        Me.CUSTOMER_ID = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.CUSTOMER_NM = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.C_TELNO = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.H_TELNO = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.FAX_NO = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog
         Me.GroupBox1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -93,6 +93,15 @@ Partial Class FRM_OUTWORK
         Me.GroupBox1.Size = New System.Drawing.Size(872, 55)
         Me.GroupBox1.TabIndex = 118
         Me.GroupBox1.TabStop = False
+        '
+        'btnExcel
+        '
+        Me.btnExcel.Location = New System.Drawing.Point(807, 20)
+        Me.btnExcel.Name = "btnExcel"
+        Me.btnExcel.Size = New System.Drawing.Size(45, 25)
+        Me.btnExcel.TabIndex = 239
+        Me.btnExcel.Text = "Excel"
+        Me.btnExcel.UseVisualStyleBackColor = True
         '
         'btnSelect
         '
@@ -207,17 +216,17 @@ Partial Class FRM_OUTWORK
         '
         Me.DataGridView1.AllowUserToAddRows = False
         Me.DataGridView1.AllowUserToDeleteRows = False
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.DataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.DataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.DataGridView1.BackgroundColor = System.Drawing.Color.White
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.CUSTOMER_ID, Me.CUSTOMER_NM, Me.C_TELNO, Me.H_TELNO, Me.FAX_NO})
         Me.DataGridView1.GridColor = System.Drawing.SystemColors.ActiveCaption
@@ -225,19 +234,55 @@ Partial Class FRM_OUTWORK
         Me.DataGridView1.MultiSelect = False
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.RowTemplate.Height = 23
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridView1.Size = New System.Drawing.Size(872, 400)
         Me.DataGridView1.TabIndex = 119
+        '
+        'CUSTOMER_ID
+        '
+        Me.CUSTOMER_ID.HeaderText = "외근일시"
+        Me.CUSTOMER_ID.Name = "CUSTOMER_ID"
+        Me.CUSTOMER_ID.ReadOnly = True
+        Me.CUSTOMER_ID.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.CUSTOMER_ID.Width = 120
+        '
+        'CUSTOMER_NM
+        '
+        Me.CUSTOMER_NM.HeaderText = "외근자"
+        Me.CUSTOMER_NM.Name = "CUSTOMER_NM"
+        Me.CUSTOMER_NM.ReadOnly = True
+        '
+        'C_TELNO
+        '
+        Me.C_TELNO.HeaderText = "외근사유"
+        Me.C_TELNO.Name = "C_TELNO"
+        Me.C_TELNO.ReadOnly = True
+        Me.C_TELNO.Width = 150
+        '
+        'H_TELNO
+        '
+        Me.H_TELNO.HeaderText = "외근지"
+        Me.H_TELNO.Name = "H_TELNO"
+        Me.H_TELNO.ReadOnly = True
+        Me.H_TELNO.Width = 200
+        '
+        'FAX_NO
+        '
+        Me.FAX_NO.HeaderText = "외근내용"
+        Me.FAX_NO.Name = "FAX_NO"
+        Me.FAX_NO.ReadOnly = True
+        Me.FAX_NO.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.FAX_NO.Width = 300
         '
         'dpt3
         '
@@ -450,51 +495,6 @@ Partial Class FRM_OUTWORK
         Me.Label3.Size = New System.Drawing.Size(13, 12)
         Me.Label3.TabIndex = 201
         '
-        'btnExcel
-        '
-        Me.btnExcel.Location = New System.Drawing.Point(807, 20)
-        Me.btnExcel.Name = "btnExcel"
-        Me.btnExcel.Size = New System.Drawing.Size(45, 25)
-        Me.btnExcel.TabIndex = 239
-        Me.btnExcel.Text = "Excel"
-        Me.btnExcel.UseVisualStyleBackColor = True
-        '
-        'CUSTOMER_ID
-        '
-        Me.CUSTOMER_ID.HeaderText = "외근일시"
-        Me.CUSTOMER_ID.Name = "CUSTOMER_ID"
-        Me.CUSTOMER_ID.ReadOnly = True
-        Me.CUSTOMER_ID.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.CUSTOMER_ID.Width = 120
-        '
-        'CUSTOMER_NM
-        '
-        Me.CUSTOMER_NM.HeaderText = "외근자"
-        Me.CUSTOMER_NM.Name = "CUSTOMER_NM"
-        Me.CUSTOMER_NM.ReadOnly = True
-        '
-        'C_TELNO
-        '
-        Me.C_TELNO.HeaderText = "외근사유"
-        Me.C_TELNO.Name = "C_TELNO"
-        Me.C_TELNO.ReadOnly = True
-        Me.C_TELNO.Width = 150
-        '
-        'H_TELNO
-        '
-        Me.H_TELNO.HeaderText = "외근지"
-        Me.H_TELNO.Name = "H_TELNO"
-        Me.H_TELNO.ReadOnly = True
-        Me.H_TELNO.Width = 200
-        '
-        'FAX_NO
-        '
-        Me.FAX_NO.HeaderText = "외근내용"
-        Me.FAX_NO.Name = "FAX_NO"
-        Me.FAX_NO.ReadOnly = True
-        Me.FAX_NO.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.FAX_NO.Width = 300
-        '
         'SaveFileDialog1
         '
         Me.SaveFileDialog1.FileName = "c"
@@ -509,6 +509,7 @@ Partial Class FRM_OUTWORK
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FRM_OUTWORK"
+        Me.ShowIcon = False
         Me.Text = "외근관리"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.GroupBox1.ResumeLayout(False)

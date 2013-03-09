@@ -107,7 +107,7 @@ Partial Class FRM_HISTORY_VIP
         Me.DataGridView2.BackgroundColor = System.Drawing.Color.White
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
         DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
@@ -122,7 +122,7 @@ Partial Class FRM_HISTORY_VIP
         Me.DataGridView2.ReadOnly = True
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
         DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
@@ -234,7 +234,7 @@ Partial Class FRM_HISTORY_VIP
         '
         Me.cboCustomerType.BackColor = System.Drawing.Color.MintCream
         Me.cboCustomerType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboCustomerType.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.cboCustomerType.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.cboCustomerType.FormattingEnabled = True
         Me.cboCustomerType.Location = New System.Drawing.Point(306, 51)
         Me.cboCustomerType.Name = "cboCustomerType"
@@ -271,7 +271,7 @@ Partial Class FRM_HISTORY_VIP
         '
         Me.cboUser.BackColor = System.Drawing.Color.MintCream
         Me.cboUser.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboUser.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.cboUser.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.cboUser.FormattingEnabled = True
         Me.cboUser.Location = New System.Drawing.Point(508, 77)
         Me.cboUser.Name = "cboUser"
@@ -298,7 +298,7 @@ Partial Class FRM_HISTORY_VIP
         '
         Me.cboConsultResult.BackColor = System.Drawing.Color.MintCream
         Me.cboConsultResult.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboConsultResult.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.cboConsultResult.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.cboConsultResult.FormattingEnabled = True
         Me.cboConsultResult.Location = New System.Drawing.Point(306, 77)
         Me.cboConsultResult.Name = "cboConsultResult"
@@ -317,7 +317,7 @@ Partial Class FRM_HISTORY_VIP
         '
         Me.cboConsultType.BackColor = System.Drawing.Color.MintCream
         Me.cboConsultType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboConsultType.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.cboConsultType.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.cboConsultType.FormattingEnabled = True
         Me.cboConsultType.Location = New System.Drawing.Point(89, 77)
         Me.cboConsultType.Name = "cboConsultType"
@@ -744,6 +744,7 @@ Partial Class FRM_HISTORY_VIP
         Me.Controls.Add(Me.DataGridView2)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FRM_HISTORY_VIP"
+        Me.ShowIcon = False
         Me.Text = "우수고객조회"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).EndInit()

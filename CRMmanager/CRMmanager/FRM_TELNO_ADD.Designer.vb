@@ -218,6 +218,7 @@ Partial Class FRM_TELNO_ADD
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MinimizeBox = False
         Me.Name = "FRM_TELNO_ADD"
+        Me.ShowIcon = False
         Me.Text = "전화번호 추가"
         Me.TopMost = True
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()

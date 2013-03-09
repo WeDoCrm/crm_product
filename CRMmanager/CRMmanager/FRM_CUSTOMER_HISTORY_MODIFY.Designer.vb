@@ -139,7 +139,7 @@ Partial Class FRM_CUSTOMER_HISTORY_MODIFY
         '
         Me.cboCallType.BackColor = System.Drawing.Color.MintCream
         Me.cboCallType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboCallType.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.cboCallType.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.cboCallType.FormattingEnabled = True
         Me.cboCallType.Location = New System.Drawing.Point(463, 33)
         Me.cboCallType.Name = "cboCallType"
@@ -233,7 +233,7 @@ Partial Class FRM_CUSTOMER_HISTORY_MODIFY
         '
         Me.cboConsultResult.BackColor = System.Drawing.Color.MintCream
         Me.cboConsultResult.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboConsultResult.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.cboConsultResult.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.cboConsultResult.FormattingEnabled = True
         Me.cboConsultResult.Location = New System.Drawing.Point(463, 59)
         Me.cboConsultResult.Name = "cboConsultResult"
@@ -260,7 +260,7 @@ Partial Class FRM_CUSTOMER_HISTORY_MODIFY
         '
         Me.cboConsultType.BackColor = System.Drawing.Color.MintCream
         Me.cboConsultType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboConsultType.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.cboConsultType.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.cboConsultType.FormattingEnabled = True
         Me.cboConsultType.Location = New System.Drawing.Point(278, 58)
         Me.cboConsultType.Name = "cboConsultType"
@@ -338,7 +338,7 @@ Partial Class FRM_CUSTOMER_HISTORY_MODIFY
         'btnCloseForm
         '
         Me.btnCloseForm.BackColor = System.Drawing.SystemColors.Control
-        Me.btnCloseForm.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnCloseForm.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnCloseForm.ForeColor = System.Drawing.SystemColors.ControlText
         Me.btnCloseForm.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.btnCloseForm.Location = New System.Drawing.Point(406, 169)
@@ -351,7 +351,7 @@ Partial Class FRM_CUSTOMER_HISTORY_MODIFY
         'btnSave
         '
         Me.btnSave.BackColor = System.Drawing.SystemColors.Control
-        Me.btnSave.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnSave.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnSave.ForeColor = System.Drawing.SystemColors.ControlText
         Me.btnSave.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.btnSave.Location = New System.Drawing.Point(350, 169)
@@ -373,6 +373,7 @@ Partial Class FRM_CUSTOMER_HISTORY_MODIFY
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "FRM_CUSTOMER_HISTORY_MODIFY"
+        Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "상담이력수정"
         Me.TopMost = True

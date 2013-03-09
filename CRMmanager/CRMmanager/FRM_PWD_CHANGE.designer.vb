@@ -60,7 +60,7 @@ Partial Class FRM_PWD_CHANGE
         'btnCloseForm
         '
         Me.btnCloseForm.BackColor = System.Drawing.SystemColors.Control
-        Me.btnCloseForm.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnCloseForm.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnCloseForm.ForeColor = System.Drawing.SystemColors.ControlText
         Me.btnCloseForm.ImeMode = System.Windows.Forms.ImeMode.[On]
         Me.btnCloseForm.Location = New System.Drawing.Point(275, 188)
@@ -162,6 +162,7 @@ Partial Class FRM_PWD_CHANGE
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FRM_PWD_CHANGE"
+        Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "비밀번호변경"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized

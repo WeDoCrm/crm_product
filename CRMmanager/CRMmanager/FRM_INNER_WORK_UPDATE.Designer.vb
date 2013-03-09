@@ -738,6 +738,7 @@ Partial Class FRM_INNER_WORK_UPDATE
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "FRM_INNER_WORK_UPDATE"
+        Me.ShowIcon = False
         Me.Text = "접수/처리 이력 업데이트"
         Me.TopMost = True
         Me.GroupBox1.ResumeLayout(False)

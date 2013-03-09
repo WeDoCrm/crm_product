@@ -22,16 +22,16 @@ Partial Class FRM_MONITOR
     '코드 편집기를 사용하여 수정하지 마십시오.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FRM_MONITOR))
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.dgViewMain = New System.Windows.Forms.DataGridView
         Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn
@@ -47,13 +47,16 @@ Partial Class FRM_MONITOR
         Me.ToggleButton1 = New Elegant.Ui.ToggleButton
         Me.ToggleButton2 = New Elegant.Ui.ToggleButton
         Me.ToggleButton3 = New Elegant.Ui.ToggleButton
+        Me.ToggleButton4 = New Elegant.Ui.ToggleButton
         Me.ToggleButton6 = New Elegant.Ui.ToggleButton
+        Me.Label24 = New System.Windows.Forms.Label
         Me.Label1 = New System.Windows.Forms.Label
         Me.GroupBox2 = New System.Windows.Forms.GroupBox
         Me.btnGrpTrans = New Elegant.Ui.ButtonGroup
         Me.ToggleButton10 = New Elegant.Ui.ToggleButton
         Me.ToggleButton11 = New Elegant.Ui.ToggleButton
         Me.ToggleButton12 = New Elegant.Ui.ToggleButton
+        Me.ToggleButton5 = New Elegant.Ui.ToggleButton
         Me.ToggleButton15 = New Elegant.Ui.ToggleButton
         Me.dgViewTrans = New System.Windows.Forms.DataGridView
         Me.DataGridViewTextBoxColumn8 = New System.Windows.Forms.DataGridViewTextBoxColumn
@@ -68,6 +71,7 @@ Partial Class FRM_MONITOR
         Me.DataGridViewTextBoxColumn17 = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.DataGridViewTextBoxColumn18 = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.DataGridViewTextBoxColumn19 = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.Label37 = New System.Windows.Forms.Label
         Me.Label43 = New System.Windows.Forms.Label
         Me.GroupBox3 = New System.Windows.Forms.GroupBox
         Me.dgViewCallback = New System.Windows.Forms.DataGridView
@@ -85,12 +89,8 @@ Partial Class FRM_MONITOR
         Me.ToggleButton7 = New Elegant.Ui.ToggleButton
         Me.ToggleButton8 = New Elegant.Ui.ToggleButton
         Me.ToggleButton9 = New Elegant.Ui.ToggleButton
-        Me.Label22 = New System.Windows.Forms.Label
         Me.Label16 = New System.Windows.Forms.Label
-        Me.Label37 = New System.Windows.Forms.Label
-        Me.Label24 = New System.Windows.Forms.Label
-        Me.ToggleButton4 = New Elegant.Ui.ToggleButton
-        Me.ToggleButton5 = New Elegant.Ui.ToggleButton
+        Me.Label22 = New System.Windows.Forms.Label
         Me.GroupBox1.SuspendLayout()
         CType(Me.dgViewMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.btnGrpConsult.SuspendLayout()
@@ -118,17 +118,17 @@ Partial Class FRM_MONITOR
         '
         Me.dgViewMain.AllowUserToAddRows = False
         Me.dgViewMain.AllowUserToDeleteRows = False
-        DataGridViewCellStyle19.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.dgViewMain.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle19
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.dgViewMain.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgViewMain.BackgroundColor = System.Drawing.Color.White
-        DataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle20.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgViewMain.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle20
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgViewMain.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.dgViewMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgViewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.DataGridViewTextBoxColumn6, Me.DataGridViewTextBoxColumn7, Me.Column2})
         Me.dgViewMain.GridColor = System.Drawing.SystemColors.ActiveCaption
@@ -136,14 +136,14 @@ Partial Class FRM_MONITOR
         Me.dgViewMain.MultiSelect = False
         Me.dgViewMain.Name = "dgViewMain"
         Me.dgViewMain.ReadOnly = True
-        DataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle21.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgViewMain.RowHeadersDefaultCellStyle = DataGridViewCellStyle21
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgViewMain.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgViewMain.RowHeadersVisible = False
         Me.dgViewMain.RowTemplate.Height = 23
         Me.dgViewMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
@@ -247,6 +247,16 @@ Partial Class FRM_MONITOR
         Me.ToggleButton3.Tag = "3"
         Me.ToggleButton3.Text = "미처리( 34 )"
         '
+        'ToggleButton4
+        '
+        Me.ToggleButton4.Id = "42da4adb-4499-49bb-aaa0-88c357894d35"
+        Me.ToggleButton4.Location = New System.Drawing.Point(360, 0)
+        Me.ToggleButton4.Name = "ToggleButton4"
+        Me.ToggleButton4.Size = New System.Drawing.Size(120, 22)
+        Me.ToggleButton4.TabIndex = 206
+        Me.ToggleButton4.Tag = "4"
+        Me.ToggleButton4.Text = "이관처리( 34 )"
+        '
         'ToggleButton6
         '
         Me.ToggleButton6.Id = "95c2734f-5897-45eb-bfc0-6de980dce0f3"
@@ -256,6 +266,14 @@ Partial Class FRM_MONITOR
         Me.ToggleButton6.TabIndex = 205
         Me.ToggleButton6.Tag = "7"
         Me.ToggleButton6.Text = "전체( 34 )"
+        '
+        'Label24
+        '
+        Me.Label24.Image = CType(resources.GetObject("Label24.Image"), System.Drawing.Image)
+        Me.Label24.Location = New System.Drawing.Point(6, 14)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(13, 12)
+        Me.Label24.TabIndex = 199
         '
         'Label1
         '
@@ -321,6 +339,16 @@ Partial Class FRM_MONITOR
         Me.ToggleButton12.Tag = "3"
         Me.ToggleButton12.Text = "미처리( 34 )"
         '
+        'ToggleButton5
+        '
+        Me.ToggleButton5.Id = "aecc0d9e-5504-4414-9563-4a27a21a254e"
+        Me.ToggleButton5.Location = New System.Drawing.Point(360, 0)
+        Me.ToggleButton5.Name = "ToggleButton5"
+        Me.ToggleButton5.Size = New System.Drawing.Size(120, 22)
+        Me.ToggleButton5.TabIndex = 206
+        Me.ToggleButton5.Tag = "4"
+        Me.ToggleButton5.Text = "이관처리( 34 )"
+        '
         'ToggleButton15
         '
         Me.ToggleButton15.Id = "17edc640-212f-4362-9b9d-4753842cb5f0"
@@ -335,17 +363,17 @@ Partial Class FRM_MONITOR
         '
         Me.dgViewTrans.AllowUserToAddRows = False
         Me.dgViewTrans.AllowUserToDeleteRows = False
-        DataGridViewCellStyle22.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.dgViewTrans.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle22
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.dgViewTrans.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
         Me.dgViewTrans.BackgroundColor = System.Drawing.Color.White
-        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle23.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgViewTrans.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle23
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgViewTrans.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
         Me.dgViewTrans.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgViewTrans.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn8, Me.DataGridViewTextBoxColumn9, Me.DataGridViewTextBoxColumn10, Me.DataGridViewTextBoxColumn11, Me.DataGridViewTextBoxColumn12, Me.DataGridViewTextBoxColumn13, Me.DataGridViewTextBoxColumn14, Me.DataGridViewTextBoxColumn15, Me.DataGridViewTextBoxColumn16, Me.DataGridViewTextBoxColumn17, Me.DataGridViewTextBoxColumn18, Me.DataGridViewTextBoxColumn19})
         Me.dgViewTrans.GridColor = System.Drawing.SystemColors.ActiveCaption
@@ -353,14 +381,14 @@ Partial Class FRM_MONITOR
         Me.dgViewTrans.MultiSelect = False
         Me.dgViewTrans.Name = "dgViewTrans"
         Me.dgViewTrans.ReadOnly = True
-        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle24.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgViewTrans.RowHeadersDefaultCellStyle = DataGridViewCellStyle24
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgViewTrans.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.dgViewTrans.RowHeadersVisible = False
         Me.dgViewTrans.RowTemplate.Height = 23
         Me.dgViewTrans.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
@@ -445,6 +473,14 @@ Partial Class FRM_MONITOR
         Me.DataGridViewTextBoxColumn19.ReadOnly = True
         Me.DataGridViewTextBoxColumn19.Width = 90
         '
+        'Label37
+        '
+        Me.Label37.Image = CType(resources.GetObject("Label37.Image"), System.Drawing.Image)
+        Me.Label37.Location = New System.Drawing.Point(6, 15)
+        Me.Label37.Name = "Label37"
+        Me.Label37.Size = New System.Drawing.Size(13, 12)
+        Me.Label37.TabIndex = 199
+        '
         'Label43
         '
         Me.Label43.AutoSize = True
@@ -470,17 +506,17 @@ Partial Class FRM_MONITOR
         '
         Me.dgViewCallback.AllowUserToAddRows = False
         Me.dgViewCallback.AllowUserToDeleteRows = False
-        DataGridViewCellStyle25.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.dgViewCallback.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle25
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.dgViewCallback.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
         Me.dgViewCallback.BackgroundColor = System.Drawing.Color.White
-        DataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle26.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle26.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle26.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle26.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgViewCallback.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle26
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgViewCallback.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle8
         Me.dgViewCallback.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgViewCallback.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.dgColCustomerId, Me.dgColCustomerName, Me.dgColTongDate, Me.dgColTongTime, Me.dgColTongNo, Me.dgColCallBackResult, Me.dgColConsultType, Me.dgColConsultResult, Me.dgColTongUser, Me.dgColCallType})
         Me.dgViewCallback.GridColor = System.Drawing.SystemColors.ActiveCaption
@@ -488,14 +524,14 @@ Partial Class FRM_MONITOR
         Me.dgViewCallback.MultiSelect = False
         Me.dgViewCallback.Name = "dgViewCallback"
         Me.dgViewCallback.ReadOnly = True
-        DataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle27.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle27.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle27.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle27.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgViewCallback.RowHeadersDefaultCellStyle = DataGridViewCellStyle27
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgViewCallback.RowHeadersDefaultCellStyle = DataGridViewCellStyle9
         Me.dgViewCallback.RowHeadersVisible = False
         Me.dgViewCallback.RowTemplate.Height = 23
         Me.dgViewCallback.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
@@ -603,15 +639,6 @@ Partial Class FRM_MONITOR
         Me.ToggleButton9.Tag = "3"
         Me.ToggleButton9.Text = "전체( 34 )"
         '
-        'Label22
-        '
-        Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(18, 18)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(105, 12)
-        Me.Label22.TabIndex = 3
-        Me.Label22.Text = "콜백업무 진행현황"
-        '
         'Label16
         '
         Me.Label16.Image = CType(resources.GetObject("Label16.Image"), System.Drawing.Image)
@@ -620,41 +647,14 @@ Partial Class FRM_MONITOR
         Me.Label16.Size = New System.Drawing.Size(13, 12)
         Me.Label16.TabIndex = 199
         '
-        'Label37
+        'Label22
         '
-        Me.Label37.Image = CType(resources.GetObject("Label37.Image"), System.Drawing.Image)
-        Me.Label37.Location = New System.Drawing.Point(6, 15)
-        Me.Label37.Name = "Label37"
-        Me.Label37.Size = New System.Drawing.Size(13, 12)
-        Me.Label37.TabIndex = 199
-        '
-        'Label24
-        '
-        Me.Label24.Image = CType(resources.GetObject("Label24.Image"), System.Drawing.Image)
-        Me.Label24.Location = New System.Drawing.Point(6, 14)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(13, 12)
-        Me.Label24.TabIndex = 199
-        '
-        'ToggleButton4
-        '
-        Me.ToggleButton4.Id = "42da4adb-4499-49bb-aaa0-88c357894d35"
-        Me.ToggleButton4.Location = New System.Drawing.Point(360, 0)
-        Me.ToggleButton4.Name = "ToggleButton4"
-        Me.ToggleButton4.Size = New System.Drawing.Size(120, 22)
-        Me.ToggleButton4.TabIndex = 206
-        Me.ToggleButton4.Tag = "4"
-        Me.ToggleButton4.Text = "이관처리( 34 )"
-        '
-        'ToggleButton5
-        '
-        Me.ToggleButton5.Id = "aecc0d9e-5504-4414-9563-4a27a21a254e"
-        Me.ToggleButton5.Location = New System.Drawing.Point(360, 0)
-        Me.ToggleButton5.Name = "ToggleButton5"
-        Me.ToggleButton5.Size = New System.Drawing.Size(120, 22)
-        Me.ToggleButton5.TabIndex = 206
-        Me.ToggleButton5.Tag = "4"
-        Me.ToggleButton5.Text = "이관처리( 34 )"
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(18, 18)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(105, 12)
+        Me.Label22.TabIndex = 3
+        Me.Label22.Text = "콜백업무 진행현황"
         '
         'FRM_MONITOR
         '
@@ -666,6 +666,7 @@ Partial Class FRM_MONITOR
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FRM_MONITOR"
+        Me.ShowIcon = False
         Me.Text = "업무진행현황"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.GroupBox1.ResumeLayout(False)

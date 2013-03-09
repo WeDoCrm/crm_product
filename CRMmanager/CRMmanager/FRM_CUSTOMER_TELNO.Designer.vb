@@ -200,6 +200,7 @@ Partial Class FRM_CUSTOMER_TELNO
         Me.Controls.Add(Me.Label58)
         Me.Controls.Add(Me.DataGridView1)
         Me.Name = "FRM_CUSTOMER_TELNO"
+        Me.ShowIcon = False
         Me.Text = "고객기타 전화번호 목록"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

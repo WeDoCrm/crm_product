@@ -376,6 +376,7 @@ Partial Class FRM_CALL_STATISTICS1
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FRM_CALL_STATISTICS1"
+        Me.ShowIcon = False
         Me.Text = "개인통화건수"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()

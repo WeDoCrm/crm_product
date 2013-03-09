@@ -38,6 +38,9 @@ Partial Class FRM_HISTORY_GINGUB
         Me.dgColTongUser = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.dgColCallType = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
+        Me.Label32 = New System.Windows.Forms.Label
+        Me.txtSearch = New System.Windows.Forms.TextBox
+        Me.Label33 = New System.Windows.Forms.Label
         Me.btnExcel = New System.Windows.Forms.Button
         Me.cboHandleType = New System.Windows.Forms.ComboBox
         Me.btnSelect = New System.Windows.Forms.Button
@@ -93,9 +96,6 @@ Partial Class FRM_HISTORY_GINGUB
         Me.Label29 = New System.Windows.Forms.Label
         Me.btnDetail = New System.Windows.Forms.Button
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog
-        Me.Label32 = New System.Windows.Forms.Label
-        Me.txtSearch = New System.Windows.Forms.TextBox
-        Me.Label33 = New System.Windows.Forms.Label
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -232,6 +232,30 @@ Partial Class FRM_HISTORY_GINGUB
         Me.GroupBox1.Size = New System.Drawing.Size(871, 105)
         Me.GroupBox1.TabIndex = 86
         Me.GroupBox1.TabStop = False
+        '
+        'Label32
+        '
+        Me.Label32.Image = CType(resources.GetObject("Label32.Image"), System.Drawing.Image)
+        Me.Label32.Location = New System.Drawing.Point(7, 80)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Size = New System.Drawing.Size(13, 12)
+        Me.Label32.TabIndex = 223
+        '
+        'txtSearch
+        '
+        Me.txtSearch.Location = New System.Drawing.Point(453, 77)
+        Me.txtSearch.Name = "txtSearch"
+        Me.txtSearch.Size = New System.Drawing.Size(169, 21)
+        Me.txtSearch.TabIndex = 222
+        '
+        'Label33
+        '
+        Me.Label33.AutoSize = True
+        Me.Label33.Location = New System.Drawing.Point(20, 80)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(363, 12)
+        Me.Label33.TabIndex = 221
+        Me.Label33.Text = "검색 ( 통화번호/직장전화/핸드폰/고객명/회사명/소속/상담내용 )"
         '
         'btnExcel
         '
@@ -699,30 +723,6 @@ Partial Class FRM_HISTORY_GINGUB
         '
         Me.SaveFileDialog1.FileName = "c"
         '
-        'Label32
-        '
-        Me.Label32.Image = CType(resources.GetObject("Label32.Image"), System.Drawing.Image)
-        Me.Label32.Location = New System.Drawing.Point(7, 80)
-        Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(13, 12)
-        Me.Label32.TabIndex = 223
-        '
-        'txtSearch
-        '
-        Me.txtSearch.Location = New System.Drawing.Point(453, 77)
-        Me.txtSearch.Name = "txtSearch"
-        Me.txtSearch.Size = New System.Drawing.Size(169, 21)
-        Me.txtSearch.TabIndex = 222
-        '
-        'Label33
-        '
-        Me.Label33.AutoSize = True
-        Me.Label33.Location = New System.Drawing.Point(20, 80)
-        Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(363, 12)
-        Me.Label33.TabIndex = 221
-        Me.Label33.Text = "검색 ( 통화번호/직장전화/핸드폰/고객명/회사명/소속/상담내용 )"
-        '
         'FRM_HISTORY_GINGUB
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -760,6 +760,7 @@ Partial Class FRM_HISTORY_GINGUB
         Me.Controls.Add(Me.DataGridView2)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FRM_HISTORY_GINGUB"
+        Me.ShowIcon = False
         Me.Text = "긴급처리조회"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).EndInit()

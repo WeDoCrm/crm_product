@@ -22,6 +22,7 @@ Partial Class FRM_CUSTOMER
     '코드 편집기를 사용하여 수정하지 마십시오.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FRM_CUSTOMER))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
@@ -39,9 +40,11 @@ Partial Class FRM_CUSTOMER
         Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FRM_CUSTOMER))
         Me.Label1 = New System.Windows.Forms.Label
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
+        Me.cboCustomerType2 = New System.Windows.Forms.ComboBox
+        Me.Label60 = New System.Windows.Forms.Label
+        Me.Label61 = New System.Windows.Forms.Label
         Me.btnExcel = New System.Windows.Forms.Button
         Me.btnSelect = New System.Windows.Forms.Button
         Me.Label30 = New System.Windows.Forms.Label
@@ -160,9 +163,6 @@ Partial Class FRM_CUSTOMER
         Me.Label26 = New System.Windows.Forms.Label
         Me.formFrameSkinner = New Elegant.Ui.FormFrameSkinner
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog
-        Me.cboCustomerType2 = New System.Windows.Forms.ComboBox
-        Me.Label60 = New System.Windows.Forms.Label
-        Me.Label61 = New System.Windows.Forms.Label
         Me.GroupBox1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControl1.SuspendLayout()
@@ -197,6 +197,34 @@ Partial Class FRM_CUSTOMER
         Me.GroupBox1.Size = New System.Drawing.Size(871, 54)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
+        '
+        'cboCustomerType2
+        '
+        Me.cboCustomerType2.BackColor = System.Drawing.Color.MintCream
+        Me.cboCustomerType2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboCustomerType2.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.cboCustomerType2.FormattingEnabled = True
+        Me.cboCustomerType2.Location = New System.Drawing.Point(602, 21)
+        Me.cboCustomerType2.Name = "cboCustomerType2"
+        Me.cboCustomerType2.Size = New System.Drawing.Size(128, 20)
+        Me.cboCustomerType2.TabIndex = 243
+        '
+        'Label60
+        '
+        Me.Label60.Image = CType(resources.GetObject("Label60.Image"), System.Drawing.Image)
+        Me.Label60.Location = New System.Drawing.Point(534, 26)
+        Me.Label60.Name = "Label60"
+        Me.Label60.Size = New System.Drawing.Size(13, 12)
+        Me.Label60.TabIndex = 245
+        '
+        'Label61
+        '
+        Me.Label61.AutoSize = True
+        Me.Label61.Location = New System.Drawing.Point(544, 26)
+        Me.Label61.Name = "Label61"
+        Me.Label61.Size = New System.Drawing.Size(53, 12)
+        Me.Label61.TabIndex = 244
+        Me.Label61.Text = "고객유형"
         '
         'btnExcel
         '
@@ -1269,34 +1297,6 @@ Partial Class FRM_CUSTOMER
         'SaveFileDialog1
         '
         '
-        'cboCustomerType2
-        '
-        Me.cboCustomerType2.BackColor = System.Drawing.Color.MintCream
-        Me.cboCustomerType2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboCustomerType2.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.cboCustomerType2.FormattingEnabled = True
-        Me.cboCustomerType2.Location = New System.Drawing.Point(602, 21)
-        Me.cboCustomerType2.Name = "cboCustomerType2"
-        Me.cboCustomerType2.Size = New System.Drawing.Size(128, 20)
-        Me.cboCustomerType2.TabIndex = 243
-        '
-        'Label60
-        '
-        Me.Label60.Image = CType(resources.GetObject("Label60.Image"), System.Drawing.Image)
-        Me.Label60.Location = New System.Drawing.Point(534, 26)
-        Me.Label60.Name = "Label60"
-        Me.Label60.Size = New System.Drawing.Size(13, 12)
-        Me.Label60.TabIndex = 245
-        '
-        'Label61
-        '
-        Me.Label61.AutoSize = True
-        Me.Label61.Location = New System.Drawing.Point(544, 26)
-        Me.Label61.Name = "Label61"
-        Me.Label61.Size = New System.Drawing.Size(53, 12)
-        Me.Label61.TabIndex = 244
-        Me.Label61.Text = "고객유형"
-        '
         'FRM_CUSTOMER
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -1307,6 +1307,7 @@ Partial Class FRM_CUSTOMER
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FRM_CUSTOMER"
+        Me.ShowIcon = False
         Me.Text = "고객정보"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.GroupBox1.ResumeLayout(False)

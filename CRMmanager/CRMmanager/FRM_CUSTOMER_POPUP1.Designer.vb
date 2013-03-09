@@ -1893,6 +1893,7 @@ Partial Class FRM_CUSTOMER_POPUP1
         Me.Controls.Add(Me.gbCustomerHistory)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FRM_CUSTOMER_POPUP1"
+        Me.ShowIcon = False
         Me.Text = "고객상담화면"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.gbCustomerHistory.ResumeLayout(False)

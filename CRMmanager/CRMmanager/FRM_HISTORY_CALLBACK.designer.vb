@@ -760,6 +760,7 @@ Partial Class FRM_HISTORY_CALLBACK
         Me.Controls.Add(Me.DataGridView2)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FRM_HISTORY_CALLBACK"
+        Me.ShowIcon = False
         Me.Text = "콜백조회"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).EndInit()

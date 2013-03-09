@@ -410,6 +410,7 @@ Partial Class FRM_CALLLOG
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FRM_CALLLOG"
+        Me.ShowIcon = False
         Me.Text = "콜로그 조회"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()

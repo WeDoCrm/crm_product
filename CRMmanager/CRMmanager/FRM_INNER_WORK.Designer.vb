@@ -23,16 +23,14 @@ Partial Class FRM_INNER_WORK
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FRM_INNER_WORK))
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
+        Me.btnExcel = New System.Windows.Forms.Button
         Me.cboGubun = New System.Windows.Forms.ComboBox
         Me.Label7 = New System.Windows.Forms.Label
         Me.Label8 = New System.Windows.Forms.Label
-        Me.btnInit22 = New System.Windows.Forms.Button
-        Me.btnClose22 = New System.Windows.Forms.Button
-        Me.btnContentsSave = New System.Windows.Forms.Button
         Me.txtCHPerson = New System.Windows.Forms.TextBox
         Me.Label2 = New System.Windows.Forms.Label
         Me.Label3 = New System.Windows.Forms.Label
@@ -42,6 +40,9 @@ Partial Class FRM_INNER_WORK
         Me.Label70 = New System.Windows.Forms.Label
         Me.btnSelect1 = New System.Windows.Forms.Button
         Me.Label30 = New System.Windows.Forms.Label
+        Me.btnInit22 = New System.Windows.Forms.Button
+        Me.btnClose22 = New System.Windows.Forms.Button
+        Me.btnContentsSave = New System.Windows.Forms.Button
         Me.DataGridView2 = New System.Windows.Forms.DataGridView
         Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn
@@ -68,7 +69,6 @@ Partial Class FRM_INNER_WORK
         Me.Label39 = New System.Windows.Forms.Label
         Me.txtJupsuContents = New System.Windows.Forms.TextBox
         Me.Label13 = New System.Windows.Forms.Label
-        Me.btnExcel = New System.Windows.Forms.Button
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog
         Me.GroupBox1.SuspendLayout()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -96,6 +96,15 @@ Partial Class FRM_INNER_WORK
         Me.GroupBox1.TabIndex = 3
         Me.GroupBox1.TabStop = False
         '
+        'btnExcel
+        '
+        Me.btnExcel.Location = New System.Drawing.Point(808, 18)
+        Me.btnExcel.Name = "btnExcel"
+        Me.btnExcel.Size = New System.Drawing.Size(45, 25)
+        Me.btnExcel.TabIndex = 238
+        Me.btnExcel.Text = "Excel"
+        Me.btnExcel.UseVisualStyleBackColor = True
+        '
         'cboGubun
         '
         Me.cboGubun.FormattingEnabled = True
@@ -121,45 +130,6 @@ Partial Class FRM_INNER_WORK
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(13, 12)
         Me.Label8.TabIndex = 235
-        '
-        'btnInit22
-        '
-        Me.btnInit22.BackColor = System.Drawing.SystemColors.Control
-        Me.btnInit22.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.btnInit22.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.btnInit22.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.btnInit22.Location = New System.Drawing.Point(757, 20)
-        Me.btnInit22.Name = "btnInit22"
-        Me.btnInit22.Size = New System.Drawing.Size(52, 25)
-        Me.btnInit22.TabIndex = 234
-        Me.btnInit22.Text = "초기화"
-        Me.btnInit22.UseVisualStyleBackColor = False
-        '
-        'btnClose22
-        '
-        Me.btnClose22.BackColor = System.Drawing.SystemColors.Control
-        Me.btnClose22.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.btnClose22.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.btnClose22.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.btnClose22.Location = New System.Drawing.Point(809, 20)
-        Me.btnClose22.Name = "btnClose22"
-        Me.btnClose22.Size = New System.Drawing.Size(45, 25)
-        Me.btnClose22.TabIndex = 233
-        Me.btnClose22.Text = "닫기"
-        Me.btnClose22.UseVisualStyleBackColor = False
-        '
-        'btnContentsSave
-        '
-        Me.btnContentsSave.BackColor = System.Drawing.SystemColors.Control
-        Me.btnContentsSave.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.btnContentsSave.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.btnContentsSave.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.btnContentsSave.Location = New System.Drawing.Point(712, 20)
-        Me.btnContentsSave.Name = "btnContentsSave"
-        Me.btnContentsSave.Size = New System.Drawing.Size(45, 25)
-        Me.btnContentsSave.TabIndex = 227
-        Me.btnContentsSave.Text = "저장"
-        Me.btnContentsSave.UseVisualStyleBackColor = False
         '
         'txtCHPerson
         '
@@ -238,21 +208,60 @@ Partial Class FRM_INNER_WORK
         Me.Label30.Size = New System.Drawing.Size(13, 12)
         Me.Label30.TabIndex = 106
         '
+        'btnInit22
+        '
+        Me.btnInit22.BackColor = System.Drawing.SystemColors.Control
+        Me.btnInit22.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnInit22.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.btnInit22.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.btnInit22.Location = New System.Drawing.Point(757, 20)
+        Me.btnInit22.Name = "btnInit22"
+        Me.btnInit22.Size = New System.Drawing.Size(52, 25)
+        Me.btnInit22.TabIndex = 234
+        Me.btnInit22.Text = "초기화"
+        Me.btnInit22.UseVisualStyleBackColor = False
+        '
+        'btnClose22
+        '
+        Me.btnClose22.BackColor = System.Drawing.SystemColors.Control
+        Me.btnClose22.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnClose22.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.btnClose22.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.btnClose22.Location = New System.Drawing.Point(809, 20)
+        Me.btnClose22.Name = "btnClose22"
+        Me.btnClose22.Size = New System.Drawing.Size(45, 25)
+        Me.btnClose22.TabIndex = 233
+        Me.btnClose22.Text = "닫기"
+        Me.btnClose22.UseVisualStyleBackColor = False
+        '
+        'btnContentsSave
+        '
+        Me.btnContentsSave.BackColor = System.Drawing.SystemColors.Control
+        Me.btnContentsSave.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnContentsSave.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.btnContentsSave.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.btnContentsSave.Location = New System.Drawing.Point(712, 20)
+        Me.btnContentsSave.Name = "btnContentsSave"
+        Me.btnContentsSave.Size = New System.Drawing.Size(45, 25)
+        Me.btnContentsSave.TabIndex = 227
+        Me.btnContentsSave.Text = "저장"
+        Me.btnContentsSave.UseVisualStyleBackColor = False
+        '
         'DataGridView2
         '
         Me.DataGridView2.AllowUserToAddRows = False
         Me.DataGridView2.AllowUserToDeleteRows = False
-        DataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.DataGridView2.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.DataGridView2.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.DataGridView2.BackgroundColor = System.Drawing.Color.White
-        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle14.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle14
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView2.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.DataGridViewTextBoxColumn7, Me.DataGridViewTextBoxColumn6, Me.Column3})
         Me.DataGridView2.GridColor = System.Drawing.SystemColors.ActiveCaption
@@ -260,14 +269,14 @@ Partial Class FRM_INNER_WORK
         Me.DataGridView2.MultiSelect = False
         Me.DataGridView2.Name = "DataGridView2"
         Me.DataGridView2.ReadOnly = True
-        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle15.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView2.RowHeadersDefaultCellStyle = DataGridViewCellStyle15
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView2.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.DataGridView2.RowHeadersVisible = False
         Me.DataGridView2.RowTemplate.Height = 23
         Me.DataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
@@ -477,15 +486,6 @@ Partial Class FRM_INNER_WORK
         Me.Label13.TabIndex = 96
         Me.Label13.Text = "접수내용"
         '
-        'btnExcel
-        '
-        Me.btnExcel.Location = New System.Drawing.Point(808, 18)
-        Me.btnExcel.Name = "btnExcel"
-        Me.btnExcel.Size = New System.Drawing.Size(45, 25)
-        Me.btnExcel.TabIndex = 238
-        Me.btnExcel.Text = "Excel"
-        Me.btnExcel.UseVisualStyleBackColor = True
-        '
         'SaveFileDialog1
         '
         Me.SaveFileDialog1.FileName = "c"
@@ -500,6 +500,7 @@ Partial Class FRM_INNER_WORK
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FRM_INNER_WORK"
+        Me.ShowIcon = False
         Me.Text = "직원업무일지"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.GroupBox1.ResumeLayout(False)

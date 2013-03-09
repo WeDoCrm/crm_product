@@ -304,7 +304,7 @@
         Try
             Me.Close()
         Catch ex As Exception
-            Call WriteLog("FRM_CUSTOMER : " & ex.ToString)
+            Call WriteLog("FRM_CALLER_LIST : " & ex.ToString)
         End Try
     End Sub
 

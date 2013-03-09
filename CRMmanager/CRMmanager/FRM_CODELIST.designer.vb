@@ -378,6 +378,7 @@ Partial Class FRM_CODELIST
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FRM_CODELIST"
+        Me.ShowIcon = False
         Me.Text = "코드관리"
         Me.GroupBox1.ResumeLayout(False)
         Me.TabControl1.ResumeLayout(False)
