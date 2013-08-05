@@ -60,7 +60,7 @@
             _tnRoot.Tag = gsCOM_CD & "^^^Y"
             TreeView1.Nodes.Add(_tnRoot)
 
-            dt1 = Mysql_GetData_table(gsConString, sqltext)
+            dt1 = MiniCTI.DoQuery(gsConString, sqltext)
 
             If dt1.Rows.Count > 0 Then
                 For i = 0 To dt1.Rows.Count - 1
@@ -214,7 +214,7 @@
                 temp11 = "LCode," & txtLcode.Text.Trim & "," & "," & txtLcodenm.Text.Trim
             End If
 
-            dt = Mysql_GetData_table(gsConString, temp)
+            dt = MiniCTI.DoQueryParam(gsConString, temp)
 
             If txtScode.Text.Trim = "" AndAlso txtScodenm.Text.Trim = "" Then
                 MsgBox("처리되었습니다", MsgBoxStyle.OkOnly, "정보")
@@ -246,7 +246,7 @@
                 temp11 = "SCode," & txtLcode.Text.Trim & "," & txtScode.Text.Trim & "," & txtScodenm.Text.Trim
             End If
 
-            dt = Mysql_GetData_table(gsConString, temp)
+            dt = MiniCTI.DoQueryParam(gsConString, temp)
             MsgBox("처리되었습니다.", MsgBoxStyle.OkOnly, "정보")
             Controls_Setting()
 
@@ -279,7 +279,7 @@
                 temp11 = "SCode," & param(2).Trim & "," & param(3).Trim & "," & param(5)
             End If
 
-            dt = Mysql_GetData_table(gsConString, temp)
+            dt = MiniCTI.DoQueryParam(gsConString, temp)
             MsgBox("처리되었습니다.", MsgBoxStyle.OkOnly, "정보")
             Controls_Setting()
 

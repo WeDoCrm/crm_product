@@ -118,12 +118,12 @@
                   ",a.EXTENSION_NO, a.ADDR1, a.USER_EMAIL, a.DEPART_CD, a.DEPART_NM, a.GRADE, a.WORK_AREA, a.TEAM_CD " & _
                   ",if (length(a.ENTERING_DD) = 8, CONCAT(SUBSTRING(a.ENTERING_DD,1,4) , '-' , SUBSTRING(a.ENTERING_DD,5,2) , '-' , SUBSTRING(a.ENTERING_DD,7,2)),'') ENTERING_DD " & _
                   ",if (length(a.RETIRE_DD) = 8, CONCAT(SUBSTRING(a.RETIRE_DD,1,4) , '-' , SUBSTRING(a.RETIRE_DD,5,2) , '-' , SUBSTRING(a.RETIRE_DD,7,2)),'') RETIRE_DD " & _
-                  ",IFNULL(MOBILE_USE_YN,'N') MOBILE_USE_YN " & _
+                  ",IFNULL(MOBILE_USE_YN,'N') MOBILE_USE_YN ,IFNULL(EXCEL_USE_YN,'N') EXCEL_USE_YN " & _
                   "From t_user a " & _
                   "Where a.COM_CD='" & tmp(0).Trim & "' " & _
                   "and a.USER_ID = '" & tmp(1).Trim & "' "
 
-            dt = Mysql_GetData_table(gsConString, temp)
+            dt = MiniCTI.DoQuery(gsConString, temp)
 
             If dt.Rows.Count > 0 Then
                 With dt.Rows(0)
@@ -141,6 +141,7 @@
                     cboGrade.SelectedValue = .Item("WORK_AREA").ToString
                     cboTeam.SelectedValue = .Item("TEAM_CD").ToString
                     ckbMobileUser.Checked = (.Item("MOBILE_USE_YN").ToString = "Y")
+                    ckbExcelUseYN.Checked = (.Item("EXCEL_USE_YN").ToString = "Y")
 
                     If (.Item("H_TELNO").ToString.Trim.Replace("-", "").Length < 9) Then
                         txtWorkTelNo1.Text = ""
@@ -225,7 +226,7 @@
             ''처리
             temp = "SELECT count(*) From t_user a " & _
                   "Where a.COM_CD='" & gsCOM_CD & "' and a.USER_ID='" & txtId.Text.Trim & "' "
-            dt = Mysql_GetData_table(gsConString, temp)
+            dt = MiniCTI.DoQuery(gsConString, temp)
 
             Dim hpNo As String = cboHP.Text.Trim & txtHP1.Text & txtHP2.Text
             Dim telNo As String = txtWorkTelNo1.Text.Trim & txtWorkTelNo2.Text.Trim & txtWorkTelNo3.Text.Trim
@@ -233,20 +234,21 @@
             '모바일사용자인 경우 동일 핸드폰번호가 중복이면 에러
             temp = "SELECT count(a.USER_ID) From t_user a " & _
                   "Where a.COM_CD='" & gsCOM_CD & "' and a.USR_HP='" & hpNo & "' and a.USER_ID<>'" & txtId.Text.Trim & "' "
-            dt2 = Mysql_GetData_table(gsConString, temp)
+            dt2 = MiniCTI.DoQuery(gsConString, temp)
 
             Dim userCount As Integer = Integer.Parse(dt.Rows(0).Item(0).ToString.Trim)
             Dim hpCount As Integer = Integer.Parse(dt2.Rows(0).Item(0).ToString.Trim)
             Dim isMobileUser As Boolean = ckbMobileUser.Checked
+            Dim useExcel As Boolean = ckbExcelUseYN.Checked
 
             If (userCount = 0) Then ' Insert
                 If (Not isMobileUser Or hpCount = 0) Then
-                    temp = "Insert into t_user(COM_CD,USER_ID,USER_NM,USR_HP,ADDR1,WOO_NO,H_TELNO,GRADE,EXTENSION_NO,WORK_TYPE,ENTERING_DD,RETIRE_DD,USER_EMAIL,USER_PWD,WORK_AREA,TEAM_CD,TEAM_NM, MOBILE_USE_YN) " & _
+                    temp = "Insert into t_user(COM_CD,USER_ID,USER_NM,USR_HP,ADDR1,WOO_NO,H_TELNO,GRADE,EXTENSION_NO,WORK_TYPE,ENTERING_DD,RETIRE_DD,USER_EMAIL,USER_PWD,WORK_AREA,TEAM_CD,TEAM_NM, MOBILE_USE_YN, EXCEL_USE_YN) " & _
                            " values('" & gsCOM_CD & "','" & txtId.Text.Trim & "','" & txtName.Text.Trim & "','" & hpNo & "','" & txtAddress.Text.Trim & "','" & txtWP1.Text.Trim & txtWP2.Text.Trim & _
                            "','" & telNo & "','" & cboPosition.SelectedValue.ToString.Trim & "','" & txtExt.Text.Trim & "','','" & _
                            DPDate1.Text.Replace("-", "").Replace("/", "").Trim & "','" & If(ckbRetire.Checked = False, "", DPDate2.Text.Replace("-", "").Replace("/", "").Trim) & "','" & txtEmail.Text.Trim & _
                            "','" & txtPW.Text.Trim & "','" & cboGrade.SelectedValue.ToString.Trim & "','" & cboTeam.SelectedValue.ToString.Trim & _
-                           "','" & If(cboTeam.Text.Trim = "-", "", cboTeam.Text.Trim) & "','" & If(isMobileUser, "Y", "N") & "') "
+                           "','" & If(cboTeam.Text.Trim = "-", "", cboTeam.Text.Trim) & "','" & If(isMobileUser, "Y", "N") & "','" & If(useExcel, "Y", "N") & "') "
                 Else
                     MsgBox("이미 등록된 핸드폰 번호입니다." & vbCrLf & "모바일앱사용자는 다른 사용자와 핸드폰번호를 중복등록할 수 없습니다.", MsgBoxStyle.Critical, "정보")
                     Return
@@ -260,6 +262,7 @@
                            "',WORK_AREA='" & cboGrade.SelectedValue.ToString.Trim & "',TEAM_CD='" & cboTeam.SelectedValue.ToString.Trim & _
                            "',TEAM_NM='" & If(cboTeam.Text.Trim = "-", "", cboTeam.Text.Trim) & _
                            "',MOBILE_USE_YN='" & If(isMobileUser, "Y", "N") & _
+                           "',EXCEL_USE_YN='" & If(useExcel, "Y", "N") & _
                            "' Where COM_CD='" & gsCOM_CD & "' and USER_ID='" & txtId.Text.Trim & "' "
                 Else
                     MsgBox("이미 등록된 핸드폰 번호입니다." & vbCrLf & "모바일앱사용자는 다른 사용자와 핸드폰번호를 중복등록할 수 없습니다.", MsgBoxStyle.Critical, "정보")
@@ -267,7 +270,7 @@
                 End If
             End If
 
-            Dim iReturn As Integer = Mysql_Transact_Data(gsConString, temp)
+            Dim iReturn As Integer = DoExecuteNonQuery(gsConString, temp)
 
             If iReturn > 0 Then
                 If temp.StartsWith("Insert") Then
@@ -301,7 +304,7 @@
 
             MsgBox(txtId.Text.Trim & "." & txtName.Text.Trim & " 사용자를 삭제하시겠습니까?", MsgBoxStyle.YesNo, "확인")
             temp = "Delete from t_user Where COM_CD='" & gsCOM_CD & "' and USER_ID='" & txtId.Text.Trim & "' "
-            Dim iReturn As Integer = Mysql_Transact_Data(gsConString, temp)
+            Dim iReturn As Integer = DoExecuteNonQuery(gsConString, temp)
 
             If iReturn > 0 Then
                 Call Audit_Log(AUDIT_TYPE.USER_DEL, "ID:" & txtId.Text.Trim & ", Name:" & txtName.Text.Trim)
@@ -347,6 +350,7 @@
             DPDate2.Value = Now
             ckbRetire.Checked = False
             ckbMobileUser.Checked = False
+            ckbExcelUseYN.Checked = False
         Catch ex As Exception
             Call WriteLog(Me.Name & " : " & ex.ToString)
         End Try

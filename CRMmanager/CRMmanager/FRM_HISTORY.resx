@@ -117,41 +117,56 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="Column1.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="CUSTOMER_ID.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="DataGridViewTextBoxColumn1.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="TONG_DD.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="DataGridViewTextBoxColumn2.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="TONG_TIME.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="DataGridViewTextBoxColumn3.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="CUSTOMER_NM.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="DataGridViewTextBoxColumn4.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="TONG_TELNO.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="DataGridViewTextBoxColumn5.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="CUSTOMER_TYPE.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="DataGridViewTextBoxColumn6.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="HANDLE_TYPE.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="DataGridViewTextBoxColumn7.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="CONSULT_TYPE.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="Column2.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="CONSULT_RESULT.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="CALL_BACK_YN.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="CALL_BACK_RESULT.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="TONG_USER.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="CALL_TYPE.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="TONG_CONTENTS.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="Label30.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="Label32.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         R0lGODlhBAAIAIIAAAAAAP///57F3CGIsk+fwv///wAAAAAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQB
         AAAFACwAAAAABAAIAAAIFgAFECAgcMCAgQYJDhRQoKHDhxALBAQAOw==
 </value>
   </data>
-  <data name="Label27.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="Label7.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         R0lGODlhBAAIAIIAAAAAAP///57F3CGIsk+fwv///wAAAAAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQB
         AAAFACwAAAAABAAIAAAIFgAFECAgcMCAgQYJDhRQoKHDhxALBAQAOw==
@@ -169,7 +184,25 @@
         AAAFACwAAAAABAAIAAAIFgAFECAgcMCAgQYJDhRQoKHDhxALBAQAOw==
 </value>
   </data>
+  <data name="Label27.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        R0lGODlhBAAIAIIAAAAAAP///57F3CGIsk+fwv///wAAAAAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQB
+        AAAFACwAAAAABAAIAAAIFgAFECAgcMCAgQYJDhRQoKHDhxALBAQAOw==
+</value>
+  </data>
+  <data name="Label25.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        R0lGODlhBAAIAIIAAAAAAP///57F3CGIsk+fwv///wAAAAAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQB
+        AAAFACwAAAAABAAIAAAIFgAFECAgcMCAgQYJDhRQoKHDhxALBAQAOw==
+</value>
+  </data>
   <data name="Label26.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        R0lGODlhBAAIAIIAAAAAAP///57F3CGIsk+fwv///wAAAAAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQB
+        AAAFACwAAAAABAAIAAAIFgAFECAgcMCAgQYJDhRQoKHDhxALBAQAOw==
+</value>
+  </data>
+  <data name="Label12.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         R0lGODlhBAAIAIIAAAAAAP///57F3CGIsk+fwv///wAAAAAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQB
         AAAFACwAAAAABAAIAAAIFgAFECAgcMCAgQYJDhRQoKHDhxALBAQAOw==
@@ -181,19 +214,58 @@
         AAAFACwAAAAABAAIAAAIFgAFECAgcMCAgQYJDhRQoKHDhxALBAQAOw==
 </value>
   </data>
-  <data name="Label23.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="Label30.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         R0lGODlhBAAIAIIAAAAAAP///57F3CGIsk+fwv///wAAAAAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQB
         AAAFACwAAAAABAAIAAAIFgAFECAgcMCAgQYJDhRQoKHDhxALBAQAOw==
 </value>
   </data>
+  <metadata name="SaveFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <data name="Label22.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         R0lGODlhBAAIAIIAAAAAAP///57F3CGIsk+fwv///wAAAAAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQB
         AAAFACwAAAAABAAIAAAIFgAFECAgcMCAgQYJDhRQoKHDhxALBAQAOw==
 </value>
   </data>
-  <data name="Label21.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="Label38.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        R0lGODlhBAAIAIIAAAAAAP///57F3CGIsk+fwv///wAAAAAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQB
+        AAAFACwAAAAABAAIAAAIFgAFECAgcMCAgQYJDhRQoKHDhxALBAQAOw==
+</value>
+  </data>
+  <data name="Label44.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        R0lGODlhBAAIAIIAAAAAAP///57F3CGIsk+fwv///wAAAAAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQB
+        AAAFACwAAAAABAAIAAAIFgAFECAgcMCAgQYJDhRQoKHDhxALBAQAOw==
+</value>
+  </data>
+  <data name="Label23.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        R0lGODlhBAAIAIIAAAAAAP///57F3CGIsk+fwv///wAAAAAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQB
+        AAAFACwAAAAABAAIAAAIFgAFECAgcMCAgQYJDhRQoKHDhxALBAQAOw==
+</value>
+  </data>
+  <data name="Label36.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        R0lGODlhBAAIAIIAAAAAAP///57F3CGIsk+fwv///wAAAAAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQB
+        AAAFACwAAAAABAAIAAAIFgAFECAgcMCAgQYJDhRQoKHDhxALBAQAOw==
+</value>
+  </data>
+  <data name="Label40.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        R0lGODlhBAAIAIIAAAAAAP///57F3CGIsk+fwv///wAAAAAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQB
+        AAAFACwAAAAABAAIAAAIFgAFECAgcMCAgQYJDhRQoKHDhxALBAQAOw==
+</value>
+  </data>
+  <data name="Label18.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        R0lGODlhBAAIAIIAAAAAAP///57F3CGIsk+fwv///wAAAAAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQB
+        AAAFACwAAAAABAAIAAAIFgAFECAgcMCAgQYJDhRQoKHDhxALBAQAOw==
+</value>
+  </data>
+  <data name="Label42.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         R0lGODlhBAAIAIIAAAAAAP///57F3CGIsk+fwv///wAAAAAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQB
         AAAFACwAAAAABAAIAAAIFgAFECAgcMCAgQYJDhRQoKHDhxALBAQAOw==
@@ -211,27 +283,12 @@
         AAAFACwAAAAABAAIAAAIFgAFECAgcMCAgQYJDhRQoKHDhxALBAQAOw==
 </value>
   </data>
-  <data name="Label18.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        R0lGODlhBAAIAIIAAAAAAP///57F3CGIsk+fwv///wAAAAAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQB
-        AAAFACwAAAAABAAIAAAIFgAFECAgcMCAgQYJDhRQoKHDhxALBAQAOw==
-</value>
-  </data>
-  <data name="Label17.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        R0lGODlhBAAIAIIAAAAAAP///57F3CGIsk+fwv///wAAAAAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQB
-        AAAFACwAAAAABAAIAAAIFgAFECAgcMCAgQYJDhRQoKHDhxALBAQAOw==
-</value>
-  </data>
   <data name="Label46.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         R0lGODlhBAAIAIIAAAAAAP///57F3CGIsk+fwv///wAAAAAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQB
         AAAFACwAAAAABAAIAAAIFgAFECAgcMCAgQYJDhRQoKHDhxALBAQAOw==
 </value>
   </data>
-  <metadata name="SaveFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA

@@ -24,6 +24,11 @@
     Private Sub Controls_Setting()
         Try
             Me.WindowState = FormWindowState.Maximized
+            If Not gbUseExcel Then
+                btnExcel.Visible = False
+                btnSelect.Left = btnExcel.Left
+            End If
+
             DPDate1.Value = Now
             DPDate2.Value = Now
 

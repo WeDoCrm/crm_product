@@ -77,7 +77,7 @@
             SQL = SQL & " and trans_yn is null"
             SQL = SQL & " group by consult_result "
 
-            Dim dt1 As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
 
             If dt1.Rows.Count > 0 Then
                 Dim i As Integer
@@ -134,7 +134,7 @@
             SQL = SQL & " and trans_yn ='Y'"  '이관처리
             SQL = SQL & " group by consult_result "
 
-            Dim dt1 As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
 
             If dt1.Rows.Count > 0 Then
                 Dim i As Integer
@@ -191,7 +191,7 @@
             SQL = SQL & " and call_back_yn ='Y'"
             SQL = SQL & " group by call_back_result "
 
-            Dim dt1 As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
 
             If dt1.Rows.Count > 0 Then
                 Dim i As Integer
@@ -272,7 +272,7 @@
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
             '************************************ 체크하자
-            Dim dt1 As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
             dgView.DataSource = Nothing
 
 
@@ -347,7 +347,7 @@
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
             '************************************ 체크하자
-            Dim dt1 As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
             dgView.DataSource = Nothing
 
 

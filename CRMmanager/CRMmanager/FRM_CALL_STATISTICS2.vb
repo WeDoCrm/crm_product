@@ -24,6 +24,11 @@
     Private Sub Controls_Setting()
         Try
             Me.WindowState = FormWindowState.Maximized
+            If Not gbUseExcel Then
+                btnExcel.Visible = False
+                btnSelect.Left = btnExcel.Left
+            End If
+
             DPDate1.Value = Now
             DPDate2.Value = Now
             temp = "SELECT '' TEAM_CD, '-' TEAM_NM UNION " & _
@@ -71,7 +76,7 @@
             If drpName.SelectedValue.ToString <> "" Then
                 temp = "SELECT USER_ID FROM t_user WHERE TEAM_CD='" & drpName.SelectedValue.ToString & "'"
                 'WriteLog(temp)
-                dt = Mysql_GetData_table(gsConString, temp)
+                dt = MiniCTI.DoQuery(gsConString, temp)
                 If dt.Rows.Count > 0 Then                    
                     temp1 = " AND ("
                     For i = 0 To dt.Rows.Count - 1

@@ -103,6 +103,8 @@ Partial Class FRM_SAWON
         Me.txtName = New System.Windows.Forms.TextBox
         Me.txtId = New System.Windows.Forms.TextBox
         Me.Label2 = New System.Windows.Forms.Label
+        Me.Label8 = New System.Windows.Forms.Label
+        Me.ckbExcelUseYN = New System.Windows.Forms.CheckBox
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
@@ -206,7 +208,7 @@ Partial Class FRM_SAWON
         Me.btnInit.Location = New System.Drawing.Point(748, 19)
         Me.btnInit.Name = "btnInit"
         Me.btnInit.Size = New System.Drawing.Size(63, 25)
-        Me.btnInit.TabIndex = 123
+        Me.btnInit.TabIndex = 4
         Me.btnInit.Text = "초기화"
         Me.btnInit.UseVisualStyleBackColor = True
         '
@@ -215,7 +217,7 @@ Partial Class FRM_SAWON
         Me.btnDelete.Location = New System.Drawing.Point(686, 19)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(45, 25)
-        Me.btnDelete.TabIndex = 122
+        Me.btnDelete.TabIndex = 3
         Me.btnDelete.Text = "삭제"
         Me.btnDelete.UseVisualStyleBackColor = True
         '
@@ -224,7 +226,7 @@ Partial Class FRM_SAWON
         Me.btnSave.Location = New System.Drawing.Point(624, 19)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(45, 25)
-        Me.btnSave.TabIndex = 121
+        Me.btnSave.TabIndex = 2
         Me.btnSave.Text = "저장"
         Me.btnSave.UseVisualStyleBackColor = True
         '
@@ -233,7 +235,7 @@ Partial Class FRM_SAWON
         Me.btnSelect.Location = New System.Drawing.Point(562, 19)
         Me.btnSelect.Name = "btnSelect"
         Me.btnSelect.Size = New System.Drawing.Size(45, 25)
-        Me.btnSelect.TabIndex = 120
+        Me.btnSelect.TabIndex = 1
         Me.btnSelect.Text = "조회"
         Me.btnSelect.UseVisualStyleBackColor = True
         '
@@ -249,7 +251,7 @@ Partial Class FRM_SAWON
         Me.txtName2.Location = New System.Drawing.Point(77, 20)
         Me.txtName2.Name = "txtName2"
         Me.txtName2.Size = New System.Drawing.Size(150, 21)
-        Me.txtName2.TabIndex = 4
+        Me.txtName2.TabIndex = 0
         '
         'Label1
         '
@@ -279,6 +281,8 @@ Partial Class FRM_SAWON
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.ckbExcelUseYN)
+        Me.TabPage1.Controls.Add(Me.Label8)
         Me.TabPage1.Controls.Add(Me.ckbMobileUser)
         Me.TabPage1.Controls.Add(Me.txtWorkTelNo3)
         Me.TabPage1.Controls.Add(Me.txtWorkTelNo2)
@@ -355,7 +359,7 @@ Partial Class FRM_SAWON
         Me.ckbMobileUser.Margin = New System.Windows.Forms.Padding(3, 0, 3, 0)
         Me.ckbMobileUser.Name = "ckbMobileUser"
         Me.ckbMobileUser.Size = New System.Drawing.Size(138, 19)
-        Me.ckbMobileUser.TabIndex = 217
+        Me.ckbMobileUser.TabIndex = 18
         Me.ckbMobileUser.Text = "모바일앱사용자여부"
         Me.ckbMobileUser.UseVisualStyleBackColor = True
         '
@@ -365,7 +369,7 @@ Partial Class FRM_SAWON
         Me.txtWorkTelNo3.MaxLength = 4
         Me.txtWorkTelNo3.Name = "txtWorkTelNo3"
         Me.txtWorkTelNo3.Size = New System.Drawing.Size(35, 21)
-        Me.txtWorkTelNo3.TabIndex = 216
+        Me.txtWorkTelNo3.TabIndex = 13
         '
         'txtWorkTelNo2
         '
@@ -373,7 +377,7 @@ Partial Class FRM_SAWON
         Me.txtWorkTelNo2.MaxLength = 4
         Me.txtWorkTelNo2.Name = "txtWorkTelNo2"
         Me.txtWorkTelNo2.Size = New System.Drawing.Size(35, 21)
-        Me.txtWorkTelNo2.TabIndex = 215
+        Me.txtWorkTelNo2.TabIndex = 12
         '
         'txtWorkTelNo1
         '
@@ -381,7 +385,7 @@ Partial Class FRM_SAWON
         Me.txtWorkTelNo1.MaxLength = 4
         Me.txtWorkTelNo1.Name = "txtWorkTelNo1"
         Me.txtWorkTelNo1.Size = New System.Drawing.Size(35, 21)
-        Me.txtWorkTelNo1.TabIndex = 214
+        Me.txtWorkTelNo1.TabIndex = 11
         '
         'txtHP2
         '
@@ -389,7 +393,7 @@ Partial Class FRM_SAWON
         Me.txtHP2.MaxLength = 4
         Me.txtHP2.Name = "txtHP2"
         Me.txtHP2.Size = New System.Drawing.Size(35, 21)
-        Me.txtHP2.TabIndex = 213
+        Me.txtHP2.TabIndex = 16
         '
         'cboHP
         '
@@ -401,7 +405,7 @@ Partial Class FRM_SAWON
         Me.cboHP.Location = New System.Drawing.Point(266, 105)
         Me.cboHP.Name = "cboHP"
         Me.cboHP.Size = New System.Drawing.Size(49, 20)
-        Me.cboHP.TabIndex = 211
+        Me.cboHP.TabIndex = 14
         '
         'txtHP1
         '
@@ -409,7 +413,7 @@ Partial Class FRM_SAWON
         Me.txtHP1.MaxLength = 4
         Me.txtHP1.Name = "txtHP1"
         Me.txtHP1.Size = New System.Drawing.Size(35, 21)
-        Me.txtHP1.TabIndex = 212
+        Me.txtHP1.TabIndex = 15
         '
         'Label4
         '
@@ -424,7 +428,7 @@ Partial Class FRM_SAWON
         Me.btnZipCode.Location = New System.Drawing.Point(201, 161)
         Me.btnZipCode.Name = "btnZipCode"
         Me.btnZipCode.Size = New System.Drawing.Size(64, 22)
-        Me.btnZipCode.TabIndex = 36
+        Me.btnZipCode.TabIndex = 21
         Me.btnZipCode.Text = "우편번호"
         Me.btnZipCode.UseVisualStyleBackColor = True
         '
@@ -488,7 +492,7 @@ Partial Class FRM_SAWON
         Me.cboTeam.Location = New System.Drawing.Point(81, 76)
         Me.cboTeam.Name = "cboTeam"
         Me.cboTeam.Size = New System.Drawing.Size(115, 20)
-        Me.cboTeam.TabIndex = 29
+        Me.cboTeam.TabIndex = 9
         '
         'Label44
         '
@@ -600,7 +604,7 @@ Partial Class FRM_SAWON
         Me.txtPW.Name = "txtPW"
         Me.txtPW.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txtPW.Size = New System.Drawing.Size(115, 21)
-        Me.txtPW.TabIndex = 27
+        Me.txtPW.TabIndex = 7
         '
         'Label27
         '
@@ -625,7 +629,7 @@ Partial Class FRM_SAWON
         Me.cboGrade.Location = New System.Drawing.Point(266, 47)
         Me.cboGrade.Name = "cboGrade"
         Me.cboGrade.Size = New System.Drawing.Size(115, 20)
-        Me.cboGrade.TabIndex = 28
+        Me.cboGrade.TabIndex = 8
         '
         'Label20
         '
@@ -709,21 +713,21 @@ Partial Class FRM_SAWON
         Me.txtExt.Location = New System.Drawing.Point(82, 133)
         Me.txtExt.Name = "txtExt"
         Me.txtExt.Size = New System.Drawing.Size(115, 21)
-        Me.txtExt.TabIndex = 33
+        Me.txtExt.TabIndex = 17
         '
         'txtWP2
         '
         Me.txtWP2.Location = New System.Drawing.Point(140, 161)
         Me.txtWP2.Name = "txtWP2"
         Me.txtWP2.Size = New System.Drawing.Size(56, 21)
-        Me.txtWP2.TabIndex = 35
+        Me.txtWP2.TabIndex = 20
         '
         'txtWP1
         '
         Me.txtWP1.Location = New System.Drawing.Point(81, 161)
         Me.txtWP1.Name = "txtWP1"
         Me.txtWP1.Size = New System.Drawing.Size(56, 21)
-        Me.txtWP1.TabIndex = 34
+        Me.txtWP1.TabIndex = 19
         '
         'Label11
         '
@@ -740,7 +744,7 @@ Partial Class FRM_SAWON
         Me.DPDate2.Location = New System.Drawing.Point(277, 248)
         Me.DPDate2.Name = "DPDate2"
         Me.DPDate2.Size = New System.Drawing.Size(115, 21)
-        Me.DPDate2.TabIndex = 41
+        Me.DPDate2.TabIndex = 26
         Me.DPDate2.Value = New Date(2011, 7, 12, 20, 59, 36, 0)
         '
         'ckbRetire
@@ -750,7 +754,7 @@ Partial Class FRM_SAWON
         Me.ckbRetire.Margin = New System.Windows.Forms.Padding(3, 0, 3, 0)
         Me.ckbRetire.Name = "ckbRetire"
         Me.ckbRetire.Size = New System.Drawing.Size(60, 16)
-        Me.ckbRetire.TabIndex = 40
+        Me.ckbRetire.TabIndex = 25
         Me.ckbRetire.Text = "퇴사일"
         Me.ckbRetire.UseVisualStyleBackColor = True
         '
@@ -760,7 +764,7 @@ Partial Class FRM_SAWON
         Me.DPDate1.Location = New System.Drawing.Point(81, 248)
         Me.DPDate1.Name = "DPDate1"
         Me.DPDate1.Size = New System.Drawing.Size(115, 21)
-        Me.DPDate1.TabIndex = 39
+        Me.DPDate1.TabIndex = 24
         Me.DPDate1.Value = New Date(2011, 7, 12, 20, 59, 36, 0)
         '
         'Label10
@@ -777,7 +781,7 @@ Partial Class FRM_SAWON
         Me.txtEmail.Location = New System.Drawing.Point(81, 219)
         Me.txtEmail.Name = "txtEmail"
         Me.txtEmail.Size = New System.Drawing.Size(313, 21)
-        Me.txtEmail.TabIndex = 38
+        Me.txtEmail.TabIndex = 23
         '
         'Label9
         '
@@ -793,7 +797,7 @@ Partial Class FRM_SAWON
         Me.txtAddress.Location = New System.Drawing.Point(81, 190)
         Me.txtAddress.Name = "txtAddress"
         Me.txtAddress.Size = New System.Drawing.Size(313, 21)
-        Me.txtAddress.TabIndex = 37
+        Me.txtAddress.TabIndex = 22
         '
         'Label7
         '
@@ -811,21 +815,21 @@ Partial Class FRM_SAWON
         Me.cboPosition.Location = New System.Drawing.Point(266, 76)
         Me.cboPosition.Name = "cboPosition"
         Me.cboPosition.Size = New System.Drawing.Size(115, 20)
-        Me.cboPosition.TabIndex = 30
+        Me.cboPosition.TabIndex = 10
         '
         'txtName
         '
         Me.txtName.Location = New System.Drawing.Point(266, 18)
         Me.txtName.Name = "txtName"
         Me.txtName.Size = New System.Drawing.Size(115, 21)
-        Me.txtName.TabIndex = 26
+        Me.txtName.TabIndex = 6
         '
         'txtId
         '
         Me.txtId.Location = New System.Drawing.Point(81, 18)
         Me.txtId.Name = "txtId"
         Me.txtId.Size = New System.Drawing.Size(115, 21)
-        Me.txtId.TabIndex = 25
+        Me.txtId.TabIndex = 5
         '
         'Label2
         '
@@ -835,6 +839,26 @@ Partial Class FRM_SAWON
         Me.Label2.Size = New System.Drawing.Size(53, 12)
         Me.Label2.TabIndex = 24
         Me.Label2.Text = "사원번호"
+        '
+        'Label8
+        '
+        Me.Label8.Image = CType(resources.GetObject("Label8.Image"), System.Drawing.Image)
+        Me.Label8.Location = New System.Drawing.Point(9, 281)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(13, 12)
+        Me.Label8.TabIndex = 140
+        '
+        'ckbExcelUseYN
+        '
+        Me.ckbExcelUseYN.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.ckbExcelUseYN.Font = New System.Drawing.Font("굴림체", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.ckbExcelUseYN.Location = New System.Drawing.Point(20, 278)
+        Me.ckbExcelUseYN.Margin = New System.Windows.Forms.Padding(3, 0, 3, 0)
+        Me.ckbExcelUseYN.Name = "ckbExcelUseYN"
+        Me.ckbExcelUseYN.Size = New System.Drawing.Size(138, 19)
+        Me.ckbExcelUseYN.TabIndex = 141
+        Me.ckbExcelUseYN.Text = "엑셀사용여부"
+        Me.ckbExcelUseYN.UseVisualStyleBackColor = True
         '
         'FRM_SAWON
         '
@@ -936,4 +960,6 @@ Partial Class FRM_SAWON
     Friend WithEvents txtWorkTelNo2 As System.Windows.Forms.TextBox
     Friend WithEvents txtWorkTelNo1 As System.Windows.Forms.TextBox
     Friend WithEvents ckbMobileUser As System.Windows.Forms.CheckBox
+    Friend WithEvents ckbExcelUseYN As System.Windows.Forms.CheckBox
+    Friend WithEvents Label8 As System.Windows.Forms.Label
 End Class

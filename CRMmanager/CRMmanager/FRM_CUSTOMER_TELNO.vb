@@ -34,7 +34,7 @@
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
             '************************************ 체크하자
-            Dim dt1 As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
             DataGridView1.DataSource = Nothing
 
 
@@ -97,7 +97,7 @@
             SQL = SQL & " AND CUSTOMER_ID = " & mCustomerId
             SQL = SQL & " AND TELNO = '" & txtFindTelNo.Text.Trim.Replace("-", "") & "'"
 
-            Dim dt1 As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
             Dim CNT As String = "0"
 
 
@@ -158,7 +158,7 @@
             Sql = Sql & " ,'" & mCustomerId & "'"
             Sql = Sql & " ,'" & txtFindTelNo.Text.Trim & "','')"
 
-            Dim dt As DataTable = GetData_table1(gsConString, Sql)
+            Dim dt As DataTable = DoQueryParam(gsConString, Sql)
 
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
             Return True
@@ -193,7 +193,7 @@
             Dim SQL As String = " DELETE FROM T_CUSTOMER_TELNO WHERE COM_CD = '" & gsCOM_CD & _
                                 "' AND CUSTOMER_ID = '" & mCustomerId.Trim & _
                                 "' AND TELNO = '" & mSelectedTelNo.Trim & "'"
-            Dim dt As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt As DataTable = DoQueryParam(gsConString, SQL)
 
             dt = Nothing
 

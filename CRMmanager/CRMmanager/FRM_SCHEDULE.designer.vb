@@ -23,9 +23,9 @@ Partial Class FRM_SCHEDULE
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FRM_SCHEDULE))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel
         Me.PictureBox1 = New System.Windows.Forms.PictureBox
         Me.Label1 = New System.Windows.Forms.Label
@@ -72,59 +72,74 @@ Partial Class FRM_SCHEDULE
         Me.Label41 = New System.Windows.Forms.Label
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.DataGridView1 = New System.Windows.Forms.DataGridView
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox
+        Me.btnNew = New System.Windows.Forms.Button
+        Me.tabScheduleDetail = New Elegant.Ui.TabControl
+        Me.tpScheduleInternal = New Elegant.Ui.TabPage
+        Me.btnRemoveAll = New System.Windows.Forms.Button
+        Me.txtTitleInternal = New System.Windows.Forms.TextBox
+        Me.btnAddAll = New System.Windows.Forms.Button
+        Me.Label71 = New System.Windows.Forms.Label
+        Me.ckbSharing = New System.Windows.Forms.CheckBox
+        Me.Label70 = New System.Windows.Forms.Label
+        Me.dtpStartInternal = New System.Windows.Forms.DateTimePicker
+        Me.cboTeam = New System.Windows.Forms.ComboBox
+        Me.btnRemove = New System.Windows.Forms.Button
+        Me.cboHourStartInternal = New System.Windows.Forms.ComboBox
+        Me.btnAdd = New System.Windows.Forms.Button
+        Me.Label44 = New System.Windows.Forms.Label
+        Me.cboMinStartInternal = New System.Windows.Forms.ComboBox
+        Me.Label69 = New System.Windows.Forms.Label
+        Me.dtpEndInternal = New System.Windows.Forms.DateTimePicker
+        Me.cboHourEndInternal = New System.Windows.Forms.ComboBox
+        Me.cboMinEndInternal = New System.Windows.Forms.ComboBox
+        Me.Label68 = New System.Windows.Forms.Label
+        Me.lboTeamUserSelected = New System.Windows.Forms.ListBox
+        Me.txtDescInternal = New System.Windows.Forms.TextBox
+        Me.lboTeamUserList = New System.Windows.Forms.ListBox
+        Me.Label67 = New System.Windows.Forms.Label
+        Me.tpScheduleCustomer = New Elegant.Ui.TabPage
+        Me.txtDescCustSchedule = New System.Windows.Forms.TextBox
+        Me.lboTeamUserTemp = New System.Windows.Forms.ListBox
+        Me.Label49 = New System.Windows.Forms.Label
+        Me.cboMinCustSchedule = New System.Windows.Forms.ComboBox
+        Me.cboUserCustSchedule = New System.Windows.Forms.ComboBox
+        Me.Label47 = New System.Windows.Forms.Label
+        Me.cboHourCustSchedule = New System.Windows.Forms.ComboBox
+        Me.dtpDateCustSchedule = New System.Windows.Forms.DateTimePicker
+        Me.Label48 = New System.Windows.Forms.Label
+        Me.cboWReasonCustSchedule = New System.Windows.Forms.ComboBox
+        Me.txtTitleCustSchedule = New System.Windows.Forms.TextBox
+        Me.txtWLocCustSchedule = New System.Windows.Forms.TextBox
+        Me.Label43 = New System.Windows.Forms.Label
+        Me.Label46 = New System.Windows.Forms.Label
+        Me.Label45 = New System.Windows.Forms.Label
+        Me.btnDel = New System.Windows.Forms.Button
+        Me.btnSave = New System.Windows.Forms.Button
+        Me.DPYear = New System.Windows.Forms.DateTimePicker
+        Me.DPMonth = New System.Windows.Forms.DateTimePicker
+        Me.btn_today = New System.Windows.Forms.Button
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox
+        Me.S_TITLE = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.COWORKER = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.S_START_TIME = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.S_END_TIME = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.SHARING = New System.Windows.Forms.DataGridViewCheckBoxColumn
         Me.SHARING_TYPE2 = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.REGISTRANT = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.S_TITLE = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.SHARING_TYPE = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.S_DESC = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.S_COMPANY_COWORKER = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.S_WORKOUT_REASON = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.S_WORKOUT_LOC = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.drpUser = New System.Windows.Forms.ComboBox
-        Me.Label47 = New System.Windows.Forms.Label
-        Me.btnRemove2 = New System.Windows.Forms.Button
-        Me.btnAdd2 = New System.Windows.Forms.Button
-        Me.drpWReason = New System.Windows.Forms.ComboBox
-        Me.txtWLoc = New System.Windows.Forms.TextBox
-        Me.Label46 = New System.Windows.Forms.Label
-        Me.drpGubun = New System.Windows.Forms.ComboBox
-        Me.Label45 = New System.Windows.Forms.Label
-        Me.drpTeam = New System.Windows.Forms.ComboBox
-        Me.Label44 = New System.Windows.Forms.Label
-        Me.btnDel = New System.Windows.Forms.Button
-        Me.btnSave = New System.Windows.Forms.Button
-        Me.chkSharing = New System.Windows.Forms.CheckBox
-        Me.btnRemove = New System.Windows.Forms.Button
-        Me.btnAdd = New System.Windows.Forms.Button
-        Me.UserLB2 = New System.Windows.Forms.ListBox
-        Me.UserLB1 = New System.Windows.Forms.ListBox
-        Me.Label67 = New System.Windows.Forms.Label
-        Me.txtSchedule = New System.Windows.Forms.TextBox
-        Me.Label68 = New System.Windows.Forms.Label
-        Me.drpMin2 = New System.Windows.Forms.ComboBox
-        Me.drpHour2 = New System.Windows.Forms.ComboBox
-        Me.DPDate2 = New System.Windows.Forms.DateTimePicker
-        Me.Label69 = New System.Windows.Forms.Label
-        Me.drpMin1 = New System.Windows.Forms.ComboBox
-        Me.drpHour1 = New System.Windows.Forms.ComboBox
-        Me.DPDate1 = New System.Windows.Forms.DateTimePicker
-        Me.Label70 = New System.Windows.Forms.Label
-        Me.txtTitle = New System.Windows.Forms.TextBox
-        Me.Label71 = New System.Windows.Forms.Label
-        Me.UserLB3 = New System.Windows.Forms.ListBox
-        Me.DPYear = New System.Windows.Forms.DateTimePicker
-        Me.DPMonth = New System.Windows.Forms.DateTimePicker
-        Me.btn_today = New System.Windows.Forms.Button
-        Me.PictureBox2 = New System.Windows.Forms.PictureBox
         Me.FlowLayoutPanel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
+        CType(Me.tabScheduleDetail, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tpScheduleInternal.SuspendLayout()
+        Me.tpScheduleCustomer.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -315,7 +330,7 @@ Partial Class FRM_SCHEDULE
         Me.Label9.Padding = New System.Windows.Forms.Padding(5)
         Me.Label9.Size = New System.Drawing.Size(64, 40)
         Me.Label9.TabIndex = 8
-        Me.Label9.Text = "9"
+        Me.Label9.Text = "9" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         Me.Label9.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'Label10
@@ -795,32 +810,32 @@ Partial Class FRM_SCHEDULE
         Me.DataGridView1.AllowUserToAddRows = False
         Me.DataGridView1.AllowUserToDeleteRows = False
         Me.DataGridView1.AllowUserToOrderColumns = True
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.DataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.DataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
         Me.DataGridView1.BackgroundColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.S_START_TIME, Me.S_END_TIME, Me.SHARING, Me.SHARING_TYPE2, Me.REGISTRANT, Me.S_TITLE, Me.SHARING_TYPE, Me.S_DESC, Me.S_COMPANY_COWORKER, Me.S_WORKOUT_REASON, Me.S_WORKOUT_LOC})
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.S_TITLE, Me.COWORKER, Me.S_START_TIME, Me.S_END_TIME, Me.SHARING, Me.SHARING_TYPE2, Me.REGISTRANT, Me.SHARING_TYPE, Me.S_DESC, Me.S_COMPANY_COWORKER, Me.S_WORKOUT_REASON, Me.S_WORKOUT_LOC})
         Me.DataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.DataGridView1.GridColor = System.Drawing.SystemColors.ActiveCaption
         Me.DataGridView1.Location = New System.Drawing.Point(8, 17)
         Me.DataGridView1.MultiSelect = False
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.RowTemplate.Height = 23
         Me.DataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
@@ -828,285 +843,158 @@ Partial Class FRM_SCHEDULE
         Me.DataGridView1.Size = New System.Drawing.Size(452, 215)
         Me.DataGridView1.TabIndex = 1
         '
-        'S_START_TIME
-        '
-        Me.S_START_TIME.DataPropertyName = "S_START_TIME"
-        Me.S_START_TIME.HeaderText = "시작일시"
-        Me.S_START_TIME.Name = "S_START_TIME"
-        Me.S_START_TIME.ReadOnly = True
-        '
-        'S_END_TIME
-        '
-        Me.S_END_TIME.DataPropertyName = "S_END_TIME"
-        Me.S_END_TIME.HeaderText = "종료일시"
-        Me.S_END_TIME.Name = "S_END_TIME"
-        Me.S_END_TIME.ReadOnly = True
-        '
-        'SHARING
-        '
-        Me.SHARING.DataPropertyName = "SHARING"
-        Me.SHARING.HeaderText = "공유"
-        Me.SHARING.Name = "SHARING"
-        Me.SHARING.ReadOnly = True
-        Me.SHARING.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.SHARING.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.SHARING.Visible = False
-        Me.SHARING.Width = 50
-        '
-        'SHARING_TYPE2
-        '
-        Me.SHARING_TYPE2.DataPropertyName = "SHARING_TYPE2"
-        Me.SHARING_TYPE2.HeaderText = "구분"
-        Me.SHARING_TYPE2.Name = "SHARING_TYPE2"
-        Me.SHARING_TYPE2.ReadOnly = True
-        Me.SHARING_TYPE2.Width = 70
-        '
-        'REGISTRANT
-        '
-        Me.REGISTRANT.DataPropertyName = "REGISTRANT"
-        Me.REGISTRANT.HeaderText = "등록자"
-        Me.REGISTRANT.Name = "REGISTRANT"
-        Me.REGISTRANT.ReadOnly = True
-        Me.REGISTRANT.Width = 80
-        '
-        'S_TITLE
-        '
-        Me.S_TITLE.DataPropertyName = "S_TITLE"
-        Me.S_TITLE.HeaderText = "제목"
-        Me.S_TITLE.Name = "S_TITLE"
-        Me.S_TITLE.ReadOnly = True
-        '
-        'SHARING_TYPE
-        '
-        Me.SHARING_TYPE.DataPropertyName = "SHARING_TYPE"
-        Me.SHARING_TYPE.HeaderText = "공유타입"
-        Me.SHARING_TYPE.Name = "SHARING_TYPE"
-        Me.SHARING_TYPE.ReadOnly = True
-        Me.SHARING_TYPE.Visible = False
-        '
-        'S_DESC
-        '
-        Me.S_DESC.DataPropertyName = "S_DESC"
-        Me.S_DESC.HeaderText = "내용"
-        Me.S_DESC.Name = "S_DESC"
-        Me.S_DESC.ReadOnly = True
-        Me.S_DESC.Visible = False
-        '
-        'S_COMPANY_COWORKER
-        '
-        Me.S_COMPANY_COWORKER.DataPropertyName = "S_COMPANY_COWORKER"
-        Me.S_COMPANY_COWORKER.HeaderText = "참석자"
-        Me.S_COMPANY_COWORKER.Name = "S_COMPANY_COWORKER"
-        Me.S_COMPANY_COWORKER.ReadOnly = True
-        Me.S_COMPANY_COWORKER.Visible = False
-        '
-        'S_WORKOUT_REASON
-        '
-        Me.S_WORKOUT_REASON.DataPropertyName = "S_WORKOUT_REASON"
-        Me.S_WORKOUT_REASON.HeaderText = "외근사유코드"
-        Me.S_WORKOUT_REASON.Name = "S_WORKOUT_REASON"
-        Me.S_WORKOUT_REASON.ReadOnly = True
-        Me.S_WORKOUT_REASON.Visible = False
-        '
-        'S_WORKOUT_LOC
-        '
-        Me.S_WORKOUT_LOC.DataPropertyName = "S_WORKOUT_LOC"
-        Me.S_WORKOUT_LOC.HeaderText = "외근지"
-        Me.S_WORKOUT_LOC.Name = "S_WORKOUT_LOC"
-        Me.S_WORKOUT_LOC.ReadOnly = True
-        Me.S_WORKOUT_LOC.Visible = False
-        '
         'GroupBox2
         '
-        Me.GroupBox2.Controls.Add(Me.drpUser)
-        Me.GroupBox2.Controls.Add(Me.Label47)
-        Me.GroupBox2.Controls.Add(Me.btnRemove2)
-        Me.GroupBox2.Controls.Add(Me.btnAdd2)
-        Me.GroupBox2.Controls.Add(Me.drpWReason)
-        Me.GroupBox2.Controls.Add(Me.txtWLoc)
-        Me.GroupBox2.Controls.Add(Me.Label46)
-        Me.GroupBox2.Controls.Add(Me.drpGubun)
-        Me.GroupBox2.Controls.Add(Me.Label45)
-        Me.GroupBox2.Controls.Add(Me.drpTeam)
-        Me.GroupBox2.Controls.Add(Me.Label44)
+        Me.GroupBox2.Controls.Add(Me.btnNew)
+        Me.GroupBox2.Controls.Add(Me.tabScheduleDetail)
         Me.GroupBox2.Controls.Add(Me.btnDel)
         Me.GroupBox2.Controls.Add(Me.btnSave)
-        Me.GroupBox2.Controls.Add(Me.chkSharing)
-        Me.GroupBox2.Controls.Add(Me.btnRemove)
-        Me.GroupBox2.Controls.Add(Me.btnAdd)
-        Me.GroupBox2.Controls.Add(Me.UserLB2)
-        Me.GroupBox2.Controls.Add(Me.UserLB1)
-        Me.GroupBox2.Controls.Add(Me.Label67)
-        Me.GroupBox2.Controls.Add(Me.txtSchedule)
-        Me.GroupBox2.Controls.Add(Me.Label68)
-        Me.GroupBox2.Controls.Add(Me.drpMin2)
-        Me.GroupBox2.Controls.Add(Me.drpHour2)
-        Me.GroupBox2.Controls.Add(Me.DPDate2)
-        Me.GroupBox2.Controls.Add(Me.Label69)
-        Me.GroupBox2.Controls.Add(Me.drpMin1)
-        Me.GroupBox2.Controls.Add(Me.drpHour1)
-        Me.GroupBox2.Controls.Add(Me.DPDate1)
-        Me.GroupBox2.Controls.Add(Me.Label70)
-        Me.GroupBox2.Controls.Add(Me.txtTitle)
-        Me.GroupBox2.Controls.Add(Me.Label71)
-        Me.GroupBox2.Controls.Add(Me.UserLB3)
         Me.GroupBox2.Location = New System.Drawing.Point(499, 50)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(377, 597)
+        Me.GroupBox2.Size = New System.Drawing.Size(377, 540)
         Me.GroupBox2.TabIndex = 4
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "일정 상세내용"
         '
-        'drpUser
+        'btnNew
         '
-        Me.drpUser.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.drpUser.Enabled = False
-        Me.drpUser.FormattingEnabled = True
-        Me.drpUser.Location = New System.Drawing.Point(82, 431)
-        Me.drpUser.Name = "drpUser"
-        Me.drpUser.Size = New System.Drawing.Size(200, 20)
-        Me.drpUser.TabIndex = 157
+        Me.btnNew.BackColor = System.Drawing.SystemColors.Control
+        Me.btnNew.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnNew.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.btnNew.Location = New System.Drawing.Point(163, 507)
+        Me.btnNew.Name = "btnNew"
+        Me.btnNew.Size = New System.Drawing.Size(65, 25)
+        Me.btnNew.TabIndex = 147
+        Me.btnNew.Text = "새로작성"
+        Me.btnNew.UseVisualStyleBackColor = False
         '
-        'Label47
+        'tabScheduleDetail
         '
-        Me.Label47.AutoSize = True
-        Me.Label47.Location = New System.Drawing.Point(23, 433)
-        Me.Label47.Name = "Label47"
-        Me.Label47.Size = New System.Drawing.Size(41, 12)
-        Me.Label47.TabIndex = 156
-        Me.Label47.Text = "외근자"
+        Me.tabScheduleDetail.Location = New System.Drawing.Point(3, 17)
+        Me.tabScheduleDetail.Name = "tabScheduleDetail"
+        Me.tabScheduleDetail.SelectedTabPage = Me.tpScheduleInternal
+        Me.tabScheduleDetail.Size = New System.Drawing.Size(371, 484)
+        Me.tabScheduleDetail.TabIndex = 132
+        Me.tabScheduleDetail.TabPages.AddRange(New Elegant.Ui.TabPage() {Me.tpScheduleCustomer, Me.tpScheduleInternal})
         '
-        'btnRemove2
+        'tpScheduleInternal
         '
-        Me.btnRemove2.BackColor = System.Drawing.SystemColors.Control
-        Me.btnRemove2.BackgroundImage = CType(resources.GetObject("btnRemove2.BackgroundImage"), System.Drawing.Image)
-        Me.btnRemove2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.btnRemove2.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnRemove2.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.btnRemove2.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.btnRemove2.ImageAlign = System.Drawing.ContentAlignment.TopLeft
-        Me.btnRemove2.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.btnRemove2.Location = New System.Drawing.Point(206, 375)
-        Me.btnRemove2.Margin = New System.Windows.Forms.Padding(0)
-        Me.btnRemove2.Name = "btnRemove2"
-        Me.btnRemove2.Size = New System.Drawing.Size(25, 25)
-        Me.btnRemove2.TabIndex = 155
-        Me.btnRemove2.UseVisualStyleBackColor = False
+        Me.tpScheduleInternal.ActiveControl = Nothing
+        Me.tpScheduleInternal.Controls.Add(Me.btnRemoveAll)
+        Me.tpScheduleInternal.Controls.Add(Me.txtTitleInternal)
+        Me.tpScheduleInternal.Controls.Add(Me.btnAddAll)
+        Me.tpScheduleInternal.Controls.Add(Me.Label71)
+        Me.tpScheduleInternal.Controls.Add(Me.ckbSharing)
+        Me.tpScheduleInternal.Controls.Add(Me.Label70)
+        Me.tpScheduleInternal.Controls.Add(Me.dtpStartInternal)
+        Me.tpScheduleInternal.Controls.Add(Me.cboTeam)
+        Me.tpScheduleInternal.Controls.Add(Me.btnRemove)
+        Me.tpScheduleInternal.Controls.Add(Me.cboHourStartInternal)
+        Me.tpScheduleInternal.Controls.Add(Me.btnAdd)
+        Me.tpScheduleInternal.Controls.Add(Me.Label44)
+        Me.tpScheduleInternal.Controls.Add(Me.cboMinStartInternal)
+        Me.tpScheduleInternal.Controls.Add(Me.Label69)
+        Me.tpScheduleInternal.Controls.Add(Me.dtpEndInternal)
+        Me.tpScheduleInternal.Controls.Add(Me.cboHourEndInternal)
+        Me.tpScheduleInternal.Controls.Add(Me.cboMinEndInternal)
+        Me.tpScheduleInternal.Controls.Add(Me.Label68)
+        Me.tpScheduleInternal.Controls.Add(Me.lboTeamUserSelected)
+        Me.tpScheduleInternal.Controls.Add(Me.txtDescInternal)
+        Me.tpScheduleInternal.Controls.Add(Me.lboTeamUserList)
+        Me.tpScheduleInternal.Controls.Add(Me.Label67)
+        Me.tpScheduleInternal.KeyTip = Nothing
+        Me.tpScheduleInternal.Name = "tpScheduleInternal"
+        Me.tpScheduleInternal.Size = New System.Drawing.Size(369, 464)
+        Me.tpScheduleInternal.TabIndex = 1
+        Me.tpScheduleInternal.Text = "내부일정"
         '
-        'btnAdd2
+        'btnRemoveAll
         '
-        Me.btnAdd2.BackColor = System.Drawing.SystemColors.Control
-        Me.btnAdd2.BackgroundImage = CType(resources.GetObject("btnAdd2.BackgroundImage"), System.Drawing.Image)
-        Me.btnAdd2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.btnAdd2.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnAdd2.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.btnAdd2.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.btnAdd2.ImageAlign = System.Drawing.ContentAlignment.TopLeft
-        Me.btnAdd2.ImageIndex = 1
-        Me.btnAdd2.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.btnAdd2.Location = New System.Drawing.Point(206, 285)
-        Me.btnAdd2.Margin = New System.Windows.Forms.Padding(0)
-        Me.btnAdd2.Name = "btnAdd2"
-        Me.btnAdd2.Size = New System.Drawing.Size(25, 25)
-        Me.btnAdd2.TabIndex = 154
-        Me.btnAdd2.UseVisualStyleBackColor = False
+        Me.btnRemoveAll.BackColor = System.Drawing.SystemColors.Control
+        Me.btnRemoveAll.BackgroundImage = CType(resources.GetObject("btnRemoveAll.BackgroundImage"), System.Drawing.Image)
+        Me.btnRemoveAll.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.btnRemoveAll.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnRemoveAll.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnRemoveAll.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.btnRemoveAll.ImageAlign = System.Drawing.ContentAlignment.TopLeft
+        Me.btnRemoveAll.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.btnRemoveAll.Location = New System.Drawing.Point(203, 369)
+        Me.btnRemoveAll.Margin = New System.Windows.Forms.Padding(0)
+        Me.btnRemoveAll.Name = "btnRemoveAll"
+        Me.btnRemoveAll.Size = New System.Drawing.Size(25, 25)
+        Me.btnRemoveAll.TabIndex = 155
+        Me.btnRemoveAll.UseVisualStyleBackColor = False
         '
-        'drpWReason
+        'txtTitleInternal
         '
-        Me.drpWReason.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.drpWReason.Enabled = False
-        Me.drpWReason.FormattingEnabled = True
-        Me.drpWReason.Location = New System.Drawing.Point(82, 460)
-        Me.drpWReason.Name = "drpWReason"
-        Me.drpWReason.Size = New System.Drawing.Size(200, 20)
-        Me.drpWReason.TabIndex = 153
+        Me.txtTitleInternal.Location = New System.Drawing.Point(80, 17)
+        Me.txtTitleInternal.Name = "txtTitleInternal"
+        Me.txtTitleInternal.Size = New System.Drawing.Size(275, 21)
+        Me.txtTitleInternal.TabIndex = 123
         '
-        'txtWLoc
+        'btnAddAll
         '
-        Me.txtWLoc.Enabled = False
-        Me.txtWLoc.Location = New System.Drawing.Point(82, 489)
-        Me.txtWLoc.Name = "txtWLoc"
-        Me.txtWLoc.Size = New System.Drawing.Size(275, 21)
-        Me.txtWLoc.TabIndex = 151
+        Me.btnAddAll.BackColor = System.Drawing.SystemColors.Control
+        Me.btnAddAll.BackgroundImage = CType(resources.GetObject("btnAddAll.BackgroundImage"), System.Drawing.Image)
+        Me.btnAddAll.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.btnAddAll.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnAddAll.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnAddAll.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.btnAddAll.ImageAlign = System.Drawing.ContentAlignment.TopLeft
+        Me.btnAddAll.ImageIndex = 1
+        Me.btnAddAll.ImeMode = System.Windows.Forms.ImeMode.[On]
+        Me.btnAddAll.Location = New System.Drawing.Point(203, 279)
+        Me.btnAddAll.Margin = New System.Windows.Forms.Padding(0)
+        Me.btnAddAll.Name = "btnAddAll"
+        Me.btnAddAll.Size = New System.Drawing.Size(25, 25)
+        Me.btnAddAll.TabIndex = 154
+        Me.btnAddAll.UseVisualStyleBackColor = False
         '
-        'Label46
+        'Label71
         '
-        Me.Label46.AutoSize = True
-        Me.Label46.Location = New System.Drawing.Point(23, 493)
-        Me.Label46.Name = "Label46"
-        Me.Label46.Size = New System.Drawing.Size(41, 12)
-        Me.Label46.TabIndex = 150
-        Me.Label46.Text = "외근지"
+        Me.Label71.AutoSize = True
+        Me.Label71.Location = New System.Drawing.Point(21, 21)
+        Me.Label71.Name = "Label71"
+        Me.Label71.Size = New System.Drawing.Size(29, 12)
+        Me.Label71.TabIndex = 122
+        Me.Label71.Text = "제목"
         '
-        'drpGubun
+        'ckbSharing
         '
-        Me.drpGubun.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.drpGubun.FormattingEnabled = True
-        Me.drpGubun.Location = New System.Drawing.Point(277, 50)
-        Me.drpGubun.Name = "drpGubun"
-        Me.drpGubun.Size = New System.Drawing.Size(80, 20)
-        Me.drpGubun.TabIndex = 149
+        Me.ckbSharing.Font = New System.Drawing.Font("굴림", 8.9!)
+        Me.ckbSharing.Location = New System.Drawing.Point(286, 74)
+        Me.ckbSharing.Name = "ckbSharing"
+        Me.ckbSharing.Size = New System.Drawing.Size(55, 16)
+        Me.ckbSharing.TabIndex = 139
+        Me.ckbSharing.Text = "공유"
+        Me.ckbSharing.UseVisualStyleBackColor = True
         '
-        'Label45
+        'Label70
         '
-        Me.Label45.AutoSize = True
-        Me.Label45.Location = New System.Drawing.Point(23, 463)
-        Me.Label45.Name = "Label45"
-        Me.Label45.Size = New System.Drawing.Size(53, 12)
-        Me.Label45.TabIndex = 147
-        Me.Label45.Text = "외근사유"
+        Me.Label70.AutoSize = True
+        Me.Label70.Location = New System.Drawing.Point(21, 49)
+        Me.Label70.Name = "Label70"
+        Me.Label70.Size = New System.Drawing.Size(53, 12)
+        Me.Label70.TabIndex = 124
+        Me.Label70.Text = "시작일시"
         '
-        'drpTeam
+        'dtpStartInternal
         '
-        Me.drpTeam.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.drpTeam.FormattingEnabled = True
-        Me.drpTeam.Location = New System.Drawing.Point(81, 237)
-        Me.drpTeam.Name = "drpTeam"
-        Me.drpTeam.Size = New System.Drawing.Size(115, 20)
-        Me.drpTeam.TabIndex = 145
+        Me.dtpStartInternal.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.dtpStartInternal.Location = New System.Drawing.Point(80, 45)
+        Me.dtpStartInternal.Name = "dtpStartInternal"
+        Me.dtpStartInternal.Size = New System.Drawing.Size(90, 21)
+        Me.dtpStartInternal.TabIndex = 125
+        Me.dtpStartInternal.Value = New Date(2011, 7, 12, 20, 59, 36, 0)
         '
-        'Label44
+        'cboTeam
         '
-        Me.Label44.AutoSize = True
-        Me.Label44.Location = New System.Drawing.Point(23, 240)
-        Me.Label44.Name = "Label44"
-        Me.Label44.Size = New System.Drawing.Size(29, 12)
-        Me.Label44.TabIndex = 144
-        Me.Label44.Text = "팀명"
-        '
-        'btnDel
-        '
-        Me.btnDel.BackColor = System.Drawing.SystemColors.Control
-        Me.btnDel.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.btnDel.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.btnDel.Location = New System.Drawing.Point(212, 529)
-        Me.btnDel.Name = "btnDel"
-        Me.btnDel.Size = New System.Drawing.Size(45, 25)
-        Me.btnDel.TabIndex = 141
-        Me.btnDel.Text = "삭제"
-        Me.btnDel.UseVisualStyleBackColor = False
-        '
-        'btnSave
-        '
-        Me.btnSave.BackColor = System.Drawing.SystemColors.Control
-        Me.btnSave.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.btnSave.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.btnSave.Location = New System.Drawing.Point(135, 529)
-        Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(45, 25)
-        Me.btnSave.TabIndex = 140
-        Me.btnSave.Text = "저장"
-        Me.btnSave.UseVisualStyleBackColor = False
-        '
-        'chkSharing
-        '
-        Me.chkSharing.Font = New System.Drawing.Font("굴림", 8.9!)
-        Me.chkSharing.Location = New System.Drawing.Point(286, 78)
-        Me.chkSharing.Name = "chkSharing"
-        Me.chkSharing.Size = New System.Drawing.Size(55, 16)
-        Me.chkSharing.TabIndex = 139
-        Me.chkSharing.Text = "공유"
-        Me.chkSharing.UseVisualStyleBackColor = True
+        Me.cboTeam.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboTeam.FormattingEnabled = True
+        Me.cboTeam.Location = New System.Drawing.Point(80, 232)
+        Me.cboTeam.Name = "cboTeam"
+        Me.cboTeam.Size = New System.Drawing.Size(115, 20)
+        Me.cboTeam.TabIndex = 145
         '
         'btnRemove
         '
@@ -1118,12 +1006,21 @@ Partial Class FRM_SCHEDULE
         Me.btnRemove.ForeColor = System.Drawing.SystemColors.ControlText
         Me.btnRemove.ImageAlign = System.Drawing.ContentAlignment.TopLeft
         Me.btnRemove.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.btnRemove.Location = New System.Drawing.Point(206, 345)
+        Me.btnRemove.Location = New System.Drawing.Point(203, 339)
         Me.btnRemove.Margin = New System.Windows.Forms.Padding(0)
         Me.btnRemove.Name = "btnRemove"
         Me.btnRemove.Size = New System.Drawing.Size(25, 25)
         Me.btnRemove.TabIndex = 138
         Me.btnRemove.UseVisualStyleBackColor = False
+        '
+        'cboHourStartInternal
+        '
+        Me.cboHourStartInternal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboHourStartInternal.FormattingEnabled = True
+        Me.cboHourStartInternal.Location = New System.Drawing.Point(175, 45)
+        Me.cboHourStartInternal.Name = "cboHourStartInternal"
+        Me.cboHourStartInternal.Size = New System.Drawing.Size(40, 20)
+        Me.cboHourStartInternal.TabIndex = 126
         '
         'btnAdd
         '
@@ -1136,154 +1033,290 @@ Partial Class FRM_SCHEDULE
         Me.btnAdd.ImageAlign = System.Drawing.ContentAlignment.TopLeft
         Me.btnAdd.ImageIndex = 1
         Me.btnAdd.ImeMode = System.Windows.Forms.ImeMode.[On]
-        Me.btnAdd.Location = New System.Drawing.Point(206, 315)
+        Me.btnAdd.Location = New System.Drawing.Point(203, 309)
         Me.btnAdd.Margin = New System.Windows.Forms.Padding(0)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(25, 25)
         Me.btnAdd.TabIndex = 137
         Me.btnAdd.UseVisualStyleBackColor = False
         '
-        'UserLB2
+        'Label44
         '
-        Me.UserLB2.FormattingEnabled = True
-        Me.UserLB2.ItemHeight = 12
-        Me.UserLB2.Location = New System.Drawing.Point(240, 265)
-        Me.UserLB2.Name = "UserLB2"
-        Me.UserLB2.Size = New System.Drawing.Size(115, 160)
-        Me.UserLB2.TabIndex = 136
+        Me.Label44.AutoSize = True
+        Me.Label44.Location = New System.Drawing.Point(22, 235)
+        Me.Label44.Name = "Label44"
+        Me.Label44.Size = New System.Drawing.Size(29, 12)
+        Me.Label44.TabIndex = 144
+        Me.Label44.Text = "팀명"
         '
-        'UserLB1
+        'cboMinStartInternal
         '
-        Me.UserLB1.FormattingEnabled = True
-        Me.UserLB1.ItemHeight = 12
-        Me.UserLB1.Location = New System.Drawing.Point(82, 265)
-        Me.UserLB1.Name = "UserLB1"
-        Me.UserLB1.Size = New System.Drawing.Size(115, 160)
-        Me.UserLB1.TabIndex = 135
-        '
-        'Label67
-        '
-        Me.Label67.AutoSize = True
-        Me.Label67.Location = New System.Drawing.Point(23, 268)
-        Me.Label67.Name = "Label67"
-        Me.Label67.Size = New System.Drawing.Size(41, 12)
-        Me.Label67.TabIndex = 134
-        Me.Label67.Text = "참석자"
-        '
-        'txtSchedule
-        '
-        Me.txtSchedule.Location = New System.Drawing.Point(81, 105)
-        Me.txtSchedule.Multiline = True
-        Me.txtSchedule.Name = "txtSchedule"
-        Me.txtSchedule.Size = New System.Drawing.Size(273, 125)
-        Me.txtSchedule.TabIndex = 133
-        '
-        'Label68
-        '
-        Me.Label68.AutoSize = True
-        Me.Label68.Location = New System.Drawing.Point(22, 107)
-        Me.Label68.Name = "Label68"
-        Me.Label68.Size = New System.Drawing.Size(29, 12)
-        Me.Label68.TabIndex = 132
-        Me.Label68.Text = "내용"
-        '
-        'drpMin2
-        '
-        Me.drpMin2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.drpMin2.FormattingEnabled = True
-        Me.drpMin2.Location = New System.Drawing.Point(222, 77)
-        Me.drpMin2.Name = "drpMin2"
-        Me.drpMin2.Size = New System.Drawing.Size(40, 20)
-        Me.drpMin2.TabIndex = 131
-        '
-        'drpHour2
-        '
-        Me.drpHour2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.drpHour2.FormattingEnabled = True
-        Me.drpHour2.Location = New System.Drawing.Point(176, 77)
-        Me.drpHour2.Name = "drpHour2"
-        Me.drpHour2.Size = New System.Drawing.Size(40, 20)
-        Me.drpHour2.TabIndex = 130
-        '
-        'DPDate2
-        '
-        Me.DPDate2.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DPDate2.Location = New System.Drawing.Point(81, 77)
-        Me.DPDate2.Name = "DPDate2"
-        Me.DPDate2.Size = New System.Drawing.Size(90, 21)
-        Me.DPDate2.TabIndex = 129
-        Me.DPDate2.Value = New Date(2011, 7, 12, 20, 59, 36, 0)
+        Me.cboMinStartInternal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboMinStartInternal.FormattingEnabled = True
+        Me.cboMinStartInternal.Location = New System.Drawing.Point(221, 45)
+        Me.cboMinStartInternal.Name = "cboMinStartInternal"
+        Me.cboMinStartInternal.Size = New System.Drawing.Size(40, 20)
+        Me.cboMinStartInternal.TabIndex = 127
         '
         'Label69
         '
         Me.Label69.AutoSize = True
-        Me.Label69.Location = New System.Drawing.Point(22, 81)
+        Me.Label69.Location = New System.Drawing.Point(21, 76)
         Me.Label69.Name = "Label69"
         Me.Label69.Size = New System.Drawing.Size(53, 12)
         Me.Label69.TabIndex = 128
         Me.Label69.Text = "종료일시"
         '
-        'drpMin1
+        'dtpEndInternal
         '
-        Me.drpMin1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.drpMin1.FormattingEnabled = True
-        Me.drpMin1.Location = New System.Drawing.Point(222, 50)
-        Me.drpMin1.Name = "drpMin1"
-        Me.drpMin1.Size = New System.Drawing.Size(40, 20)
-        Me.drpMin1.TabIndex = 127
+        Me.dtpEndInternal.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.dtpEndInternal.Location = New System.Drawing.Point(80, 72)
+        Me.dtpEndInternal.Name = "dtpEndInternal"
+        Me.dtpEndInternal.Size = New System.Drawing.Size(90, 21)
+        Me.dtpEndInternal.TabIndex = 129
+        Me.dtpEndInternal.Value = New Date(2011, 7, 12, 20, 59, 36, 0)
         '
-        'drpHour1
+        'cboHourEndInternal
         '
-        Me.drpHour1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.drpHour1.FormattingEnabled = True
-        Me.drpHour1.Location = New System.Drawing.Point(176, 50)
-        Me.drpHour1.Name = "drpHour1"
-        Me.drpHour1.Size = New System.Drawing.Size(40, 20)
-        Me.drpHour1.TabIndex = 126
+        Me.cboHourEndInternal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboHourEndInternal.FormattingEnabled = True
+        Me.cboHourEndInternal.Location = New System.Drawing.Point(175, 72)
+        Me.cboHourEndInternal.Name = "cboHourEndInternal"
+        Me.cboHourEndInternal.Size = New System.Drawing.Size(40, 20)
+        Me.cboHourEndInternal.TabIndex = 130
         '
-        'DPDate1
+        'cboMinEndInternal
         '
-        Me.DPDate1.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DPDate1.Location = New System.Drawing.Point(81, 50)
-        Me.DPDate1.Name = "DPDate1"
-        Me.DPDate1.Size = New System.Drawing.Size(90, 21)
-        Me.DPDate1.TabIndex = 125
-        Me.DPDate1.Value = New Date(2011, 7, 12, 20, 59, 36, 0)
+        Me.cboMinEndInternal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboMinEndInternal.FormattingEnabled = True
+        Me.cboMinEndInternal.Location = New System.Drawing.Point(221, 72)
+        Me.cboMinEndInternal.Name = "cboMinEndInternal"
+        Me.cboMinEndInternal.Size = New System.Drawing.Size(40, 20)
+        Me.cboMinEndInternal.TabIndex = 131
         '
-        'Label70
+        'Label68
         '
-        Me.Label70.AutoSize = True
-        Me.Label70.Location = New System.Drawing.Point(22, 54)
-        Me.Label70.Name = "Label70"
-        Me.Label70.Size = New System.Drawing.Size(53, 12)
-        Me.Label70.TabIndex = 124
-        Me.Label70.Text = "시작일시"
+        Me.Label68.AutoSize = True
+        Me.Label68.Location = New System.Drawing.Point(21, 102)
+        Me.Label68.Name = "Label68"
+        Me.Label68.Size = New System.Drawing.Size(29, 12)
+        Me.Label68.TabIndex = 132
+        Me.Label68.Text = "내용"
         '
-        'txtTitle
+        'lboTeamUserSelected
         '
-        Me.txtTitle.Location = New System.Drawing.Point(81, 22)
-        Me.txtTitle.Name = "txtTitle"
-        Me.txtTitle.Size = New System.Drawing.Size(275, 21)
-        Me.txtTitle.TabIndex = 123
+        Me.lboTeamUserSelected.FormattingEnabled = True
+        Me.lboTeamUserSelected.ItemHeight = 12
+        Me.lboTeamUserSelected.Location = New System.Drawing.Point(239, 260)
+        Me.lboTeamUserSelected.Name = "lboTeamUserSelected"
+        Me.lboTeamUserSelected.Size = New System.Drawing.Size(115, 160)
+        Me.lboTeamUserSelected.TabIndex = 136
         '
-        'Label71
+        'txtDescInternal
         '
-        Me.Label71.AutoSize = True
-        Me.Label71.Location = New System.Drawing.Point(22, 26)
-        Me.Label71.Name = "Label71"
-        Me.Label71.Size = New System.Drawing.Size(29, 12)
-        Me.Label71.TabIndex = 122
-        Me.Label71.Text = "제목"
+        Me.txtDescInternal.Location = New System.Drawing.Point(80, 100)
+        Me.txtDescInternal.Multiline = True
+        Me.txtDescInternal.Name = "txtDescInternal"
+        Me.txtDescInternal.Size = New System.Drawing.Size(273, 125)
+        Me.txtDescInternal.TabIndex = 133
         '
-        'UserLB3
+        'lboTeamUserList
         '
-        Me.UserLB3.FormattingEnabled = True
-        Me.UserLB3.ItemHeight = 12
-        Me.UserLB3.Location = New System.Drawing.Point(19, 531)
-        Me.UserLB3.Name = "UserLB3"
-        Me.UserLB3.Size = New System.Drawing.Size(100, 40)
-        Me.UserLB3.TabIndex = 146
-        Me.UserLB3.Visible = False
+        Me.lboTeamUserList.FormattingEnabled = True
+        Me.lboTeamUserList.ItemHeight = 12
+        Me.lboTeamUserList.Location = New System.Drawing.Point(81, 260)
+        Me.lboTeamUserList.Name = "lboTeamUserList"
+        Me.lboTeamUserList.Size = New System.Drawing.Size(115, 160)
+        Me.lboTeamUserList.TabIndex = 135
+        '
+        'Label67
+        '
+        Me.Label67.AutoSize = True
+        Me.Label67.Location = New System.Drawing.Point(22, 263)
+        Me.Label67.Name = "Label67"
+        Me.Label67.Size = New System.Drawing.Size(41, 12)
+        Me.Label67.TabIndex = 134
+        Me.Label67.Text = "참석자"
+        '
+        'tpScheduleCustomer
+        '
+        Me.tpScheduleCustomer.ActiveControl = Nothing
+        Me.tpScheduleCustomer.Controls.Add(Me.txtDescCustSchedule)
+        Me.tpScheduleCustomer.Controls.Add(Me.lboTeamUserTemp)
+        Me.tpScheduleCustomer.Controls.Add(Me.Label49)
+        Me.tpScheduleCustomer.Controls.Add(Me.cboMinCustSchedule)
+        Me.tpScheduleCustomer.Controls.Add(Me.cboUserCustSchedule)
+        Me.tpScheduleCustomer.Controls.Add(Me.Label47)
+        Me.tpScheduleCustomer.Controls.Add(Me.cboHourCustSchedule)
+        Me.tpScheduleCustomer.Controls.Add(Me.dtpDateCustSchedule)
+        Me.tpScheduleCustomer.Controls.Add(Me.Label48)
+        Me.tpScheduleCustomer.Controls.Add(Me.cboWReasonCustSchedule)
+        Me.tpScheduleCustomer.Controls.Add(Me.txtTitleCustSchedule)
+        Me.tpScheduleCustomer.Controls.Add(Me.txtWLocCustSchedule)
+        Me.tpScheduleCustomer.Controls.Add(Me.Label43)
+        Me.tpScheduleCustomer.Controls.Add(Me.Label46)
+        Me.tpScheduleCustomer.Controls.Add(Me.Label45)
+        Me.tpScheduleCustomer.KeyTip = Nothing
+        Me.tpScheduleCustomer.Name = "tpScheduleCustomer"
+        Me.tpScheduleCustomer.Size = New System.Drawing.Size(369, 464)
+        Me.tpScheduleCustomer.TabIndex = 0
+        Me.tpScheduleCustomer.Text = "고객일정"
+        '
+        'txtDescCustSchedule
+        '
+        Me.txtDescCustSchedule.Location = New System.Drawing.Point(82, 157)
+        Me.txtDescCustSchedule.Multiline = True
+        Me.txtDescCustSchedule.Name = "txtDescCustSchedule"
+        Me.txtDescCustSchedule.Size = New System.Drawing.Size(275, 127)
+        Me.txtDescCustSchedule.TabIndex = 159
+        '
+        'lboTeamUserTemp
+        '
+        Me.lboTeamUserTemp.FormattingEnabled = True
+        Me.lboTeamUserTemp.ItemHeight = 12
+        Me.lboTeamUserTemp.Location = New System.Drawing.Point(15, 369)
+        Me.lboTeamUserTemp.Name = "lboTeamUserTemp"
+        Me.lboTeamUserTemp.Size = New System.Drawing.Size(150, 28)
+        Me.lboTeamUserTemp.TabIndex = 146
+        Me.lboTeamUserTemp.Visible = False
+        '
+        'Label49
+        '
+        Me.Label49.AutoSize = True
+        Me.Label49.Location = New System.Drawing.Point(14, 165)
+        Me.Label49.Name = "Label49"
+        Me.Label49.Size = New System.Drawing.Size(57, 12)
+        Me.Label49.TabIndex = 158
+        Me.Label49.Text = "응대 내용"
+        '
+        'cboMinCustSchedule
+        '
+        Me.cboMinCustSchedule.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboMinCustSchedule.FormattingEnabled = True
+        Me.cboMinCustSchedule.Location = New System.Drawing.Point(224, 43)
+        Me.cboMinCustSchedule.Name = "cboMinCustSchedule"
+        Me.cboMinCustSchedule.Size = New System.Drawing.Size(40, 20)
+        Me.cboMinCustSchedule.TabIndex = 131
+        '
+        'cboUserCustSchedule
+        '
+        Me.cboUserCustSchedule.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboUserCustSchedule.FormattingEnabled = True
+        Me.cboUserCustSchedule.Location = New System.Drawing.Point(83, 70)
+        Me.cboUserCustSchedule.Name = "cboUserCustSchedule"
+        Me.cboUserCustSchedule.Size = New System.Drawing.Size(200, 20)
+        Me.cboUserCustSchedule.TabIndex = 157
+        '
+        'Label47
+        '
+        Me.Label47.AutoSize = True
+        Me.Label47.Location = New System.Drawing.Point(13, 72)
+        Me.Label47.Name = "Label47"
+        Me.Label47.Size = New System.Drawing.Size(65, 12)
+        Me.Label47.TabIndex = 156
+        Me.Label47.Text = "고객응대자"
+        '
+        'cboHourCustSchedule
+        '
+        Me.cboHourCustSchedule.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboHourCustSchedule.FormattingEnabled = True
+        Me.cboHourCustSchedule.Location = New System.Drawing.Point(178, 43)
+        Me.cboHourCustSchedule.Name = "cboHourCustSchedule"
+        Me.cboHourCustSchedule.Size = New System.Drawing.Size(40, 20)
+        Me.cboHourCustSchedule.TabIndex = 130
+        '
+        'dtpDateCustSchedule
+        '
+        Me.dtpDateCustSchedule.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.dtpDateCustSchedule.Location = New System.Drawing.Point(83, 43)
+        Me.dtpDateCustSchedule.Name = "dtpDateCustSchedule"
+        Me.dtpDateCustSchedule.Size = New System.Drawing.Size(90, 21)
+        Me.dtpDateCustSchedule.TabIndex = 129
+        Me.dtpDateCustSchedule.Value = New Date(2011, 7, 12, 20, 59, 36, 0)
+        '
+        'Label48
+        '
+        Me.Label48.AutoSize = True
+        Me.Label48.Location = New System.Drawing.Point(13, 47)
+        Me.Label48.Name = "Label48"
+        Me.Label48.Size = New System.Drawing.Size(57, 12)
+        Me.Label48.TabIndex = 128
+        Me.Label48.Text = "약속 시간"
+        '
+        'cboWReasonCustSchedule
+        '
+        Me.cboWReasonCustSchedule.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboWReasonCustSchedule.FormattingEnabled = True
+        Me.cboWReasonCustSchedule.Location = New System.Drawing.Point(83, 99)
+        Me.cboWReasonCustSchedule.Name = "cboWReasonCustSchedule"
+        Me.cboWReasonCustSchedule.Size = New System.Drawing.Size(200, 20)
+        Me.cboWReasonCustSchedule.TabIndex = 153
+        '
+        'txtTitleCustSchedule
+        '
+        Me.txtTitleCustSchedule.Location = New System.Drawing.Point(83, 10)
+        Me.txtTitleCustSchedule.Name = "txtTitleCustSchedule"
+        Me.txtTitleCustSchedule.Size = New System.Drawing.Size(275, 21)
+        Me.txtTitleCustSchedule.TabIndex = 125
+        '
+        'txtWLocCustSchedule
+        '
+        Me.txtWLocCustSchedule.Location = New System.Drawing.Point(82, 128)
+        Me.txtWLocCustSchedule.Name = "txtWLocCustSchedule"
+        Me.txtWLocCustSchedule.Size = New System.Drawing.Size(275, 21)
+        Me.txtWLocCustSchedule.TabIndex = 151
+        '
+        'Label43
+        '
+        Me.Label43.AutoSize = True
+        Me.Label43.Location = New System.Drawing.Point(13, 15)
+        Me.Label43.Name = "Label43"
+        Me.Label43.Size = New System.Drawing.Size(53, 12)
+        Me.Label43.TabIndex = 124
+        Me.Label43.Text = "제      목"
+        '
+        'Label46
+        '
+        Me.Label46.AutoSize = True
+        Me.Label46.Location = New System.Drawing.Point(8, 132)
+        Me.Label46.Name = "Label46"
+        Me.Label46.Size = New System.Drawing.Size(67, 24)
+        Me.Label46.TabIndex = 150
+        Me.Label46.Text = "방문 장소" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "(약속 장소)" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.Label46.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label45
+        '
+        Me.Label45.AutoSize = True
+        Me.Label45.Location = New System.Drawing.Point(13, 102)
+        Me.Label45.Name = "Label45"
+        Me.Label45.Size = New System.Drawing.Size(57, 12)
+        Me.Label45.TabIndex = 147
+        Me.Label45.Text = "응대 사유"
+        '
+        'btnDel
+        '
+        Me.btnDel.BackColor = System.Drawing.SystemColors.Control
+        Me.btnDel.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnDel.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.btnDel.Location = New System.Drawing.Point(301, 507)
+        Me.btnDel.Name = "btnDel"
+        Me.btnDel.Size = New System.Drawing.Size(65, 25)
+        Me.btnDel.TabIndex = 141
+        Me.btnDel.Text = "삭  제"
+        Me.btnDel.UseVisualStyleBackColor = False
+        '
+        'btnSave
+        '
+        Me.btnSave.BackColor = System.Drawing.SystemColors.Control
+        Me.btnSave.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnSave.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.btnSave.Location = New System.Drawing.Point(232, 507)
+        Me.btnSave.Name = "btnSave"
+        Me.btnSave.Size = New System.Drawing.Size(65, 25)
+        Me.btnSave.TabIndex = 140
+        Me.btnSave.Text = "저  장"
+        Me.btnSave.UseVisualStyleBackColor = False
         '
         'DPYear
         '
@@ -1330,12 +1363,106 @@ Partial Class FRM_SCHEDULE
         Me.PictureBox2.TabStop = False
         Me.PictureBox2.Visible = False
         '
+        'S_TITLE
+        '
+        Me.S_TITLE.DataPropertyName = "S_TITLE"
+        Me.S_TITLE.HeaderText = "제목"
+        Me.S_TITLE.Name = "S_TITLE"
+        Me.S_TITLE.ReadOnly = True
+        '
+        'COWORKER
+        '
+        Me.COWORKER.HeaderText = "참석자"
+        Me.COWORKER.Name = "COWORKER"
+        Me.COWORKER.ReadOnly = True
+        '
+        'S_START_TIME
+        '
+        Me.S_START_TIME.DataPropertyName = "S_START_TIME"
+        Me.S_START_TIME.HeaderText = "시작일시"
+        Me.S_START_TIME.Name = "S_START_TIME"
+        Me.S_START_TIME.ReadOnly = True
+        '
+        'S_END_TIME
+        '
+        Me.S_END_TIME.DataPropertyName = "S_END_TIME"
+        Me.S_END_TIME.HeaderText = "종료일시"
+        Me.S_END_TIME.Name = "S_END_TIME"
+        Me.S_END_TIME.ReadOnly = True
+        '
+        'SHARING
+        '
+        Me.SHARING.DataPropertyName = "SHARING"
+        Me.SHARING.HeaderText = "공유"
+        Me.SHARING.Name = "SHARING"
+        Me.SHARING.ReadOnly = True
+        Me.SHARING.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.SHARING.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.SHARING.Visible = False
+        Me.SHARING.Width = 50
+        '
+        'SHARING_TYPE2
+        '
+        Me.SHARING_TYPE2.DataPropertyName = "SHARING_TYPE2"
+        Me.SHARING_TYPE2.HeaderText = "구분"
+        Me.SHARING_TYPE2.Name = "SHARING_TYPE2"
+        Me.SHARING_TYPE2.ReadOnly = True
+        Me.SHARING_TYPE2.Width = 70
+        '
+        'REGISTRANT
+        '
+        Me.REGISTRANT.DataPropertyName = "REGISTRANT"
+        Me.REGISTRANT.HeaderText = "등록자"
+        Me.REGISTRANT.Name = "REGISTRANT"
+        Me.REGISTRANT.ReadOnly = True
+        Me.REGISTRANT.Width = 80
+        '
+        'SHARING_TYPE
+        '
+        Me.SHARING_TYPE.DataPropertyName = "SHARING_TYPE"
+        Me.SHARING_TYPE.HeaderText = "공유타입"
+        Me.SHARING_TYPE.Name = "SHARING_TYPE"
+        Me.SHARING_TYPE.ReadOnly = True
+        Me.SHARING_TYPE.Visible = False
+        '
+        'S_DESC
+        '
+        Me.S_DESC.DataPropertyName = "S_DESC"
+        Me.S_DESC.HeaderText = "내용"
+        Me.S_DESC.Name = "S_DESC"
+        Me.S_DESC.ReadOnly = True
+        Me.S_DESC.Visible = False
+        '
+        'S_COMPANY_COWORKER
+        '
+        Me.S_COMPANY_COWORKER.DataPropertyName = "S_COMPANY_COWORKER"
+        Me.S_COMPANY_COWORKER.HeaderText = "참석자"
+        Me.S_COMPANY_COWORKER.Name = "S_COMPANY_COWORKER"
+        Me.S_COMPANY_COWORKER.ReadOnly = True
+        Me.S_COMPANY_COWORKER.Visible = False
+        '
+        'S_WORKOUT_REASON
+        '
+        Me.S_WORKOUT_REASON.DataPropertyName = "S_WORKOUT_REASON"
+        Me.S_WORKOUT_REASON.HeaderText = "외근사유코드"
+        Me.S_WORKOUT_REASON.Name = "S_WORKOUT_REASON"
+        Me.S_WORKOUT_REASON.ReadOnly = True
+        Me.S_WORKOUT_REASON.Visible = False
+        '
+        'S_WORKOUT_LOC
+        '
+        Me.S_WORKOUT_LOC.DataPropertyName = "S_WORKOUT_LOC"
+        Me.S_WORKOUT_LOC.HeaderText = "외근지"
+        Me.S_WORKOUT_LOC.Name = "S_WORKOUT_LOC"
+        Me.S_WORKOUT_LOC.ReadOnly = True
+        Me.S_WORKOUT_LOC.Visible = False
+        '
         'FRM_SCHEDULE
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.ClientSize = New System.Drawing.Size(896, 676)
+        Me.ClientSize = New System.Drawing.Size(896, 597)
         Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.btn_today)
         Me.Controls.Add(Me.DPMonth)
@@ -1353,7 +1480,11 @@ Partial Class FRM_SCHEDULE
         Me.GroupBox1.ResumeLayout(False)
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
+        CType(Me.tabScheduleDetail, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tpScheduleInternal.ResumeLayout(False)
+        Me.tpScheduleInternal.PerformLayout()
+        Me.tpScheduleCustomer.ResumeLayout(False)
+        Me.tpScheduleCustomer.PerformLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
@@ -1406,47 +1537,59 @@ Partial Class FRM_SCHEDULE
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents btnRemove As System.Windows.Forms.Button
     Friend WithEvents btnAdd As System.Windows.Forms.Button
-    Friend WithEvents UserLB2 As System.Windows.Forms.ListBox
-    Friend WithEvents UserLB1 As System.Windows.Forms.ListBox
+    Friend WithEvents lboTeamUserSelected As System.Windows.Forms.ListBox
+    Friend WithEvents lboTeamUserList As System.Windows.Forms.ListBox
     Friend WithEvents Label67 As System.Windows.Forms.Label
-    Friend WithEvents txtSchedule As System.Windows.Forms.TextBox
+    Friend WithEvents txtDescInternal As System.Windows.Forms.TextBox
     Friend WithEvents Label68 As System.Windows.Forms.Label
-    Friend WithEvents drpMin2 As System.Windows.Forms.ComboBox
-    Friend WithEvents drpHour2 As System.Windows.Forms.ComboBox
-    Friend WithEvents DPDate2 As System.Windows.Forms.DateTimePicker
+    Friend WithEvents cboMinEndInternal As System.Windows.Forms.ComboBox
+    Friend WithEvents cboHourEndInternal As System.Windows.Forms.ComboBox
+    Friend WithEvents dtpEndInternal As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label69 As System.Windows.Forms.Label
-    Friend WithEvents drpMin1 As System.Windows.Forms.ComboBox
-    Friend WithEvents drpHour1 As System.Windows.Forms.ComboBox
-    Friend WithEvents DPDate1 As System.Windows.Forms.DateTimePicker
+    Friend WithEvents cboMinStartInternal As System.Windows.Forms.ComboBox
+    Friend WithEvents cboHourStartInternal As System.Windows.Forms.ComboBox
+    Friend WithEvents dtpStartInternal As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label70 As System.Windows.Forms.Label
-    Friend WithEvents txtTitle As System.Windows.Forms.TextBox
+    Friend WithEvents txtTitleInternal As System.Windows.Forms.TextBox
     Friend WithEvents Label71 As System.Windows.Forms.Label
-    Friend WithEvents chkSharing As System.Windows.Forms.CheckBox
+    Friend WithEvents ckbSharing As System.Windows.Forms.CheckBox
     Friend WithEvents btnDel As System.Windows.Forms.Button
     Friend WithEvents btnSave As System.Windows.Forms.Button
     Friend WithEvents DPYear As System.Windows.Forms.DateTimePicker
     Friend WithEvents DPMonth As System.Windows.Forms.DateTimePicker
     Friend WithEvents btn_today As System.Windows.Forms.Button
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
-    Friend WithEvents drpTeam As System.Windows.Forms.ComboBox
+    Friend WithEvents cboTeam As System.Windows.Forms.ComboBox
     Friend WithEvents Label44 As System.Windows.Forms.Label
-    Friend WithEvents UserLB3 As System.Windows.Forms.ListBox
-    Friend WithEvents Label45 As System.Windows.Forms.Label
-    Friend WithEvents drpGubun As System.Windows.Forms.ComboBox
-    Friend WithEvents txtWLoc As System.Windows.Forms.TextBox
-    Friend WithEvents Label46 As System.Windows.Forms.Label
-    Friend WithEvents drpWReason As System.Windows.Forms.ComboBox
-    Friend WithEvents btnRemove2 As System.Windows.Forms.Button
-    Friend WithEvents btnAdd2 As System.Windows.Forms.Button
+    Friend WithEvents lboTeamUserTemp As System.Windows.Forms.ListBox
+    Friend WithEvents btnRemoveAll As System.Windows.Forms.Button
+    Friend WithEvents btnAddAll As System.Windows.Forms.Button
     Friend WithEvents PictureBox2 As System.Windows.Forms.PictureBox
-    Friend WithEvents drpUser As System.Windows.Forms.ComboBox
+    Friend WithEvents tabScheduleDetail As Elegant.Ui.TabControl
+    Friend WithEvents tpScheduleCustomer As Elegant.Ui.TabPage
+    Friend WithEvents tpScheduleInternal As Elegant.Ui.TabPage
+    Friend WithEvents cboMinCustSchedule As System.Windows.Forms.ComboBox
+    Friend WithEvents cboHourCustSchedule As System.Windows.Forms.ComboBox
+    Friend WithEvents dtpDateCustSchedule As System.Windows.Forms.DateTimePicker
+    Friend WithEvents Label48 As System.Windows.Forms.Label
+    Friend WithEvents txtTitleCustSchedule As System.Windows.Forms.TextBox
+    Friend WithEvents Label43 As System.Windows.Forms.Label
+    Friend WithEvents txtDescCustSchedule As System.Windows.Forms.TextBox
+    Friend WithEvents Label49 As System.Windows.Forms.Label
+    Friend WithEvents cboUserCustSchedule As System.Windows.Forms.ComboBox
     Friend WithEvents Label47 As System.Windows.Forms.Label
+    Friend WithEvents cboWReasonCustSchedule As System.Windows.Forms.ComboBox
+    Friend WithEvents txtWLocCustSchedule As System.Windows.Forms.TextBox
+    Friend WithEvents Label46 As System.Windows.Forms.Label
+    Friend WithEvents Label45 As System.Windows.Forms.Label
+    Friend WithEvents btnNew As System.Windows.Forms.Button
+    Friend WithEvents S_TITLE As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents COWORKER As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents S_START_TIME As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents S_END_TIME As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents SHARING As System.Windows.Forms.DataGridViewCheckBoxColumn
     Friend WithEvents SHARING_TYPE2 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents REGISTRANT As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents S_TITLE As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents SHARING_TYPE As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents S_DESC As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents S_COMPANY_COWORKER As System.Windows.Forms.DataGridViewTextBoxColumn

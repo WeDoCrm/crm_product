@@ -40,7 +40,7 @@
 
                 Dim SQL_TEMP As String = " UPDATE T_USER SET USER_PWD = '" & txtNewPwd.Text.Trim & "'" & " WHERE COM_CD = '" & gsCOM_CD.Trim & "' AND USER_ID = '" & gsUSER_ID & "'"
 
-                Dim dt As DataTable = GetData_table1(gsConString, SQL_TEMP)
+                Dim dt As DataTable = DoQueryParam(gsConString, SQL_TEMP)
 
                 dt = Nothing
                 '전역변수에 패스워드를 다시 세팅 해준다

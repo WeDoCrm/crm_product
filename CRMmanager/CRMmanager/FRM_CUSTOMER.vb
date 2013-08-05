@@ -16,6 +16,11 @@
 
             Call SettoolBar(True, True, True, True, False, True, True)
 
+            If Not gbUseExcel Then
+                btnExcel.Visible = False
+                btnSelect.Left = btnExcel.Left
+            End If
+
             '******************************************* 고객 유형 입력 ***********************************************************
             'Dim SQL_TEMP As String = " SELECT '' S_MENU_NM,'XXXX' S_MENU_CD UNION ALL SELECT S_MENU_NM,S_MENU_CD FROM T_S_CODE WHERE  COM_CD = '" & gsCOM_CD & "' AND L_MENU_CD = '006' "
 
@@ -29,7 +34,7 @@
 
             '******************************************* 고객 유형 입력 ***********************************************************
             Dim SQL_TEMP As String = Find_Query("006")
-            dt1 = GetData_table1(gsConString, SQL_TEMP)
+            dt1 = DoQuery(gsConString, SQL_TEMP)
 
             cboCustomerType.DataSource = dt1
             cboCustomerType.DisplayMember = dt1.Columns(0).ToString
@@ -46,12 +51,6 @@
 
             dt1 = Nothing
 
-
-
-            If Not gbIsCustomerTablePatched Then
-                pnlCustomerMiddle.Hide()
-                pnlCustomerBottom.Top = pnlCustomerMiddle.Top
-            End If
         Catch ex As Exception
             Call WriteLog("FRM_CUSTOMER : " & ex.ToString)
         Finally
@@ -72,9 +71,7 @@
         Try
 
             Dim SQL_TEMP As String = " SELECT CUSTOMER_ID ,CUSTOMER_NM ,C_TELNO ,H_TELNO ,FAX_NO "
-            If gbIsCustomerTablePatched Then
-                SQL_TEMP = SQL_TEMP & ",COMPANY, DEPARTMENT, JOB_TITLE, EMAIL "
-            End If
+            SQL_TEMP = SQL_TEMP & ",COMPANY, DEPARTMENT, JOB_TITLE, EMAIL "
             SQL_TEMP = SQL_TEMP & " ,CONCAT(CUSTOMER_TYPE ,'.', (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = '" & gsCOM_CD & "' AND L_MENU_CD = '006' AND S_MENU_CD = CUSTOMER_TYPE )) CUSTOMER_TYPE  "
             SQL_TEMP = SQL_TEMP & ",WOO_NO ,CUSTOMER_ADDR ,CUSTOMER_ETC "
             SQL_TEMP = SQL_TEMP & " FROM T_CUSTOMER a "
@@ -105,7 +102,7 @@
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
 
-            Dim dt2 As DataTable = GetData_table1(gsConString, SQL_TEMP)
+            Dim dt2 As DataTable = DoQuery(gsConString, SQL_TEMP)
             DataGridView1.DataSource = Nothing
 
             DataGridView1.Columns.Clear()
@@ -116,21 +113,14 @@
             DataGridView1.Columns.Item(2).HeaderText = "전화번호"
             DataGridView1.Columns.Item(3).HeaderText = "휴대폰"
             DataGridView1.Columns.Item(4).HeaderText = "팩스번호"
-            If gbIsCustomerTablePatched Then
-                DataGridView1.Columns.Item(5).HeaderText = "회사"
-                DataGridView1.Columns.Item(6).HeaderText = "소속"
-                DataGridView1.Columns.Item(7).HeaderText = "직급"
-                DataGridView1.Columns.Item(8).HeaderText = "이메일"
-                DataGridView1.Columns.Item(9).HeaderText = "고객유형"
-                DataGridView1.Columns.Item(10).HeaderText = "우편번호"
-                DataGridView1.Columns.Item(11).HeaderText = "주소"
-                DataGridView1.Columns.Item(12).HeaderText = "기타정보"
-            Else
-                DataGridView1.Columns.Item(5).HeaderText = "고객유형"
-                DataGridView1.Columns.Item(6).HeaderText = "우편번호"
-                DataGridView1.Columns.Item(7).HeaderText = "주소"
-                DataGridView1.Columns.Item(8).HeaderText = "기타정보"
-            End If
+            DataGridView1.Columns.Item(5).HeaderText = "회사"
+            DataGridView1.Columns.Item(6).HeaderText = "소속"
+            DataGridView1.Columns.Item(7).HeaderText = "직급"
+            DataGridView1.Columns.Item(8).HeaderText = "이메일"
+            DataGridView1.Columns.Item(9).HeaderText = "고객유형"
+            DataGridView1.Columns.Item(10).HeaderText = "우편번호"
+            DataGridView1.Columns.Item(11).HeaderText = "주소"
+            DataGridView1.Columns.Item(12).HeaderText = "기타정보"
 
             dt2 = Nothing
 
@@ -162,7 +152,7 @@
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
             '************************************ 체크하자
-            Dim dt1 As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
             DataGridView2.DataSource = Nothing
 
 
@@ -292,9 +282,7 @@
 
         SQL = " INSERT INTO T_CUSTOMER( COM_CD,CUSTOMER_NM,C_TELNO,H_TELNO,FAX_NO,CUSTOMER_TYPE,WOO_NO,CUSTOMER_ADDR"
         SQL = SQL & ",CUSTOMER_ETC, UPDATE_DATE "
-        If gbIsCustomerTablePatched Then
-            SQL = SQL & ",COMPANY, DEPARTMENT, JOB_TITLE, EMAIL "
-        End If
+        SQL = SQL & ",COMPANY, DEPARTMENT, JOB_TITLE, EMAIL "
         SQL = SQL & ") values( '" & gsCOM_CD & "'"
         SQL = SQL & ",'" & txtCustomerName.Text.Trim & "'"
         SQL = SQL & ",'" & txtWorkTelNo1.Text.Trim + txtWorkTelNo2.Text.Trim + txtWorkTelNo3.Text.Trim & "'"
@@ -318,12 +306,10 @@
         SQL = SQL & ",'" & txtEtcInfo.Text.Trim & "'"
 
         SQL = SQL & ",'" & Format(Now, "yyyyMMddHHmmss") & "'"
-        If gbIsCustomerTablePatched Then
-            SQL = SQL & ",'" & txtCompany.Text.Trim & "'"
-            SQL = SQL & ",'" & txtDepartment.Text.Trim & "'"
-            SQL = SQL & ",'" & txtJobTitle.Text.Trim & "'"
-            SQL = SQL & ",'" & txtEmail.Text.Trim & "'"
-        End If
+        SQL = SQL & ",'" & txtCompany.Text.Trim & "'"
+        SQL = SQL & ",'" & txtDepartment.Text.Trim & "'"
+        SQL = SQL & ",'" & txtJobTitle.Text.Trim & "'"
+        SQL = SQL & ",'" & txtEmail.Text.Trim & "'"
         SQL = SQL & ")"
 
 
@@ -331,7 +317,7 @@
         Try
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
-            Dim dt As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt As DataTable = DoQueryParam(gsConString, SQL)
 
             dt = Nothing
             ' 삭제된 데이터를 refresh 한다
@@ -357,7 +343,7 @@
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
             Dim SQL As String = " DELETE FROM T_CUSTOMER WHERE COM_CD = '" & gsCOM_CD & "' AND CUSTOMER_ID = " & txtCustomerID.Text.Trim
-            Dim dt As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt As DataTable = DoQueryParam(gsConString, SQL)
 
             dt = Nothing
             ' 삭제된 데이터를 refresh 한다
@@ -533,12 +519,10 @@
 
         SQL = SQL & ",FAX_NO='" & txtFaxNo1.Text.Trim + txtFaxNo2.Text.Trim + txtFaxNo3.Text.Trim & "'"
 
-        If gbIsCustomerTablePatched Then
-            SQL = SQL & ",COMPANY= '" & txtCompany.Text.Trim & "'"
-            SQL = SQL & ",DEPARTMENT= '" & txtDepartment.Text.Trim & "'"
-            SQL = SQL & ",JOB_TITLE= '" & txtJobTitle.Text.Trim & "'"
-            SQL = SQL & ",EMAIL= '" & txtEmail.Text.Trim & "'"
-        End If
+        SQL = SQL & ",COMPANY= '" & txtCompany.Text.Trim & "'"
+        SQL = SQL & ",DEPARTMENT= '" & txtDepartment.Text.Trim & "'"
+        SQL = SQL & ",JOB_TITLE= '" & txtJobTitle.Text.Trim & "'"
+        SQL = SQL & ",EMAIL= '" & txtEmail.Text.Trim & "'"
 
         If cboCustomerType.SelectedIndex < 0 Then
             SQL = SQL & ",CUSTOMER_TYPE= '" & "" & "'" ' CUSTOMER TYPE
@@ -559,7 +543,7 @@
         Try
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
-            Dim dt As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt As DataTable = DoQueryParam(gsConString, SQL)
 
             dt = Nothing
             ' 삭제된 데이터를 refresh 한다
@@ -647,22 +631,14 @@
                 Dim _address As String = ""
                 Dim _etcInfo As String = ""
 
-                If gbIsCustomerTablePatched Then
-                    txtCompany.Text = .Cells(5).Value.ToString
-                    txtDepartment.Text = .Cells(6).Value.ToString
-                    txtJobTitle.Text = .Cells(7).Value.ToString
-                    txtEmail.Text = .Cells(8).Value.ToString
-                    _customertype = .Cells(9).Value.ToString
-                    _woo_no = .Cells(10).Value.ToString
-                    _address = .Cells(11).Value.ToString
-                    _etcInfo = .Cells(12).Value.ToString
-
-                Else
-                    _customertype = .Cells(5).Value.ToString
-                    _woo_no = .Cells(6).Value.ToString
-                    _address = .Cells(7).Value.ToString
-                    _etcInfo = .Cells(8).Value.ToString
-                End If
+                txtCompany.Text = .Cells(5).Value.ToString
+                txtDepartment.Text = .Cells(6).Value.ToString
+                txtJobTitle.Text = .Cells(7).Value.ToString
+                txtEmail.Text = .Cells(8).Value.ToString
+                _customertype = .Cells(9).Value.ToString
+                _woo_no = .Cells(10).Value.ToString
+                _address = .Cells(11).Value.ToString
+                _etcInfo = .Cells(12).Value.ToString
 
                 If _customertype.Contains(".") Then
                     Dim str() As String = _customertype.Split(".")

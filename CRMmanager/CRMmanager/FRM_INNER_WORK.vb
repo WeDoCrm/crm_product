@@ -8,6 +8,12 @@
     Private Sub FRM_INNER_WORK_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         '
         Call SettoolBar(True, True, True, False, False, True, True)
+
+        If Not gbUseExcel Then
+            btnExcel.Visible = False
+            btnSelect1.Left = btnExcel.Left
+        End If
+
         DPDate11.Value = Format(Now, "yyyy-MM-dd")
         DPDate22.Value = Format(Now, "yyyy-MM-dd")
         DPDate33.Value = Format(Now, "yyyy-MM-dd")
@@ -60,7 +66,7 @@
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
             '************************************ 체크하자
-            Dim dt1 As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
             DataGridView2.DataSource = Nothing
 
             DataGridView2.Columns.Clear()
@@ -129,7 +135,7 @@
         Try
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
-            Dim dt As DataTable = GetData_table1(gsConString, Sql)
+            Dim dt As DataTable = DoQueryParam(gsConString, Sql)
 
             dt = Nothing
             ' 삭제된 데이터를 refresh 한다

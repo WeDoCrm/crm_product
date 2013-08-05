@@ -50,13 +50,20 @@ Public Class CRMmanager
 
             gsSocketIP = socIP
             gsSocketPort = socPort
+            gbUseExcel = False
+            gbUseTongUser = False
+            gbUseUserDef = False
+            gbNoCloseOnSave = False
 
-            Call XmlReadMode()          ' DB config 정보 파일 읽기
+
+            Call MiniCTI.ReadXmlInfo()          ' DB config 정보 파일 읽기
+
+            Call MiniCTI.UpdateDBVersion()
 
             Dim SQL As String = " SELECT IFNULL(COM_CD,''),IFNULL(USER_ID,''),IFNULL(USER_NM,''),IFNULL(USR_HP,''),IFNULL(ADDR1,''),IFNULL(WOO_NO,''),IFNULL(H_TELNO,''),IFNULL(DEPART_CD,'') "
             SQL = SQL & " ,IFNULL(GRADE,''),IFNULL(EXTENSION_NO,''),IFNULL(WORK_TYPE,''),IFNULL(ENTERING_DD,''),IFNULL(RETIRE_DD,''),IFNULL(USER_EMAIL,''),IFNULL(DEPART_NM,''),IFNULL(USER_PWD,'')"
             SQL = SQL & " ,IFNULL(WORK_AREA,''),IFNULL(TEAM_CD,''),IFNULL(TEAM_NM,'') "
-            SQL = SQL & " ,( SELECT IFNULL(MAX(COM_NM),'') FROM t_company WHERE COM_CD = '" & com_cd & "') "
+            SQL = SQL & " ,( SELECT IFNULL(MAX(COM_NM),'') FROM t_company WHERE COM_CD = '" & com_cd & "'), EXCEL_USE_YN "
 
 
             SQL = SQL & " FROM T_USER X"
@@ -64,7 +71,7 @@ Public Class CRMmanager
             SQL = SQL & " AND USER_ID = '" & user_id & "'"
             SQL = SQL & " AND USER_PWD = '" & pwd & "'"
 
-            Dim dt1 As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
 
             Call WriteLog("SetUserInfo: " & "com_cd=" & com_cd & " user_id=" & user_id & " pwd=" & pwd & " count=" & dt1.Rows.Count)
             If dt1.Rows.Count > 0 Then
@@ -96,6 +103,11 @@ Public Class CRMmanager
                     gsTeam_CD = dt1.Rows(i).Item(17).ToString
                     gsTeam_NM = dt1.Rows(i).Item(18).ToString
                     gsCompany = dt1.Rows(i).Item(19).ToString
+                    If dt1.Rows(i).Item(20).ToString = "Y" Then
+                        gbUseExcel = True
+                    Else
+                        gbUseExcel = False
+                    End If
 
                 Next
             End If

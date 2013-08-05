@@ -131,9 +131,11 @@ Partial Class FRM_CUSTOMER_POPUP1
         Me.Label23 = New System.Windows.Forms.Label
         Me.gbCustomerInfo = New System.Windows.Forms.GroupBox
         Me.pnlCustomerMiddle = New System.Windows.Forms.Panel
-        Me.txtDepartment = New System.Windows.Forms.TextBox
+        Me.pnlTongUser = New System.Windows.Forms.Panel
+        Me.cboTongUser = New System.Windows.Forms.ComboBox
         Me.Label87 = New System.Windows.Forms.Label
         Me.Label88 = New System.Windows.Forms.Label
+        Me.txtDepartment = New System.Windows.Forms.TextBox
         Me.Label85 = New System.Windows.Forms.Label
         Me.Label86 = New System.Windows.Forms.Label
         Me.txtJobTitle = New System.Windows.Forms.TextBox
@@ -144,11 +146,15 @@ Partial Class FRM_CUSTOMER_POPUP1
         Me.txtCompany = New System.Windows.Forms.TextBox
         Me.btnSave1 = New System.Windows.Forms.Button
         Me.pnlCustomerBottom = New System.Windows.Forms.Panel
-        Me.pnlEmail = New System.Windows.Forms.Panel
+        Me.pnlUserDef = New System.Windows.Forms.Panel
+        Me.txtUserDef2 = New System.Windows.Forms.TextBox
+        Me.txtUserDef1 = New System.Windows.Forms.TextBox
+        Me.Label91 = New System.Windows.Forms.Label
+        Me.Label92 = New System.Windows.Forms.Label
         Me.Label89 = New System.Windows.Forms.Label
         Me.Label90 = New System.Windows.Forms.Label
         Me.txtEmail = New System.Windows.Forms.TextBox
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
+        Me.gbTelNoList = New System.Windows.Forms.GroupBox
         Me.btnCustomerTelNo = New System.Windows.Forms.Button
         Me.dgTelNo = New System.Windows.Forms.DataGridView
         Me.DataGridViewTextBoxColumn8 = New System.Windows.Forms.DataGridViewTextBoxColumn
@@ -206,9 +212,10 @@ Partial Class FRM_CUSTOMER_POPUP1
         Me.GroupBox5.SuspendLayout()
         Me.gbCustomerInfo.SuspendLayout()
         Me.pnlCustomerMiddle.SuspendLayout()
+        Me.pnlTongUser.SuspendLayout()
         Me.pnlCustomerBottom.SuspendLayout()
-        Me.pnlEmail.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
+        Me.pnlUserDef.SuspendLayout()
+        Me.gbTelNoList.SuspendLayout()
         CType(Me.dgTelNo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox6.SuspendLayout()
         Me.SuspendLayout()
@@ -767,7 +774,7 @@ Partial Class FRM_CUSTOMER_POPUP1
         'Label1
         '
         Me.Label1.Image = CType(resources.GetObject("Label1.Image"), System.Drawing.Image)
-        Me.Label1.Location = New System.Drawing.Point(7, 46)
+        Me.Label1.Location = New System.Drawing.Point(7, 47)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(13, 12)
         Me.Label1.TabIndex = 262
@@ -809,7 +816,7 @@ Partial Class FRM_CUSTOMER_POPUP1
         'Label81
         '
         Me.Label81.Image = CType(resources.GetObject("Label81.Image"), System.Drawing.Image)
-        Me.Label81.Location = New System.Drawing.Point(7, 95)
+        Me.Label81.Location = New System.Drawing.Point(7, 96)
         Me.Label81.Name = "Label81"
         Me.Label81.Size = New System.Drawing.Size(13, 12)
         Me.Label81.TabIndex = 257
@@ -863,7 +870,7 @@ Partial Class FRM_CUSTOMER_POPUP1
         'Label72
         '
         Me.Label72.Image = CType(resources.GetObject("Label72.Image"), System.Drawing.Image)
-        Me.Label72.Location = New System.Drawing.Point(7, 70)
+        Me.Label72.Location = New System.Drawing.Point(7, 71)
         Me.Label72.Name = "Label72"
         Me.Label72.Size = New System.Drawing.Size(13, 12)
         Me.Label72.TabIndex = 250
@@ -913,7 +920,7 @@ Partial Class FRM_CUSTOMER_POPUP1
         'Label68
         '
         Me.Label68.Image = CType(resources.GetObject("Label68.Image"), System.Drawing.Image)
-        Me.Label68.Location = New System.Drawing.Point(6, 20)
+        Me.Label68.Location = New System.Drawing.Point(6, 21)
         Me.Label68.Name = "Label68"
         Me.Label68.Size = New System.Drawing.Size(13, 12)
         Me.Label68.TabIndex = 244
@@ -960,7 +967,7 @@ Partial Class FRM_CUSTOMER_POPUP1
         'Label62
         '
         Me.Label62.Image = CType(resources.GetObject("Label62.Image"), System.Drawing.Image)
-        Me.Label62.Location = New System.Drawing.Point(3, 88)
+        Me.Label62.Location = New System.Drawing.Point(3, 90)
         Me.Label62.Name = "Label62"
         Me.Label62.Size = New System.Drawing.Size(13, 12)
         Me.Label62.TabIndex = 245
@@ -988,7 +995,7 @@ Partial Class FRM_CUSTOMER_POPUP1
         'Label60
         '
         Me.Label60.Image = CType(resources.GetObject("Label60.Image"), System.Drawing.Image)
-        Me.Label60.Location = New System.Drawing.Point(3, 67)
+        Me.Label60.Location = New System.Drawing.Point(3, 68)
         Me.Label60.Name = "Label60"
         Me.Label60.Size = New System.Drawing.Size(13, 12)
         Me.Label60.TabIndex = 242
@@ -1026,7 +1033,7 @@ Partial Class FRM_CUSTOMER_POPUP1
         'Label3
         '
         Me.Label3.Image = CType(resources.GetObject("Label3.Image"), System.Drawing.Image)
-        Me.Label3.Location = New System.Drawing.Point(200, 88)
+        Me.Label3.Location = New System.Drawing.Point(202, 89)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(13, 12)
         Me.Label3.TabIndex = 192
@@ -1043,7 +1050,7 @@ Partial Class FRM_CUSTOMER_POPUP1
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(210, 88)
+        Me.Label4.Location = New System.Drawing.Point(212, 88)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(29, 12)
         Me.Label4.TabIndex = 190
@@ -1052,7 +1059,7 @@ Partial Class FRM_CUSTOMER_POPUP1
         'Label5
         '
         Me.Label5.Image = CType(resources.GetObject("Label5.Image"), System.Drawing.Image)
-        Me.Label5.Location = New System.Drawing.Point(199, 19)
+        Me.Label5.Location = New System.Drawing.Point(201, 21)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(13, 12)
         Me.Label5.TabIndex = 189
@@ -1060,7 +1067,7 @@ Partial Class FRM_CUSTOMER_POPUP1
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(210, 20)
+        Me.Label6.Location = New System.Drawing.Point(212, 20)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(41, 12)
         Me.Label6.TabIndex = 188
@@ -1069,7 +1076,7 @@ Partial Class FRM_CUSTOMER_POPUP1
         'Label7
         '
         Me.Label7.Image = CType(resources.GetObject("Label7.Image"), System.Drawing.Image)
-        Me.Label7.Location = New System.Drawing.Point(199, 44)
+        Me.Label7.Location = New System.Drawing.Point(201, 47)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(13, 12)
         Me.Label7.TabIndex = 186
@@ -1077,7 +1084,7 @@ Partial Class FRM_CUSTOMER_POPUP1
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(209, 45)
+        Me.Label8.Location = New System.Drawing.Point(211, 45)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(53, 12)
         Me.Label8.TabIndex = 184
@@ -1094,7 +1101,7 @@ Partial Class FRM_CUSTOMER_POPUP1
         'Label11
         '
         Me.Label11.Image = CType(resources.GetObject("Label11.Image"), System.Drawing.Image)
-        Me.Label11.Location = New System.Drawing.Point(200, 67)
+        Me.Label11.Location = New System.Drawing.Point(202, 68)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(13, 12)
         Me.Label11.TabIndex = 181
@@ -1113,7 +1120,7 @@ Partial Class FRM_CUSTOMER_POPUP1
         'Label17
         '
         Me.Label17.Image = CType(resources.GetObject("Label17.Image"), System.Drawing.Image)
-        Me.Label17.Location = New System.Drawing.Point(3, 44)
+        Me.Label17.Location = New System.Drawing.Point(3, 45)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(13, 12)
         Me.Label17.TabIndex = 179
@@ -1121,7 +1128,7 @@ Partial Class FRM_CUSTOMER_POPUP1
         'Label18
         '
         Me.Label18.Image = CType(resources.GetObject("Label18.Image"), System.Drawing.Image)
-        Me.Label18.Location = New System.Drawing.Point(3, 21)
+        Me.Label18.Location = New System.Drawing.Point(3, 22)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(13, 12)
         Me.Label18.TabIndex = 178
@@ -1149,7 +1156,7 @@ Partial Class FRM_CUSTOMER_POPUP1
         'Label19
         '
         Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(209, 66)
+        Me.Label19.Location = New System.Drawing.Point(211, 66)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(41, 12)
         Me.Label19.TabIndex = 104
@@ -1215,9 +1222,8 @@ Partial Class FRM_CUSTOMER_POPUP1
         '
         'pnlCustomerMiddle
         '
+        Me.pnlCustomerMiddle.Controls.Add(Me.pnlTongUser)
         Me.pnlCustomerMiddle.Controls.Add(Me.txtDepartment)
-        Me.pnlCustomerMiddle.Controls.Add(Me.Label87)
-        Me.pnlCustomerMiddle.Controls.Add(Me.Label88)
         Me.pnlCustomerMiddle.Controls.Add(Me.Label85)
         Me.pnlCustomerMiddle.Controls.Add(Me.Label86)
         Me.pnlCustomerMiddle.Controls.Add(Me.txtJobTitle)
@@ -1231,6 +1237,44 @@ Partial Class FRM_CUSTOMER_POPUP1
         Me.pnlCustomerMiddle.Size = New System.Drawing.Size(427, 47)
         Me.pnlCustomerMiddle.TabIndex = 104
         '
+        'pnlTongUser
+        '
+        Me.pnlTongUser.Controls.Add(Me.cboTongUser)
+        Me.pnlTongUser.Controls.Add(Me.Label87)
+        Me.pnlTongUser.Controls.Add(Me.Label88)
+        Me.pnlTongUser.Location = New System.Drawing.Point(224, 24)
+        Me.pnlTongUser.Name = "pnlTongUser"
+        Me.pnlTongUser.Size = New System.Drawing.Size(194, 21)
+        Me.pnlTongUser.TabIndex = 278
+        '
+        'cboTongUser
+        '
+        Me.cboTongUser.BackColor = System.Drawing.Color.MintCream
+        Me.cboTongUser.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboTongUser.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.cboTongUser.FormattingEnabled = True
+        Me.cboTongUser.Location = New System.Drawing.Point(64, 0)
+        Me.cboTongUser.Name = "cboTongUser"
+        Me.cboTongUser.Size = New System.Drawing.Size(128, 20)
+        Me.cboTongUser.TabIndex = 278
+        '
+        'Label87
+        '
+        Me.Label87.Image = CType(resources.GetObject("Label87.Image"), System.Drawing.Image)
+        Me.Label87.Location = New System.Drawing.Point(8, 3)
+        Me.Label87.Name = "Label87"
+        Me.Label87.Size = New System.Drawing.Size(13, 16)
+        Me.Label87.TabIndex = 280
+        '
+        'Label88
+        '
+        Me.Label88.AutoSize = True
+        Me.Label88.Location = New System.Drawing.Point(18, 3)
+        Me.Label88.Name = "Label88"
+        Me.Label88.Size = New System.Drawing.Size(41, 12)
+        Me.Label88.TabIndex = 279
+        Me.Label88.Text = "담당자"
+        '
         'txtDepartment
         '
         Me.txtDepartment.Location = New System.Drawing.Point(92, 24)
@@ -1239,27 +1283,10 @@ Partial Class FRM_CUSTOMER_POPUP1
         Me.txtDepartment.Size = New System.Drawing.Size(125, 21)
         Me.txtDepartment.TabIndex = 106
         '
-        'Label87
-        '
-        Me.Label87.Image = CType(resources.GetObject("Label87.Image"), System.Drawing.Image)
-        Me.Label87.Location = New System.Drawing.Point(223, 30)
-        Me.Label87.Name = "Label87"
-        Me.Label87.Size = New System.Drawing.Size(13, 12)
-        Me.Label87.TabIndex = 270
-        '
-        'Label88
-        '
-        Me.Label88.AutoSize = True
-        Me.Label88.Location = New System.Drawing.Point(238, 30)
-        Me.Label88.Name = "Label88"
-        Me.Label88.Size = New System.Drawing.Size(129, 12)
-        Me.Label88.TabIndex = 269
-        Me.Label88.Text = "팀, 부서 등의 소속그룹"
-        '
         'Label85
         '
         Me.Label85.Image = CType(resources.GetObject("Label85.Image"), System.Drawing.Image)
-        Me.Label85.Location = New System.Drawing.Point(224, 5)
+        Me.Label85.Location = New System.Drawing.Point(232, 5)
         Me.Label85.Name = "Label85"
         Me.Label85.Size = New System.Drawing.Size(13, 12)
         Me.Label85.TabIndex = 258
@@ -1267,7 +1294,7 @@ Partial Class FRM_CUSTOMER_POPUP1
         'Label86
         '
         Me.Label86.AutoSize = True
-        Me.Label86.Location = New System.Drawing.Point(236, 4)
+        Me.Label86.Location = New System.Drawing.Point(244, 4)
         Me.Label86.Name = "Label86"
         Me.Label86.Size = New System.Drawing.Size(29, 12)
         Me.Label86.TabIndex = 257
@@ -1334,8 +1361,11 @@ Partial Class FRM_CUSTOMER_POPUP1
         '
         'pnlCustomerBottom
         '
-        Me.pnlCustomerBottom.Controls.Add(Me.pnlEmail)
-        Me.pnlCustomerBottom.Controls.Add(Me.GroupBox1)
+        Me.pnlCustomerBottom.Controls.Add(Me.pnlUserDef)
+        Me.pnlCustomerBottom.Controls.Add(Me.Label89)
+        Me.pnlCustomerBottom.Controls.Add(Me.Label90)
+        Me.pnlCustomerBottom.Controls.Add(Me.txtEmail)
+        Me.pnlCustomerBottom.Controls.Add(Me.gbTelNoList)
         Me.pnlCustomerBottom.Controls.Add(Me.Panel1)
         Me.pnlCustomerBottom.Controls.Add(Me.Label57)
         Me.pnlCustomerBottom.Controls.Add(Me.Label58)
@@ -1361,20 +1391,55 @@ Partial Class FRM_CUSTOMER_POPUP1
         Me.pnlCustomerBottom.Size = New System.Drawing.Size(425, 190)
         Me.pnlCustomerBottom.TabIndex = 108
         '
-        'pnlEmail
+        'pnlUserDef
         '
-        Me.pnlEmail.Controls.Add(Me.Label89)
-        Me.pnlEmail.Controls.Add(Me.Label90)
-        Me.pnlEmail.Controls.Add(Me.txtEmail)
-        Me.pnlEmail.Location = New System.Drawing.Point(8, 80)
-        Me.pnlEmail.Name = "pnlEmail"
-        Me.pnlEmail.Size = New System.Drawing.Size(216, 27)
-        Me.pnlEmail.TabIndex = 113
+        Me.pnlUserDef.Controls.Add(Me.txtUserDef2)
+        Me.pnlUserDef.Controls.Add(Me.txtUserDef1)
+        Me.pnlUserDef.Controls.Add(Me.Label91)
+        Me.pnlUserDef.Controls.Add(Me.Label92)
+        Me.pnlUserDef.Location = New System.Drawing.Point(228, 10)
+        Me.pnlUserDef.Name = "pnlUserDef"
+        Me.pnlUserDef.Size = New System.Drawing.Size(187, 25)
+        Me.pnlUserDef.TabIndex = 282
+        '
+        'txtUserDef2
+        '
+        Me.txtUserDef2.Location = New System.Drawing.Point(117, 2)
+        Me.txtUserDef2.MaxLength = 7
+        Me.txtUserDef2.Name = "txtUserDef2"
+        Me.txtUserDef2.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.txtUserDef2.Size = New System.Drawing.Size(65, 21)
+        Me.txtUserDef2.TabIndex = 285
+        '
+        'txtUserDef1
+        '
+        Me.txtUserDef1.Location = New System.Drawing.Point(49, 2)
+        Me.txtUserDef1.MaxLength = 6
+        Me.txtUserDef1.Name = "txtUserDef1"
+        Me.txtUserDef1.Size = New System.Drawing.Size(65, 21)
+        Me.txtUserDef1.TabIndex = 282
+        '
+        'Label91
+        '
+        Me.Label91.Image = CType(resources.GetObject("Label91.Image"), System.Drawing.Image)
+        Me.Label91.Location = New System.Drawing.Point(4, 7)
+        Me.Label91.Name = "Label91"
+        Me.Label91.Size = New System.Drawing.Size(13, 12)
+        Me.Label91.TabIndex = 284
+        '
+        'Label92
+        '
+        Me.Label92.AutoSize = True
+        Me.Label92.Location = New System.Drawing.Point(16, 6)
+        Me.Label92.Name = "Label92"
+        Me.Label92.Size = New System.Drawing.Size(29, 12)
+        Me.Label92.TabIndex = 283
+        Me.Label92.Text = "비고"
         '
         'Label89
         '
         Me.Label89.Image = CType(resources.GetObject("Label89.Image"), System.Drawing.Image)
-        Me.Label89.Location = New System.Drawing.Point(6, 7)
+        Me.Label89.Location = New System.Drawing.Point(14, 87)
         Me.Label89.Name = "Label89"
         Me.Label89.Size = New System.Drawing.Size(13, 12)
         Me.Label89.TabIndex = 280
@@ -1382,7 +1447,7 @@ Partial Class FRM_CUSTOMER_POPUP1
         'Label90
         '
         Me.Label90.AutoSize = True
-        Me.Label90.Location = New System.Drawing.Point(18, 6)
+        Me.Label90.Location = New System.Drawing.Point(26, 86)
         Me.Label90.Name = "Label90"
         Me.Label90.Size = New System.Drawing.Size(41, 12)
         Me.Label90.TabIndex = 279
@@ -1390,26 +1455,26 @@ Partial Class FRM_CUSTOMER_POPUP1
         '
         'txtEmail
         '
-        Me.txtEmail.Location = New System.Drawing.Point(86, 3)
+        Me.txtEmail.Location = New System.Drawing.Point(94, 83)
         Me.txtEmail.MaxLength = 100
         Me.txtEmail.Name = "txtEmail"
         Me.txtEmail.Size = New System.Drawing.Size(125, 21)
         Me.txtEmail.TabIndex = 114
         '
-        'GroupBox1
+        'gbTelNoList
         '
-        Me.GroupBox1.Controls.Add(Me.btnCustomerTelNo)
-        Me.GroupBox1.Controls.Add(Me.dgTelNo)
-        Me.GroupBox1.Location = New System.Drawing.Point(234, 8)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(184, 119)
-        Me.GroupBox1.TabIndex = 274
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "기타전화번호목록"
+        Me.gbTelNoList.Controls.Add(Me.btnCustomerTelNo)
+        Me.gbTelNoList.Controls.Add(Me.dgTelNo)
+        Me.gbTelNoList.Location = New System.Drawing.Point(229, 38)
+        Me.gbTelNoList.Name = "gbTelNoList"
+        Me.gbTelNoList.Size = New System.Drawing.Size(184, 90)
+        Me.gbTelNoList.TabIndex = 274
+        Me.gbTelNoList.TabStop = False
+        Me.gbTelNoList.Text = "기타전화번호목록"
         '
         'btnCustomerTelNo
         '
-        Me.btnCustomerTelNo.Location = New System.Drawing.Point(127, 15)
+        Me.btnCustomerTelNo.Location = New System.Drawing.Point(122, 17)
         Me.btnCustomerTelNo.Name = "btnCustomerTelNo"
         Me.btnCustomerTelNo.Size = New System.Drawing.Size(45, 21)
         Me.btnCustomerTelNo.TabIndex = 110
@@ -1436,7 +1501,7 @@ Partial Class FRM_CUSTOMER_POPUP1
         Me.dgTelNo.ColumnHeadersVisible = False
         Me.dgTelNo.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn8})
         Me.dgTelNo.GridColor = System.Drawing.SystemColors.ActiveCaption
-        Me.dgTelNo.Location = New System.Drawing.Point(17, 15)
+        Me.dgTelNo.Location = New System.Drawing.Point(12, 17)
         Me.dgTelNo.MultiSelect = False
         Me.dgTelNo.Name = "dgTelNo"
         Me.dgTelNo.ReadOnly = True
@@ -1453,7 +1518,7 @@ Partial Class FRM_CUSTOMER_POPUP1
         Me.dgTelNo.RowTemplate.Height = 16
         Me.dgTelNo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.dgTelNo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgTelNo.Size = New System.Drawing.Size(105, 97)
+        Me.dgTelNo.Size = New System.Drawing.Size(105, 68)
         Me.dgTelNo.TabIndex = 271
         '
         'DataGridViewTextBoxColumn8
@@ -1907,11 +1972,13 @@ Partial Class FRM_CUSTOMER_POPUP1
         Me.gbCustomerInfo.PerformLayout()
         Me.pnlCustomerMiddle.ResumeLayout(False)
         Me.pnlCustomerMiddle.PerformLayout()
+        Me.pnlTongUser.ResumeLayout(False)
+        Me.pnlTongUser.PerformLayout()
         Me.pnlCustomerBottom.ResumeLayout(False)
         Me.pnlCustomerBottom.PerformLayout()
-        Me.pnlEmail.ResumeLayout(False)
-        Me.pnlEmail.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
+        Me.pnlUserDef.ResumeLayout(False)
+        Me.pnlUserDef.PerformLayout()
+        Me.gbTelNoList.ResumeLayout(False)
         CType(Me.dgTelNo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox6.ResumeLayout(False)
         Me.GroupBox6.PerformLayout()
@@ -1971,29 +2038,14 @@ Partial Class FRM_CUSTOMER_POPUP1
     Friend WithEvents Label22 As System.Windows.Forms.Label
     Friend WithEvents Label23 As System.Windows.Forms.Label
     Friend WithEvents gbCustomerInfo As System.Windows.Forms.GroupBox
-    Friend WithEvents cboCustomerType As System.Windows.Forms.ComboBox
-    Friend WithEvents Label37 As System.Windows.Forms.Label
-    Friend WithEvents Label27 As System.Windows.Forms.Label
-    Friend WithEvents Label55 As System.Windows.Forms.Label
-    Friend WithEvents txtTelInfo1 As System.Windows.Forms.TextBox
-    Friend WithEvents Label56 As System.Windows.Forms.Label
-    Friend WithEvents btnZipCode1 As System.Windows.Forms.Button
     Friend WithEvents btnIni1 As System.Windows.Forms.Button
     Friend WithEvents btnDel1 As System.Windows.Forms.Button
-    Friend WithEvents Label24 As System.Windows.Forms.Label
-    Friend WithEvents txtEtcInfo1 As System.Windows.Forms.TextBox
-    Friend WithEvents Label31 As System.Windows.Forms.Label
-    Friend WithEvents Label25 As System.Windows.Forms.Label
-    Friend WithEvents txtAddress1 As System.Windows.Forms.TextBox
-    Friend WithEvents Label30 As System.Windows.Forms.Label
     Friend WithEvents Label26 As System.Windows.Forms.Label
     Friend WithEvents Label29 As System.Windows.Forms.Label
     Friend WithEvents Label38 As System.Windows.Forms.Label
     Friend WithEvents Label28 As System.Windows.Forms.Label
     Friend WithEvents Label32 As System.Windows.Forms.Label
-    Friend WithEvents txtFaxNo1 As System.Windows.Forms.TextBox
     Friend WithEvents Label48 As System.Windows.Forms.Label
-    Friend WithEvents txtHP1 As System.Windows.Forms.TextBox
     Friend WithEvents Label49 As System.Windows.Forms.Label
     Friend WithEvents Label50 As System.Windows.Forms.Label
     Friend WithEvents Label51 As System.Windows.Forms.Label
@@ -2060,11 +2112,6 @@ Partial Class FRM_CUSTOMER_POPUP1
     Friend WithEvents cboCoWorker3 As System.Windows.Forms.ComboBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents Panel1 As Elegant.Ui.Panel
-    Friend WithEvents Label57 As System.Windows.Forms.Label
-    Friend WithEvents Label58 As System.Windows.Forms.Label
-    Friend WithEvents Label10 As System.Windows.Forms.Label
-    Friend WithEvents Label21 As System.Windows.Forms.Label
     Friend WithEvents Label59 As System.Windows.Forms.Label
     Friend WithEvents Label75 As System.Windows.Forms.Label
     Friend WithEvents txtCompany As System.Windows.Forms.TextBox
@@ -2074,20 +2121,46 @@ Partial Class FRM_CUSTOMER_POPUP1
     Friend WithEvents Label83 As System.Windows.Forms.Label
     Friend WithEvents Label84 As System.Windows.Forms.Label
     Friend WithEvents txtDepartment As System.Windows.Forms.TextBox
-    Friend WithEvents Label87 As System.Windows.Forms.Label
-    Friend WithEvents Label88 As System.Windows.Forms.Label
-    Friend WithEvents dgTelNo As System.Windows.Forms.DataGridView
-    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
-    Friend WithEvents btnCustomerTelNo As System.Windows.Forms.Button
-    Friend WithEvents DataGridViewTextBoxColumn8 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents btnSave1 As System.Windows.Forms.Button
     Friend WithEvents btnContentsSave As System.Windows.Forms.Button
     Friend WithEvents btnFindId As System.Windows.Forms.Button
     Friend WithEvents btnCallHistoryUpdate As System.Windows.Forms.Button
-    Friend WithEvents pnlCustomerBottom As System.Windows.Forms.Panel
     Friend WithEvents pnlCustomerMiddle As System.Windows.Forms.Panel
-    Friend WithEvents pnlEmail As System.Windows.Forms.Panel
+    Friend WithEvents pnlCustomerBottom As System.Windows.Forms.Panel
     Friend WithEvents Label89 As System.Windows.Forms.Label
     Friend WithEvents Label90 As System.Windows.Forms.Label
     Friend WithEvents txtEmail As System.Windows.Forms.TextBox
+    Friend WithEvents gbTelNoList As System.Windows.Forms.GroupBox
+    Friend WithEvents btnCustomerTelNo As System.Windows.Forms.Button
+    Friend WithEvents dgTelNo As System.Windows.Forms.DataGridView
+    Friend WithEvents DataGridViewTextBoxColumn8 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Panel1 As Elegant.Ui.Panel
+    Friend WithEvents Label57 As System.Windows.Forms.Label
+    Friend WithEvents Label58 As System.Windows.Forms.Label
+    Friend WithEvents Label10 As System.Windows.Forms.Label
+    Friend WithEvents Label21 As System.Windows.Forms.Label
+    Friend WithEvents cboCustomerType As System.Windows.Forms.ComboBox
+    Friend WithEvents Label37 As System.Windows.Forms.Label
+    Friend WithEvents Label27 As System.Windows.Forms.Label
+    Friend WithEvents Label55 As System.Windows.Forms.Label
+    Friend WithEvents txtTelInfo1 As System.Windows.Forms.TextBox
+    Friend WithEvents Label56 As System.Windows.Forms.Label
+    Friend WithEvents btnZipCode1 As System.Windows.Forms.Button
+    Friend WithEvents Label24 As System.Windows.Forms.Label
+    Friend WithEvents txtEtcInfo1 As System.Windows.Forms.TextBox
+    Friend WithEvents Label31 As System.Windows.Forms.Label
+    Friend WithEvents Label25 As System.Windows.Forms.Label
+    Friend WithEvents txtAddress1 As System.Windows.Forms.TextBox
+    Friend WithEvents Label30 As System.Windows.Forms.Label
+    Friend WithEvents txtFaxNo1 As System.Windows.Forms.TextBox
+    Friend WithEvents txtHP1 As System.Windows.Forms.TextBox
+    Friend WithEvents pnlTongUser As System.Windows.Forms.Panel
+    Friend WithEvents pnlUserDef As System.Windows.Forms.Panel
+    Friend WithEvents cboTongUser As System.Windows.Forms.ComboBox
+    Friend WithEvents Label87 As System.Windows.Forms.Label
+    Friend WithEvents Label88 As System.Windows.Forms.Label
+    Friend WithEvents txtUserDef2 As System.Windows.Forms.TextBox
+    Friend WithEvents txtUserDef1 As System.Windows.Forms.TextBox
+    Friend WithEvents Label91 As System.Windows.Forms.Label
+    Friend WithEvents Label92 As System.Windows.Forms.Label
 End Class

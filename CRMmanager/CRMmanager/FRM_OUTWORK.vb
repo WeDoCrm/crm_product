@@ -13,6 +13,11 @@
             dpt2.Value = Format(Now, "yyyy-MM-dd")
             dpt3.Value = Format(Now, "yyyy-MM-dd")
 
+            If Not gbUseExcel Then
+                btnExcel.Visible = False
+                btnSelect.Left = btnExcel.Left
+            End If
+
             CB_Set2(drpHour11, "datetime", 0, 23, 1, "")
             CB_Set2(drpMin11, "datetime", 0, 55, 5, "")
             drpHour11.Text = "00"
@@ -20,8 +25,8 @@
 
             '************************************** 수행자 *********************************************
             Dim SQL As String = " SELECT '' ,'XXXX' UNION ALL SELECT LTRIM(RTRIM(USER_NM)), CONCAT(USER_ID,'.',LTRIM(RTRIM(USER_NM))) FROM T_USER WHERE COM_CD = '" & gsCOM_CD & "'"
-            Dim dt4 As DataTable = GetData_table1(gsConString, SQL)
-            Dim dt5 As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt4 As DataTable = DoQuery(gsConString, SQL)
+            Dim dt5 As DataTable = DoQuery(gsConString, SQL)
 
             cboUser.DataSource = dt4
             cboUser.DisplayMember = dt4.Columns(0).ToString
@@ -40,7 +45,7 @@
 
             '************************************** 상담결과 입력 *********************************************
             Dim SQL_TEMP As String = Find_Query("007")
-            Dim dt2 As DataTable = GetData_table1(gsConString, SQL_TEMP)
+            Dim dt2 As DataTable = DoQuery(gsConString, SQL_TEMP)
 
             cboWorkReason1.DataSource = dt2
             cboWorkReason1.DisplayMember = dt2.Columns(0).ToString
@@ -50,7 +55,7 @@
 
             '************************************** 상담결과 입력 *********************************************
             Dim SQL_TEMP1 As String = Find_Query("007")
-            Dim dt3 As DataTable = GetData_table1(gsConString, SQL_TEMP1)
+            Dim dt3 As DataTable = DoQuery(gsConString, SQL_TEMP1)
 
             cboWorkReason2.DataSource = dt3
             cboWorkReason2.DisplayMember = dt3.Columns(0).ToString
@@ -96,7 +101,7 @@
             'Call WriteLog(temp & temp2)
             'Call WriteLog("cboUser1:" & cboUser1.SelectedValue.ToString.Trim & " - " & cboUser1.SelectedValue.ToString.Split(".")(0))
 
-            dt = Mysql_GetData_table(gsConString, temp & temp2)
+            dt = MiniCTI.DoQueryNoErrorCatch(gsConString, temp & temp2)
 
             If dt.Rows(0).Item(0).ToString.Trim = "0" Then
 
@@ -132,7 +137,7 @@
             'Call WriteLog(temp & temp2)
             dt.Reset()
 
-            dt = Mysql_GetData_table(gsConString, temp & temp2)
+            dt = MiniCTI.DoQueryParam(gsConString, temp & temp2)
             MsgBox("처리되었습니다.", MsgBoxStyle.OkOnly, "정보")
             dt = Nothing
 
@@ -145,7 +150,7 @@
 
     Public Sub gsDelete()
         Try
-          
+
             Dim Update_SQL As String = " DELETE FROM  t_schedule "
 
             Update_SQL = Update_SQL & " WHERE COM_CD = '" & gsCOM_CD & "'"
@@ -156,7 +161,7 @@
 
             'Call WriteLog(Update_SQL)
 
-            Dim DT2 As DataTable = GetData_table1(gsConString, Update_SQL)
+            Dim DT2 As DataTable = DoQueryParam(gsConString, Update_SQL)
             DT2 = Nothing
 
             Call gsInit()
@@ -196,7 +201,7 @@
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
             '************************************ 체크하자
-            Dim dt1 As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
             DataGridView1.DataSource = Nothing
 
 

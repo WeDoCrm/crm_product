@@ -14,6 +14,11 @@
             dpt1.Value = Format(Now, "yyyy-MM-dd")
             dpt2.Value = Format(Now, "yyyy-MM-dd")
 
+            If Not gbUseExcel Then
+                btnExcel.Visible = False
+                btnSelect.Left = btnExcel.Left
+            End If
+
             cbH1.SelectedIndex = 0
             cbT1.SelectedIndex = 0
 
@@ -22,7 +27,7 @@
 
             '************************************** 처리유형입력 *********************************************
             Dim SQL_TEMP As String = Find_Query("012")
-            Dim dt1 As DataTable = GetData_table1(gsConString, SQL_TEMP)
+            Dim dt1 As DataTable = DoQuery(gsConString, SQL_TEMP)
 
             cboHandleType.DataSource = dt1
             cboHandleType.DisplayMember = dt1.Columns(0).ToString
@@ -33,7 +38,7 @@
 
             '************************************** 상담결과 입력 *********************************************
             SQL_TEMP = Find_Query("004")
-            Dim dt2 As DataTable = GetData_table1(gsConString, SQL_TEMP)
+            Dim dt2 As DataTable = DoQuery(gsConString, SQL_TEMP)
 
             cboConsultResult.DataSource = dt2
             cboConsultResult.DisplayMember = dt2.Columns(0).ToString
@@ -44,7 +49,7 @@
 
             '************************************** 상담유형 입력 *********************************************
             SQL_TEMP = Find_Query("003")
-            Dim dt3 As DataTable = GetData_table1(gsConString, SQL_TEMP)
+            Dim dt3 As DataTable = DoQuery(gsConString, SQL_TEMP)
 
             cboConsultType.DataSource = dt3
             cboConsultType.DisplayMember = dt3.Columns(0).ToString
@@ -55,7 +60,7 @@
 
             '************************************** 통화자 *********************************************
             Dim SQL As String = " SELECT '' ,'XXXX' UNION ALL SELECT LTRIM(RTRIM(USER_NM)), CONCAT(USER_ID,'.',LTRIM(RTRIM(USER_NM))) FROM T_USER WHERE COM_CD = '" & gsCOM_CD & "'"
-            Dim dt4 As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt4 As DataTable = DoQuery(gsConString, SQL)
 
             cboUser.DataSource = dt4
             cboUser.DisplayMember = dt4.Columns(0).ToString
@@ -143,7 +148,7 @@
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
             '************************************ 체크하자
-            Dim dt1 As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
             DataGridView2.DataSource = Nothing
 
 

@@ -30,7 +30,7 @@
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
             '************************************ 체크하자
-            Dim dt1 As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
             DataGridView1.DataSource = Nothing
 
 
@@ -90,7 +90,7 @@
             SQL = SQL & " AND CUSTOMER_ID = " & txtID.Text.Trim
             SQL = SQL & " AND TELNO = '" & txtTelNo.Text.Trim.Replace("-", "") & "'"
 
-            Dim dt1 As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
             Dim CNT As String = "0"
 
 
@@ -123,7 +123,7 @@
 
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
-            Dim dt As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt As DataTable = DoQueryParam(gsConString, SQL)
 
             dt = Nothing
             MsgBox("데이터가 저장 됐습니다.", MsgBoxStyle.OkOnly, "알림")

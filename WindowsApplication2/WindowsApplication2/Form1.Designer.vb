@@ -118,7 +118,7 @@ Partial Class Form1
         Me.tbCompany1.Name = "tbCompany1"
         Me.tbCompany1.Size = New System.Drawing.Size(42, 21)
         Me.tbCompany1.TabIndex = 7
-        Me.tbCompany1.Text = "7777"
+        Me.tbCompany1.Text = "8888"
         '
         'tbUserId1
         '
@@ -142,7 +142,7 @@ Partial Class Form1
         Me.tbCompany2.Name = "tbCompany2"
         Me.tbCompany2.Size = New System.Drawing.Size(42, 21)
         Me.tbCompany2.TabIndex = 9
-        Me.tbCompany2.Text = "7777"
+        Me.tbCompany2.Text = "8888"
         '
         'tbPwd2
         '

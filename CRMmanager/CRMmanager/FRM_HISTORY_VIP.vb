@@ -1,6 +1,7 @@
 ﻿Public Class FRM_HISTORY_VIP
 
     Private ss As New CRMmanager
+    Private result As Integer = 0
     '자동조회
     '
     Private Sub FRM_HISTORY_VIP_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
@@ -23,7 +24,7 @@
 
             '************************************** 고객유형 입력 *********************************************
             Dim SQL_TEMP As String = Find_Query("006")
-            Dim dt1 As DataTable = GetData_table1(gsConString, SQL_TEMP)
+            Dim dt1 As DataTable = DoQuery(gsConString, SQL_TEMP)
 
             cboCustomerType.DataSource = dt1
             cboCustomerType.DisplayMember = dt1.Columns(0).ToString
@@ -34,7 +35,7 @@
 
             '************************************** 상담결과 입력 *********************************************
             SQL_TEMP = Find_Query("004")
-            Dim dt2 As DataTable = GetData_table1(gsConString, SQL_TEMP)
+            Dim dt2 As DataTable = DoQuery(gsConString, SQL_TEMP)
 
             cboConsultResult.DataSource = dt2
             cboConsultResult.DisplayMember = dt2.Columns(0).ToString
@@ -45,7 +46,7 @@
 
             '************************************** 상담유형 입력 *********************************************
             SQL_TEMP = Find_Query("003")
-            Dim dt3 As DataTable = GetData_table1(gsConString, SQL_TEMP)
+            Dim dt3 As DataTable = DoQuery(gsConString, SQL_TEMP)
 
             cboConsultType.DataSource = dt3
             cboConsultType.DisplayMember = dt3.Columns(0).ToString
@@ -56,7 +57,7 @@
 
             '************************************** 통화자 *********************************************
             Dim SQL As String = " SELECT '' ,'XXXX' UNION ALL SELECT LTRIM(RTRIM(USER_NM)), CONCAT(USER_ID,'.',LTRIM(RTRIM(USER_NM))) FROM T_USER WHERE COM_CD = '" & gsCOM_CD & "'"
-            Dim dt4 As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt4 As DataTable = DoQuery(gsConString, SQL)
 
             cboUser.DataSource = dt4
             cboUser.DisplayMember = dt4.Columns(0).ToString
@@ -122,7 +123,7 @@
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
             '************************************ 체크하자
-            Dim dt1 As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
             DataGridView2.DataSource = Nothing
 
 
@@ -149,6 +150,8 @@
         Catch ex As Exception
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
             Call WriteLog("FRM_CUSTOMER : " & ex.ToString)
+        Finally
+            result = 1
         End Try
     End Sub
 
@@ -219,5 +222,32 @@
 
     Private Sub FRM_HISTORY_VIP_Deactivate(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Deactivate
         Call gsFormExit()
+    End Sub
+
+    Private Sub btnExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExcel.Click
+        Try
+            With SaveFileDialog1
+                .CheckPathExists = True
+                .Filter = "Excel통합문서(*.xlsx)|*.xlsx|Excel97-2003문서(*.xls)|*.xls"
+                .FileName = "긴급처리조회" & "_" & Format(Now, "yyyyMMdd")
+                .Title = "긴급처리조회 엑셀로 내보내기"
+                .ShowDialog()
+            End With
+        Catch ex As Exception
+            WriteLog(ex.ToString)
+        End Try
+    End Sub
+
+    Private Sub SaveFileDialog1_FileOk(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles SaveFileDialog1.FileOk
+        Try
+            result = 0
+            Call gsSelect(False)
+            While (result = 0)
+                Threading.Thread.Sleep(1000)
+            End While
+            Call Excel_Export2(SaveFileDialog1.FileName, SaveFileDialog1.Title, DataGridView2, "0,1,")
+        Catch ex As Exception
+            WriteLog(ex.ToString)
+        End Try
     End Sub
 End Class

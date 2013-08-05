@@ -14,6 +14,11 @@
             dpt1.Value = Format(Now, "yyyy-MM-dd")
             dpt2.Value = Format(Now, "yyyy-MM-dd")
 
+            If Not gbUseExcel Then
+                btnExcel.Visible = False
+                btnSelect.Left = btnExcel.Left
+            End If
+
             cbH1.SelectedIndex = 0
             cbT1.SelectedIndex = 0
 
@@ -22,7 +27,7 @@
 
             '************************************** 통화자 *********************************************
             Dim SQL As String = " SELECT '' ,'XXXX' UNION ALL SELECT LTRIM(RTRIM(USER_NM)), CONCAT(USER_ID,'.',LTRIM(RTRIM(USER_NM))) FROM T_USER WHERE COM_CD = '" & gsCOM_CD & "'"
-            Dim dt4 As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt4 As DataTable = DoQuery(gsConString, SQL)
 
             cboUser.DataSource = dt4
             cboUser.DisplayMember = dt4.Columns(0).ToString
@@ -252,7 +257,7 @@
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
             '************************************ 체크하자
-            Dim dt1 As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
             DataGridView2.DataSource = Nothing
 
 

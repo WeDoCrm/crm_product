@@ -16,4 +16,26 @@
         CONSULT_INFO = 1
         CONSULT_HISTORY = 2
     End Enum
+
+    Public Structure AlarmSchedule
+        Public ComCd As String
+        Public StartTime As String
+        Public Title As String
+        Public Registrant As String
+        Public Users As String
+        Public SharingType As String
+        Public JobDone As Boolean
+        Public DelayMinute As Integer
+    End Structure
+
+    Public Const SharingType_O As String = "O" '고객응대
+    Public Const SharingType_P As String = "P" '내부일정
+    Public Const SharingType_S As String = "S" '내부공유일정
+
+
+    Public Enum SchedulePanel
+        INIT = -1 '하단 grid refresh
+        QUERIED = 0
+        INSERT = 1
+    End Enum
 End Module

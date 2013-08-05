@@ -90,6 +90,8 @@ Partial Class FRM_MAIN
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
         Me.ExcelToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem
+        Me.ConfigToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem4 = New System.Windows.Forms.ToolStripMenuItem
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.AboutWeDoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
@@ -100,6 +102,8 @@ Partial Class FRM_MAIN
         Me.PictureBox2 = New System.Windows.Forms.PictureBox
         Me.Panel1 = New System.Windows.Forms.Panel
         Me.btnRefresh = New System.Windows.Forms.Button
+        Me.BackgroundWorkerMain = New System.ComponentModel.BackgroundWorker
+        Me.PatchHistoryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GroupedNavigationBar1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NavigationBarGroupItemsContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -167,7 +171,7 @@ Partial Class FRM_MAIN
         '
         Me.NavigationBarGroup1.ContentControl = Me.NavigationBarGroupItemsContainer1
         Me.NavigationBarGroup1.ContentSizeMode = Elegant.Ui.NavigationBarGroupContentSizeMode.[Auto]
-        Me.NavigationBarGroup1.Title = "상담이력관리"
+        Me.NavigationBarGroup1.Title = "상담관리"
         '
         'NavigationBarGroupItemsContainer1
         '
@@ -211,7 +215,7 @@ Partial Class FRM_MAIN
         '
         Me.NavigationBarGroup2.ContentControl = Me.NavigationBarGroupItemsContainer2
         Me.NavigationBarGroup2.ContentSizeMode = Elegant.Ui.NavigationBarGroupContentSizeMode.[Auto]
-        Me.NavigationBarGroup2.Title = "상담정보관리"
+        Me.NavigationBarGroup2.Title = "이력관리"
         '
         'NavigationBarGroupItemsContainer2
         '
@@ -251,6 +255,7 @@ Partial Class FRM_MAIN
         Me.NavigationBarItem5.Size = New System.Drawing.Size(183, 18)
         Me.NavigationBarItem5.TabIndex = 3
         Me.NavigationBarItem5.Text = "   긴급처리조회"
+        Me.NavigationBarItem5.Visible = False
         '
         'NavigationBarItem6
         '
@@ -265,7 +270,7 @@ Partial Class FRM_MAIN
         '
         Me.NavigationBarGroup3.ContentControl = Me.NavigationBarGroupItemsContainer3
         Me.NavigationBarGroup3.ContentSizeMode = Elegant.Ui.NavigationBarGroupContentSizeMode.[Auto]
-        Me.NavigationBarGroup3.Title = "직원업무관리"
+        Me.NavigationBarGroup3.Title = "업무관리"
         '
         'NavigationBarGroupItemsContainer3
         '
@@ -295,6 +300,7 @@ Partial Class FRM_MAIN
         Me.NavigationBarItem8.Size = New System.Drawing.Size(183, 18)
         Me.NavigationBarItem8.TabIndex = 2
         Me.NavigationBarItem8.Text = "   외근관리"
+        Me.NavigationBarItem8.Visible = False
         '
         'NavigationBarItem19
         '
@@ -692,7 +698,7 @@ Partial Class FRM_MAIN
         '
         Me.MenuStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible
         Me.MenuStrip1.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MenuItemIconHide, Me.ToolStripMenuItem1, Me.ToolStripMenuItem4})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MenuItemIconHide, Me.ToolStripMenuItem1, Me.ToolStripMenuItem2, Me.ToolStripMenuItem4})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(1076, 24)
@@ -717,20 +723,31 @@ Partial Class FRM_MAIN
         'ExcelToolStripMenuItem
         '
         Me.ExcelToolStripMenuItem.Name = "ExcelToolStripMenuItem"
-        Me.ExcelToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.E), System.Windows.Forms.Keys)
-        Me.ExcelToolStripMenuItem.Size = New System.Drawing.Size(162, 22)
+        Me.ExcelToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
         Me.ExcelToolStripMenuItem.Text = "엑셀저장"
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.X), System.Windows.Forms.Keys)
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(162, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
         Me.ExitToolStripMenuItem.Text = "종료"
+        '
+        'ToolStripMenuItem2
+        '
+        Me.ToolStripMenuItem2.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConfigToolStripMenuItem})
+        Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(43, 20)
+        Me.ToolStripMenuItem2.Text = "옵션"
+        '
+        'ConfigToolStripMenuItem
+        '
+        Me.ConfigToolStripMenuItem.Name = "ConfigToolStripMenuItem"
+        Me.ConfigToolStripMenuItem.Size = New System.Drawing.Size(98, 22)
+        Me.ConfigToolStripMenuItem.Text = "설정"
         '
         'ToolStripMenuItem4
         '
-        Me.ToolStripMenuItem4.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem, Me.AboutWeDoToolStripMenuItem})
+        Me.ToolStripMenuItem4.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem, Me.PatchHistoryToolStripMenuItem, Me.AboutWeDoToolStripMenuItem})
         Me.ToolStripMenuItem4.Name = "ToolStripMenuItem4"
         Me.ToolStripMenuItem4.Size = New System.Drawing.Size(55, 20)
         Me.ToolStripMenuItem4.Text = "도움말"
@@ -796,6 +813,15 @@ Partial Class FRM_MAIN
         Me.btnRefresh.TabIndex = 255
         Me.btnRefresh.Text = "새로고침"
         Me.btnRefresh.UseVisualStyleBackColor = True
+        '
+        'BackgroundWorkerMain
+        '
+        '
+        'PatchHistoryToolStripMenuItem
+        '
+        Me.PatchHistoryToolStripMenuItem.Name = "PatchHistoryToolStripMenuItem"
+        Me.PatchHistoryToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.PatchHistoryToolStripMenuItem.Text = "업데이트 이력"
         '
         'FRM_MAIN
         '
@@ -927,5 +953,9 @@ Partial Class FRM_MAIN
     Friend WithEvents NavigationBarItem9 As Elegant.Ui.NavigationBarItem
     Friend WithEvents btnRefresh As System.Windows.Forms.Button
     Friend WithEvents NavigationBarItem21 As Elegant.Ui.NavigationBarItem
+    Friend WithEvents ToolStripMenuItem2 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ConfigToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents BackgroundWorkerMain As System.ComponentModel.BackgroundWorker
+    Friend WithEvents PatchHistoryToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class

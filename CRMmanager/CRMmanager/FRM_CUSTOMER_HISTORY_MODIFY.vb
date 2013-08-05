@@ -8,7 +8,7 @@
 
             '************************************** 상담결과 입력 *********************************************
             SQL_TEMP = Find_Query("004")
-            Dim dt2 As DataTable = GetData_table1(gsConString, SQL_TEMP)
+            Dim dt2 As DataTable = DoQuery(gsConString, SQL_TEMP)
 
             cboConsultResult.DataSource = dt2
             cboConsultResult.DisplayMember = dt2.Columns(0).ToString
@@ -19,7 +19,7 @@
 
             '************************************** 상담유형 입력 *********************************************
             SQL_TEMP = Find_Query("003")
-            Dim dt3 As DataTable = GetData_table1(gsConString, SQL_TEMP)
+            Dim dt3 As DataTable = DoQuery(gsConString, SQL_TEMP)
 
             cboConsultType.DataSource = dt3
             cboConsultType.DisplayMember = dt3.Columns(0).ToString
@@ -30,7 +30,7 @@
 
             '************************************** 콜타입입력 *********************************************
             SQL_TEMP = Find_Query("005")
-            Dim dt4 As DataTable = GetData_table1(gsConString, SQL_TEMP)
+            Dim dt4 As DataTable = DoQuery(gsConString, SQL_TEMP)
 
             cboCallType.DataSource = dt4
             cboCallType.DisplayMember = dt4.Columns(0).ToString
@@ -60,7 +60,7 @@
             cboCallType.SelectedValue = str(9).ToString.Trim
 
         Catch ex As Exception
-
+            Call WriteLog("FRM_CUSTOMER_HISTORY_MODIFY_Load : " & ex.ToString)
         End Try
     End Sub
 
@@ -113,7 +113,7 @@
 
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
-            Dim dt As DataTable = GetData_table1(gsConString, sql)
+            Dim dt As DataTable = DoQueryParam(gsConString, sql)
 
             dt = Nothing
             MsgBox("데이터가 수정됐됐습니다.", MsgBoxStyle.OkOnly, "알림")
@@ -174,7 +174,7 @@
 
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
-            Dim dt As DataTable = GetData_table1(gsConString, sql)
+            Dim dt As DataTable = DoQueryParam(gsConString, sql)
 
             dt = Nothing
             MsgBox("데이터가 수정됐됐습니다.", MsgBoxStyle.OkOnly, "알림")

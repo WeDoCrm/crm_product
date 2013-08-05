@@ -61,8 +61,9 @@ Public Class FRM_CUSTOMER_POPUP1
         chModification1.Text = "고객정보등록"
         chModification1.Checked = False
 
-
-
+        cboTongUser.SelectedValue = "XXXX"
+        txtUserDef1.Text = ""
+        txtUserDef2.Text = ""
     End Sub
 
     Private Sub Call_Consult_Init()
@@ -102,12 +103,6 @@ Public Class FRM_CUSTOMER_POPUP1
         '이관담당자
         cboDamdangja.SelectedValue = "XXXX"
 
-    End Sub
-
-    Public Sub HideCustomerNewInfo()
-        pnlCustomerMiddle.Hide()
-        pnlCustomerBottom.Top = pnlCustomerMiddle.Top
-        pnlEmail.Hide()
     End Sub
 
     Public Sub gsInit()
@@ -207,7 +202,7 @@ Public Class FRM_CUSTOMER_POPUP1
                     SQL = " SELECT ifnull(max(CUSTOMER_ID),'0') FROM t_customer_telno  WHERE COM_CD ='" & gsCOM_CD & "'"
                     SQL = SQL & " AND TELNO = '" & selectPhoneNumber.Trim.Replace("-", "") & "'"
 
-                    Dim dt1 As DataTable = GetData_table1(gsConString, SQL)
+                    Dim dt1 As DataTable = DoQuery(gsConString, SQL)
 
                     Dim CNT As String = "0"
                     Dim i As Integer
@@ -227,9 +222,7 @@ Public Class FRM_CUSTOMER_POPUP1
                 If custom_id <> "0" Then
                     SQL = "SELECT COM_CD,CUSTOMER_ID,CUSTOMER_NM,C_TELNO,"
                     SQL = SQL & "H_TELNO,FAX_NO,CUSTOMER_TYPE,WOO_NO,CUSTOMER_ADDR,CUSTOMER_ETC "
-                    If gbIsCustomerTablePatched Then
-                        SQL = SQL & ",COMPANY, DEPARTMENT, JOB_TITLE, EMAIL"
-                    End If
+                    SQL = SQL & ",COMPANY, DEPARTMENT, JOB_TITLE, EMAIL, TONG_USER, USER_DEF"
                     SQL = SQL & " FROM T_CUSTOMER where customer_id = " & custom_id
                     SQL = SQL & " LIMIT 1"
                     '결과없는 경우 2차 검색
@@ -237,9 +230,7 @@ Public Class FRM_CUSTOMER_POPUP1
                     SQL = "SELECT COM_CD,CUSTOMER_ID,CUSTOMER_NM,C_TELNO"
                     SQL = SQL & ",H_TELNO,FAX_NO,CUSTOMER_TYPE,WOO_NO"
                     SQL = SQL & ",CUSTOMER_ADDR,CUSTOMER_ETC"
-                    If gbIsCustomerTablePatched Then
-                        SQL = SQL & ",COMPANY, DEPARTMENT, JOB_TITLE, EMAIL"
-                    End If
+                    SQL = SQL & ",COMPANY, DEPARTMENT, JOB_TITLE, EMAIL, TONG_USER, USER_DEF"
                     SQL = SQL & " FROM T_CUSTOMER "
                     If IsHPNumber(selectPhoneNumber.Trim) Then
                         SQL = SQL & " WHERE H_TELNO LIKE '" & selectPhoneNumber.Trim.Replace("-", "") & "%'"
@@ -254,7 +245,7 @@ Public Class FRM_CUSTOMER_POPUP1
 
                 Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
                 '************************************ 체크하자
-                Dim dt1 As DataTable = GetData_table1(gsConString, SQL)
+                Dim dt1 As DataTable = DoQuery(gsConString, SQL)
 
                 Call WriteLog("CUSTOMER_POP_UP dt1.Rows.Count[" & dt1.Rows.Count & "]")
 
@@ -289,11 +280,23 @@ Public Class FRM_CUSTOMER_POPUP1
                         txtAddress1.Text = dt1.Rows(I).Item(8).ToString
                         txtEtcInfo1.Text = dt1.Rows(I).Item(9).ToString
 
-                        If gbIsCustomerTablePatched Then
-                            txtCompany.Text = dt1.Rows(I).Item(10).ToString
-                            txtDepartment.Text = dt1.Rows(I).Item(11).ToString
-                            txtJobTitle.Text = dt1.Rows(I).Item(12).ToString
-                            txtEmail.Text = dt1.Rows(I).Item(13).ToString
+                        txtCompany.Text = dt1.Rows(I).Item(10).ToString
+                        txtDepartment.Text = dt1.Rows(I).Item(11).ToString
+                        txtJobTitle.Text = dt1.Rows(I).Item(12).ToString
+                        txtEmail.Text = dt1.Rows(I).Item(13).ToString
+
+                        Dim tongUser As String = dt1.Rows(I).Item(14).ToString.Trim
+                        If tongUser <> "" Then
+                            cboTongUser.SelectedValue = tongUser
+                            cboDamdangja.SelectedValue = tongUser '이관 담당자도 같이 지정해줌
+                        Else
+                            cboTongUser.SelectedValue = "XXXX"
+                        End If
+
+                        Dim userDef As String = dt1.Rows(I).Item(15).ToString.Trim
+                        If userDef.Length = 13 Then
+                            txtUserDef1.Text = userDef.Substring(0, 6)
+                            txtUserDef2.Text = userDef.Substring(6, 7)
                         End If
 
                         If I = 0 Then Exit For
@@ -387,7 +390,7 @@ Public Class FRM_CUSTOMER_POPUP1
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
             '************************************ 체크하자
-            Dim dt1 As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
             DataGridView2.DataSource = Nothing
 
 
@@ -419,7 +422,7 @@ Public Class FRM_CUSTOMER_POPUP1
 
 
         Catch ex As Exception
-            Call WriteLog("FRM_CUSTOMER : " & ex.ToString)
+            Call WriteLog(Me.Name.ToString & " : " & ex.ToString)
         Finally
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
         End Try
@@ -437,7 +440,7 @@ Public Class FRM_CUSTOMER_POPUP1
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
             '************************************ 체크하자
-            Dim dt1 As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
             dgTelNo.DataSource = Nothing
 
             With dgTelNo
@@ -446,6 +449,7 @@ Public Class FRM_CUSTOMER_POPUP1
                 .Columns.Item(0).FillWeight = 20
                 .Columns.Item(0).Width = 120
                 .Columns.Item(0).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
+                .Columns.Item(0).ToolTipText = .Columns.Item(0).ToString
                 Call WriteLog("FRM_CUSTOMER_POPUP : dgTelNo.Columns=" & .Columns.Count)
                 'dgTelNo.EditMode = DataGridViewEditMode.EditProgrammatically
 
@@ -460,7 +464,7 @@ Public Class FRM_CUSTOMER_POPUP1
 
             dt1 = Nothing
         Catch ex As Exception
-            Call WriteLog("FRM_CUSTOMER_POPUP : " & ex.ToString)
+            Call WriteLog(Me.Name.ToString & " : " & ex.ToString)
         Finally
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
         End Try
@@ -475,7 +479,7 @@ Public Class FRM_CUSTOMER_POPUP1
         End Try
     End Sub
 
-    Private Sub FRM_CUSTOMER_POPUP1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    Private Sub InitOnLoad()
         Try
             If chModification1.Checked = True Then
                 Call Control_disable(True)
@@ -484,14 +488,17 @@ Public Class FRM_CUSTOMER_POPUP1
             End If
 
             If DBConReadYn = "N" Then
-                Call XmlReadMode()
+                Call ReadXmlInfo()
             End If
 
+            pnlTongUser.Visible = gbUseTongUser
+            pnlUserDef.Visible = gbUseUserDef
+            gbTelNoList.Top = If(gbUseUserDef, pnlUserDef.Bottom, pnlUserDef.Top)
             'txtTongUser4.Text = gsUSER_ID & "." & gsUSER_NM
 
             '******************************************* 고객 유형 입력 ***********************************************************
             Dim SQL_TEMP As String = Find_Query("006")
-            Dim dt1 As DataTable = GetData_table1(gsConString, SQL_TEMP)
+            Dim dt1 As DataTable = DoQuery(gsConString, SQL_TEMP)
 
             cboCustomerType.DataSource = dt1
             cboCustomerType.DisplayMember = dt1.Columns(0).ToString
@@ -503,7 +510,7 @@ Public Class FRM_CUSTOMER_POPUP1
 
             '************************************** 상담결과 입력 *********************************************
             SQL_TEMP = Find_Query("004")
-            Dim dt2 As DataTable = GetData_table1(gsConString, SQL_TEMP)
+            Dim dt2 As DataTable = DoQuery(gsConString, SQL_TEMP)
 
             cboConsultResult2.DataSource = dt2
             cboConsultResult2.DisplayMember = dt2.Columns(0).ToString
@@ -515,7 +522,7 @@ Public Class FRM_CUSTOMER_POPUP1
 
             '************************************** 상담유형 입력 *********************************************
             SQL_TEMP = Find_Query("003")
-            Dim dt3 As DataTable = GetData_table1(gsConString, SQL_TEMP)
+            Dim dt3 As DataTable = DoQuery(gsConString, SQL_TEMP)
 
             cboConsultType2.DataSource = dt3
             cboConsultType2.DisplayMember = dt3.Columns(0).ToString
@@ -526,7 +533,7 @@ Public Class FRM_CUSTOMER_POPUP1
 
             '************************************** 콜타입입력 *********************************************
             SQL_TEMP = Find_Query("005")
-            Dim dt4 As DataTable = GetData_table1(gsConString, SQL_TEMP)
+            Dim dt4 As DataTable = DoQuery(gsConString, SQL_TEMP)
 
             cboCallType2.DataSource = dt4
             cboCallType2.DisplayMember = dt4.Columns(0).ToString
@@ -540,7 +547,7 @@ Public Class FRM_CUSTOMER_POPUP1
 
             '******************************************* 고객 유형 입력 ***********************************************************
             SQL_TEMP = Find_Query("006")
-            Dim dt5 As DataTable = GetData_table1(gsConString, SQL_TEMP)
+            Dim dt5 As DataTable = DoQuery(gsConString, SQL_TEMP)
 
             cboCustomerType2.DataSource = dt5
             cboCustomerType2.DisplayMember = dt5.Columns(0).ToString
@@ -552,7 +559,7 @@ Public Class FRM_CUSTOMER_POPUP1
 
             '******************************************* 처리 유형 입력 ***********************************************************
             SQL_TEMP = Find_Query("012")
-            Dim dt6 As DataTable = GetData_table1(gsConString, SQL_TEMP)
+            Dim dt6 As DataTable = DoQuery(gsConString, SQL_TEMP)
 
             cboHandleType2.DataSource = dt6
             cboHandleType2.DisplayMember = dt6.Columns(0).ToString
@@ -564,7 +571,7 @@ Public Class FRM_CUSTOMER_POPUP1
 
             '************************************** 상담결과 입력 *********************************************
             SQL_TEMP = Find_Query("004")
-            Dim dt7 As DataTable = GetData_table1(gsConString, SQL_TEMP)
+            Dim dt7 As DataTable = DoQuery(gsConString, SQL_TEMP)
 
             cboConsultResult4.DataSource = dt7
             cboConsultResult4.DisplayMember = dt7.Columns(0).ToString
@@ -575,7 +582,7 @@ Public Class FRM_CUSTOMER_POPUP1
 
             '************************************** 상담유형 입력 *********************************************
             SQL_TEMP = Find_Query("003")
-            Dim dt8 As DataTable = GetData_table1(gsConString, SQL_TEMP)
+            Dim dt8 As DataTable = DoQuery(gsConString, SQL_TEMP)
 
             cboConsultType4.DataSource = dt8
             cboConsultType4.DisplayMember = dt8.Columns(0).ToString
@@ -586,7 +593,7 @@ Public Class FRM_CUSTOMER_POPUP1
 
             '************************************** 콜타입입력 *********************************************
             SQL_TEMP = Find_Query("005")
-            Dim dt9 As DataTable = GetData_table1(gsConString, SQL_TEMP)
+            Dim dt9 As DataTable = DoQuery(gsConString, SQL_TEMP)
 
             cboCallType4.DataSource = dt9
             cboCallType4.DisplayMember = dt9.Columns(0).ToString
@@ -600,7 +607,7 @@ Public Class FRM_CUSTOMER_POPUP1
 
             '******************************************* 처리 유형 입력 ***********************************************************
             SQL_TEMP = Find_Query("012")
-            Dim dt10 As DataTable = GetData_table1(gsConString, SQL_TEMP)
+            Dim dt10 As DataTable = DoQuery(gsConString, SQL_TEMP)
 
             cboHandleType4.DataSource = dt10
             cboHandleType4.DisplayMember = dt10.Columns(0).ToString
@@ -610,24 +617,34 @@ Public Class FRM_CUSTOMER_POPUP1
             dt10 = Nothing
 
 
-            '******************************************* 처리 유형 입력 ***********************************************************
+            '******************************************* 담당자 입력 ***********************************************************
             SQL_TEMP = "select '' user_name  ,'XXXX' user_id  union all select concat(user_id , '.' , user_nm) user_name , user_id user_id from t_user where com_cd ='" & gsCOM_CD & "'"
-            Dim dt11 As DataTable = GetData_table1(gsConString, SQL_TEMP)
+            Dim dt11 As DataTable = DoQuery(gsConString, SQL_TEMP)
 
             cboDamdangja.DataSource = dt11
             cboDamdangja.DisplayMember = dt11.Columns(0).ToString
             cboDamdangja.ValueMember = dt11.Columns(1).ToString
 
             cboDamdangja.SelectedIndex = 0
+            dt11 = Nothing
 
-            cboCoWorker3.DataSource = dt11
-            cboCoWorker3.DisplayMember = dt11.Columns(0).ToString
-            cboCoWorker3.ValueMember = dt11.Columns(1).ToString
+            Dim dt12 As DataTable = DoQuery(gsConString, SQL_TEMP)
+            cboCoWorker3.DataSource = dt12
+            cboCoWorker3.DisplayMember = dt12.Columns(0).ToString
+            cboCoWorker3.ValueMember = dt12.Columns(1).ToString
 
             cboCoWorker3.SelectedIndex = 0
 
-            dt11 = Nothing
+            dt12 = Nothing
 
+            Dim dt14 As DataTable = DoQuery(gsConString, SQL_TEMP)
+            cboTongUser.DataSource = dt14
+            cboTongUser.DisplayMember = dt14.Columns(0).ToString
+            cboTongUser.ValueMember = dt14.Columns(1).ToString
+
+            cboTongUser.SelectedIndex = 0
+
+            dt14 = Nothing
 
             dpt333.Value = Format(Now, "yyyy-MM-dd")
 
@@ -639,7 +656,7 @@ Public Class FRM_CUSTOMER_POPUP1
 
             '**************************************외근사유 입력 *********************************************
             Dim SQL_TEMP1 As String = Find_Query("007")
-            Dim dt13 As DataTable = GetData_table1(gsConString, SQL_TEMP1)
+            Dim dt13 As DataTable = DoQuery(gsConString, SQL_TEMP1)
 
             cboWorkReason3.DataSource = dt13
             cboWorkReason3.DisplayMember = dt13.Columns(0).ToString
@@ -648,16 +665,16 @@ Public Class FRM_CUSTOMER_POPUP1
 
             dt13 = Nothing
 
-            If Not gbIsCustomerTablePatched Then
-                Call HideCustomerNewInfo()
-            End If
 
             Call WriteLog(Me.Name.ToString & " Popup Load :gsInit ")
             'Call gsInit()
-
         Catch ex As Exception
             Call WriteLog(Me.Name.ToString & " Popup Load : " & ex.ToString)
         End Try
+    End Sub
+
+    Private Sub FRM_CUSTOMER_POPUP1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        ''
 
     End Sub
 
@@ -908,7 +925,6 @@ Public Class FRM_CUSTOMER_POPUP1
 
             End If
 
-
             If cboConsultResult4.SelectedIndex < 0 Then
                 sql = sql & " ,CONSULT_RESULT =''"
             Else
@@ -954,7 +970,7 @@ Public Class FRM_CUSTOMER_POPUP1
 
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
-            Dim dt As DataTable = GetData_table1(gsConString, sql)
+            Dim dt As DataTable = MiniCTI.DoQueryParam(gsConString, sql)
 
             dt = Nothing
             MsgBox("데이터가 수정되었습니다.", MsgBoxStyle.OkOnly, "알림")
@@ -962,7 +978,7 @@ Public Class FRM_CUSTOMER_POPUP1
             Call Call_history_Init()
             txtCCId4.Text = ""
         Catch ex As Exception
-            Call WriteLog("FRM_CUSTOMER : " & ex.ToString)
+            Call WriteLog(Me.Name.ToString & " : " & ex.ToString)
         Finally
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
         End Try
@@ -991,8 +1007,11 @@ Public Class FRM_CUSTOMER_POPUP1
             System.Threading.Thread.Sleep(1000)
             frm.Hide()
             frm.Close()
-
-            Call gsFormExit()
+            If Not gbNoCloseOnSave Then
+                Call gsFormExit()
+            Else
+                Call gsSubSelect(txtCustomerID.Text.Trim)
+            End If
         Else
             ''
         End If
@@ -1059,7 +1078,7 @@ Public Class FRM_CUSTOMER_POPUP1
                 SQL = SQL & " AND TONG_TIME = '" & txtTongTime2.Text.Trim.Replace(":", "") & "'"  ' 통화시간
                 SQL = SQL & " AND TONG_USER = '" & txtTongUser2.Text.Trim & "'"  ' 통화유저
 
-                Dim dt1 As DataTable = GetData_table1(gsConString, SQL)
+                Dim dt1 As DataTable = DoQuery(gsConString, SQL)
 
                 Dim CNT As String = "0"
                 Dim i As Integer
@@ -1187,7 +1206,7 @@ Public Class FRM_CUSTOMER_POPUP1
             Try
                 Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
-                Dim dt As DataTable = GetData_table1(gsConString, SQL)
+                Dim dt As DataTable = DoQueryParam(gsConString, SQL)
                 dt = Nothing
 
                 '==>dead code
@@ -1249,6 +1268,9 @@ Public Class FRM_CUSTOMER_POPUP1
 
         txtAddress1.ReadOnly = Not flag
         txtEtcInfo1.ReadOnly = Not flag
+
+        txtUserDef1.ReadOnly = Not flag
+        txtUserDef2.ReadOnly = Not flag
 
     End Sub
 
@@ -1316,11 +1338,7 @@ Public Class FRM_CUSTOMER_POPUP1
 
         If txtCustomerID.Text.Trim = "" Then       ' 입력
             chk = "I"
-            If gbIsCustomerTablePatched Then
-                SQL = " INSERT INTO T_CUSTOMER( COM_CD,CUSTOMER_NM,C_TELNO,H_TELNO,FAX_NO,CUSTOMER_TYPE,WOO_NO,CUSTOMER_ADDR,CUSTOMER_ETC, UPDATE_DATE, COMPANY, DEPARTMENT, JOB_TITLE, EMAIL ) "
-            Else
-                SQL = " INSERT INTO T_CUSTOMER( COM_CD,CUSTOMER_NM,C_TELNO,H_TELNO,FAX_NO,CUSTOMER_TYPE,WOO_NO,CUSTOMER_ADDR,CUSTOMER_ETC, UPDATE_DATE ) "
-            End If
+            SQL = " INSERT INTO T_CUSTOMER( COM_CD,CUSTOMER_NM,C_TELNO,H_TELNO,FAX_NO,CUSTOMER_TYPE,WOO_NO,CUSTOMER_ADDR,CUSTOMER_ETC, UPDATE_DATE, COMPANY, DEPARTMENT, JOB_TITLE, EMAIL,TONG_USER, USER_DEF ) "
             SQL = SQL & "values( '" & gsCOM_CD & "'"
             SQL = SQL & ",'" & txtCustomerName.Text.Trim & "'"
 
@@ -1349,12 +1367,19 @@ Public Class FRM_CUSTOMER_POPUP1
             SQL = SQL & ",'" & txtEtcInfo1.Text.Trim & " '"
 
             SQL = SQL & ",'" & Format(Now, "yyyyMMddHHmmss") & "'"
-            If gbIsCustomerTablePatched Then
-                SQL = SQL & ",'" & txtCompany.Text.Trim & " '"
-                SQL = SQL & ",'" & txtDepartment.Text.Trim & " '"
-                SQL = SQL & ",'" & txtJobTitle.Text.Trim & " '"
-                SQL = SQL & ",'" & txtEmail.Text.Trim & " '"
+            SQL = SQL & ",'" & txtCompany.Text.Trim & " '"
+            SQL = SQL & ",'" & txtDepartment.Text.Trim & " '"
+            SQL = SQL & ",'" & txtJobTitle.Text.Trim & " '"
+            SQL = SQL & ",'" & txtEmail.Text.Trim & " '"
+
+            '옵션지정부분
+            If cboTongUser.SelectedIndex < 0 Then
+                SQL = SQL & ",'" & "" & "'" ' TONG_USER
+            Else
+                SQL = SQL & ",'" & cboTongUser.SelectedValue.ToString.Replace("XXXX", "") & "'"
             End If
+            SQL = SQL & ",'" & txtUserDef1.Text.Trim & txtUserDef2.Text.Trim & "'"
+
             SQL = SQL & ")"
         Else                                       ' 업데이트
             chk = "U"
@@ -1381,12 +1406,20 @@ Public Class FRM_CUSTOMER_POPUP1
 
             SQL = SQL & ",UPDATE_DATE= '" & Format(Now, "yyyyMMddHHmmss") & "'"
 
-            If gbIsCustomerTablePatched Then
-                SQL = SQL & ",COMPANY= '" & txtCompany.Text.Trim & "'"
-                SQL = SQL & ",DEPARTMENT= '" & txtDepartment.Text.Trim & "'"
-                SQL = SQL & ",JOB_TITLE= '" & txtJobTitle.Text.Trim & "'"
-                SQL = SQL & ",EMAIL= '" & txtEmail.Text.Trim & "'"
+            SQL = SQL & ",COMPANY= '" & txtCompany.Text.Trim & "'"
+            SQL = SQL & ",DEPARTMENT= '" & txtDepartment.Text.Trim & "'"
+            SQL = SQL & ",JOB_TITLE= '" & txtJobTitle.Text.Trim & "'"
+            SQL = SQL & ",EMAIL= '" & txtEmail.Text.Trim & "'"
+
+            '옵션지정부분
+            If cboTongUser.SelectedIndex < 0 Then
+                SQL = SQL & ",TONG_USER= '" & "" & "'" ' TONG_USER
+            Else
+                SQL = SQL & ",TONG_USER= '" & cboTongUser.SelectedValue.ToString.Replace("XXXX", "") & "'" ' TONG_USER
             End If
+            SQL = SQL & ",USER_DEF= '" & txtUserDef1.Text.Trim & txtUserDef2.Text.Trim & "'"
+
+
             SQL = SQL & " WHERE COM_CD = '" & gsCOM_CD & "'"
             SQL = SQL & " AND CUSTOMER_ID = " & txtCustomerID.Text.Trim
         End If
@@ -1395,7 +1428,7 @@ Public Class FRM_CUSTOMER_POPUP1
         Try
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
-            Dim dt As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt As DataTable = DoQueryParam(gsConString, SQL)
 
             dt = Nothing
 
@@ -1432,7 +1465,7 @@ Public Class FRM_CUSTOMER_POPUP1
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
             Dim SQL As String = " DELETE FROM T_CUSTOMER WHERE COM_CD = '" & gsCOM_CD & "' AND CUSTOMER_ID = " & txtCustomerID.Text.Trim
-            Dim dt As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt As DataTable = DoQueryParam(gsConString, SQL)
 
             dt = Nothing
             MsgBox("데이터가 삭제되었습니다.", MsgBoxStyle.OkOnly, "알림")
@@ -1523,7 +1556,7 @@ Public Class FRM_CUSTOMER_POPUP1
             End If
 
         Catch ex As Exception
-
+            Call WriteLog(Me.Name.ToString & " : " & ex.ToString)
         End Try
     End Sub
 
@@ -1531,10 +1564,18 @@ Public Class FRM_CUSTOMER_POPUP1
         Call info_trans()
     End Sub
 
+    ''' <summary>
+    ''' 수행자, 일시만 필수 나머지는 선택항목
+    ''' 수행자는 자기자신이 디폴트
+    ''' 고객정보를 추가
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Private Sub btnSave3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSave3.Click
 
         Try
-            Dim temp, temp2 As String
+            Dim temp As String
             Dim dt As DataTable
 
             If cboCoWorker3.SelectedValue = "XXXX" Or cboCoWorker3.SelectedIndex < 0 Then
@@ -1543,67 +1584,72 @@ Public Class FRM_CUSTOMER_POPUP1
                 Exit Sub
             End If
 
-            If cboWorkReason3.SelectedValue = "XXXX" Or cboWorkReason3.SelectedIndex < 0 Then
-                MsgBox("약속사유를 선택하세요.", MsgBoxStyle.OkOnly, "알림")
-                cboWorkReason3.Focus()
-                Exit Sub
-            End If
+            'If cboWorkReason3.SelectedValue = "XXXX" Or cboWorkReason3.SelectedIndex < 0 Then
+            '    MsgBox("약속사유를 선택하세요.", MsgBoxStyle.OkOnly, "알림")
+            '    cboWorkReason3.Focus()
+            '    Exit Sub
+            'End If
 
 
             '전달
-            If txtWorkArea3.Text.Trim = "" Then
-                MsgBox("약속장소를 입력하세요.", MsgBoxStyle.OkOnly, "알림")
-                txtWorkArea3.Focus()
-                Exit Sub
-            ElseIf txtWorkContents3.Text.Trim = "" Then
-                MsgBox("업무 세부내용을 입력하세요.", MsgBoxStyle.OkOnly, "알림")
-                txtWorkContents3.Focus()
-                Exit Sub
+            'If txtWorkArea3.Text.Trim = "" Then
+            '    MsgBox("약속장소를 입력하세요.", MsgBoxStyle.OkOnly, "알림")
+            '    txtWorkArea3.Focus()
+            '    Exit Sub
+            'ElseIf txtWorkContents3.Text.Trim = "" Then
+            '    MsgBox("업무 세부내용을 입력하세요.", MsgBoxStyle.OkOnly, "알림")
+            '    txtWorkContents3.Focus()
+            '    Exit Sub
+            'End If
+
+            '같은시간대 동일인이 등록한 약속이 있는지 확인
+            temp = "SELECT count(S_START_TIME) From t_schedule  " & _
+                   " Where COM_CD='" & gsCOM_CD & "'" & _
+                   " AND S_START_TIME='" & dpt333.Text.ToString.Replace("-", "") & drpHour3.Text & drpMin3.Text & "'" & _
+                   " AND REGISTRANT LIKE '" & gsUSER_ID & ".%" & "'" & _
+                   " AND S_COMPANY_COWORKER LIKE '%" & cboCoWorker3.SelectedIndex.ToString & "%'" & _
+                   " AND SHARING_TYPE='O'"
+
+            dt = MiniCTI.DoQuery(gsConString, temp)
+
+            Dim workReason As String = ""
+            If cboWorkReason3.SelectedValue.ToString.Replace("XXXX", "") <> "" Then
+                Dim str() As String = cboWorkReason3.SelectedValue.ToString.Split(".")
+                workReason = str(0).Trim
             End If
 
-            temp = "SELECT count(S_START_TIME) From t_schedule  "
-            temp2 = " Where COM_CD='" & gsCOM_CD & _
-                   "' AND S_START_TIME='" & dpt333.Text.ToString.Replace("-", "") & drpHour3.Text & drpMin3.Text & _
-                   "' AND REGISTRANT LIKE '" & gsUSER_ID & ".%" & _
-                   "' AND S_COMPANY_COWORKER LIKE '%" & cboCoWorker3.SelectedIndex.ToString & "%" & _
-                   "' AND SHARING_TYPE='O'"
-            '"' AND S_TITLE='" & txtTitle.Text.Trim & "' "
-
-            dt = Mysql_GetData_table(gsConString, temp & temp2)
-
+            'title          - '고객약속'
+            'desc           - 약속상세
+            'workout_reason - 약속사유
+            'workout_loc    - 약속장소
             If dt.Rows(0).Item(0).ToString.Trim = "0" Then
-
-                temp = "Insert into t_schedule(COM_CD,S_START_TIME,S_END_TIME,REGISTRANT,SHARING_TYPE,S_TITLE,S_COMPANY_COWORKER,S_DESC,S_WORKOUT_REASON,S_WORKOUT_LOC) values('"
-                temp = temp & gsCOM_CD & "','" & dpt333.Text.ToString.Replace("-", "") & drpHour3.Text & drpMin3.Text & "','"
-                temp = temp & dpt333.Text.ToString.Replace("-", "") & "2359" & "','"
-                temp = temp & gsUSER_ID.Trim & "." & gsUSER_NM.Trim & "','O','"
-                temp = temp & "외근등록" & "','" & cboCoWorker3.SelectedValue.ToString & "','" & txtWorkContents3.Text.Trim & "'"    '& "') "
-
-                If cboWorkReason3.SelectedValue.ToString.Replace("XXXX", "") <> "" Then
-                    Dim str() As String = cboWorkReason3.SelectedValue.ToString.Split(".")
-                    temp = temp & " ,'" & str(0).Trim & "'"
-                Else
-                    temp = temp & " ,''"
-                End If
-                'End If
-
-                temp = temp & ",'" & txtWorkArea3.Text.Trim & "') "
-                'temp = temp & ",'" & "" & "') "
-                temp2 = ""
-
+                temp = "Insert into t_schedule(COM_CD,S_START_TIME" & _
+                        ",S_END_TIME" & _
+                        ",REGISTRANT, SHARING_TYPE " & _
+                        ",S_COMPANY_COWORKER,S_TITLE" & _
+                        ",S_DESC,S_WORKOUT_REASON,S_WORKOUT_LOC " & _
+                        ",JOB_DONE, CUSTOMER_ID, ALARM_MINUTE " & _
+                        ") values('" & _
+                        gsCOM_CD & "','" & dpt333.Text.ToString.Replace("-", "") & drpHour3.Text & drpMin3.Text & "'" & _
+                        ",'" & dpt333.Text.ToString.Replace("-", "") & "2359" & "'" & _
+                        ",'" & gsUSER_ID.Trim & "." & gsUSER_NM.Trim & "','O'" & _
+                        ",'" & cboCoWorker3.SelectedValue.ToString & "','고객약속'" & _
+                        ",'" & txtWorkContents3.Text.Trim & "','" & workReason & "','" & txtWorkArea3.Text.Trim & "' " & _
+                        ",'N'," & txtCustomerID.Text.Trim & ") "
             Else
-                temp = " UPDATE t_schedule SET S_WORKOUT_LOC = '" & txtWorkArea3.Text.Trim & "'" & " , S_DESC ='" & txtWorkContents3.Text.Trim & "'"
-                'temp = " UPDATE t_schedule SET S_WORKOUT_LOC = '" & txtWorkArea3.Text.Trim & "'" & " , S_DESC ='" & txtWorkContents3.Text.Trim & "'"
-                If cboWorkReason3.SelectedValue.ToString.Replace("XXXX", "") <> "" Then
-                    Dim str() As String = cboWorkReason3.SelectedValue.ToString.Split(".")
-                    temp = temp & " , S_WORKOUT_REASON =  '" & str(0).Trim & "'"
-                Else
-                    temp = temp & " , S_WORKOUT_REASON =  '" & "" & "'"
-                End If
+                temp = " UPDATE t_schedule SET S_WORKOUT_LOC = '" & txtWorkArea3.Text.Trim & "'" & _
+                       " , S_DESC ='" & txtWorkContents3.Text.Trim & "'" & _
+                       " , S_WORKOUT_REASON =  '" & workReason & "'" & _
+                       " Where COM_CD='" & gsCOM_CD & "'" & _
+                       " AND S_START_TIME='" & dpt333.Text.ToString.Replace("-", "") & drpHour3.Text & drpMin3.Text & "'" & _
+                       " AND REGISTRANT LIKE '" & gsUSER_ID & ".%" & "'" & _
+                       " AND S_COMPANY_COWORKER LIKE '%" & cboCoWorker3.SelectedIndex.ToString & "%'" & _
+                       " AND SHARING_TYPE='O'"
             End If
+
             dt.Reset()
 
-            dt = Mysql_GetData_table(gsConString, temp & temp2)
+            dt = MiniCTI.DoQueryParam(gsConString, temp)
             MsgBox("처리되었습니다.", MsgBoxStyle.OkOnly, "정보")
             dt = Nothing
 
@@ -1719,5 +1765,20 @@ Public Class FRM_CUSTOMER_POPUP1
         Catch ex As Exception
             Call WriteLog(Me.Name & " : " & ex.ToString)
         End Try
+    End Sub
+
+    Private Sub TextBox1_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        If txtUserDef1.TextLength >= txtUserDef1.MaxLength Then
+            txtUserDef2.Focus()
+        End If
+    End Sub
+
+    Public Sub New()
+
+        ' 이 호출은 Windows Form 디자이너에 필요합니다.
+        InitializeComponent()
+
+        ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하십시오.
+        InitOnLoad()
     End Sub
 End Class

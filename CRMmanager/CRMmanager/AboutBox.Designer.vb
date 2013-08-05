@@ -132,9 +132,9 @@ Partial Class AboutBox
         '
         Me.OKButton.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.OKButton.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.OKButton.Location = New System.Drawing.Point(192, 212)
+        Me.OKButton.Location = New System.Drawing.Point(192, 218)
         Me.OKButton.Name = "OKButton"
-        Me.OKButton.Size = New System.Drawing.Size(87, 19)
+        Me.OKButton.Size = New System.Drawing.Size(87, 22)
         Me.OKButton.TabIndex = 0
         Me.OKButton.Text = "&OK"
         '

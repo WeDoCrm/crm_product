@@ -38,7 +38,7 @@ Public Class FRM_INNER_WORK_UPDATE
             SQL_TEMP = SQL_TEMP & " FROM T_CUSTOMER "
             SQL_TEMP = SQL_TEMP & " WHERE  CUSTOMER_ID = " & temp(9)
 
-            dt = GetData_table1(gsConString, SQL_TEMP)
+            dt = DoQuery(gsConString, SQL_TEMP)
 
             If dt.Rows.Count > 0 Then
 
@@ -146,7 +146,7 @@ Public Class FRM_INNER_WORK_UPDATE
             sql = sql & " AND  JUPSU_NO = '" & txtJupsuNo33.Text.Trim & "'"
             sql = sql & " AND  JUPSUJA = '" & txtJupsuJa33.Text.Trim & "'"
 
-            Dim dt As DataTable = GetData_table1(gsConString, sql)
+            Dim dt As DataTable = DoQueryParam(gsConString, sql)
 
             dt = Nothing
 

@@ -9,6 +9,8 @@ Public Class FRM_MAIN
     Private ss As New CRMmanager
     Private pop As New FRM_CUSTOMER_POPUP1
 
+    Private frmAlarmSchedule As FRM_SCHEDULE_ALARM
+
 
     Public Sub New()
 
@@ -52,6 +54,7 @@ Public Class FRM_MAIN
         Call etcSetting()           ' 기타 정보 세팅해줌
         Call getStatistics()
         Call CheckCustomerTablePatched()
+        LoadBackgroundWorkerMain()
     End Sub
 
     Private Sub etcSetting()
@@ -318,20 +321,7 @@ Public Class FRM_MAIN
                         newF.Show()
                     End If
 
-                Case "FRM_OUTWORK"
-                    If FRM_OUTWORK Is Nothing Then
-                        Dim newF As New FRM_OUTWORK
 
-                        newF.MdiParent = Me
-                        newF.Show()
-                    End If
-                Case "FRM_INNER_WORK"
-                    If FRM_INNER_WORK Is Nothing Then
-                        Dim newF As New FRM_INNER_WORK
-
-                        newF.MdiParent = Me
-                        newF.Show()
-                    End If
                 Case "FRM_PWD_CHANGE"
                     If FRM_PWD_CHANGE Is Nothing Then
                         Dim newF As New FRM_PWD_CHANGE
@@ -616,7 +606,7 @@ Public Class FRM_MAIN
             '콜백건수
             SQL = SQL & " select '5' flag,count(*) cnt from t_customer_history where tond_dd = '" & strNow & "' and call_back_yn = 'Y' "
 
-            Dim dt1 As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
 
             If dt1.Rows.Count > 0 Then
                 Dim i As Integer
@@ -768,7 +758,7 @@ Public Class FRM_MAIN
             SQL = SQL & " WHERE COM_CD = '" & gsCOM_CD & "'"
             SQL = SQL & " AND USER_ID = '" & SenderId & "'"
 
-            Dim dt1 As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
 
             If dt1.Rows.Count > 0 Then
                 Dim i As Integer
@@ -797,7 +787,14 @@ Public Class FRM_MAIN
         End Try
     End Sub
 
-    '상세조회버튼클릭시 팝업호출
+
+    ''' <summary>
+    '''상세조회버튼클릭시 팝업호출 
+    ''' </summary>
+    ''' <param name="tel_no"></param>
+    ''' <param name="TONG_DT"></param>
+    ''' <param name="TONG_TM"></param>
+    ''' <remarks></remarks>
     Public Sub OpenCustomerPopupMod(ByVal tel_no As String, ByVal TONG_DT As String, ByVal TONG_TM As String)
         ' TONG_DT YYYY-MM-DD TONG_TM hh:mm:ss
 
@@ -837,6 +834,25 @@ Public Class FRM_MAIN
 
         Catch ex As Exception
             Call WriteLog(Me.Name.ToString & " OpenCustomerPopupMod : " & ex.ToString)
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' (일정미리알림창에서)  호출하여 일정관리창을 열고 선택한 일정내역을 디스플레이
+    ''' </summary>
+    ''' <param name="alarmSchedule"></param>
+    ''' <remarks></remarks>
+    Public Sub OpenSchedule(ByVal alarmSchedule As ConstDef.AlarmSchedule)
+        ' TONG_DT YYYY-MM-DD TONG_TM hh:mm:ss
+
+        Try
+            Me.Show()
+            Dim pop As New FRM_SCHEDULE
+            pop.MdiParent = Me
+            pop.Show()
+            pop.OpenSchedule(alarmSchedule)
+        Catch ex As Exception
+            Call WriteLog(Me.Name.ToString & " OpenSchedule : " & ex.ToString)
         End Try
     End Sub
 
@@ -899,7 +915,137 @@ Public Class FRM_MAIN
         Call menu_popuu("FRM_INNER_WORK")
     End Sub
 
+    Private Sub MenuStrip1_ItemClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolStripItemClickedEventArgs) Handles MenuStrip1.ItemClicked
 
+    End Sub
+
+    Private Sub ConfigToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ConfigToolStripMenuItem.Click
+        Try
+            Dim pop As New FRM_CONFIG
+            pop.ShowDialog()
+
+            'read xml file 
+            'refresh config
+
+        Catch ex As Exception
+            Call WriteLog(Me.Name.ToString & " Open FRM_CONFIG : " & ex.ToString)
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' 일정관리 알림기능 위해서 BackgroundWorker기동
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private Sub LoadBackgroundWorkerMain()
+        BackgroundWorkerMain.WorkerReportsProgress = True
+        BackgroundWorkerMain.WorkerSupportsCancellation = True
+        BackgroundWorkerMain.RunWorkerAsync()
+    End Sub
+
+    ''' <summary>
+    ''' 일정관리 알림기능
+    ''' 1. 일정관리 설정정보를 읽음: 알림 활성화, 주기, 알림시작시간
+    ''' 2. 1분단위 슬립을 주고 주기가 되면 알림대상 일정 목록을 가져옴
+    ''' 
+    ''' ** 주기: 
+    ''' a. 최초기동시 1회 알림 목록조회후 주기반영
+    ''' b. 주기변경후 이전 알림조회이력 감안하여 변경된 주기반영
+    ''' 
+    ''' ** 주기적으로 알림주기가 되면 progressChanged호출
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub BackgroundWorkerMain_DoWork(ByVal sender As System.Object, _
+                                                ByVal e As System.ComponentModel.DoWorkEventArgs) _
+                                                    Handles BackgroundWorkerMain.DoWork
+        ' Do some time-consuming work on this thread.
+        While True
+            Try
+                If gbAlarmInfo.Enabled AndAlso DateTime.Now.Second Mod 60 < 1 Then '매분 체크 '60
+                    If gbAlarmInfo.AlarmPeriodCount = gbAlarmInfo.AlarmPeriod Then
+                        WriteLog(Me.Name.ToString & "알림 체크 실행")
+                        gbAlarmInfo.AlarmPeriodCount = 0
+                        BackgroundWorkerMain.ReportProgress(0, Nothing)
+                    End If
+                    gbAlarmInfo.AlarmPeriodCount += 1
+
+                    Threading.Thread.Sleep(1000 * 59) 'Threading.Thread.Sleep(1000 * 59)
+                    Continue While
+                Else
+                    Threading.Thread.Sleep(1000)
+                    Continue While
+                End If
+            Catch ex As Exception
+                Call WriteLog(Me.Name.ToString & " BackgroundWorkerMain 실행중 에러 : " & ex.ToString)
+            End Try
+        End While
+
+        If BackgroundWorkerMain.CancellationPending Then
+            e.Cancel = True
+            BackgroundWorkerMain.ReportProgress(0, "BackgroundWorkerMain 취소요청.")
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' 호출되면 CustomerScheduler.GetAlarmList 호출
+    ''' 해당 목록이 있으면 알림창을 팝업
+    ''' 알림창은 하나만 띄운다.(떠있는지 확인)
+    ''' 
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub BackgroundWorkerMain_ProgressChanged(ByVal sender As System.Object, _
+                                                        ByVal e As System.ComponentModel.ProgressChangedEventArgs) _
+                                                            Handles BackgroundWorkerMain.ProgressChanged
+        Dim scheduler As CustomerScheduler = New CustomerScheduler()
+
+        Dim table As DataTable = scheduler.GetAlarmList()
+        If table Is Nothing OrElse table.Rows().Count = 0 Then
+            Return
+        End If
+
+        If frmAlarmSchedule Is Nothing OrElse frmAlarmSchedule.IsDisposed Then
+            'OfType(Of FRM_SCHEDULE_ALARM).Any Then
+            frmAlarmSchedule = New FRM_SCHEDULE_ALARM
+            frmAlarmSchedule.Show()
+            frmAlarmSchedule.DisplayAlarmList(table)
+        End If
+    End Sub
+
+
+    ''' <summary>
+    ''' 호출되는 경우는 없다. 에러로 호출되면 BackGroundWorker를 재기동
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub BackgroundWorkerMain_RunWorkerCompleted(ByVal sender As System.Object, _
+                                                            ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) _
+                                                                Handles BackgroundWorkerMain.RunWorkerCompleted
+        If e.Error IsNot Nothing Then
+            '' if BackgroundWorker terminated due to error
+            WriteLog(Me.Name.ToString & " BackgroundWorkerMain 에러로 인한 취소 : " & e.Error.ToString)
+        ElseIf e.Cancelled Then
+            '' otherwise if it was cancelled
+            WriteLog(Me.Name.ToString & " BackgroundWorkerMain 취소처리 ")
+        Else
+            '' otherwise it completed normally
+            WriteLog(Me.Name.ToString & " BackgroundWorkerMain 완료처리 ")
+        End If
+    End Sub
+
+
+    Private Sub PatchHistoryToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PatchHistoryToolStripMenuItem.Click
+        PATCH_HISTORY.ShowDialog()
+    End Sub
+
+    Private Sub FRM_MAIN_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
+        If Not gbIsPatchHistoryOpened Then
+            PATCH_HISTORY.ShowDialog()
+        End If
+    End Sub
 End Class
 
 

@@ -6,7 +6,7 @@ Imports MySql.Data
 Imports MySql.Data.MySqlClient
 
 Module MiniCTI
-	
+
     Public gsCOM_CD As String
     Public gsUSER_ID As String
     Public gsUSER_NM As String
@@ -35,14 +35,9 @@ Module MiniCTI
 
     Public gsConString As String                  ' DB Con String
     Public Const file_path As String = "C:\MiniCTI"
-    Public config_file As String
+    Public config_file As String = "\config\MiniCTI_config.xml"
+    Public gsAppVersion As String = "Ver 2.2.0.2" ' 배너변경
 
-
-    Public Const CONFIG_FILE_DEMO As String = "\config\MiniCTI_config_demo.xml"
-    Public Const CONFIG_FILE_PRODUCT As String = "\config\MiniCTI_config.xml"
-    Public Const VERSION_DEMO As String = "Ver 2.1.1.5B"
-    Public Const VERSION_PRODUCT As String = "Ver 2.1.1.8" ' 배너변경
-    Public gsAppVersion As String
     Public gsPopUpOption As String = "MDI"
 
     Public gsUseARS As String = "N"
@@ -57,7 +52,21 @@ Module MiniCTI
     Public Const gsCheckCustomerColumnName As String = "고객명"
     Public Const giCustomerImportColCount As Integer = 9
 
+    Public gbUseExcel As Boolean = False      '엑셀 사용
+    Public gbUseUserDef As Boolean = False    '비고(주민번호) 사용
+    Public gbUseTongUser As Boolean = False   '고객별 담당자 정보 사용
+    Public gbNoCloseOnSave As Boolean = False '저장후 창을 닫지 않기
 
+    Public gbIsPatchHistoryOpened As Boolean = False '패치히스토리를 한번이라도 보여줬는지
+
+    Public Structure AlarmDef
+        Public Enabled As Boolean '알람사용여부 
+        Public AlarmStart As Integer '알람시작시간 - 예약시간 얼마전
+        Public AlarmPeriod As Integer ' 알람주기 몇분주기
+        Public AlarmPeriodCount As Integer '분단위 1씩 증가형 주기 맞춤 
+    End Structure
+
+    Public gbAlarmInfo As AlarmDef
 
     Public Function gfTelNoTransReturn(ByVal telno As String) As String
         Dim tel As String = "000-0000-0000"
@@ -125,6 +134,7 @@ Module MiniCTI
 
     Public Function IsHPNumber(ByVal num As String) As String
         Dim TelNo As String
+        num = num.Replace("-", "")
         If num.Trim() = "" Or num.Length > 11 Or num.Length < 10 Then
             Return False
         End If
@@ -138,23 +148,10 @@ Module MiniCTI
         End If
     End Function
 
-    'Public Sub popup1()
-    '    Dim newF As New FRM_CUSTOMER_POPUP
-    '    newF.Show()
-
-    'End Sub
-
-    Public Function XmlRead(ByVal n As Integer, ByVal keyname As String) As String
+    Public Function GetElementText(ByVal n As Integer, ByVal keyname As String) As String
         Try
             Dim doc As XmlDocument = New XmlDocument()
-            Dim appName As String = System.Reflection.Assembly.GetExecutingAssembly.GetName.Name()
-            If appName.ToLower().Contains("demo") Then
-                config_file = CONFIG_FILE_DEMO
-                gsAppVersion = VERSION_DEMO
-            Else
-                config_file = CONFIG_FILE_PRODUCT
-                gsAppVersion = VERSION_PRODUCT
-            End If
+
             doc.Load(file_path & config_file)
 
             Dim root As XmlElement = doc.DocumentElement
@@ -173,16 +170,91 @@ Module MiniCTI
 
     End Function
 
-    Public Sub XmlReadMode()
+    Private Function GetElementText(ByVal key As String) As String
         Try
-            gsConString = "Data Source=" & XmlRead(1, "db") & ";Initial Catalog=" & XmlRead(2, "db") & ";User ID=" & XmlRead(3, "db") & ";Password=" & XmlRead(4, "db")
+            Dim doc As XmlDocument = New XmlDocument()
+            Dim m_node As XmlNode
+
+            'Load the Xml file
+            doc.Load(file_path & config_file)
+
+            'Get the list of name nodes 
+            m_node = doc.SelectSingleNode(key)
+            GetElementText = If(m_node IsNot Nothing, m_node.LastChild.Value(), "")
+        Catch errorVariable As Exception
+            'Error trapping
+            Console.Write(errorVariable.ToString())
+            GetElementText = ""
+        End Try
+    End Function
+
+    Public Function GetElementAttribute(ByVal keyname As String, ByVal attributeName As String) As String
+        Try
+            Dim doc As XmlDocument = New XmlDocument()
+
+            doc.Load(file_path & config_file)
+
+            Dim root As XmlElement = doc.DocumentElement
+
+
+            Dim elemList As XmlNodeList = root.GetElementsByTagName(keyname)
+
+            For Each elem As XmlElement In elemList
+                If elem.HasAttribute(attributeName) Then
+                    Return elem.GetAttribute(attributeName).ToString
+                    Exit Function
+                End If
+            Next
+            Return ""
+
+        Catch ex As Exception
+            Call WriteLog("Error(XMLRead) : " & ex.ToString)
+            Return ""
+        End Try
+
+    End Function
+
+    Public Sub ReadXmlInfo()
+        Try
+            '패치버전이 같으면 이미 패치이력창을 열어봄 
+            Dim patchCompared As String = GetElementText("/environment/patchVersion")
+            gbIsPatchHistoryOpened = If(patchCompared = gsAppVersion, True, False)
+
+
+            Dim mainPath As String = "/environment/customer/"
+            gsConString = "Data Source=" & GetElementText(1, "db") & ";Initial Catalog=" & GetElementText(2, "db") & ";User ID=" & GetElementText(3, "db") & ";Password=" & GetElementText(4, "db")
             DBConReadYn = "Y"
-            gsUseARS = XmlRead(0, "worktype")
+            gsUseARS = GetElementText(0, "worktype")
+
+            Dim useTongUser As String = GetElementText(mainPath & "useTongUser")
+            gbUseTongUser = If(useTongUser = "Y", True, False)
+
+            Dim useUserDef As String = GetElementText(mainPath & "useUserDef")
+            gbUseUserDef = If(useUserDef = "Y", True, False)
+
+            Dim noCloseOnSave As String = GetElementText(mainPath & "noCloseOnSave")
+            gbNoCloseOnSave = If(noCloseOnSave = "Y", True, False)
+
+            Dim useAlarm As String = GetElementAttribute("useAlarm", "enabled")
+            gbAlarmInfo.Enabled = If(useAlarm = "Y", True, False)
+
+            If gbAlarmInfo.Enabled Then
+                gbAlarmInfo.AlarmPeriod = Convert.ToInt16(GetElementText(mainPath & "useAlarm/alarmPeriod"))
+                gbAlarmInfo.AlarmStart = Convert.ToInt16(GetElementText(mainPath & "useAlarm/alarmStart"))
+            End If
+            If gbAlarmInfo.AlarmPeriod = 0 Then
+                gbAlarmInfo.AlarmPeriod = 5
+            End If
+            If gbAlarmInfo.AlarmStart = 0 Then
+                gbAlarmInfo.AlarmStart = 10
+            End If
+
         Catch ex As Exception
             DBConReadYn = "N"
             gsConString = ""
         End Try
     End Sub
+
 
     Public Sub SettoolBar(ByVal initbol As Boolean, ByVal selectbol As Boolean, ByVal savebol As Boolean, ByVal deletebol As Boolean, ByVal helpbol As Boolean, ByVal formexitbol As Boolean, ByVal exitbol As Boolean)
         'FRM_MAIN.toolInit.Enabled = initbol
@@ -209,20 +281,20 @@ Module MiniCTI
     '**********************************************************************************************************
     '****************************** 모두 이함수 사용합시다 ****************************************************
     '**********************************************************************************************************
-    Public Function GetData_table1(ByVal constring As String, ByVal strSql As String) As DataTable
+    Public Function DoQuery(ByVal constring As String, ByVal strSql As String) As DataTable
 
-        Dim con As MySqlClient.MySqlConnection
-        Dim com As MySqlClient.MySqlCommand
-        Dim da As MySqlClient.MySqlDataAdapter
+        Dim con As MySqlConnection
+        Dim com As MySqlCommand
+        Dim da As MySqlDataAdapter
         Dim dt As New DataTable
         Dim temp As String = ""
 
-
-
         Try
-            con = New MySqlClient.MySqlConnection(constring)
-            com = New MySqlClient.MySqlCommand(strSql, con)
-            da = New MySqlClient.MySqlDataAdapter(com)
+            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+
+            con = New MySqlConnection(constring)
+            com = New MySqlCommand(strSql, con)
+            da = New MySqlDataAdapter(com)
 
             com.CommandType = CommandType.Text
             com.CommandText = strSql
@@ -232,97 +304,23 @@ Module MiniCTI
 
         Catch ex As Exception
             Call WriteLog(ex.ToString)
+            Throw New Exception("쿼리문 오류발생", ex)
         Finally
-            GetData_table1 = dt
+            DoQuery = dt
+
             con.Close()
 
             dt = Nothing
             da = Nothing
             com = Nothing
             con = Nothing
+
+            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
         End Try
     End Function
 
-    Public Function GetData_table_Error(ByVal constring As String, ByVal strSql As String) As DataTable
 
-        Dim con As MySqlClient.MySqlConnection
-        Dim com As MySqlClient.MySqlCommand
-        Dim da As MySqlClient.MySqlDataAdapter
-        Dim dt As New DataTable
-        Dim temp As String = ""
-
-        Try
-            con = New MySqlClient.MySqlConnection(constring)
-            com = New MySqlClient.MySqlCommand(strSql, con)
-            da = New MySqlClient.MySqlDataAdapter(com)
-
-            com.CommandType = CommandType.Text
-            com.CommandText = strSql
-
-            con.Open()
-            da.Fill(dt)
-
-        Finally
-            GetData_table_Error = dt
-            con.Close()
-            dt = Nothing
-            da = Nothing
-            com = Nothing
-            con = Nothing
-        End Try
-    End Function
-
-    'Public Function GetDT(ByVal constring As String, ByVal strSql As String) As DataTable
-
-    '    Dim s_dbcon As String = constring
-    '    Dim con As SqlClient.SqlConnection
-    '    Dim com As SqlClient.SqlCommand
-    '    Dim da As SqlClient.SqlDataAdapter
-    '    Dim dt As New DataTable
-    '    Dim temp As String = ""
-    '    Dim i As Integer
-
-    '    con = New SqlClient.SqlConnection(s_dbcon)
-    '    com = New SqlClient.SqlCommand
-    '    da = New SqlClient.SqlDataAdapter(com)
-
-    '    Try
-    '        com.CommandType = CommandType.Text
-    '        com.CommandText = strSql
-
-    '        con.Open()
-    '        com.CommandTimeout = 60000
-    '        '자동증가 컬럼 추가 (DataGridView 페이징을 위해서)
-    '        dt.Columns.Add(Increment_Column(1, 1))
-    '        da.Fill(dt)
-    '        com.Parameters.Clear()
-    '    Catch ex As Exception
-    '        Call WriteLog("eVoice.clsWebAppComModule.GetData_table - " & strSql & ">>" & com.CommandText & ":" & ex.ToString)
-    '    Finally
-    '        GetDT = dt
-    '        con.Close()
-    '        dt = Nothing
-    '        da = Nothing
-    '        com = Nothing
-    '        con = Nothing
-    '    End Try
-    'End Function
-
-    'Public Function Increment_Column(ByVal iSeed As Integer, ByVal iStep As Integer) As DataColumn
-    '    Dim col As New DataColumn()
-    '    Try
-    '        col.DataType = System.Type.GetType("System.Int32")
-    '        col.ColumnName = "newID"
-    '        col.AutoIncrement = True
-    '        col.AutoIncrementSeed = iSeed
-    '        col.AutoIncrementStep = iStep
-    '    Catch ex As Exception
-    '        WriteLog("eVoice.clsWebAppComModule.Setting_DrpPage : " & ex.ToString)
-    '    End Try
-    '    Increment_Column = col
-    'End Function
-
-    Public Function GetData_exe(ByVal constring As String, ByVal procedurename As String, ByVal ParamArray parameters() As String) As Boolean
+    Public Function ExecuteProcedure(ByVal constring As String, ByVal procedurename As String, ByVal ParamArray parameters() As String) As Boolean
 
         Dim bol As Boolean = True
         Dim s_dbcon As String = constring
@@ -368,133 +366,24 @@ Module MiniCTI
 
     End Function
 
-    'Public Function GetData_table(ByVal constring As String, ByVal procedurename As String, ByVal ParamArray parameters() As String) As DataTable
 
-    '    Dim s_dbcon As String = constring  'ConfigurationManager.ConnectionStrings(constring).ConnectionString
-    '    Dim con As SqlClient.SqlConnection
-    '    Dim com As SqlClient.SqlCommand
-    '    Dim da As SqlClient.SqlDataAdapter
-    '    Dim dt As New DataTable
-    '    Dim temp As String = ""
-    '    Dim i As Integer
 
-    '    con = New SqlClient.SqlConnection(s_dbcon)
-    '    com = New SqlClient.SqlCommand
-    '    da = New SqlClient.SqlDataAdapter(com)
+    Public Function DoQueryParam(ByVal constring As String, ByVal sqltext As String, ByVal ParamArray parameters() As String) As DataTable
 
-    '    Try
-
-    '        If parameters.Length > 0 Then
-    '            For i = 0 To parameters.Length - 1
-    '                If i = 0 Then
-    '                    temp = "'" & parameters(i).Replace("'", "''") & "'"
-    '                Else
-    '                    temp = temp & ",'" & parameters(i).Replace("'", "''") & "'"      '두번째 이후 파라메터들을 실행구문에 추가
-    '                End If
-    '            Next
-    '        End If
-
-    '        If procedurename.StartsWith("P_") = True Then
-    '            com.CommandText = "Exec " & procedurename & " " & temp    '프로시져 실행구문
-    '        Else
-    '            com.CommandText = procedurename     '쿼리 실행구문
-    '        End If
-    '        'If ConfigurationManager.AppSettings("LOG").ToString.ToUpper = "Y" Then _
-    '        'eVoice_Common.eVoiceLog.WriteLog("eVoice.clsWebAppComModule.GetData_table - ", com.CommandText, "debug")
-    '        com.Connection = con
-    '        con.Open()
-    '        da.Fill(dt)
-    '        com.Parameters.Clear()
-    '    Catch ex As Exception
-    '        'Call WriteLog("Exception : " & GetData_table--> procedurename & ">>" & com.CommandText & ":" & ex.ToString )
-    '    Finally
-    '        GetData_table = dt
-    '        con.Close()
-    '        dt = Nothing
-    '        da = Nothing
-    '        com = Nothing
-    '        con = Nothing
-    '    End Try
-    'End Function
-
-    Public Sub WriteLog(ByVal msg As String)
-
-        Dim strNow As String
-        Dim strNow1 As String
-
-        Try
-            strNow = Format(Now, "yyyyMMddHHmmss")
-
-            '파일 스트림 생성
-            Dim fs As FileStream = New FileStream(file_path & "\log\TStoryWorld_" & strNow.Substring(0, 8) & ".log", FileMode.Append)
-
-            '파일 입력 작업을 위해 StreamWriter 객체를 얻는다
-            Dim sw As StreamWriter = New StreamWriter(fs, System.Text.Encoding.Default)
-
-            strNow1 = "[" & Format(Now, "yyyy-MM-dd HH:mm:ss") & "]"
-
-            sw.WriteLine(strNow1 & "          " & msg)
-
-            sw.Close()
-            fs = Nothing
-
-        Catch ex As Exception
-
-        End Try
-    End Sub
-
-    Public Sub log_delete()
-
-        Dim log_delete_day As String = DateTime.Now.AddDays(-5).ToString.Substring(0, 10).Replace("-", "")
-
-        Try
-            Dim dir1 As DirectoryInfo = New DirectoryInfo(file_path & "\log")
-            Dim datfiles() As FileInfo = dir1.GetFiles("*.log")
-
-            Dim f As FileInfo
-
-            For Each f In datfiles
-                ' 0      1     2  3    4     5 
-                'Online_Daemon_To_Host_lib_20101118.log()
-                Dim f_name() As String = f.Name.ToString.Split("_")
-                'If f.Name.Contains(log_delete_day) = False Then
-                '    Call WriteLog("Log Data 삭제 --> 삭제 파일명 : " & f.Name.ToString.Trim)
-                '    f.Delete()
-                'End If
-
-                If f_name(5).ToString.Replace(".log", "") < log_delete_day Then
-                    f.Delete()
-                    Call WriteLog("Log Data  --> File Name : " & f.Name.ToString.Trim)
-                End If
-
-            Next
-
-            f = Nothing
-            dir1 = Nothing
-
-        Catch ex As Exception
-            Call WriteLog(ex.ToString)
-        End Try
-
-    End Sub
-    Public Function Mysql_GetData_table(ByVal constring As String, ByVal sqltext As String, ByVal ParamArray parameters() As String) As DataTable
-
-        Dim s_dbcon As String = constring
         Dim con As MySqlConnection
         Dim com As MySqlCommand
         Dim da As MySqlDataAdapter
         Dim dt As New DataTable
         Dim temp As String = ""
 
-        Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
-        con = New MySqlConnection(constring) 'SqlClient.SqlConnection(s_dbcon)
-        com = New MySqlCommand
-        da = New MySqlDataAdapter(com)
-
         Try
-            com.CommandText = sqltext     '쿼리 실행구문
-            'WriteLog(sqltext)
-            com.Connection = con
+            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+            con = New MySqlConnection(constring)
+            com = New MySqlCommand(sqltext, con)
+            da = New MySqlDataAdapter(com)
+
+            'com.CommandText = sqltext     '쿼리 실행구문
+
             con.Open()
             If sqltext.Trim.ToLower.StartsWith("select") = True Then
                 da.Fill(dt)
@@ -504,9 +393,9 @@ Module MiniCTI
             com.Parameters.Clear()
         Catch ex As Exception
             Call WriteLog(ex.ToString)
-            Mysql_GetData_table = Nothing
+            Throw New Exception("쿼리문 오류발생", ex)
         Finally
-            Mysql_GetData_table = dt
+            DoQueryParam = dt
             con.Close()
             dt = Nothing
             da = Nothing
@@ -514,51 +403,105 @@ Module MiniCTI
             con = Nothing
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
         End Try
+
     End Function
 
-    Public Function Mysql_Transact_Data(ByVal constring As String, ByVal sqltext As String, ByVal ParamArray parameters() As String) As Integer
+    ''' <summary>
+    ''' 쿼리이외의 insert/update/delete용도로 사용
+    ''' </summary>
+    ''' <param name="constring"></param>
+    ''' <param name="sqltext"></param>
+    ''' <param name="parameters"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function DoExecuteNonQuery(ByVal constring As String, ByVal sqltext As String, ByVal ParamArray parameters() As String) As Integer
 
-        Dim s_dbcon As String = constring
         Dim con As MySqlConnection
         Dim com As MySqlCommand
         Dim da As MySqlDataAdapter
         Dim dt As New DataTable
         Dim temp As String = ""
-        Dim iRow As Integer
-
-        Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
-        con = New MySqlConnection(constring) 'SqlClient.SqlConnection(s_dbcon)
-        com = New MySqlCommand
-        da = New MySqlDataAdapter(com)
+        Dim iRow As Integer = 0
 
         Try
-            com.CommandText = sqltext     '쿼리 실행구문
-            'WriteLog(sqltext)
-            com.Connection = con
+            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+            con = New MySqlConnection(constring)
+            com = New MySqlCommand(sqltext, con)
+            da = New MySqlDataAdapter(com)
+
             con.Open()
             If sqltext.Trim.ToLower.StartsWith("select") = True Then
-                Throw (New Exception("Query is not available with this method."))
+                Throw New Exception("쿼리문은 사용불가.")
             Else
                 iRow = com.ExecuteNonQuery()
             End If
             com.Parameters.Clear()
-            Mysql_Transact_Data = iRow
         Catch ex As Exception
             Call WriteLog(ex.ToString)
-            Mysql_Transact_Data = 0
+            Throw New Exception("SQL문 오류발생", ex)
         Finally
+            DoExecuteNonQuery = iRow
+
             con.Close()
             da = Nothing
             com = Nothing
             con = Nothing
+
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
         End Try
     End Function
 
+    Public Function DoCommandSql(ByVal Sql As String) As Boolean
+        Dim isGood As Boolean = False
+        Try
+            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+
+            If DoExecuteNonQuery(gsConString, Sql) >= 0 Then
+                isGood = True
+            End If
+
+
+        Catch ex As Exception
+            Call WriteLog(Sql & " : " & ex.ToString)
+        Finally
+            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+        End Try
+        Return isGood
+    End Function
+
+    Function CheckDDL(ByVal tableName As String, ByVal fieldName As String) As Boolean
+
+        Dim isExist As Boolean = False
+
+        Try
+            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+
+            Dim Sql As String = ""
+            If fieldName.Trim() = "" Then
+                Sql = "select * from information_schema.tables where table_schema = 'wedo_db' and table_name = '" & tableName & "'"
+            Else
+                Sql = "select * from information_schema.COLUMNS where table_schema = 'wedo_db' and table_name = '" & tableName & "'" & _
+                    " and column_name = '" & fieldName & "'"
+            End If
+            Dim dt1 As DataTable = DoQuery(gsConString, Sql)
+
+            If dt1.Rows.Count > 0 Then
+                isExist = True
+            End If
+
+        Catch ex As Exception
+            Call WriteLog("CheckDDL:" & tableName & ":" & fieldName & " : " & ex.ToString)
+        Finally
+            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+        End Try
+        Return isExist
+    End Function
+
+
     Public Sub CB_Set(ByVal constring As String, ByVal sqltext As String, ByVal obj As Object, ByVal TextField As String, ByVal ValueField As String, ByVal SelectValue As Object, ByVal ParamArray parameters() As String)
         Dim dt As DataTable
         Try
-            dt = Mysql_GetData_table(constring, sqltext, parameters)
+            dt = DoQueryParam(constring, sqltext, parameters)
             obj.DataSource = dt
             obj.DisplayMember = TextField
             obj.ValueMember = ValueField
@@ -635,7 +578,7 @@ Module MiniCTI
         Try
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
             obj.AutoGenerateColumns = False
-            dt = Mysql_GetData_table(constring, sqltext, parameters)
+            dt = DoQueryParam(constring, sqltext, parameters)
             If dt.Rows.Count = 1 AndAlso dt.Rows(0).Item(0).ToString = "합계" Then  '데이타가 없는 경우 합계도 안보여주기.
                 obj.DataSource = Nothing
             Else
@@ -730,7 +673,7 @@ Module MiniCTI
                     End If
 
                     'WriteLog(temp)
-                    dt2 = Mysql_GetData_table(gsConString, temp)
+                    dt2 = DoQuery(gsConString, temp)
                     k += 1
                     dt2.Reset()
                 End If
@@ -834,7 +777,7 @@ Module MiniCTI
                 temp = "SELECT COM_CD,CUSTOMER_ID, CUSTOMER_NM,C_TELNO,H_TELNO,FAX_NO,EMAIL, CUSTOMER_TYPE,WOO_NO,CUSTOMER_ADDR,CUSTOMER_ETC FROM T_CUSTOMER ORDER BY COM_CD,CUSTOMER_ID "
 
             End If
-            dt = Mysql_GetData_table(gsConString, temp)
+            dt = DoQuery(gsConString, temp)
 
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
@@ -973,6 +916,66 @@ Module MiniCTI
 
         End Try
     End Sub
+    Public Sub WriteLog(ByVal msg As String)
+
+        Dim strNow As String
+        Dim strNow1 As String
+
+        Try
+            strNow = Format(Now, "yyyyMMddHHmmss")
+
+            '파일 스트림 생성
+            Dim fs As FileStream = New FileStream(file_path & "\log\CRM_" & strNow.Substring(0, 8) & ".log", FileMode.Append)
+
+            '파일 입력 작업을 위해 StreamWriter 객체를 얻는다
+            Dim sw As StreamWriter = New StreamWriter(fs, System.Text.Encoding.Default)
+
+            strNow1 = "[" & Format(Now, "yyyy-MM-dd HH:mm:ss") & "]"
+
+            sw.WriteLine(strNow1 & "          " & msg)
+
+            sw.Close()
+            fs = Nothing
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Public Sub DeleteLogFile()
+
+        Dim log_delete_day As String = DateTime.Now.AddDays(-5).ToString.Substring(0, 10).Replace("-", "")
+
+        Try
+            Dim dir1 As DirectoryInfo = New DirectoryInfo(file_path & "\log")
+            Dim datfiles() As FileInfo = dir1.GetFiles("*.log")
+
+            Dim f As FileInfo
+
+            For Each f In datfiles
+                ' 0      1     2  3    4     5 
+                'Online_Daemon_To_Host_lib_20101118.log()
+                Dim f_name() As String = f.Name.ToString.Split("_")
+                'If f.Name.Contains(log_delete_day) = False Then
+                '    Call WriteLog("Log Data 삭제 --> 삭제 파일명 : " & f.Name.ToString.Trim)
+                '    f.Delete()
+                'End If
+
+                If f_name(5).ToString.Replace(".log", "") < log_delete_day Then
+                    f.Delete()
+                    Call WriteLog("Log Data  --> File Name : " & f.Name.ToString.Trim)
+                End If
+
+            Next
+
+            f = Nothing
+            dir1 = Nothing
+
+        Catch ex As Exception
+            Call WriteLog(ex.ToString)
+        End Try
+
+    End Sub
 
     Enum AUDIT_TYPE
         CUSTOMER_IMPORT = 0
@@ -1036,7 +1039,7 @@ Module MiniCTI
             SQL = SQL & ",'" & auditCode & "'"
             SQL = SQL & ",'" & auditDesc & "')"
 
-            Dim dt As DataTable = GetData_table1(gsConString, SQL)
+            Dim dt As DataTable = DoQuery(gsConString, SQL)
 
             dt = Nothing
 
@@ -1057,22 +1060,47 @@ Module MiniCTI
         End If
     End Sub
 
+    Public Function GetUserList(ByVal users As String)
+        Dim coworkerList As String() = users.Split(New Char() {","c})
+        Dim userDataTable As DataTable
+        Try
+            If coworkerList.Length() >= 2 Then
+                Dim nameList As String = ""
+                Dim sqlStr As String = "select concat(user_id,'.',user_nm) user_name from t_user where instr('" & users & "',user_id) > 0"
+                userDataTable = MiniCTI.DoQuery(gsConString, sqlStr)
+                For rowNum As Integer = 0 To userDataTable.Rows.Count - 1
+                    If rowNum > 0 Then
+                        nameList = nameList & ","
+                    End If
+                    nameList = nameList & userDataTable.Rows(rowNum).Item("user_name").ToString
+                Next
+                Return nameList
+            Else
+                Return users
+            End If
+        Finally
+            userDataTable = Nothing
+        End Try
+    End Function
+
+
     Public Function IsT_CustomerTablePatched(ByVal tableName As String, ByVal columnName As String)
         Dim dt1 As DataTable
         Try
+            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
             Dim SQL As String = " SELECT COMPANY FROM t_customer "
             SQL = SQL & " limit 1"
 
-            dt1 = GetData_table_Error(gsConString, SQL)
+            dt1 = DoQuery(gsConString, SQL)
             Dim CNT As String = "0"
 
             CNT = dt1.Rows.Count
             Return True
         Catch ex As Exception
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
             Call WriteLog(":IsT_CustomerTablePatched:" & ex.ToString)
             Return False
         Finally
+            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
             dt1 = Nothing
         End Try
     End Function
@@ -1086,4 +1114,90 @@ Module MiniCTI
             Call WriteLog("MiniCTI : IsT_CustomerTablePatched=FAIL")
         End If
     End Sub
+
+    Public Sub UpdateDBVersion()
+        Try
+            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+            'check T_USER.EXCEL_USE_YN
+            'Alter add t_user.EXCEL_USE_YN
+            Dim sqlUpdate01 As String = "alter table t_user add column EXCEL_USE_YN varchar(1) DEFAULT NULL"
+            If Not CheckDDL("T_USER", "EXCEL_USE_YN") Then
+                Call DoCommandSql(sqlUpdate01)
+            End If
+
+            'check T_CUSTOMER.TONG_USER
+            'alter add t_customer.TONG_USER
+            'alter table `t_customer` add column TONG_USER varchar(45) NOT NULL;
+            Dim sqlUpdate02 As String = "alter table t_customer add column TONG_USER varchar(45) DEFAULT NULL"
+            If Not CheckDDL("T_CUSTOMER", "TONG_USER") Then
+                Call DoCommandSql(sqlUpdate02)
+            End If
+
+            'check t_customer.USER_DEF
+            'alter add t_customer.USER_DEF
+            'alter table `t_customer` add column  USER_DEF varchar(100) DEFAULT NULL;
+            'INSERT INTO t_l_code (COM_CD, L_MENU_CD, L_MENU_NM) VALUES ('0001', '017', '사용자입력형식') ;
+            'INSERT INTO t_s_code (COM_CD, L_MENU_CD, S_MENU_CD, S_MENU_NM, MODIFY_YN) VALUES ('0001', '017', '1', '#####,####', 'N') ;
+            Dim sqlUpdate03 As String = "alter table t_customer add column USER_DEF varchar(100) DEFAULT NULL"
+            If Not CheckDDL("t_customer", "USER_DEF") Then
+                Call DoCommandSql(sqlUpdate03)
+                'sqlUpdate03 = "INSERT INTO t_l_code (COM_CD, L_MENU_CD, L_MENU_NM) VALUES ('0001', '017', '사용자입력형식')"
+                'Call DoCommandSql(sqlUpdate03)
+                'sqlUpdate03 = "INSERT INTO t_s_code (COM_CD, L_MENU_CD, S_MENU_CD, S_MENU_NM, MODIFY_YN) VALUES ('0001', '017', '1', '#####,####', 'N') "
+                'Call DoCommandSql(sqlUpdate03)
+            End If
+
+            'CUSTOMER_YN, CUSTOMER_ID, TONG...은 원래 알람창->클릭->고객팝업
+            '목적으로 추가했으나, 
+            '알람창->클릭->일정관리로 하여 CUSTOMER_ID만 살림
+            'JOB_DONE : 업무완료여부 Y:완료또는미리알림해제, N:미완료또는미리알림
+            'DELAY_MINUTE : 실제약속시간을 지연시킴. (약속시간+지연시간)을 감안 미리 알림처리
+            'check T_SCHEDULE.JOB_DONE
+            'alter add t_schedule.Job_done
+            'alter table t_schedule add column JOB_DONE    varchar(1) default 'N';
+            'alter table t_schedule add column DELAY_MINUTE INT(5) default 0;
+            'alter table t_schedule add column CUSTOMER_YN varchar(1) default 'N';
+            'alter table t_schedule add column CUSTOMER_ID BIGINT(20) UNSIGNED default NULL;
+            'alter table t_schedule add column TONG_DD     VARCHAR(8) default NULL;
+            'alter table t_schedule add column TONG_TIME   VARCHAR(6) default NULL;
+            'alter table t_schedule add column TONG_USER   VARCHAR(45) default NULL;
+            Dim sqlUpdate04 As String = "alter table t_schedule add column JOB_DONE varchar(1) DEFAULT 'N'"
+            If Not CheckDDL("t_schedule", "JOB_DONE") Then
+                Call DoCommandSql(sqlUpdate04)
+            End If
+            'Dim sqlUpdate05 As String = "alter table t_schedule add column CUSTOMER_YN VARCHAR(1) default 'N'"
+            'If Not CheckDDL("t_schedule", "CUSTOMER_YN") Then
+            '    Call DoCommandSql(sqlUpdate05)
+            'End If
+            Dim sqlUpdate06 As String = "alter table t_schedule add column CUSTOMER_ID BIGINT(20) UNSIGNED default NULL"
+            If Not CheckDDL("t_schedule", "CUSTOMER_ID") Then
+                Call DoCommandSql(sqlUpdate06)
+            End If
+            'Dim sqlUpdate07 As String = "alter table t_schedule add column TONG_DD     VARCHAR(8) default NULL"
+            'If Not CheckDDL("t_schedule", "TOND_DD") Then
+            '    Call DoCommandSql(sqlUpdate07)
+            'End If
+            'Dim sqlUpdate08 As String = "alter table t_schedule add column TONG_TIME   VARCHAR(6) default NULL"
+            'If Not CheckDDL("t_schedule", "TONG_TIME") Then
+            '    Call DoCommandSql(sqlUpdate08)
+            'End If
+            'Dim sqlUpdate09 As String = "alter table t_schedule add column TONG_USER   VARCHAR(45) default NULL"
+            'If Not CheckDDL("t_schedule", "TONG_USER") Then
+            '    Call DoCommandSql(sqlUpdate09)
+            'End If
+            Dim sqlUpdate10 As String = "alter table t_schedule add column DELAY_MINUTE INT(5) default 0"
+            If Not CheckDDL("t_schedule", "DELAY_MINUTE") Then
+                Call DoCommandSql(sqlUpdate10)
+            End If
+        Catch ex As Exception
+            Call WriteLog("UpdateDBVersion:" & ex.ToString)
+        Finally
+            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+        End Try
+
+    End Sub
+
+    Public Function ToQuotedStr(ByVal value As String) As String
+        Return value.Trim.Replace("'", "''")
+    End Function
 End Module
