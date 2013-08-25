@@ -146,7 +146,7 @@
             SQL = SQL & " ,TONG_USER,TONG_CONTENTS "
             SQL = SQL & " FROM T_CUSTOMER_HISTORY "
             SQL = SQL & " WHERE CUSTOMER_ID = '" & mCustomer.Trim & "'"
-            SQL = SQL & " ORDER BY TOND_DD + TONG_TIME DESC "
+            SQL = SQL & " ORDER BY CONCAT(TOND_DD, TONG_TIME) DESC "
 
 
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor

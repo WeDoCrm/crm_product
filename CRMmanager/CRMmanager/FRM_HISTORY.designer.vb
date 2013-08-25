@@ -27,20 +27,6 @@ Partial Class FRM_HISTORY
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FRM_HISTORY))
         Me.DataGridView2 = New System.Windows.Forms.DataGridView
-        Me.CUSTOMER_ID = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.TONG_DD = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.TONG_TIME = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.CUSTOMER_NM = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.TONG_TELNO = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.CUSTOMER_TYPE = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.HANDLE_TYPE = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.CONSULT_TYPE = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.CONSULT_RESULT = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.CALL_BACK_YN = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.CALL_BACK_RESULT = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.TONG_USER = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.CALL_TYPE = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.TONG_CONTENTS = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.gbxSearch = New System.Windows.Forms.GroupBox
         Me.pnlSelectColumn = New System.Windows.Forms.Panel
         Me.btnGrpConsult = New Elegant.Ui.ButtonGroup
@@ -53,22 +39,16 @@ Partial Class FRM_HISTORY
         Me.ToggleButton5 = New Elegant.Ui.ToggleButton
         Me.ToggleButton8 = New Elegant.Ui.ToggleButton
         Me.Label33 = New System.Windows.Forms.Label
-        Me.Label32 = New System.Windows.Forms.Label
         Me.pnlDetailSearch = New System.Windows.Forms.Panel
         Me.cboCallBackResult = New System.Windows.Forms.ComboBox
-        Me.Label7 = New System.Windows.Forms.Label
         Me.Label17 = New System.Windows.Forms.Label
         Me.Label1 = New System.Windows.Forms.Label
         Me.dpt1 = New System.Windows.Forms.DateTimePicker
         Me.Label2 = New System.Windows.Forms.Label
         Me.cboConsultResult = New System.Windows.Forms.ComboBox
         Me.Label3 = New System.Windows.Forms.Label
-        Me.Label35 = New System.Windows.Forms.Label
         Me.cboHandleType = New System.Windows.Forms.ComboBox
-        Me.Label34 = New System.Windows.Forms.Label
         Me.Label14 = New System.Windows.Forms.Label
-        Me.Label27 = New System.Windows.Forms.Label
-        Me.Label25 = New System.Windows.Forms.Label
         Me.cboConsultType = New System.Windows.Forms.ComboBox
         Me.Label5 = New System.Windows.Forms.Label
         Me.cboUser = New System.Windows.Forms.ComboBox
@@ -77,16 +57,12 @@ Partial Class FRM_HISTORY
         Me.cbH1 = New System.Windows.Forms.ComboBox
         Me.Label15 = New System.Windows.Forms.Label
         Me.cboCustomerType = New System.Windows.Forms.ComboBox
-        Me.Label26 = New System.Windows.Forms.Label
         Me.cbT1 = New System.Windows.Forms.ComboBox
         Me.dpt2 = New System.Windows.Forms.DateTimePicker
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.Label24 = New System.Windows.Forms.Label
         Me.cbH2 = New System.Windows.Forms.ComboBox
         Me.cbT2 = New System.Windows.Forms.ComboBox
         Me.Label31 = New System.Windows.Forms.Label
         Me.cbxDetailSearch = New Elegant.Ui.CheckBox
-        Me.Label30 = New System.Windows.Forms.Label
         Me.txtSearch = New System.Windows.Forms.TextBox
         Me.Label28 = New System.Windows.Forms.Label
         Me.btnExcel = New System.Windows.Forms.Button
@@ -121,6 +97,18 @@ Partial Class FRM_HISTORY
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel
         Me.Panel1 = New System.Windows.Forms.Panel
         Me.gbxDetailConsult = New System.Windows.Forms.GroupBox
+        Me.gbxDetailCallInfo = New System.Windows.Forms.GroupBox
+        Me.gbxDetailCustomer = New System.Windows.Forms.GroupBox
+        Me.Label32 = New System.Windows.Forms.Label
+        Me.Label7 = New System.Windows.Forms.Label
+        Me.Label35 = New System.Windows.Forms.Label
+        Me.Label34 = New System.Windows.Forms.Label
+        Me.Label27 = New System.Windows.Forms.Label
+        Me.Label25 = New System.Windows.Forms.Label
+        Me.Label26 = New System.Windows.Forms.Label
+        Me.Label12 = New System.Windows.Forms.Label
+        Me.Label24 = New System.Windows.Forms.Label
+        Me.Label30 = New System.Windows.Forms.Label
         Me.Label22 = New System.Windows.Forms.Label
         Me.Label38 = New System.Windows.Forms.Label
         Me.Label44 = New System.Windows.Forms.Label
@@ -129,11 +117,23 @@ Partial Class FRM_HISTORY
         Me.Label40 = New System.Windows.Forms.Label
         Me.Label18 = New System.Windows.Forms.Label
         Me.Label42 = New System.Windows.Forms.Label
-        Me.gbxDetailCallInfo = New System.Windows.Forms.GroupBox
         Me.Label20 = New System.Windows.Forms.Label
         Me.Label19 = New System.Windows.Forms.Label
-        Me.gbxDetailCustomer = New System.Windows.Forms.GroupBox
         Me.Label46 = New System.Windows.Forms.Label
+        Me.CUSTOMER_ID = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.TONG_DD = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.TONG_TIME = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.CUSTOMER_NM = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.TONG_TELNO = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.CUSTOMER_TYPE = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.HANDLE_TYPE = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.CONSULT_TYPE = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.CONSULT_RESULT = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.CALL_BACK_YN = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.CALL_BACK_RESULT = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.TONG_USER = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.CALL_TYPE = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.TONG_CONTENTS = New System.Windows.Forms.DataGridViewTextBoxColumn
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbxSearch.SuspendLayout()
         Me.pnlSelectColumn.SuspendLayout()
@@ -181,113 +181,6 @@ Partial Class FRM_HISTORY
         Me.DataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridView2.Size = New System.Drawing.Size(872, 333)
         Me.DataGridView2.TabIndex = 80
-        '
-        'CUSTOMER_ID
-        '
-        Me.CUSTOMER_ID.DataPropertyName = "CUSTOMER_ID"
-        Me.CUSTOMER_ID.HeaderText = "고객ID"
-        Me.CUSTOMER_ID.Name = "CUSTOMER_ID"
-        Me.CUSTOMER_ID.ReadOnly = True
-        Me.CUSTOMER_ID.Width = 80
-        '
-        'TONG_DD
-        '
-        Me.TONG_DD.DataPropertyName = "TONG_DD"
-        Me.TONG_DD.HeaderText = "통화일자"
-        Me.TONG_DD.Name = "TONG_DD"
-        Me.TONG_DD.ReadOnly = True
-        Me.TONG_DD.Width = 80
-        '
-        'TONG_TIME
-        '
-        Me.TONG_TIME.DataPropertyName = "TONG_TIME"
-        Me.TONG_TIME.HeaderText = "통화시간"
-        Me.TONG_TIME.Name = "TONG_TIME"
-        Me.TONG_TIME.ReadOnly = True
-        Me.TONG_TIME.Width = 80
-        '
-        'CUSTOMER_NM
-        '
-        Me.CUSTOMER_NM.DataPropertyName = "CUSTOMER_NM"
-        Me.CUSTOMER_NM.HeaderText = "고객명"
-        Me.CUSTOMER_NM.Name = "CUSTOMER_NM"
-        Me.CUSTOMER_NM.ReadOnly = True
-        '
-        'TONG_TELNO
-        '
-        Me.TONG_TELNO.DataPropertyName = "TONG_TELNO"
-        Me.TONG_TELNO.HeaderText = "전화번호"
-        Me.TONG_TELNO.Name = "TONG_TELNO"
-        Me.TONG_TELNO.ReadOnly = True
-        Me.TONG_TELNO.Width = 80
-        '
-        'CUSTOMER_TYPE
-        '
-        Me.CUSTOMER_TYPE.DataPropertyName = "CUSTOMER_TYPE"
-        Me.CUSTOMER_TYPE.HeaderText = "고객유형"
-        Me.CUSTOMER_TYPE.Name = "CUSTOMER_TYPE"
-        Me.CUSTOMER_TYPE.ReadOnly = True
-        '
-        'HANDLE_TYPE
-        '
-        Me.HANDLE_TYPE.DataPropertyName = "HANDLE_TYPE"
-        Me.HANDLE_TYPE.HeaderText = "처리유형"
-        Me.HANDLE_TYPE.Name = "HANDLE_TYPE"
-        Me.HANDLE_TYPE.ReadOnly = True
-        Me.HANDLE_TYPE.Visible = False
-        '
-        'CONSULT_TYPE
-        '
-        Me.CONSULT_TYPE.DataPropertyName = "CONSULT_TYPE"
-        Me.CONSULT_TYPE.HeaderText = "상담유형"
-        Me.CONSULT_TYPE.Name = "CONSULT_TYPE"
-        Me.CONSULT_TYPE.ReadOnly = True
-        Me.CONSULT_TYPE.Visible = False
-        '
-        'CONSULT_RESULT
-        '
-        Me.CONSULT_RESULT.DataPropertyName = "CONSULT_RESULT"
-        Me.CONSULT_RESULT.HeaderText = "상담결과"
-        Me.CONSULT_RESULT.Name = "CONSULT_RESULT"
-        Me.CONSULT_RESULT.ReadOnly = True
-        '
-        'CALL_BACK_YN
-        '
-        Me.CALL_BACK_YN.DataPropertyName = "CALL_BACK_YN"
-        Me.CALL_BACK_YN.HeaderText = "콜백여부"
-        Me.CALL_BACK_YN.Name = "CALL_BACK_YN"
-        Me.CALL_BACK_YN.ReadOnly = True
-        Me.CALL_BACK_YN.Visible = False
-        '
-        'CALL_BACK_RESULT
-        '
-        Me.CALL_BACK_RESULT.DataPropertyName = "CALL_BACK_RESULT"
-        Me.CALL_BACK_RESULT.HeaderText = "콜백처리여부"
-        Me.CALL_BACK_RESULT.Name = "CALL_BACK_RESULT"
-        Me.CALL_BACK_RESULT.ReadOnly = True
-        Me.CALL_BACK_RESULT.Visible = False
-        '
-        'TONG_USER
-        '
-        Me.TONG_USER.DataPropertyName = "TONG_USER"
-        Me.TONG_USER.HeaderText = "통화자"
-        Me.TONG_USER.Name = "TONG_USER"
-        Me.TONG_USER.ReadOnly = True
-        '
-        'CALL_TYPE
-        '
-        Me.CALL_TYPE.DataPropertyName = "CALL_TYPE"
-        Me.CALL_TYPE.HeaderText = "콜타입"
-        Me.CALL_TYPE.Name = "CALL_TYPE"
-        Me.CALL_TYPE.ReadOnly = True
-        Me.CALL_TYPE.Visible = False
-        '
-        'TONG_CONTENTS
-        '
-        Me.TONG_CONTENTS.DataPropertyName = "TONG_CONTENTS"
-        Me.TONG_CONTENTS.HeaderText = "상담내용"
-        Me.TONG_CONTENTS.Name = "TONG_CONTENTS"
-        Me.TONG_CONTENTS.ReadOnly = True
         '
         'gbxSearch
         '
@@ -431,14 +324,6 @@ Partial Class FRM_HISTORY
         Me.Label33.TabIndex = 225
         Me.Label33.Text = "출력항목 선택하기"
         '
-        'Label32
-        '
-        Me.Label32.Image = CType(resources.GetObject("Label32.Image"), System.Drawing.Image)
-        Me.Label32.Location = New System.Drawing.Point(1, 11)
-        Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(13, 12)
-        Me.Label32.TabIndex = 226
-        '
         'pnlDetailSearch
         '
         Me.pnlDetailSearch.Controls.Add(Me.cboCallBackResult)
@@ -486,14 +371,6 @@ Partial Class FRM_HISTORY
         Me.cboCallBackResult.Name = "cboCallBackResult"
         Me.cboCallBackResult.Size = New System.Drawing.Size(93, 20)
         Me.cboCallBackResult.TabIndex = 224
-        '
-        'Label7
-        '
-        Me.Label7.Image = CType(resources.GetObject("Label7.Image"), System.Drawing.Image)
-        Me.Label7.Location = New System.Drawing.Point(575, 10)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(13, 12)
-        Me.Label7.TabIndex = 226
         '
         'Label17
         '
@@ -551,14 +428,6 @@ Partial Class FRM_HISTORY
         Me.Label3.TabIndex = 45
         Me.Label3.Text = "통화시간"
         '
-        'Label35
-        '
-        Me.Label35.Image = CType(resources.GetObject("Label35.Image"), System.Drawing.Image)
-        Me.Label35.Location = New System.Drawing.Point(691, 37)
-        Me.Label35.Name = "Label35"
-        Me.Label35.Size = New System.Drawing.Size(13, 12)
-        Me.Label35.TabIndex = 209
-        '
         'cboHandleType
         '
         Me.cboHandleType.BackColor = System.Drawing.Color.MintCream
@@ -570,14 +439,6 @@ Partial Class FRM_HISTORY
         Me.cboHandleType.Size = New System.Drawing.Size(85, 20)
         Me.cboHandleType.TabIndex = 223
         '
-        'Label34
-        '
-        Me.Label34.Image = CType(resources.GetObject("Label34.Image"), System.Drawing.Image)
-        Me.Label34.Location = New System.Drawing.Point(519, 38)
-        Me.Label34.Name = "Label34"
-        Me.Label34.Size = New System.Drawing.Size(13, 12)
-        Me.Label34.TabIndex = 207
-        '
         'Label14
         '
         Me.Label14.AutoSize = True
@@ -586,22 +447,6 @@ Partial Class FRM_HISTORY
         Me.Label14.Size = New System.Drawing.Size(53, 12)
         Me.Label14.TabIndex = 85
         Me.Label14.Text = "상담유형"
-        '
-        'Label27
-        '
-        Me.Label27.Image = CType(resources.GetObject("Label27.Image"), System.Drawing.Image)
-        Me.Label27.Location = New System.Drawing.Point(321, 11)
-        Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(13, 12)
-        Me.Label27.TabIndex = 210
-        '
-        'Label25
-        '
-        Me.Label25.Image = CType(resources.GetObject("Label25.Image"), System.Drawing.Image)
-        Me.Label25.Location = New System.Drawing.Point(165, 38)
-        Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(13, 12)
-        Me.Label25.TabIndex = 222
         '
         'cboConsultType
         '
@@ -682,14 +527,6 @@ Partial Class FRM_HISTORY
         Me.cboCustomerType.Size = New System.Drawing.Size(85, 20)
         Me.cboCustomerType.TabIndex = 218
         '
-        'Label26
-        '
-        Me.Label26.Image = CType(resources.GetObject("Label26.Image"), System.Drawing.Image)
-        Me.Label26.Location = New System.Drawing.Point(344, 38)
-        Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(13, 12)
-        Me.Label26.TabIndex = 202
-        '
         'cbT1
         '
         Me.cbT1.FormattingEnabled = True
@@ -708,22 +545,6 @@ Partial Class FRM_HISTORY
         Me.dpt2.Size = New System.Drawing.Size(91, 21)
         Me.dpt2.TabIndex = 43
         Me.dpt2.Value = New Date(2011, 7, 12, 20, 59, 36, 0)
-        '
-        'Label12
-        '
-        Me.Label12.Image = CType(resources.GetObject("Label12.Image"), System.Drawing.Image)
-        Me.Label12.Location = New System.Drawing.Point(1, 38)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(13, 12)
-        Me.Label12.TabIndex = 220
-        '
-        'Label24
-        '
-        Me.Label24.Image = CType(resources.GetObject("Label24.Image"), System.Drawing.Image)
-        Me.Label24.Location = New System.Drawing.Point(1, 11)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(13, 12)
-        Me.Label24.TabIndex = 199
         '
         'cbH2
         '
@@ -760,14 +581,6 @@ Partial Class FRM_HISTORY
         Me.cbxDetailSearch.Size = New System.Drawing.Size(104, 24)
         Me.cbxDetailSearch.TabIndex = 228
         Me.cbxDetailSearch.Text = "상세검색"
-        '
-        'Label30
-        '
-        Me.Label30.Image = CType(resources.GetObject("Label30.Image"), System.Drawing.Image)
-        Me.Label30.Location = New System.Drawing.Point(6, 20)
-        Me.Label30.Name = "Label30"
-        Me.Label30.Size = New System.Drawing.Size(13, 12)
-        Me.Label30.TabIndex = 217
         '
         'txtSearch
         '
@@ -895,7 +708,7 @@ Partial Class FRM_HISTORY
         '
         'txtSubConsultResult
         '
-        Me.txtSubConsultResult.Location = New System.Drawing.Point(248, 18)
+        Me.txtSubConsultResult.Location = New System.Drawing.Point(253, 18)
         Me.txtSubConsultResult.Name = "txtSubConsultResult"
         Me.txtSubConsultResult.Size = New System.Drawing.Size(90, 21)
         Me.txtSubConsultResult.TabIndex = 57
@@ -920,7 +733,7 @@ Partial Class FRM_HISTORY
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(360, 20)
+        Me.Label16.Location = New System.Drawing.Point(363, 20)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(53, 12)
         Me.Label16.TabIndex = 105
@@ -941,7 +754,7 @@ Partial Class FRM_HISTORY
         '
         'txtSubCallBackResult
         '
-        Me.txtSubCallBackResult.Location = New System.Drawing.Point(248, 41)
+        Me.txtSubCallBackResult.Location = New System.Drawing.Point(253, 41)
         Me.txtSubCallBackResult.Name = "txtSubCallBackResult"
         Me.txtSubCallBackResult.Size = New System.Drawing.Size(90, 21)
         Me.txtSubCallBackResult.TabIndex = 218
@@ -989,7 +802,7 @@ Partial Class FRM_HISTORY
         '
         'txtSubCallbackYN
         '
-        Me.txtSubCallbackYN.Location = New System.Drawing.Point(248, 65)
+        Me.txtSubCallbackYN.Location = New System.Drawing.Point(253, 65)
         Me.txtSubCallbackYN.Name = "txtSubCallbackYN"
         Me.txtSubCallbackYN.Size = New System.Drawing.Size(90, 21)
         Me.txtSubCallbackYN.TabIndex = 227
@@ -999,13 +812,13 @@ Partial Class FRM_HISTORY
         Me.Label43.AutoSize = True
         Me.Label43.Location = New System.Drawing.Point(191, 69)
         Me.Label43.Name = "Label43"
-        Me.Label43.Size = New System.Drawing.Size(53, 12)
+        Me.Label43.Size = New System.Drawing.Size(62, 12)
         Me.Label43.TabIndex = 228
-        Me.Label43.Text = "콜백여부"
+        Me.Label43.Text = "콜백(Y/N)"
         '
         'txtSubCallType
         '
-        Me.txtSubCallType.Location = New System.Drawing.Point(248, 88)
+        Me.txtSubCallType.Location = New System.Drawing.Point(253, 88)
         Me.txtSubCallType.Name = "txtSubCallType"
         Me.txtSubCallType.Size = New System.Drawing.Size(90, 21)
         Me.txtSubCallType.TabIndex = 230
@@ -1073,6 +886,116 @@ Partial Class FRM_HISTORY
         Me.gbxDetailConsult.TabStop = False
         Me.gbxDetailConsult.Text = "상담정보"
         '
+        'gbxDetailCallInfo
+        '
+        Me.gbxDetailCallInfo.Controls.Add(Me.txtSubTongUser)
+        Me.gbxDetailCallInfo.Controls.Add(Me.Label11)
+        Me.gbxDetailCallInfo.Controls.Add(Me.txtSubTongTime)
+        Me.gbxDetailCallInfo.Controls.Add(Me.Label20)
+        Me.gbxDetailCallInfo.Controls.Add(Me.txtSubDate)
+        Me.gbxDetailCallInfo.Controls.Add(Me.Label8)
+        Me.gbxDetailCallInfo.Controls.Add(Me.Label19)
+        Me.gbxDetailCallInfo.Location = New System.Drawing.Point(417, 2)
+        Me.gbxDetailCallInfo.Name = "gbxDetailCallInfo"
+        Me.gbxDetailCallInfo.Size = New System.Drawing.Size(366, 45)
+        Me.gbxDetailCallInfo.TabIndex = 233
+        Me.gbxDetailCallInfo.TabStop = False
+        Me.gbxDetailCallInfo.Text = "통화정보"
+        '
+        'gbxDetailCustomer
+        '
+        Me.gbxDetailCustomer.Controls.Add(Me.txtSubCustomerName)
+        Me.gbxDetailCustomer.Controls.Add(Me.Label6)
+        Me.gbxDetailCustomer.Controls.Add(Me.txtSubTongNo)
+        Me.gbxDetailCustomer.Controls.Add(Me.Label46)
+        Me.gbxDetailCustomer.Controls.Add(Me.Label9)
+        Me.gbxDetailCustomer.Location = New System.Drawing.Point(2, 2)
+        Me.gbxDetailCustomer.Name = "gbxDetailCustomer"
+        Me.gbxDetailCustomer.Size = New System.Drawing.Size(401, 45)
+        Me.gbxDetailCustomer.TabIndex = 233
+        Me.gbxDetailCustomer.TabStop = False
+        Me.gbxDetailCustomer.Text = "고객정보"
+        '
+        'Label32
+        '
+        Me.Label32.Image = CType(resources.GetObject("Label32.Image"), System.Drawing.Image)
+        Me.Label32.Location = New System.Drawing.Point(1, 11)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Size = New System.Drawing.Size(13, 12)
+        Me.Label32.TabIndex = 226
+        '
+        'Label7
+        '
+        Me.Label7.Image = CType(resources.GetObject("Label7.Image"), System.Drawing.Image)
+        Me.Label7.Location = New System.Drawing.Point(575, 10)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(13, 12)
+        Me.Label7.TabIndex = 226
+        '
+        'Label35
+        '
+        Me.Label35.Image = CType(resources.GetObject("Label35.Image"), System.Drawing.Image)
+        Me.Label35.Location = New System.Drawing.Point(691, 37)
+        Me.Label35.Name = "Label35"
+        Me.Label35.Size = New System.Drawing.Size(13, 12)
+        Me.Label35.TabIndex = 209
+        '
+        'Label34
+        '
+        Me.Label34.Image = CType(resources.GetObject("Label34.Image"), System.Drawing.Image)
+        Me.Label34.Location = New System.Drawing.Point(519, 38)
+        Me.Label34.Name = "Label34"
+        Me.Label34.Size = New System.Drawing.Size(13, 12)
+        Me.Label34.TabIndex = 207
+        '
+        'Label27
+        '
+        Me.Label27.Image = CType(resources.GetObject("Label27.Image"), System.Drawing.Image)
+        Me.Label27.Location = New System.Drawing.Point(321, 11)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(13, 12)
+        Me.Label27.TabIndex = 210
+        '
+        'Label25
+        '
+        Me.Label25.Image = CType(resources.GetObject("Label25.Image"), System.Drawing.Image)
+        Me.Label25.Location = New System.Drawing.Point(165, 38)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(13, 12)
+        Me.Label25.TabIndex = 222
+        '
+        'Label26
+        '
+        Me.Label26.Image = CType(resources.GetObject("Label26.Image"), System.Drawing.Image)
+        Me.Label26.Location = New System.Drawing.Point(344, 38)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(13, 12)
+        Me.Label26.TabIndex = 202
+        '
+        'Label12
+        '
+        Me.Label12.Image = CType(resources.GetObject("Label12.Image"), System.Drawing.Image)
+        Me.Label12.Location = New System.Drawing.Point(1, 38)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(13, 12)
+        Me.Label12.TabIndex = 220
+        '
+        'Label24
+        '
+        Me.Label24.Image = CType(resources.GetObject("Label24.Image"), System.Drawing.Image)
+        Me.Label24.Location = New System.Drawing.Point(1, 11)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(13, 12)
+        Me.Label24.TabIndex = 199
+        '
+        'Label30
+        '
+        Me.Label30.Image = CType(resources.GetObject("Label30.Image"), System.Drawing.Image)
+        Me.Label30.Location = New System.Drawing.Point(6, 20)
+        Me.Label30.Name = "Label30"
+        Me.Label30.Size = New System.Drawing.Size(13, 12)
+        Me.Label30.TabIndex = 217
+        '
         'Label22
         '
         Me.Label22.Image = CType(resources.GetObject("Label22.Image"), System.Drawing.Image)
@@ -1100,7 +1023,7 @@ Partial Class FRM_HISTORY
         'Label23
         '
         Me.Label23.Image = CType(resources.GetObject("Label23.Image"), System.Drawing.Image)
-        Me.Label23.Location = New System.Drawing.Point(348, 20)
+        Me.Label23.Location = New System.Drawing.Point(351, 20)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(13, 12)
         Me.Label23.TabIndex = 205
@@ -1137,22 +1060,6 @@ Partial Class FRM_HISTORY
         Me.Label42.Size = New System.Drawing.Size(13, 12)
         Me.Label42.TabIndex = 229
         '
-        'gbxDetailCallInfo
-        '
-        Me.gbxDetailCallInfo.Controls.Add(Me.txtSubTongUser)
-        Me.gbxDetailCallInfo.Controls.Add(Me.Label11)
-        Me.gbxDetailCallInfo.Controls.Add(Me.txtSubTongTime)
-        Me.gbxDetailCallInfo.Controls.Add(Me.Label20)
-        Me.gbxDetailCallInfo.Controls.Add(Me.txtSubDate)
-        Me.gbxDetailCallInfo.Controls.Add(Me.Label8)
-        Me.gbxDetailCallInfo.Controls.Add(Me.Label19)
-        Me.gbxDetailCallInfo.Location = New System.Drawing.Point(417, 2)
-        Me.gbxDetailCallInfo.Name = "gbxDetailCallInfo"
-        Me.gbxDetailCallInfo.Size = New System.Drawing.Size(366, 45)
-        Me.gbxDetailCallInfo.TabIndex = 233
-        Me.gbxDetailCallInfo.TabStop = False
-        Me.gbxDetailCallInfo.Text = "통화정보"
-        '
         'Label20
         '
         Me.Label20.Image = CType(resources.GetObject("Label20.Image"), System.Drawing.Image)
@@ -1169,20 +1076,6 @@ Partial Class FRM_HISTORY
         Me.Label19.Size = New System.Drawing.Size(13, 12)
         Me.Label19.TabIndex = 201
         '
-        'gbxDetailCustomer
-        '
-        Me.gbxDetailCustomer.Controls.Add(Me.txtSubCustomerName)
-        Me.gbxDetailCustomer.Controls.Add(Me.Label6)
-        Me.gbxDetailCustomer.Controls.Add(Me.txtSubTongNo)
-        Me.gbxDetailCustomer.Controls.Add(Me.Label46)
-        Me.gbxDetailCustomer.Controls.Add(Me.Label9)
-        Me.gbxDetailCustomer.Location = New System.Drawing.Point(2, 2)
-        Me.gbxDetailCustomer.Name = "gbxDetailCustomer"
-        Me.gbxDetailCustomer.Size = New System.Drawing.Size(401, 45)
-        Me.gbxDetailCustomer.TabIndex = 233
-        Me.gbxDetailCustomer.TabStop = False
-        Me.gbxDetailCustomer.Text = "고객정보"
-        '
         'Label46
         '
         Me.Label46.Image = CType(resources.GetObject("Label46.Image"), System.Drawing.Image)
@@ -1190,6 +1083,113 @@ Partial Class FRM_HISTORY
         Me.Label46.Name = "Label46"
         Me.Label46.Size = New System.Drawing.Size(13, 12)
         Me.Label46.TabIndex = 198
+        '
+        'CUSTOMER_ID
+        '
+        Me.CUSTOMER_ID.DataPropertyName = "CUSTOMER_ID"
+        Me.CUSTOMER_ID.HeaderText = "고객ID"
+        Me.CUSTOMER_ID.Name = "CUSTOMER_ID"
+        Me.CUSTOMER_ID.ReadOnly = True
+        Me.CUSTOMER_ID.Width = 80
+        '
+        'TONG_DD
+        '
+        Me.TONG_DD.DataPropertyName = "TONG_DD"
+        Me.TONG_DD.HeaderText = "통화일자"
+        Me.TONG_DD.Name = "TONG_DD"
+        Me.TONG_DD.ReadOnly = True
+        Me.TONG_DD.Width = 80
+        '
+        'TONG_TIME
+        '
+        Me.TONG_TIME.DataPropertyName = "TONG_TIME"
+        Me.TONG_TIME.HeaderText = "통화시간"
+        Me.TONG_TIME.Name = "TONG_TIME"
+        Me.TONG_TIME.ReadOnly = True
+        Me.TONG_TIME.Width = 80
+        '
+        'CUSTOMER_NM
+        '
+        Me.CUSTOMER_NM.DataPropertyName = "CUSTOMER_NM"
+        Me.CUSTOMER_NM.HeaderText = "고객명"
+        Me.CUSTOMER_NM.Name = "CUSTOMER_NM"
+        Me.CUSTOMER_NM.ReadOnly = True
+        '
+        'TONG_TELNO
+        '
+        Me.TONG_TELNO.DataPropertyName = "TONG_TELNO"
+        Me.TONG_TELNO.HeaderText = "전화번호"
+        Me.TONG_TELNO.Name = "TONG_TELNO"
+        Me.TONG_TELNO.ReadOnly = True
+        Me.TONG_TELNO.Width = 80
+        '
+        'CUSTOMER_TYPE
+        '
+        Me.CUSTOMER_TYPE.DataPropertyName = "CUSTOMER_TYPE"
+        Me.CUSTOMER_TYPE.HeaderText = "고객유형"
+        Me.CUSTOMER_TYPE.Name = "CUSTOMER_TYPE"
+        Me.CUSTOMER_TYPE.ReadOnly = True
+        '
+        'HANDLE_TYPE
+        '
+        Me.HANDLE_TYPE.DataPropertyName = "HANDLE_TYPE"
+        Me.HANDLE_TYPE.HeaderText = "처리유형"
+        Me.HANDLE_TYPE.Name = "HANDLE_TYPE"
+        Me.HANDLE_TYPE.ReadOnly = True
+        Me.HANDLE_TYPE.Visible = False
+        '
+        'CONSULT_TYPE
+        '
+        Me.CONSULT_TYPE.DataPropertyName = "CONSULT_TYPE"
+        Me.CONSULT_TYPE.HeaderText = "상담유형"
+        Me.CONSULT_TYPE.Name = "CONSULT_TYPE"
+        Me.CONSULT_TYPE.ReadOnly = True
+        Me.CONSULT_TYPE.Visible = False
+        '
+        'CONSULT_RESULT
+        '
+        Me.CONSULT_RESULT.DataPropertyName = "CONSULT_RESULT"
+        Me.CONSULT_RESULT.HeaderText = "상담결과"
+        Me.CONSULT_RESULT.Name = "CONSULT_RESULT"
+        Me.CONSULT_RESULT.ReadOnly = True
+        '
+        'CALL_BACK_YN
+        '
+        Me.CALL_BACK_YN.DataPropertyName = "CALL_BACK_YN"
+        Me.CALL_BACK_YN.HeaderText = "콜백(Y/N)"
+        Me.CALL_BACK_YN.Name = "CALL_BACK_YN"
+        Me.CALL_BACK_YN.ReadOnly = True
+        Me.CALL_BACK_YN.Visible = False
+        '
+        'CALL_BACK_RESULT
+        '
+        Me.CALL_BACK_RESULT.DataPropertyName = "CALL_BACK_RESULT"
+        Me.CALL_BACK_RESULT.HeaderText = "콜백처리여부"
+        Me.CALL_BACK_RESULT.Name = "CALL_BACK_RESULT"
+        Me.CALL_BACK_RESULT.ReadOnly = True
+        Me.CALL_BACK_RESULT.Visible = False
+        '
+        'TONG_USER
+        '
+        Me.TONG_USER.DataPropertyName = "TONG_USER"
+        Me.TONG_USER.HeaderText = "통화자"
+        Me.TONG_USER.Name = "TONG_USER"
+        Me.TONG_USER.ReadOnly = True
+        '
+        'CALL_TYPE
+        '
+        Me.CALL_TYPE.DataPropertyName = "CALL_TYPE"
+        Me.CALL_TYPE.HeaderText = "콜타입"
+        Me.CALL_TYPE.Name = "CALL_TYPE"
+        Me.CALL_TYPE.ReadOnly = True
+        Me.CALL_TYPE.Visible = False
+        '
+        'TONG_CONTENTS
+        '
+        Me.TONG_CONTENTS.DataPropertyName = "TONG_CONTENTS"
+        Me.TONG_CONTENTS.HeaderText = "상담내용"
+        Me.TONG_CONTENTS.Name = "TONG_CONTENTS"
+        Me.TONG_CONTENTS.ReadOnly = True
         '
         'FRM_HISTORY
         '
@@ -1314,6 +1314,7 @@ Partial Class FRM_HISTORY
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents Label17 As System.Windows.Forms.Label
     Friend WithEvents ToggleButton7 As Elegant.Ui.ToggleButton
+    Friend WithEvents ToggleButton8 As Elegant.Ui.ToggleButton
     Friend WithEvents CUSTOMER_ID As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents TONG_DD As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents TONG_TIME As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -1328,5 +1329,4 @@ Partial Class FRM_HISTORY
     Friend WithEvents TONG_USER As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents CALL_TYPE As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents TONG_CONTENTS As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents ToggleButton8 As Elegant.Ui.ToggleButton
 End Class

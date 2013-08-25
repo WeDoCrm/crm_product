@@ -69,20 +69,20 @@ Partial Class FRM_MAIN
         Me.GroupBox5 = New System.Windows.Forms.GroupBox
         Me.Label2 = New System.Windows.Forms.Label
         Me.txtCallback = New System.Windows.Forms.TextBox
-        Me.Label3 = New System.Windows.Forms.Label
+        Me.LabelCallback = New System.Windows.Forms.Label
         Me.Label1 = New System.Windows.Forms.Label
         Me.Label74 = New System.Windows.Forms.Label
         Me.txtTransCall = New System.Windows.Forms.TextBox
-        Me.Label75 = New System.Windows.Forms.Label
+        Me.LabelTransCall = New System.Windows.Forms.Label
         Me.Label76 = New System.Windows.Forms.Label
         Me.txtReceiveCall = New System.Windows.Forms.TextBox
-        Me.Label77 = New System.Windows.Forms.Label
+        Me.LabelReceiveCall = New System.Windows.Forms.Label
         Me.Label72 = New System.Windows.Forms.Label
         Me.txtConsultCall = New System.Windows.Forms.TextBox
-        Me.Label73 = New System.Windows.Forms.Label
+        Me.LabelConsultCall = New System.Windows.Forms.Label
         Me.Label68 = New System.Windows.Forms.Label
         Me.txtTotalCall = New System.Windows.Forms.TextBox
-        Me.Label69 = New System.Windows.Forms.Label
+        Me.LabelTotalCall = New System.Windows.Forms.Label
         Me.BottomToolStripPanel = New System.Windows.Forms.ToolStripPanel
         Me.TopToolStripPanel = New System.Windows.Forms.ToolStripPanel
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
@@ -94,6 +94,7 @@ Partial Class FRM_MAIN
         Me.ConfigToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem4 = New System.Windows.Forms.ToolStripMenuItem
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.PatchHistoryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.AboutWeDoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.RightToolStripPanel = New System.Windows.Forms.ToolStripPanel
         Me.LeftToolStripPanel = New System.Windows.Forms.ToolStripPanel
@@ -103,7 +104,7 @@ Partial Class FRM_MAIN
         Me.Panel1 = New System.Windows.Forms.Panel
         Me.btnRefresh = New System.Windows.Forms.Button
         Me.BackgroundWorkerMain = New System.ComponentModel.BackgroundWorker
-        Me.PatchHistoryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.ScreenTip1 = New Elegant.Ui.ScreenTip(Me.components)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GroupedNavigationBar1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NavigationBarGroupItemsContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -265,6 +266,7 @@ Partial Class FRM_MAIN
         Me.NavigationBarItem6.Size = New System.Drawing.Size(183, 18)
         Me.NavigationBarItem6.TabIndex = 4
         Me.NavigationBarItem6.Text = "   콜백조회"
+        Me.NavigationBarItem6.Visible = False
         '
         'NavigationBarGroup3
         '
@@ -488,20 +490,20 @@ Partial Class FRM_MAIN
         Me.GroupBox5.BackColor = System.Drawing.Color.AliceBlue
         Me.GroupBox5.Controls.Add(Me.Label2)
         Me.GroupBox5.Controls.Add(Me.txtCallback)
-        Me.GroupBox5.Controls.Add(Me.Label3)
+        Me.GroupBox5.Controls.Add(Me.LabelCallback)
         Me.GroupBox5.Controls.Add(Me.Label1)
         Me.GroupBox5.Controls.Add(Me.Label74)
         Me.GroupBox5.Controls.Add(Me.txtTransCall)
-        Me.GroupBox5.Controls.Add(Me.Label75)
+        Me.GroupBox5.Controls.Add(Me.LabelTransCall)
         Me.GroupBox5.Controls.Add(Me.Label76)
         Me.GroupBox5.Controls.Add(Me.txtReceiveCall)
-        Me.GroupBox5.Controls.Add(Me.Label77)
+        Me.GroupBox5.Controls.Add(Me.LabelReceiveCall)
         Me.GroupBox5.Controls.Add(Me.Label72)
         Me.GroupBox5.Controls.Add(Me.txtConsultCall)
-        Me.GroupBox5.Controls.Add(Me.Label73)
+        Me.GroupBox5.Controls.Add(Me.LabelConsultCall)
         Me.GroupBox5.Controls.Add(Me.Label68)
         Me.GroupBox5.Controls.Add(Me.txtTotalCall)
-        Me.GroupBox5.Controls.Add(Me.Label69)
+        Me.GroupBox5.Controls.Add(Me.LabelTotalCall)
         Me.GroupBox5.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.GroupBox5.Location = New System.Drawing.Point(181, -6)
         Me.GroupBox5.Name = "GroupBox5"
@@ -531,15 +533,15 @@ Partial Class FRM_MAIN
         Me.txtCallback.Text = "754"
         Me.txtCallback.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'Label3
+        'LabelCallback
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.Label3.Location = New System.Drawing.Point(545, 12)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(53, 12)
-        Me.Label3.TabIndex = 159
-        Me.Label3.Text = "콜백건수"
+        Me.LabelCallback.AutoSize = True
+        Me.LabelCallback.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.LabelCallback.Location = New System.Drawing.Point(545, 12)
+        Me.LabelCallback.Name = "LabelCallback"
+        Me.LabelCallback.Size = New System.Drawing.Size(53, 12)
+        Me.LabelCallback.TabIndex = 159
+        Me.LabelCallback.Text = "콜백건수"
         '
         'Label1
         '
@@ -572,15 +574,15 @@ Partial Class FRM_MAIN
         Me.txtTransCall.Text = "754"
         Me.txtTransCall.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'Label75
+        'LabelTransCall
         '
-        Me.Label75.AutoSize = True
-        Me.Label75.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.Label75.Location = New System.Drawing.Point(440, 12)
-        Me.Label75.Name = "Label75"
-        Me.Label75.Size = New System.Drawing.Size(53, 12)
-        Me.Label75.TabIndex = 155
-        Me.Label75.Text = "이관건수"
+        Me.LabelTransCall.AutoSize = True
+        Me.LabelTransCall.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.LabelTransCall.Location = New System.Drawing.Point(440, 12)
+        Me.LabelTransCall.Name = "LabelTransCall"
+        Me.LabelTransCall.Size = New System.Drawing.Size(53, 12)
+        Me.LabelTransCall.TabIndex = 155
+        Me.LabelTransCall.Text = "이관건수"
         '
         'Label76
         '
@@ -604,15 +606,15 @@ Partial Class FRM_MAIN
         Me.txtReceiveCall.Text = "234"
         Me.txtReceiveCall.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'Label77
+        'LabelReceiveCall
         '
-        Me.Label77.AutoSize = True
-        Me.Label77.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.Label77.Location = New System.Drawing.Point(229, 12)
-        Me.Label77.Name = "Label77"
-        Me.Label77.Size = New System.Drawing.Size(41, 12)
-        Me.Label77.TabIndex = 152
-        Me.Label77.Text = "응대호"
+        Me.LabelReceiveCall.AutoSize = True
+        Me.LabelReceiveCall.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.LabelReceiveCall.Location = New System.Drawing.Point(229, 12)
+        Me.LabelReceiveCall.Name = "LabelReceiveCall"
+        Me.LabelReceiveCall.Size = New System.Drawing.Size(41, 12)
+        Me.LabelReceiveCall.TabIndex = 152
+        Me.LabelReceiveCall.Text = "응대호"
         '
         'Label72
         '
@@ -636,15 +638,15 @@ Partial Class FRM_MAIN
         Me.txtConsultCall.Text = "222"
         Me.txtConsultCall.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'Label73
+        'LabelConsultCall
         '
-        Me.Label73.AutoSize = True
-        Me.Label73.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.Label73.Location = New System.Drawing.Point(330, 12)
-        Me.Label73.Name = "Label73"
-        Me.Label73.Size = New System.Drawing.Size(53, 12)
-        Me.Label73.TabIndex = 149
-        Me.Label73.Text = "상담건수"
+        Me.LabelConsultCall.AutoSize = True
+        Me.LabelConsultCall.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.LabelConsultCall.Location = New System.Drawing.Point(330, 12)
+        Me.LabelConsultCall.Name = "LabelConsultCall"
+        Me.LabelConsultCall.Size = New System.Drawing.Size(53, 12)
+        Me.LabelConsultCall.TabIndex = 149
+        Me.LabelConsultCall.Text = "상담건수"
         '
         'Label68
         '
@@ -668,15 +670,15 @@ Partial Class FRM_MAIN
         Me.txtTotalCall.Text = "32"
         Me.txtTotalCall.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'Label69
+        'LabelTotalCall
         '
-        Me.Label69.AutoSize = True
-        Me.Label69.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.Label69.Location = New System.Drawing.Point(123, 12)
-        Me.Label69.Name = "Label69"
-        Me.Label69.Size = New System.Drawing.Size(53, 12)
-        Me.Label69.TabIndex = 146
-        Me.Label69.Text = "총인입호"
+        Me.LabelTotalCall.AutoSize = True
+        Me.LabelTotalCall.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.LabelTotalCall.Location = New System.Drawing.Point(123, 12)
+        Me.LabelTotalCall.Name = "LabelTotalCall"
+        Me.LabelTotalCall.Size = New System.Drawing.Size(53, 12)
+        Me.LabelTotalCall.TabIndex = 146
+        Me.LabelTotalCall.Text = "총인입호"
         '
         'BottomToolStripPanel
         '
@@ -759,6 +761,12 @@ Partial Class FRM_MAIN
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
         Me.HelpToolStripMenuItem.Text = "도움말"
         '
+        'PatchHistoryToolStripMenuItem
+        '
+        Me.PatchHistoryToolStripMenuItem.Name = "PatchHistoryToolStripMenuItem"
+        Me.PatchHistoryToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.PatchHistoryToolStripMenuItem.Text = "업데이트 이력"
+        '
         'AboutWeDoToolStripMenuItem
         '
         Me.AboutWeDoToolStripMenuItem.Name = "AboutWeDoToolStripMenuItem"
@@ -816,12 +824,6 @@ Partial Class FRM_MAIN
         '
         'BackgroundWorkerMain
         '
-        '
-        'PatchHistoryToolStripMenuItem
-        '
-        Me.PatchHistoryToolStripMenuItem.Name = "PatchHistoryToolStripMenuItem"
-        Me.PatchHistoryToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
-        Me.PatchHistoryToolStripMenuItem.Text = "업데이트 이력"
         '
         'FRM_MAIN
         '
@@ -917,16 +919,16 @@ Partial Class FRM_MAIN
     Friend WithEvents GroupBox5 As System.Windows.Forms.GroupBox
     Friend WithEvents Label74 As System.Windows.Forms.Label
     Friend WithEvents txtTransCall As System.Windows.Forms.TextBox
-    Friend WithEvents Label75 As System.Windows.Forms.Label
+    Friend WithEvents LabelTransCall As System.Windows.Forms.Label
     Friend WithEvents Label76 As System.Windows.Forms.Label
     Friend WithEvents txtReceiveCall As System.Windows.Forms.TextBox
-    Friend WithEvents Label77 As System.Windows.Forms.Label
+    Friend WithEvents LabelReceiveCall As System.Windows.Forms.Label
     Friend WithEvents Label72 As System.Windows.Forms.Label
     Friend WithEvents txtConsultCall As System.Windows.Forms.TextBox
-    Friend WithEvents Label73 As System.Windows.Forms.Label
+    Friend WithEvents LabelConsultCall As System.Windows.Forms.Label
     Friend WithEvents Label68 As System.Windows.Forms.Label
     Friend WithEvents txtTotalCall As System.Windows.Forms.TextBox
-    Friend WithEvents Label69 As System.Windows.Forms.Label
+    Friend WithEvents LabelTotalCall As System.Windows.Forms.Label
     Friend WithEvents BottomToolStripPanel As System.Windows.Forms.ToolStripPanel
     Friend WithEvents TopToolStripPanel As System.Windows.Forms.ToolStripPanel
     Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
@@ -947,7 +949,7 @@ Partial Class FRM_MAIN
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents txtCallback As System.Windows.Forms.TextBox
-    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents LabelCallback As System.Windows.Forms.Label
     Friend WithEvents NavigationBarItem11 As Elegant.Ui.NavigationBarItem
     Friend WithEvents NavigationBarItem19 As Elegant.Ui.NavigationBarItem
     Friend WithEvents NavigationBarItem9 As Elegant.Ui.NavigationBarItem
@@ -957,5 +959,6 @@ Partial Class FRM_MAIN
     Friend WithEvents ConfigToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents BackgroundWorkerMain As System.ComponentModel.BackgroundWorker
     Friend WithEvents PatchHistoryToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ScreenTip1 As Elegant.Ui.ScreenTip
 
 End Class

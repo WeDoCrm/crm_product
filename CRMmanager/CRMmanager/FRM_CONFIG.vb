@@ -138,7 +138,7 @@ Public Class FRM_CONFIG
         gbUseUserDef = ckbUseUserDef.Checked
         gbNoCloseOnSave = ckbNoCloseOnSave.Checked
 
-        gbAlarmInfo.AlarmPeriod = selectedAlarmPeriod
         gbAlarmInfo.AlarmStart = selectedAlarmStart
+        gbAlarmInfo.AlarmPeriod = selectedAlarmPeriod
     End Sub
 End Class

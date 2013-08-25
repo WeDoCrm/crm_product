@@ -72,7 +72,7 @@
                    " Where COM_CD='" & gsCOM_CD & "'" & _
                    "   AND S_START_TIME='" & alarmSchedule.StartTime & "'" & _
                    "   AND REGISTRANT LIKE '" & gsUSER_ID.Trim & ".%'" & _
-                   "   AND S_COMPANY_COWORKER LIKE '" & alarmSchedule.Users & "%'" & _
+                   "   AND S_COMPANY_COWORKER LIKE '" & alarmSchedule.CompanyCoworker & "%'" & _
                    "   AND SHARING_TYPE='" & alarmSchedule.SharingType & "'" & _
                    "   AND S_TITLE='" & MiniCTI.ToQuotedStr(alarmSchedule.Title) & "' "
 

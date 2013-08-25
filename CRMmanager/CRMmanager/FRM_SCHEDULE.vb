@@ -793,13 +793,15 @@ Public Class FRM_SCHEDULE
                        ",REGISTRANT,SHARING_TYPE " & _
                        ",S_TITLE,S_COMPANY_COWORKER" & _
                        ",S_DESC,S_WORKOUT_REASON,S_WORKOUT_LOC " & _
+                       ",DELAY_MINUTE " & _
                        ") values(" & _
                         "'" & gsCOM_CD & "','" & startTime & "','" & endTime & "'" & _
                         ",'" & userName & "','" & sharingType & "'" & _
                         ",'" & title & "','" & users & "'" & _
                         ",'" & desc & "'" & _
                         ",'" & reason & "'" & _
-                        ",'" & location & "') "
+                        ",'" & location & _
+                        ",'" & gbAlarmInfo.AlarmPeriod & "') "
                 txCnt = MiniCTI.DoExecuteNonQuery(gsConString, sqlStr)
             End If
 
@@ -916,7 +918,7 @@ Public Class FRM_SCHEDULE
                 With DataGridView1.Rows(i)
                     If alarmSchedule.StartTime = .Cells("S_START_TIME").Value.ToString.Trim() _
                         AndAlso alarmSchedule.Registrant = .Cells("REGISTRANT").Value.ToString.Trim() _
-                        AndAlso alarmSchedule.Users = .Cells("S_COMPANY_COWORKER").Value.ToString.Trim() _
+                        AndAlso alarmSchedule.CompanyCoworker = .Cells("S_COMPANY_COWORKER").Value.ToString.Trim() _
                         AndAlso alarmSchedule.SharingType = .Cells("SHARING_TYPE").Value.ToString.Trim() _
                         AndAlso alarmSchedule.Title = .Cells("S_TITLE").Value.ToString.Trim() Then
                         DisplayRightDetail(i)

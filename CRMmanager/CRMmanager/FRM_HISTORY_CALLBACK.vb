@@ -143,7 +143,7 @@ Public Class FRM_HISTORY_CALLBACK
                 SQL = SQL & " AND CALL_BACK_YN = 'Y'"
                 SQL = SQL & " AND CALL_BACK_RESULT LIKE  '2'"
             End If
-            SQL = SQL & " ORDER BY TOND_DD + TONG_TIME DESC "
+            SQL = SQL & " ORDER BY CONCAT(TOND_DD, TONG_TIME) DESC "
 
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
@@ -246,8 +246,7 @@ Public Class FRM_HISTORY_CALLBACK
     End Sub
 
     Private Sub FRM_HISTORY_CALLBACK_Deactivate(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Deactivate
-        Call gsFormExit()
-
+        'Call gsFormExit()
     End Sub
 
 

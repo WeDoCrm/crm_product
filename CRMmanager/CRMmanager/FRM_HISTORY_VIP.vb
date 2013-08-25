@@ -118,7 +118,7 @@
                 SQL = SQL & " AND TOND_DD >= '" & tm & "'"
                 'SQL = SQL & " AND B.CUSTOMER_TYPE LIKE  '" & cboCustomerType.SelectedValue.ToString.Replace("XXXX", "") & "%'"
             End If
-            SQL = SQL & " ORDER BY TOND_DD + TONG_TIME DESC "
+            SQL = SQL & " ORDER BY CONCAT(TOND_DD, TONG_TIME) DESC "
 
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
@@ -221,7 +221,7 @@
     End Sub
 
     Private Sub FRM_HISTORY_VIP_Deactivate(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Deactivate
-        Call gsFormExit()
+        'Call gsFormExit()
     End Sub
 
     Private Sub btnExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExcel.Click

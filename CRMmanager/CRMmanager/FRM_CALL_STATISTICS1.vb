@@ -206,7 +206,7 @@
     End Sub
 
     Private Sub FRM_CALL_STATISTICS1_Deactivate(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Deactivate
-        Call gsFormExit()
+        'Call gsFormExit()
     End Sub
 
     Private Sub Search_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles drpName.KeyDown, drpGubun.KeyDown, DPDate2.KeyDown, DPDate1.KeyDown

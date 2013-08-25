@@ -36,7 +36,7 @@ Module MiniCTI
     Public gsConString As String                  ' DB Con String
     Public Const file_path As String = "C:\MiniCTI"
     Public config_file As String = "\config\MiniCTI_config.xml"
-    Public gsAppVersion As String = "Ver 2.2.0.2" ' 배너변경
+    Public gsAppVersion As String = "Ver 2.2.1.0" ' 배너변경
 
     Public gsPopUpOption As String = "MDI"
 
@@ -1199,5 +1199,37 @@ Module MiniCTI
 
     Public Function ToQuotedStr(ByVal value As String) As String
         Return value.Trim.Replace("'", "''")
+    End Function
+
+    Public Function GetCode(ByVal value As String) As String
+        Dim result As String = value
+        If value.Contains(".") Then
+            Dim str() As String = value.Split(".")
+            result = str(0)
+        End If
+        Return result
+    End Function
+
+    Public Function GetCode(ByVal value As String, ByVal defaultValue As String) As String
+        Dim result As String = defaultValue
+        If value.Contains(".") Then
+            Dim str() As String = value.Split(".")
+            result = str(0)
+        Else
+            If value = "" Then
+                'result
+            Else
+                result = value
+            End If
+        End If
+        Return result
+    End Function
+
+    Public Function NotNull(Of T)(ByVal value As T, ByVal defaultValue As T) As T
+        If value Is Nothing OrElse IsDBNull(value) Then
+            Return defaultValue
+        Else
+            Return value
+        End If
     End Function
 End Module

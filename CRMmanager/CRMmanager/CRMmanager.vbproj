@@ -121,16 +121,16 @@
     <Compile Include="FRM_CUSTOMER_TELNO.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FRM_DETAIL_POPUP.Designer.vb">
+      <DependentUpon>FRM_DETAIL_POPUP.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FRM_DETAIL_POPUP.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FRM_FIND_ID_BY_TELNO.Designer.vb">
       <DependentUpon>FRM_FIND_ID_BY_TELNO.vb</DependentUpon>
     </Compile>
     <Compile Include="FRM_FIND_ID_BY_TELNO.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FRM_HISTORY_GINGUB.designer.vb">
-      <DependentUpon>FRM_HISTORY_GINGUB.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FRM_HISTORY_GINGUB.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FRM_HISTORY_CALLBACK.designer.vb">
@@ -191,12 +191,6 @@
       <DependentUpon>FRM_HISTORY.vb</DependentUpon>
     </Compile>
     <Compile Include="FRM_HISTORY.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FRM_INNER_WORK_UPDATE.Designer.vb">
-      <DependentUpon>FRM_INNER_WORK_UPDATE.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FRM_INNER_WORK_UPDATE.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FRM_MAIN.designer.vb">
@@ -315,12 +309,12 @@
       <DependentUpon>FRM_CUSTOMER_TELNO.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FRM_FIND_ID_BY_TELNO.resx">
-      <DependentUpon>FRM_FIND_ID_BY_TELNO.vb</DependentUpon>
+    <EmbeddedResource Include="FRM_DETAIL_POPUP.resx">
+      <DependentUpon>FRM_DETAIL_POPUP.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FRM_HISTORY_GINGUB.resx">
-      <DependentUpon>FRM_HISTORY_GINGUB.vb</DependentUpon>
+    <EmbeddedResource Include="FRM_FIND_ID_BY_TELNO.resx">
+      <DependentUpon>FRM_FIND_ID_BY_TELNO.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FRM_HISTORY_CALLBACK.resx">
@@ -365,10 +359,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FRM_HISTORY.resx">
       <DependentUpon>FRM_HISTORY.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FRM_INNER_WORK_UPDATE.resx">
-      <DependentUpon>FRM_INNER_WORK_UPDATE.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FRM_MAIN.resx">

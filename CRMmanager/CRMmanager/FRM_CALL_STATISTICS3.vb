@@ -177,6 +177,6 @@
     End Sub
 
     Private Sub FRM_CALL_STATISTICS3_Deactivate(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Deactivate
-        Call gsFormExit()
+        'Call gsFormExit()
     End Sub
 End Class

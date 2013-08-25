@@ -105,7 +105,7 @@ Public Class FRM_SCHEDULE_ALARM
 
             mAlarmSchedule.StartTime = .Cells("S_START_TIME").Value.ToString
             mAlarmSchedule.Title = .Cells("Title").Value.ToString
-            mAlarmSchedule.Users = .Cells("Users").Value.ToString
+            mAlarmSchedule.CompanyCoworker = .Cells("Users").Value.ToString
             mAlarmSchedule.Registrant = .Cells("RegName").Value.ToString
             mAlarmSchedule.SharingType = .Cells("SharingType").Value.ToString
 

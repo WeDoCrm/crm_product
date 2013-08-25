@@ -130,31 +130,35 @@
             '조회항목:고객아이디(customer_id)/통화일자(tong_dd)/통화시간(tong_time)/고객명(customer_nm)/전화번호(tong_telno)/고객유형(customer_type)
             '/상담유형(consult_type)/처리유형(handle_type)/상담결과(consult_result)/콜백여부(callback_result)/통화자(tong)user)/콜타입(call_type)/상담내용(tong_contents)
 
-            If Not isInit Then
+            If isInit Then '최초조회(당일건)
+                Dim tm As String = Format(Now, "yyyyMMdd")
+                SQL = SQL & " AND TOND_DD >= '" & tm & "'"
+            Else
+
                 SQL = SQL & " AND TOND_DD >= '" & dpt1.Text.ToString.Replace("-", "") & "'"
                 SQL = SQL & " AND TOND_DD <= '" & dpt2.Text.ToString.Replace("-", "") & "'"
                 SQL = SQL & " AND TONG_TIME >= '" & cbH1.Text & cbT1.Text & "00" & "'"
                 SQL = SQL & " AND TONG_TIME <= '" & cbH2.Text & cbT2.Text & "00" & "'"
                 SQL = SQL & " AND A.TONG_USER LIKE  '" & cboUser.SelectedValue.ToString.Replace("XXXX", "") & "%'"
 
-                If cboCustomerType.SelectedValue.ToString <> "" Then
+                If cboCustomerType.SelectedIndex <> 0 Then
                     SQL = SQL & " AND B.CUSTOMER_TYPE LIKE  '" & cboCustomerType.SelectedValue.ToString.Replace("XXXX", "") & "%'"
                 End If
                 'If cboConsultType.SelectedIndex >= 0 Then
                 '    SQL = SQL & " AND CONSULT_TYPE LIKE  '" & cboConsultType.SelectedValue.ToString.Replace("XXXX", "") & "%'"
                 'End If
-                If cboConsultType.SelectedValue.ToString <> "" Then
+                If cboConsultType.SelectedIndex <> 0 Then
                     SQL = SQL & " AND CONSULT_TYPE LIKE  '" & cboConsultType.SelectedValue.ToString.Replace("XXXX", "") & "%'"
                 End If
 
-                If cboHandleType.SelectedValue.ToString <> "" Then
+                If cboHandleType.SelectedIndex <> 0 Then
                     SQL = SQL & " AND HANDLE_TYPE LIKE  '" & cboHandleType.SelectedValue.ToString.Replace("XXXX", "") & "%'"
                 End If
-                If cboConsultResult.SelectedValue.ToString <> "" Then
+                If cboConsultResult.SelectedIndex <> 0 Then
                     SQL = SQL & " AND CONSULT_RESULT LIKE  '" & cboConsultResult.SelectedValue.ToString.Replace("XXXX", "") & "%'"
                 End If
 
-                If cboCallBackResult.SelectedValue.ToString <> "2" Then
+                If cboCallBackResult.SelectedIndex <> 0 Then
                     SQL = SQL & " AND CALL_BACK_YN = 'Y'"
                     SQL = SQL & " AND CALL_BACK_RESULT LIKE  '" & cboCallBackResult.SelectedValue.ToString.Replace("XXXX", "") & "%'"
                 End If
@@ -174,12 +178,8 @@
 
                 SQL = SQL & " OR CUSTOMER_NM LIKE '%" & txtSearch.Text.Trim & "%'))) "
 
-
-            Else
-                Dim tm As String = Format(Now, "yyyyMMdd")
-                SQL = SQL & " AND TOND_DD >= '" & tm & "'"
             End If
-            SQL = SQL & " ORDER BY TOND_DD + TONG_TIME DESC "
+            SQL = SQL & " ORDER BY CONCAT(TOND_DD, TONG_TIME) DESC "
 
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
@@ -283,7 +283,7 @@
     End Sub
 
     Private Sub FRM_HISTORY_Deactivate(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Deactivate
-        Call gsFormExit()
+        'Call gsFormExit()
     End Sub
 
     Private Sub btnExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExcel.Click
@@ -314,31 +314,37 @@
         End Try
     End Sub
 
+    ''' <summary>
+    ''' 컬럼선택해서 보이기
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
     Private Sub ToggleModeSwitch(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToggleButton1.Click, ToggleButton3.Click, ToggleButton2.Click, ToggleButton6.Click, ToggleButton4.Click, ToggleButton5.Click, ToggleButton7.Click, ToggleButton8.Click
         Dim btn As Elegant.Ui.ToggleButton = sender
-        If DataGridView2.RowCount > 0 Then
+        'If DataGridView2.RowCount > 0 Then
 
-            Select Case btn.Tag
-                Case 1 '고객유형
-                    DataGridView2.Columns.Item("customer_type").Visible = btn.Pressed
-                Case 2 '처리유형
-                    DataGridView2.Columns.Item("handle_type").Visible = btn.Pressed
-                Case 3 '상담유형
-                    DataGridView2.Columns.Item("consult_type").Visible = btn.Pressed
-                Case 4 '상담결과
-                    DataGridView2.Columns.Item("consult_result").Visible = btn.Pressed
-                Case 5 '콜백여부
-                    DataGridView2.Columns.Item("call_back_yn").Visible = btn.Pressed
-                Case 6 '콜백처리여부
-                    DataGridView2.Columns.Item("call_back_result").Visible = btn.Pressed
-                Case 7 '콜타입
-                    DataGridView2.Columns.Item("call_type").Visible = btn.Pressed
-                Case 8 '상담내용
-                    DataGridView2.Columns.Item("tong_contents").Visible = btn.Pressed
-            End Select
+        Select Case btn.Tag
+            Case 1 '고객유형
+                DataGridView2.Columns.Item("customer_type").Visible = btn.Pressed
+            Case 2 '처리유형
+                DataGridView2.Columns.Item("handle_type").Visible = btn.Pressed
+            Case 3 '상담유형
+                DataGridView2.Columns.Item("consult_type").Visible = btn.Pressed
+            Case 4 '상담결과
+                DataGridView2.Columns.Item("consult_result").Visible = btn.Pressed
+            Case 5 '콜백여부
+                DataGridView2.Columns.Item("call_back_yn").Visible = btn.Pressed
+            Case 6 '콜백처리여부
+                DataGridView2.Columns.Item("call_back_result").Visible = btn.Pressed
+            Case 7 '콜타입
+                DataGridView2.Columns.Item("call_type").Visible = btn.Pressed
+            Case 8 '상담내용
+                DataGridView2.Columns.Item("tong_contents").Visible = btn.Pressed
+        End Select
 
-            '값변경가능성 대비 refresh기능
-        End If
+        '값변경가능성 대비 refresh기능
+        'End If
 
     End Sub
 
@@ -346,6 +352,10 @@
         SetDetailSearchVisible()
     End Sub
 
+    ''' <summary>
+    ''' 상세검색버튼 보이기
+    ''' </summary>
+    ''' <remarks></remarks>
     Private Sub SetDetailSearchVisible()
         pnlDetailSearch.Visible = cbxDetailSearch.Checked
         If pnlDetailSearch.Visible Then

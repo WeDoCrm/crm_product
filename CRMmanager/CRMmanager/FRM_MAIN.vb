@@ -305,14 +305,6 @@ Public Class FRM_MAIN
                         newF.Show()
                     End If
 
-                Case "FRM_HISTORY_GINGUB"
-                    If FRM_HISTORY_GINGUB Is Nothing Then
-                        Dim newF As New FRM_HISTORY_GINGUB
-
-                        newF.MdiParent = Me
-                        newF.Show()
-                    End If
-
                 Case "FRM_HISTORY_CALLBACK"
                     If FRM_HISTORY_CALLBACK Is Nothing Then
                         Dim newF As New FRM_HISTORY_CALLBACK
@@ -587,18 +579,26 @@ Public Class FRM_MAIN
 
     End Sub
 
+    ''' <summary>
+    ''' 인입호 : 고객이 전화한 건수(ringing).
+    ''' 응대호 : 고객전화를 받은 건수(answer).
+    ''' 상담건수: 고객상담화면에서 상담저장 버튼을 누른 건수
+    ''' 이관건수: 고객상담화면에서 이관자에게 업무이관한 건수
+    ''' 콜백건수: 고객에게 다시 전화 주기로 한 건수
+    ''' </summary>
+    ''' <remarks></remarks>
     Private Sub getStatistics()
         Try
             Dim SQL As String
             Dim strNow As String = Format(Now, "yyyyMMdd")
-            '총인입호
+            '총인입호 
             SQL = "select '1' flag, count(*) cnt from t_call_history where tong_start_time like '" & strNow & "%' and call_result = '1'"
             SQL = SQL & " union all"
             '응대호
             SQL = SQL & " select '2' flag,count(*) cnt from t_call_history where tong_start_time like '" & strNow & "%' and call_result = '3'"
             SQL = SQL & " union all"
             '상담건수
-            SQL = SQL & " select '3' flag,count(*) cnt from t_customer_history where tond_dd = '" & strNow & "'"
+            SQL = SQL & " select '3' flag,count(*) cnt from t_customer_history where tond_dd = '" & strNow & "' and consult_result <> '06' and trans_yn is null"
             SQL = SQL & " union all"
             '이관건수
             SQL = SQL & " select '4' flag,count(*) cnt from t_customer_history where tond_dd = '" & strNow & "' and consult_result = '06'"
@@ -607,6 +607,33 @@ Public Class FRM_MAIN
             SQL = SQL & " select '5' flag,count(*) cnt from t_customer_history where tond_dd = '" & strNow & "' and call_back_yn = 'Y' "
 
             Dim dt1 As DataTable = DoQuery(gsConString, SQL)
+
+            Dim toolTipTotalCall As ToolTip = New ToolTip()
+            Dim toolTipReceiveCall As ToolTip = New ToolTip()
+            Dim toolTipConsultCall As ToolTip = New ToolTip()
+            Dim toolTipTransCall As ToolTip = New ToolTip()
+            Dim toolTipCallback As ToolTip = New ToolTip()
+            Dim strTotalCall As String = "고객이 전화한 건수"
+            Dim strReceiveCall As String = "고객전화를 받은 건수"
+            Dim strConsultCall As String = "고객상담화면에서 상담저장 버튼을 누른 건수"
+            Dim strTransCall As String = "고객상담화면에서 이관자에게 업무이관한 건수"
+            Dim strCallback As String = "고객에게 다시 전화 주기로 한 건수"
+
+            toolTipTotalCall.SetToolTip(txtTotalCall, strTotalCall)
+            toolTipTotalCall.SetToolTip(LabelTotalCall, strTotalCall)
+
+
+            toolTipReceiveCall.SetToolTip(txtReceiveCall, strReceiveCall)
+            toolTipReceiveCall.SetToolTip(LabelReceiveCall, strReceiveCall)
+
+            toolTipConsultCall.SetToolTip(txtConsultCall, strConsultCall)
+            toolTipConsultCall.SetToolTip(LabelConsultCall, strConsultCall)
+
+            toolTipTransCall.SetToolTip(txtTransCall, strTransCall)
+            toolTipTransCall.SetToolTip(LabelTransCall, strTransCall)
+
+            toolTipCallback.SetToolTip(txtCallback, strCallback)
+            toolTipCallback.SetToolTip(LabelCallback, strCallback)
 
             If dt1.Rows.Count > 0 Then
                 Dim i As Integer

@@ -50,18 +50,16 @@
 
         '        Select b.ani
         '		,a.CUSTOMER_NM 
-        '		,b.max_start_time 
         '      ,CONCAT(SUBSTRING(b.max_start_time,1,4) , '-' , SUBSTRING(b.max_start_time,5,2) , '-' , SUBSTRING(b.max_start_time,7,2)) tong_dd
         '      ,CONCAT(SUBSTRING(b.max_start_time,9,2) , ':' , SUBSTRING(b.max_start_time,11,2), ':' , SUBSTRING(b.max_start_time,13,2)) tong_time
         '      ,b.TONG_USER
         '      ,case when b.call_result in ('1', '4') then '부재중'
         '            when b.call_result in ('3','5') then '수신'
         '            when b.call_result = '2' then '발신' end call_result2
-        '		,CONCAT(b.call_result, '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = '9997' AND L_MENU_CD = '009' AND S_MENU_CD = b.call_result )) call_result
-        '		,CONCAT(a.CALL_TYPE , '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = '9997' AND L_MENU_CD = '005' AND S_MENU_CD = a.CALL_TYPE )) CALL_TYPE
-        '      ,CONCAT(a.CONSULT_RESULT , '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = '9997' AND L_MENU_CD = '004' AND S_MENU_CD = a.CONSULT_RESULT )) CONSULT_RESULT
-        '      ,CONCAT(a.CONSULT_TYPE , '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = '9997' AND L_MENU_CD = '003' AND S_MENU_CD = a.CONSULT_TYPE )) CONSULT_TYPE
-        '      ,a.TONG_CONTENTS
+        '            ,a.CALL_TYPE
+        '            ,a.CONSULT_RESULT
+        '		,CONCAT(a.CALL_TYPE , '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = '8888' AND L_MENU_CD = '005' AND S_MENU_CD = a.CALL_TYPE )) CALL_TYPE
+        '      ,CONCAT(a.CONSULT_RESULT , '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = '8888' AND L_MENU_CD = '004' AND S_MENU_CD = a.CONSULT_RESULT )) CONSULT_RESULT
         '  from
         '            (
         '		select s1.*
@@ -86,18 +84,16 @@
         '                                         and sub1.ani = t1.ani) next_start_time  
         '                              from
         '                                (select call_id, ani, max(tong_start_time) max_start_time, max(call_result) call_result from t_call_history
-        '                                where COM_CD = '0001'
-        '                                  and tong_start_time >= '20120712240000'
-        '                                  and tong_start_time < '20120718240000'
+        '                                where COM_CD = '8888'
+        '                                  and tong_start_time >= '20130814240000'
+        '                                  and tong_start_time < '20130815240000'
         '                                  and ani like '%'
         '                                  and tong_user like '%'
-
         '                                group by call_id, ani) t1,
         '                                t_call_history t2
-        '                            where
-        '                              and t2.COM_CD = '0001'
-        '                              and t2.tong_start_time >= '20120712240000'
-        '                              and t2.tong_start_time < '20120719240000'
+        '                            where t2.COM_CD = '8888'
+        '                              and t2.tong_start_time >= '20130814240000'
+        '                              and t2.tong_start_time < '20130815240000'
         '                              and t2.ani like '%'
         '                              and t2.tong_user like '%'
         '                              and t1.call_id = t2.call_id
@@ -116,9 +112,9 @@
         '                                          '2' call_result, tong_user
         '                  from t_customer_history
         '                where call_type = 2
-        '                  and COM_CD = '0001'
-        '                  and tond_dd >= '20120712'
-        '                  and tond_dd < '20120719'
+        '                  and COM_CD = '8888'
+        '                  and tond_dd >= '20130815'
+        '                  and tond_dd < '20130816'
         '                  and tong_time >= '000000'
         '                  and tong_time < '240000'
         '                  and tong_telno like '%'
@@ -126,23 +122,22 @@
         '                ) s1
         '            ) b left join t_customer_history a
         '     on a.tong_telno = b.ani
-        '    and CONCAT(a.tond_dd, a.tong_time) = b.max_start_time
+        '    /*and CONCAT(a.tond_dd, a.tong_time) = b.max_start_time */
+        '    and a.tond_dd = substr(b.max_start_time, 1,8)
+        '    and a.tong_time between (substr(b.max_start_time, 9,6) - 60) and (substr(b.max_start_time, 9,6) + 60)
         'order by max_start_time
+
 
         Dim SQL As String = " Select b.ani"
         SQL = SQL & "		,a.CUSTOMER_NM  "
-        'SQL = SQL & "		,b.max_start_time  "
         SQL = SQL & "      ,CONCAT(SUBSTRING(b.max_start_time,1,4) , '-' , SUBSTRING(b.max_start_time,5,2) , '-' , SUBSTRING(b.max_start_time,7,2)) tong_dd"
         SQL = SQL & "      ,CONCAT(SUBSTRING(b.max_start_time,9,2) , ':' , SUBSTRING(b.max_start_time,11,2), ':' , SUBSTRING(b.max_start_time,13,2)) tong_time"
         SQL = SQL & "      ,b.TONG_USER"
         SQL = SQL & "      ,case when b.call_result in ('1', '4') then '부재중'"
         SQL = SQL & "            when b.call_result in ('3','5') then '수신'"
         SQL = SQL & "            when b.call_result = '2' then '발신' end call_result2"
-        'SQL = SQL & "		,CONCAT(b.call_result, '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = '" & gsCOM_CD & "' AND L_MENU_CD = '009' AND S_MENU_CD = b.call_result )) call_result"
         SQL = SQL & "		,CONCAT(a.CALL_TYPE , '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = '" & gsCOM_CD & "' AND L_MENU_CD = '005' AND S_MENU_CD = a.CALL_TYPE )) CALL_TYPE"
         SQL = SQL & "      ,CONCAT(a.CONSULT_RESULT , '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD ='" & gsCOM_CD & "'AND L_MENU_CD = '004' AND S_MENU_CD = a.CONSULT_RESULT )) CONSULT_RESULT"
-        'SQL = SQL & "      ,CONCAT(a.CONSULT_TYPE , '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD ='" & gsCOM_CD & "'AND L_MENU_CD = '003' AND S_MENU_CD = a.CONSULT_TYPE )) CONSULT_TYPE"
-        'SQL = SQL & "      ,a.TONG_CONTENTS"
         SQL = SQL & "  from"
         SQL = SQL & "            ("
         SQL = SQL & "			select s1.*"
@@ -231,7 +226,7 @@
         SQL = SQL & "                ) s1"
         SQL = SQL & "            ) b left join t_customer_history a"
         SQL = SQL & "     on a.tong_telno = b.ani"
-        SQL = SQL & "    and CONCAT(a.tond_dd, a.tong_time) = b.max_start_time "
+        SQL = SQL & "     and a.tong_time between (substr(b.max_start_time, 9,6) - 30) and (substr(b.max_start_time, 9,6) + 30)"
 
         If Not isInit Then
             If cboCallResult.SelectedItem.ToString.Trim() = "전체" Then
@@ -320,7 +315,7 @@
 
 
     Private Sub FRM_CALLER_LIST_Deactivate(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Deactivate
-        Call gsFormExit()
+        'Call gsFormExit()
     End Sub
 
     Private Sub btnExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExcel.Click

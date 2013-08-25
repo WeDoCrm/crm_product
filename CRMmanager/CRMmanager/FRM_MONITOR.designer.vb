@@ -24,73 +24,79 @@ Partial Class FRM_MONITOR
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FRM_MONITOR))
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FRM_MONITOR))
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.dgViewMain = New System.Windows.Forms.DataGridView
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.btnGrpConsult = New Elegant.Ui.ButtonGroup
-        Me.ToggleButton1 = New Elegant.Ui.ToggleButton
-        Me.ToggleButton2 = New Elegant.Ui.ToggleButton
-        Me.ToggleButton3 = New Elegant.Ui.ToggleButton
-        Me.ToggleButton4 = New Elegant.Ui.ToggleButton
-        Me.ToggleButton6 = New Elegant.Ui.ToggleButton
-        Me.Label24 = New System.Windows.Forms.Label
+        Me.ToggleButton01 = New Elegant.Ui.ToggleButton
+        Me.ToggleButton02 = New Elegant.Ui.ToggleButton
+        Me.ToggleButton07 = New Elegant.Ui.ToggleButton
         Me.Label1 = New System.Windows.Forms.Label
         Me.GroupBox2 = New System.Windows.Forms.GroupBox
         Me.btnGrpTrans = New Elegant.Ui.ButtonGroup
-        Me.ToggleButton10 = New Elegant.Ui.ToggleButton
         Me.ToggleButton11 = New Elegant.Ui.ToggleButton
         Me.ToggleButton12 = New Elegant.Ui.ToggleButton
-        Me.ToggleButton5 = New Elegant.Ui.ToggleButton
-        Me.ToggleButton15 = New Elegant.Ui.ToggleButton
+        Me.ToggleButton17 = New Elegant.Ui.ToggleButton
         Me.dgViewTrans = New System.Windows.Forms.DataGridView
-        Me.DataGridViewTextBoxColumn8 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DataGridViewTextBoxColumn9 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DataGridViewTextBoxColumn10 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DataGridViewTextBoxColumn11 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DataGridViewTextBoxColumn12 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DataGridViewTextBoxColumn13 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DataGridViewTextBoxColumn14 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DataGridViewTextBoxColumn15 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DataGridViewTextBoxColumn16 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DataGridViewTextBoxColumn17 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DataGridViewTextBoxColumn18 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DataGridViewTextBoxColumn19 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Label37 = New System.Windows.Forms.Label
         Me.Label43 = New System.Windows.Forms.Label
         Me.GroupBox3 = New System.Windows.Forms.GroupBox
         Me.dgViewCallback = New System.Windows.Forms.DataGridView
-        Me.dgColCustomerId = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.dgColCustomerName = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.dgColTongDate = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.dgColTongTime = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.dgColTongNo = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.dgColCallBackResult = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.dgColConsultType = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.dgColConsultResult = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.dgColTongUser = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.dgColCallType = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.btnGrpCallback = New Elegant.Ui.ButtonGroup
-        Me.ToggleButton7 = New Elegant.Ui.ToggleButton
-        Me.ToggleButton8 = New Elegant.Ui.ToggleButton
-        Me.ToggleButton9 = New Elegant.Ui.ToggleButton
-        Me.Label16 = New System.Windows.Forms.Label
+        Me.ToggleButton21 = New Elegant.Ui.ToggleButton
+        Me.ToggleButton22 = New Elegant.Ui.ToggleButton
+        Me.ToggleButton27 = New Elegant.Ui.ToggleButton
         Me.Label22 = New System.Windows.Forms.Label
+        Me.Label16 = New System.Windows.Forms.Label
+        Me.Label37 = New System.Windows.Forms.Label
+        Me.Label24 = New System.Windows.Forms.Label
+        Me.DM_CUSTOMER_ID = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DM_CUSTOMER_NM = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DM_TONG_DD = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DM_TONG_TIME = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DM_TONG_TELNO = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DM_CONSULT_TYPE = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DM_CONSULT_RESULT = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DM_TONG_USER = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DM_TONG_CONTENTS = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DM_CALL_TYPE = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DM_HANDLE_TYPE = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DM_PREV_TONG_DD = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DM_PREV_TONG_TIME = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DM_PREV_TONG_USER = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DT_CUSTOMER_ID = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DT_CUSTOMER_NM = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DT_TONG_DD = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DT_TONG_TIME = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DT_TONG_TELNO = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DT_CONSULT_TYPE = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DT_CONSULT_RESULT = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DT_TONG_USER = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DT_TONG_CONTENTS = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DT_CALL_TYPE = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DT_HANDLE_TYPE = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DT_PREV_TONG_DD = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DT_PREV_TONG_TIME = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DT_PREV_TONG_USER = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DC_CUSTOMER_ID = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DC_CUSTOMER_NM = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DC_TONG_DD = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DC_TONG_TIME = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DC_TONG_TELNO = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DC_CALL_BACK_RESULT = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DC_CONSULT_TYPE = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DC_CONSULT_RESULT = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DC_TONG_USER = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DC_CALL_TYPE = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DC_TONG_CONTENTS = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DC_HANDLE_TYPE = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.GroupBox1.SuspendLayout()
         CType(Me.dgViewMain, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.btnGrpConsult.SuspendLayout()
@@ -130,150 +136,66 @@ Partial Class FRM_MONITOR
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgViewMain.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.dgViewMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgViewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.DataGridViewTextBoxColumn6, Me.DataGridViewTextBoxColumn7, Me.Column2})
+        Me.dgViewMain.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DM_CUSTOMER_ID, Me.DM_CUSTOMER_NM, Me.DM_TONG_DD, Me.DM_TONG_TIME, Me.DM_TONG_TELNO, Me.DM_CONSULT_TYPE, Me.DM_CONSULT_RESULT, Me.DM_TONG_USER, Me.DM_TONG_CONTENTS, Me.DM_CALL_TYPE, Me.DM_HANDLE_TYPE, Me.DM_PREV_TONG_DD, Me.DM_PREV_TONG_TIME, Me.DM_PREV_TONG_USER})
         Me.dgViewMain.GridColor = System.Drawing.SystemColors.ActiveCaption
         Me.dgViewMain.Location = New System.Drawing.Point(6, 39)
         Me.dgViewMain.MultiSelect = False
         Me.dgViewMain.Name = "dgViewMain"
         Me.dgViewMain.ReadOnly = True
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgViewMain.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgViewMain.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.dgViewMain.RowHeadersVisible = False
         Me.dgViewMain.RowTemplate.Height = 23
         Me.dgViewMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgViewMain.Size = New System.Drawing.Size(872, 180)
         Me.dgViewMain.TabIndex = 203
         '
-        'Column1
-        '
-        Me.Column1.HeaderText = "고객아이디"
-        Me.Column1.Name = "Column1"
-        Me.Column1.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn1
-        '
-        Me.DataGridViewTextBoxColumn1.HeaderText = "고객명"
-        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
-        Me.DataGridViewTextBoxColumn1.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn2
-        '
-        Me.DataGridViewTextBoxColumn2.HeaderText = "통화일자"
-        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
-        Me.DataGridViewTextBoxColumn2.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn3
-        '
-        Me.DataGridViewTextBoxColumn3.HeaderText = "통화시간"
-        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
-        Me.DataGridViewTextBoxColumn3.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn4
-        '
-        Me.DataGridViewTextBoxColumn4.HeaderText = "전화번호"
-        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
-        Me.DataGridViewTextBoxColumn4.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn5
-        '
-        Me.DataGridViewTextBoxColumn5.HeaderText = "상담유형"
-        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
-        Me.DataGridViewTextBoxColumn5.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn6
-        '
-        Me.DataGridViewTextBoxColumn6.HeaderText = "상담결과"
-        Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
-        Me.DataGridViewTextBoxColumn6.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn7
-        '
-        Me.DataGridViewTextBoxColumn7.HeaderText = "통화자"
-        Me.DataGridViewTextBoxColumn7.Name = "DataGridViewTextBoxColumn7"
-        Me.DataGridViewTextBoxColumn7.ReadOnly = True
-        '
-        'Column2
-        '
-        Me.Column2.HeaderText = "콜타입"
-        Me.Column2.Name = "Column2"
-        Me.Column2.ReadOnly = True
-        '
         'btnGrpConsult
         '
-        Me.btnGrpConsult.Controls.Add(Me.ToggleButton1)
-        Me.btnGrpConsult.Controls.Add(Me.ToggleButton2)
-        Me.btnGrpConsult.Controls.Add(Me.ToggleButton3)
-        Me.btnGrpConsult.Controls.Add(Me.ToggleButton4)
-        Me.btnGrpConsult.Controls.Add(Me.ToggleButton6)
-        Me.btnGrpConsult.Location = New System.Drawing.Point(111, 11)
+        Me.btnGrpConsult.Controls.Add(Me.ToggleButton01)
+        Me.btnGrpConsult.Controls.Add(Me.ToggleButton02)
+        Me.btnGrpConsult.Controls.Add(Me.ToggleButton07)
+        Me.btnGrpConsult.Location = New System.Drawing.Point(139, 11)
         Me.btnGrpConsult.Name = "btnGrpConsult"
-        Me.btnGrpConsult.Size = New System.Drawing.Size(767, 25)
+        Me.btnGrpConsult.Size = New System.Drawing.Size(739, 25)
         Me.btnGrpConsult.TabIndex = 202
         Me.btnGrpConsult.Text = "ButtonGroup1"
         '
-        'ToggleButton1
+        'ToggleButton01
         '
-        Me.ToggleButton1.Id = "49caf8f5-731b-496c-ad10-8a1b1322529c"
-        Me.ToggleButton1.Location = New System.Drawing.Point(0, 0)
-        Me.ToggleButton1.Name = "ToggleButton1"
-        Me.ToggleButton1.Size = New System.Drawing.Size(120, 22)
-        Me.ToggleButton1.TabIndex = 200
-        Me.ToggleButton1.Tag = "1"
-        Me.ToggleButton1.Text = "상담완료( 34 )"
+        Me.ToggleButton01.Id = "49caf8f5-731b-496c-ad10-8a1b1322529c"
+        Me.ToggleButton01.Location = New System.Drawing.Point(0, 0)
+        Me.ToggleButton01.Name = "ToggleButton01"
+        Me.ToggleButton01.Size = New System.Drawing.Size(120, 22)
+        Me.ToggleButton01.TabIndex = 200
+        Me.ToggleButton01.Tag = "1"
+        Me.ToggleButton01.Text = "상담완료( 34 )"
         '
-        'ToggleButton2
+        'ToggleButton02
         '
-        Me.ToggleButton2.Id = "80d57c52-a34a-446d-bf71-180ad513f3d6"
-        Me.ToggleButton2.Location = New System.Drawing.Point(120, 0)
-        Me.ToggleButton2.Name = "ToggleButton2"
-        Me.ToggleButton2.Size = New System.Drawing.Size(120, 22)
-        Me.ToggleButton2.TabIndex = 201
-        Me.ToggleButton2.Tag = "2"
-        Me.ToggleButton2.Text = "진행중( 34 )"
+        Me.ToggleButton02.Id = "0c1f7a95-b104-4c4b-bd42-7f0f70205e54"
+        Me.ToggleButton02.Location = New System.Drawing.Point(120, 0)
+        Me.ToggleButton02.Name = "ToggleButton02"
+        Me.ToggleButton02.Size = New System.Drawing.Size(120, 22)
+        Me.ToggleButton02.TabIndex = 202
+        Me.ToggleButton02.Tag = "2"
+        Me.ToggleButton02.Text = "미처리( 34 )"
         '
-        'ToggleButton3
+        'ToggleButton07
         '
-        Me.ToggleButton3.Id = "0c1f7a95-b104-4c4b-bd42-7f0f70205e54"
-        Me.ToggleButton3.Location = New System.Drawing.Point(240, 0)
-        Me.ToggleButton3.Name = "ToggleButton3"
-        Me.ToggleButton3.Size = New System.Drawing.Size(120, 22)
-        Me.ToggleButton3.TabIndex = 202
-        Me.ToggleButton3.Tag = "3"
-        Me.ToggleButton3.Text = "미처리( 34 )"
-        '
-        'ToggleButton4
-        '
-        Me.ToggleButton4.Id = "42da4adb-4499-49bb-aaa0-88c357894d35"
-        Me.ToggleButton4.Location = New System.Drawing.Point(360, 0)
-        Me.ToggleButton4.Name = "ToggleButton4"
-        Me.ToggleButton4.Size = New System.Drawing.Size(120, 22)
-        Me.ToggleButton4.TabIndex = 206
-        Me.ToggleButton4.Tag = "4"
-        Me.ToggleButton4.Text = "이관처리( 34 )"
-        '
-        'ToggleButton6
-        '
-        Me.ToggleButton6.Id = "95c2734f-5897-45eb-bfc0-6de980dce0f3"
-        Me.ToggleButton6.Location = New System.Drawing.Point(480, 0)
-        Me.ToggleButton6.Name = "ToggleButton6"
-        Me.ToggleButton6.Size = New System.Drawing.Size(120, 22)
-        Me.ToggleButton6.TabIndex = 205
-        Me.ToggleButton6.Tag = "7"
-        Me.ToggleButton6.Text = "전체( 34 )"
-        '
-        'Label24
-        '
-        Me.Label24.Image = CType(resources.GetObject("Label24.Image"), System.Drawing.Image)
-        Me.Label24.Location = New System.Drawing.Point(6, 14)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(13, 12)
-        Me.Label24.TabIndex = 199
+        Me.ToggleButton07.Id = "95c2734f-5897-45eb-bfc0-6de980dce0f3"
+        Me.ToggleButton07.Location = New System.Drawing.Point(240, 0)
+        Me.ToggleButton07.Name = "ToggleButton07"
+        Me.ToggleButton07.Size = New System.Drawing.Size(120, 22)
+        Me.ToggleButton07.TabIndex = 205
+        Me.ToggleButton07.Tag = "7"
+        Me.ToggleButton07.Text = "전체( 34 )"
         '
         'Label1
         '
@@ -298,89 +220,52 @@ Partial Class FRM_MONITOR
         '
         'btnGrpTrans
         '
-        Me.btnGrpTrans.Controls.Add(Me.ToggleButton10)
         Me.btnGrpTrans.Controls.Add(Me.ToggleButton11)
         Me.btnGrpTrans.Controls.Add(Me.ToggleButton12)
-        Me.btnGrpTrans.Controls.Add(Me.ToggleButton5)
-        Me.btnGrpTrans.Controls.Add(Me.ToggleButton15)
-        Me.btnGrpTrans.Location = New System.Drawing.Point(129, 11)
+        Me.btnGrpTrans.Controls.Add(Me.ToggleButton17)
+        Me.btnGrpTrans.Location = New System.Drawing.Point(139, 11)
         Me.btnGrpTrans.Name = "btnGrpTrans"
-        Me.btnGrpTrans.Size = New System.Drawing.Size(749, 25)
+        Me.btnGrpTrans.Size = New System.Drawing.Size(739, 25)
         Me.btnGrpTrans.TabIndex = 216
         Me.btnGrpTrans.Text = "ButtonGroup3"
         '
-        'ToggleButton10
-        '
-        Me.ToggleButton10.Id = "3d59252a-d2dc-415f-9a92-1c8122996c2f"
-        Me.ToggleButton10.Location = New System.Drawing.Point(0, 0)
-        Me.ToggleButton10.Name = "ToggleButton10"
-        Me.ToggleButton10.Size = New System.Drawing.Size(120, 22)
-        Me.ToggleButton10.TabIndex = 200
-        Me.ToggleButton10.Tag = "1"
-        Me.ToggleButton10.Text = "상담완료( 34 )"
-        '
         'ToggleButton11
         '
-        Me.ToggleButton11.Id = "7f637779-d789-4f04-a4e0-144659a0afd1"
-        Me.ToggleButton11.Location = New System.Drawing.Point(120, 0)
+        Me.ToggleButton11.Id = "3d59252a-d2dc-415f-9a92-1c8122996c2f"
+        Me.ToggleButton11.Location = New System.Drawing.Point(0, 0)
         Me.ToggleButton11.Name = "ToggleButton11"
         Me.ToggleButton11.Size = New System.Drawing.Size(120, 22)
-        Me.ToggleButton11.TabIndex = 201
-        Me.ToggleButton11.Tag = "2"
-        Me.ToggleButton11.Text = "진행중( 34 )"
+        Me.ToggleButton11.TabIndex = 200
+        Me.ToggleButton11.Tag = "1"
+        Me.ToggleButton11.Text = "처리완료( 34 )"
         '
         'ToggleButton12
         '
         Me.ToggleButton12.Id = "bfe94587-5da7-440c-855f-d0cba7d750ce"
-        Me.ToggleButton12.Location = New System.Drawing.Point(240, 0)
+        Me.ToggleButton12.Location = New System.Drawing.Point(120, 0)
         Me.ToggleButton12.Name = "ToggleButton12"
         Me.ToggleButton12.Size = New System.Drawing.Size(120, 22)
         Me.ToggleButton12.TabIndex = 202
-        Me.ToggleButton12.Tag = "3"
+        Me.ToggleButton12.Tag = "2"
         Me.ToggleButton12.Text = "미처리( 34 )"
         '
-        'ToggleButton5
+        'ToggleButton17
         '
-        Me.ToggleButton5.Id = "aecc0d9e-5504-4414-9563-4a27a21a254e"
-        Me.ToggleButton5.Location = New System.Drawing.Point(360, 0)
-        Me.ToggleButton5.Name = "ToggleButton5"
-        Me.ToggleButton5.Size = New System.Drawing.Size(120, 22)
-        Me.ToggleButton5.TabIndex = 206
-        Me.ToggleButton5.Tag = "4"
-        Me.ToggleButton5.Text = "이관처리( 34 )"
-        '
-        'ToggleButton15
-        '
-        Me.ToggleButton15.Id = "17edc640-212f-4362-9b9d-4753842cb5f0"
-        Me.ToggleButton15.Location = New System.Drawing.Point(480, 0)
-        Me.ToggleButton15.Name = "ToggleButton15"
-        Me.ToggleButton15.Size = New System.Drawing.Size(120, 22)
-        Me.ToggleButton15.TabIndex = 205
-        Me.ToggleButton15.Tag = "7"
-        Me.ToggleButton15.Text = "전체( 34 )"
+        Me.ToggleButton17.Id = "17edc640-212f-4362-9b9d-4753842cb5f0"
+        Me.ToggleButton17.Location = New System.Drawing.Point(240, 0)
+        Me.ToggleButton17.Name = "ToggleButton17"
+        Me.ToggleButton17.Size = New System.Drawing.Size(120, 22)
+        Me.ToggleButton17.TabIndex = 205
+        Me.ToggleButton17.Tag = "7"
+        Me.ToggleButton17.Text = "전체( 34 )"
         '
         'dgViewTrans
         '
         Me.dgViewTrans.AllowUserToAddRows = False
         Me.dgViewTrans.AllowUserToDeleteRows = False
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.dgViewTrans.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.dgViewTrans.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
         Me.dgViewTrans.BackgroundColor = System.Drawing.Color.White
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgViewTrans.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
-        Me.dgViewTrans.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgViewTrans.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn8, Me.DataGridViewTextBoxColumn9, Me.DataGridViewTextBoxColumn10, Me.DataGridViewTextBoxColumn11, Me.DataGridViewTextBoxColumn12, Me.DataGridViewTextBoxColumn13, Me.DataGridViewTextBoxColumn14, Me.DataGridViewTextBoxColumn15, Me.DataGridViewTextBoxColumn16, Me.DataGridViewTextBoxColumn17, Me.DataGridViewTextBoxColumn18, Me.DataGridViewTextBoxColumn19})
-        Me.dgViewTrans.GridColor = System.Drawing.SystemColors.ActiveCaption
-        Me.dgViewTrans.Location = New System.Drawing.Point(6, 37)
-        Me.dgViewTrans.MultiSelect = False
-        Me.dgViewTrans.Name = "dgViewTrans"
-        Me.dgViewTrans.ReadOnly = True
         DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
         DataGridViewCellStyle6.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
@@ -388,98 +273,27 @@ Partial Class FRM_MONITOR
         DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgViewTrans.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
+        Me.dgViewTrans.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle6
+        Me.dgViewTrans.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgViewTrans.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DT_CUSTOMER_ID, Me.DT_CUSTOMER_NM, Me.DT_TONG_DD, Me.DT_TONG_TIME, Me.DT_TONG_TELNO, Me.DT_CONSULT_TYPE, Me.DT_CONSULT_RESULT, Me.DT_TONG_USER, Me.DT_TONG_CONTENTS, Me.DT_CALL_TYPE, Me.DT_HANDLE_TYPE, Me.DT_PREV_TONG_DD, Me.DT_PREV_TONG_TIME, Me.DT_PREV_TONG_USER})
+        Me.dgViewTrans.GridColor = System.Drawing.SystemColors.ActiveCaption
+        Me.dgViewTrans.Location = New System.Drawing.Point(6, 37)
+        Me.dgViewTrans.MultiSelect = False
+        Me.dgViewTrans.Name = "dgViewTrans"
+        Me.dgViewTrans.ReadOnly = True
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgViewTrans.RowHeadersDefaultCellStyle = DataGridViewCellStyle7
         Me.dgViewTrans.RowHeadersVisible = False
         Me.dgViewTrans.RowTemplate.Height = 23
         Me.dgViewTrans.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgViewTrans.Size = New System.Drawing.Size(872, 180)
         Me.dgViewTrans.TabIndex = 215
-        '
-        'DataGridViewTextBoxColumn8
-        '
-        Me.DataGridViewTextBoxColumn8.HeaderText = "고객아이디"
-        Me.DataGridViewTextBoxColumn8.Name = "DataGridViewTextBoxColumn8"
-        Me.DataGridViewTextBoxColumn8.ReadOnly = True
-        Me.DataGridViewTextBoxColumn8.Width = 90
-        '
-        'DataGridViewTextBoxColumn9
-        '
-        Me.DataGridViewTextBoxColumn9.HeaderText = "고객명"
-        Me.DataGridViewTextBoxColumn9.Name = "DataGridViewTextBoxColumn9"
-        Me.DataGridViewTextBoxColumn9.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn10
-        '
-        Me.DataGridViewTextBoxColumn10.HeaderText = "통화일자"
-        Me.DataGridViewTextBoxColumn10.Name = "DataGridViewTextBoxColumn10"
-        Me.DataGridViewTextBoxColumn10.ReadOnly = True
-        Me.DataGridViewTextBoxColumn10.Width = 90
-        '
-        'DataGridViewTextBoxColumn11
-        '
-        Me.DataGridViewTextBoxColumn11.HeaderText = "통화시간"
-        Me.DataGridViewTextBoxColumn11.Name = "DataGridViewTextBoxColumn11"
-        Me.DataGridViewTextBoxColumn11.ReadOnly = True
-        Me.DataGridViewTextBoxColumn11.Width = 90
-        '
-        'DataGridViewTextBoxColumn12
-        '
-        Me.DataGridViewTextBoxColumn12.HeaderText = "전화번호"
-        Me.DataGridViewTextBoxColumn12.Name = "DataGridViewTextBoxColumn12"
-        Me.DataGridViewTextBoxColumn12.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn13
-        '
-        Me.DataGridViewTextBoxColumn13.HeaderText = "상담유형"
-        Me.DataGridViewTextBoxColumn13.Name = "DataGridViewTextBoxColumn13"
-        Me.DataGridViewTextBoxColumn13.ReadOnly = True
-        Me.DataGridViewTextBoxColumn13.Width = 909
-        '
-        'DataGridViewTextBoxColumn14
-        '
-        Me.DataGridViewTextBoxColumn14.HeaderText = "상담결과"
-        Me.DataGridViewTextBoxColumn14.Name = "DataGridViewTextBoxColumn14"
-        Me.DataGridViewTextBoxColumn14.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn15
-        '
-        Me.DataGridViewTextBoxColumn15.HeaderText = "통화자"
-        Me.DataGridViewTextBoxColumn15.Name = "DataGridViewTextBoxColumn15"
-        Me.DataGridViewTextBoxColumn15.ReadOnly = True
-        Me.DataGridViewTextBoxColumn15.Width = 90
-        '
-        'DataGridViewTextBoxColumn16
-        '
-        Me.DataGridViewTextBoxColumn16.HeaderText = "콜타입"
-        Me.DataGridViewTextBoxColumn16.Name = "DataGridViewTextBoxColumn16"
-        Me.DataGridViewTextBoxColumn16.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn17
-        '
-        Me.DataGridViewTextBoxColumn17.HeaderText = "이전통화일자"
-        Me.DataGridViewTextBoxColumn17.Name = "DataGridViewTextBoxColumn17"
-        Me.DataGridViewTextBoxColumn17.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn18
-        '
-        Me.DataGridViewTextBoxColumn18.HeaderText = "이전통화시간"
-        Me.DataGridViewTextBoxColumn18.Name = "DataGridViewTextBoxColumn18"
-        Me.DataGridViewTextBoxColumn18.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn19
-        '
-        Me.DataGridViewTextBoxColumn19.HeaderText = "이전통화자"
-        Me.DataGridViewTextBoxColumn19.Name = "DataGridViewTextBoxColumn19"
-        Me.DataGridViewTextBoxColumn19.ReadOnly = True
-        Me.DataGridViewTextBoxColumn19.Width = 90
-        '
-        'Label37
-        '
-        Me.Label37.Image = CType(resources.GetObject("Label37.Image"), System.Drawing.Image)
-        Me.Label37.Location = New System.Drawing.Point(6, 15)
-        Me.Label37.Name = "Label37"
-        Me.Label37.Size = New System.Drawing.Size(13, 12)
-        Me.Label37.TabIndex = 199
         '
         'Label43
         '
@@ -506,24 +320,9 @@ Partial Class FRM_MONITOR
         '
         Me.dgViewCallback.AllowUserToAddRows = False
         Me.dgViewCallback.AllowUserToDeleteRows = False
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.dgViewCallback.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.dgViewCallback.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle8
         Me.dgViewCallback.BackgroundColor = System.Drawing.Color.White
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgViewCallback.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle8
-        Me.dgViewCallback.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgViewCallback.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.dgColCustomerId, Me.dgColCustomerName, Me.dgColTongDate, Me.dgColTongTime, Me.dgColTongNo, Me.dgColCallBackResult, Me.dgColConsultType, Me.dgColConsultResult, Me.dgColTongUser, Me.dgColCallType})
-        Me.dgViewCallback.GridColor = System.Drawing.SystemColors.ActiveCaption
-        Me.dgViewCallback.Location = New System.Drawing.Point(6, 38)
-        Me.dgViewCallback.MultiSelect = False
-        Me.dgViewCallback.Name = "dgViewCallback"
-        Me.dgViewCallback.ReadOnly = True
         DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
         DataGridViewCellStyle9.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
@@ -531,121 +330,68 @@ Partial Class FRM_MONITOR
         DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgViewCallback.RowHeadersDefaultCellStyle = DataGridViewCellStyle9
+        Me.dgViewCallback.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle9
+        Me.dgViewCallback.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgViewCallback.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DC_CUSTOMER_ID, Me.DC_CUSTOMER_NM, Me.DC_TONG_DD, Me.DC_TONG_TIME, Me.DC_TONG_TELNO, Me.DC_CALL_BACK_RESULT, Me.DC_CONSULT_TYPE, Me.DC_CONSULT_RESULT, Me.DC_TONG_USER, Me.DC_CALL_TYPE, Me.DC_TONG_CONTENTS, Me.DC_HANDLE_TYPE})
+        Me.dgViewCallback.GridColor = System.Drawing.SystemColors.ActiveCaption
+        Me.dgViewCallback.Location = New System.Drawing.Point(6, 38)
+        Me.dgViewCallback.MultiSelect = False
+        Me.dgViewCallback.Name = "dgViewCallback"
+        Me.dgViewCallback.ReadOnly = True
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgViewCallback.RowHeadersDefaultCellStyle = DataGridViewCellStyle10
         Me.dgViewCallback.RowHeadersVisible = False
         Me.dgViewCallback.RowTemplate.Height = 23
         Me.dgViewCallback.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgViewCallback.Size = New System.Drawing.Size(872, 181)
         Me.dgViewCallback.TabIndex = 220
         '
-        'dgColCustomerId
-        '
-        Me.dgColCustomerId.HeaderText = "고객아이디"
-        Me.dgColCustomerId.Name = "dgColCustomerId"
-        Me.dgColCustomerId.ReadOnly = True
-        '
-        'dgColCustomerName
-        '
-        Me.dgColCustomerName.HeaderText = "고객명"
-        Me.dgColCustomerName.Name = "dgColCustomerName"
-        Me.dgColCustomerName.ReadOnly = True
-        '
-        'dgColTongDate
-        '
-        Me.dgColTongDate.HeaderText = "통화일자"
-        Me.dgColTongDate.Name = "dgColTongDate"
-        Me.dgColTongDate.ReadOnly = True
-        '
-        'dgColTongTime
-        '
-        Me.dgColTongTime.HeaderText = "통화시간"
-        Me.dgColTongTime.Name = "dgColTongTime"
-        Me.dgColTongTime.ReadOnly = True
-        '
-        'dgColTongNo
-        '
-        Me.dgColTongNo.HeaderText = "전화번호"
-        Me.dgColTongNo.Name = "dgColTongNo"
-        Me.dgColTongNo.ReadOnly = True
-        '
-        'dgColCallBackResult
-        '
-        Me.dgColCallBackResult.HeaderText = "콜백처리결과"
-        Me.dgColCallBackResult.Name = "dgColCallBackResult"
-        Me.dgColCallBackResult.ReadOnly = True
-        '
-        'dgColConsultType
-        '
-        Me.dgColConsultType.HeaderText = "상담유형"
-        Me.dgColConsultType.Name = "dgColConsultType"
-        Me.dgColConsultType.ReadOnly = True
-        '
-        'dgColConsultResult
-        '
-        Me.dgColConsultResult.HeaderText = "상담결과"
-        Me.dgColConsultResult.Name = "dgColConsultResult"
-        Me.dgColConsultResult.ReadOnly = True
-        '
-        'dgColTongUser
-        '
-        Me.dgColTongUser.HeaderText = "통화자"
-        Me.dgColTongUser.Name = "dgColTongUser"
-        Me.dgColTongUser.ReadOnly = True
-        '
-        'dgColCallType
-        '
-        Me.dgColCallType.HeaderText = "콜타입"
-        Me.dgColCallType.Name = "dgColCallType"
-        Me.dgColCallType.ReadOnly = True
-        '
         'btnGrpCallback
         '
-        Me.btnGrpCallback.Controls.Add(Me.ToggleButton7)
-        Me.btnGrpCallback.Controls.Add(Me.ToggleButton8)
-        Me.btnGrpCallback.Controls.Add(Me.ToggleButton9)
-        Me.btnGrpCallback.Location = New System.Drawing.Point(149, 11)
+        Me.btnGrpCallback.Controls.Add(Me.ToggleButton21)
+        Me.btnGrpCallback.Controls.Add(Me.ToggleButton22)
+        Me.btnGrpCallback.Controls.Add(Me.ToggleButton27)
+        Me.btnGrpCallback.Location = New System.Drawing.Point(138, 11)
         Me.btnGrpCallback.Name = "btnGrpCallback"
-        Me.btnGrpCallback.Size = New System.Drawing.Size(380, 25)
+        Me.btnGrpCallback.Size = New System.Drawing.Size(391, 25)
         Me.btnGrpCallback.TabIndex = 219
         Me.btnGrpCallback.Text = "ButtonGroup2"
         '
-        'ToggleButton7
+        'ToggleButton21
         '
-        Me.ToggleButton7.Id = "47622b8b-a55c-4f12-a788-e273c9c2a589"
-        Me.ToggleButton7.Location = New System.Drawing.Point(0, 0)
-        Me.ToggleButton7.Name = "ToggleButton7"
-        Me.ToggleButton7.Size = New System.Drawing.Size(120, 22)
-        Me.ToggleButton7.TabIndex = 200
-        Me.ToggleButton7.Tag = "1"
-        Me.ToggleButton7.Text = "처리완료( 34 )"
+        Me.ToggleButton21.Id = "47622b8b-a55c-4f12-a788-e273c9c2a589"
+        Me.ToggleButton21.Location = New System.Drawing.Point(0, 0)
+        Me.ToggleButton21.Name = "ToggleButton21"
+        Me.ToggleButton21.Size = New System.Drawing.Size(120, 22)
+        Me.ToggleButton21.TabIndex = 200
+        Me.ToggleButton21.Tag = "1"
+        Me.ToggleButton21.Text = "처리완료( 34 )"
         '
-        'ToggleButton8
+        'ToggleButton22
         '
-        Me.ToggleButton8.Id = "72d56d1a-de91-436d-844b-bc3654f00a7a"
-        Me.ToggleButton8.Location = New System.Drawing.Point(120, 0)
-        Me.ToggleButton8.Name = "ToggleButton8"
-        Me.ToggleButton8.Size = New System.Drawing.Size(125, 22)
-        Me.ToggleButton8.TabIndex = 201
-        Me.ToggleButton8.Tag = "2"
-        Me.ToggleButton8.Text = "미완료( 34 )"
+        Me.ToggleButton22.Id = "72d56d1a-de91-436d-844b-bc3654f00a7a"
+        Me.ToggleButton22.Location = New System.Drawing.Point(120, 0)
+        Me.ToggleButton22.Name = "ToggleButton22"
+        Me.ToggleButton22.Size = New System.Drawing.Size(125, 22)
+        Me.ToggleButton22.TabIndex = 201
+        Me.ToggleButton22.Tag = "2"
+        Me.ToggleButton22.Text = "미완료( 34 )"
         '
-        'ToggleButton9
+        'ToggleButton27
         '
-        Me.ToggleButton9.Id = "48560acb-9277-40b2-8c41-4879bf2b06de"
-        Me.ToggleButton9.Location = New System.Drawing.Point(245, 0)
-        Me.ToggleButton9.Name = "ToggleButton9"
-        Me.ToggleButton9.Size = New System.Drawing.Size(125, 22)
-        Me.ToggleButton9.TabIndex = 202
-        Me.ToggleButton9.Tag = "3"
-        Me.ToggleButton9.Text = "전체( 34 )"
-        '
-        'Label16
-        '
-        Me.Label16.Image = CType(resources.GetObject("Label16.Image"), System.Drawing.Image)
-        Me.Label16.Location = New System.Drawing.Point(5, 17)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(13, 12)
-        Me.Label16.TabIndex = 199
+        Me.ToggleButton27.Id = "48560acb-9277-40b2-8c41-4879bf2b06de"
+        Me.ToggleButton27.Location = New System.Drawing.Point(245, 0)
+        Me.ToggleButton27.Name = "ToggleButton27"
+        Me.ToggleButton27.Size = New System.Drawing.Size(125, 22)
+        Me.ToggleButton27.TabIndex = 202
+        Me.ToggleButton27.Tag = "7"
+        Me.ToggleButton27.Text = "전체( 34 )"
         '
         'Label22
         '
@@ -655,6 +401,336 @@ Partial Class FRM_MONITOR
         Me.Label22.Size = New System.Drawing.Size(105, 12)
         Me.Label22.TabIndex = 3
         Me.Label22.Text = "콜백업무 진행현황"
+        '
+        'Label16
+        '
+        Me.Label16.Image = CType(resources.GetObject("Label16.Image"), System.Drawing.Image)
+        Me.Label16.Location = New System.Drawing.Point(5, 17)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(13, 12)
+        Me.Label16.TabIndex = 199
+        '
+        'Label37
+        '
+        Me.Label37.Image = CType(resources.GetObject("Label37.Image"), System.Drawing.Image)
+        Me.Label37.Location = New System.Drawing.Point(6, 15)
+        Me.Label37.Name = "Label37"
+        Me.Label37.Size = New System.Drawing.Size(13, 12)
+        Me.Label37.TabIndex = 199
+        '
+        'Label24
+        '
+        Me.Label24.Image = CType(resources.GetObject("Label24.Image"), System.Drawing.Image)
+        Me.Label24.Location = New System.Drawing.Point(6, 14)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(13, 12)
+        Me.Label24.TabIndex = 199
+        '
+        'DM_CUSTOMER_ID
+        '
+        Me.DM_CUSTOMER_ID.DataPropertyName = "CUSTOMER_ID"
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.DM_CUSTOMER_ID.DefaultCellStyle = DataGridViewCellStyle3
+        Me.DM_CUSTOMER_ID.HeaderText = "고객아이디"
+        Me.DM_CUSTOMER_ID.Name = "DM_CUSTOMER_ID"
+        Me.DM_CUSTOMER_ID.ReadOnly = True
+        Me.DM_CUSTOMER_ID.Width = 90
+        '
+        'DM_CUSTOMER_NM
+        '
+        Me.DM_CUSTOMER_NM.DataPropertyName = "CUSTOMER_NM"
+        Me.DM_CUSTOMER_NM.HeaderText = "고객명"
+        Me.DM_CUSTOMER_NM.Name = "DM_CUSTOMER_NM"
+        Me.DM_CUSTOMER_NM.ReadOnly = True
+        '
+        'DM_TONG_DD
+        '
+        Me.DM_TONG_DD.DataPropertyName = "TONG_DD"
+        Me.DM_TONG_DD.HeaderText = "통화일자"
+        Me.DM_TONG_DD.Name = "DM_TONG_DD"
+        Me.DM_TONG_DD.ReadOnly = True
+        Me.DM_TONG_DD.Width = 90
+        '
+        'DM_TONG_TIME
+        '
+        Me.DM_TONG_TIME.DataPropertyName = "TONG_TIME"
+        Me.DM_TONG_TIME.HeaderText = "통화시간"
+        Me.DM_TONG_TIME.Name = "DM_TONG_TIME"
+        Me.DM_TONG_TIME.ReadOnly = True
+        Me.DM_TONG_TIME.Width = 90
+        '
+        'DM_TONG_TELNO
+        '
+        Me.DM_TONG_TELNO.DataPropertyName = "TONG_TELNO"
+        Me.DM_TONG_TELNO.HeaderText = "전화번호"
+        Me.DM_TONG_TELNO.Name = "DM_TONG_TELNO"
+        Me.DM_TONG_TELNO.ReadOnly = True
+        '
+        'DM_CONSULT_TYPE
+        '
+        Me.DM_CONSULT_TYPE.DataPropertyName = "CONSULT_TYPE"
+        Me.DM_CONSULT_TYPE.HeaderText = "상담유형"
+        Me.DM_CONSULT_TYPE.Name = "DM_CONSULT_TYPE"
+        Me.DM_CONSULT_TYPE.ReadOnly = True
+        Me.DM_CONSULT_TYPE.Width = 90
+        '
+        'DM_CONSULT_RESULT
+        '
+        Me.DM_CONSULT_RESULT.DataPropertyName = "CONSULT_RESULT"
+        Me.DM_CONSULT_RESULT.HeaderText = "상담결과"
+        Me.DM_CONSULT_RESULT.Name = "DM_CONSULT_RESULT"
+        Me.DM_CONSULT_RESULT.ReadOnly = True
+        Me.DM_CONSULT_RESULT.Width = 90
+        '
+        'DM_TONG_USER
+        '
+        Me.DM_TONG_USER.DataPropertyName = "TONG_USER"
+        Me.DM_TONG_USER.HeaderText = "통화자"
+        Me.DM_TONG_USER.Name = "DM_TONG_USER"
+        Me.DM_TONG_USER.ReadOnly = True
+        '
+        'DM_TONG_CONTENTS
+        '
+        Me.DM_TONG_CONTENTS.DataPropertyName = "TONG_CONTENTS"
+        Me.DM_TONG_CONTENTS.HeaderText = "내용"
+        Me.DM_TONG_CONTENTS.Name = "DM_TONG_CONTENTS"
+        Me.DM_TONG_CONTENTS.ReadOnly = True
+        Me.DM_TONG_CONTENTS.Visible = False
+        '
+        'DM_CALL_TYPE
+        '
+        Me.DM_CALL_TYPE.DataPropertyName = "CALL_TYPE"
+        Me.DM_CALL_TYPE.HeaderText = "콜타입"
+        Me.DM_CALL_TYPE.Name = "DM_CALL_TYPE"
+        Me.DM_CALL_TYPE.ReadOnly = True
+        Me.DM_CALL_TYPE.Width = 90
+        '
+        'DM_HANDLE_TYPE
+        '
+        Me.DM_HANDLE_TYPE.DataPropertyName = "HANDLE_TYPE"
+        Me.DM_HANDLE_TYPE.HeaderText = "처리유형"
+        Me.DM_HANDLE_TYPE.Name = "DM_HANDLE_TYPE"
+        Me.DM_HANDLE_TYPE.ReadOnly = True
+        Me.DM_HANDLE_TYPE.Visible = False
+        '
+        'DM_PREV_TONG_DD
+        '
+        Me.DM_PREV_TONG_DD.DataPropertyName = "PREV_TONG_DD"
+        Me.DM_PREV_TONG_DD.HeaderText = "이전통화일자"
+        Me.DM_PREV_TONG_DD.Name = "DM_PREV_TONG_DD"
+        Me.DM_PREV_TONG_DD.ReadOnly = True
+        Me.DM_PREV_TONG_DD.Visible = False
+        '
+        'DM_PREV_TONG_TIME
+        '
+        Me.DM_PREV_TONG_TIME.DataPropertyName = "PREV_TONG_TIME"
+        Me.DM_PREV_TONG_TIME.HeaderText = "이전통화시간"
+        Me.DM_PREV_TONG_TIME.Name = "DM_PREV_TONG_TIME"
+        Me.DM_PREV_TONG_TIME.ReadOnly = True
+        Me.DM_PREV_TONG_TIME.Visible = False
+        '
+        'DM_PREV_TONG_USER
+        '
+        Me.DM_PREV_TONG_USER.DataPropertyName = "PREV_TONG_USER"
+        Me.DM_PREV_TONG_USER.HeaderText = "이전통화자"
+        Me.DM_PREV_TONG_USER.Name = "DM_PREV_TONG_USER"
+        Me.DM_PREV_TONG_USER.ReadOnly = True
+        Me.DM_PREV_TONG_USER.Visible = False
+        '
+        'DT_CUSTOMER_ID
+        '
+        Me.DT_CUSTOMER_ID.DataPropertyName = "CUSTOMER_ID"
+        Me.DT_CUSTOMER_ID.HeaderText = "고객아이디"
+        Me.DT_CUSTOMER_ID.Name = "DT_CUSTOMER_ID"
+        Me.DT_CUSTOMER_ID.ReadOnly = True
+        Me.DT_CUSTOMER_ID.Width = 90
+        '
+        'DT_CUSTOMER_NM
+        '
+        Me.DT_CUSTOMER_NM.DataPropertyName = "CUSTOMER_NM"
+        Me.DT_CUSTOMER_NM.HeaderText = "고객명"
+        Me.DT_CUSTOMER_NM.Name = "DT_CUSTOMER_NM"
+        Me.DT_CUSTOMER_NM.ReadOnly = True
+        '
+        'DT_TONG_DD
+        '
+        Me.DT_TONG_DD.DataPropertyName = "TONG_DD"
+        Me.DT_TONG_DD.HeaderText = "통화일자"
+        Me.DT_TONG_DD.Name = "DT_TONG_DD"
+        Me.DT_TONG_DD.ReadOnly = True
+        Me.DT_TONG_DD.Width = 90
+        '
+        'DT_TONG_TIME
+        '
+        Me.DT_TONG_TIME.DataPropertyName = "TONG_TIME"
+        Me.DT_TONG_TIME.HeaderText = "통화시간"
+        Me.DT_TONG_TIME.Name = "DT_TONG_TIME"
+        Me.DT_TONG_TIME.ReadOnly = True
+        Me.DT_TONG_TIME.Width = 90
+        '
+        'DT_TONG_TELNO
+        '
+        Me.DT_TONG_TELNO.DataPropertyName = "TONG_TELNO"
+        Me.DT_TONG_TELNO.HeaderText = "전화번호"
+        Me.DT_TONG_TELNO.Name = "DT_TONG_TELNO"
+        Me.DT_TONG_TELNO.ReadOnly = True
+        '
+        'DT_CONSULT_TYPE
+        '
+        Me.DT_CONSULT_TYPE.DataPropertyName = "CONSULT_TYPE"
+        Me.DT_CONSULT_TYPE.HeaderText = "상담유형"
+        Me.DT_CONSULT_TYPE.Name = "DT_CONSULT_TYPE"
+        Me.DT_CONSULT_TYPE.ReadOnly = True
+        Me.DT_CONSULT_TYPE.Width = 90
+        '
+        'DT_CONSULT_RESULT
+        '
+        Me.DT_CONSULT_RESULT.DataPropertyName = "CONSULT_RESULT"
+        Me.DT_CONSULT_RESULT.HeaderText = "상담결과"
+        Me.DT_CONSULT_RESULT.Name = "DT_CONSULT_RESULT"
+        Me.DT_CONSULT_RESULT.ReadOnly = True
+        '
+        'DT_TONG_USER
+        '
+        Me.DT_TONG_USER.DataPropertyName = "TONG_USER"
+        Me.DT_TONG_USER.HeaderText = "통화자"
+        Me.DT_TONG_USER.Name = "DT_TONG_USER"
+        Me.DT_TONG_USER.ReadOnly = True
+        Me.DT_TONG_USER.Width = 90
+        '
+        'DT_TONG_CONTENTS
+        '
+        Me.DT_TONG_CONTENTS.DataPropertyName = "TONG_CONTENTS"
+        Me.DT_TONG_CONTENTS.HeaderText = "내용"
+        Me.DT_TONG_CONTENTS.Name = "DT_TONG_CONTENTS"
+        Me.DT_TONG_CONTENTS.ReadOnly = True
+        Me.DT_TONG_CONTENTS.Visible = False
+        '
+        'DT_CALL_TYPE
+        '
+        Me.DT_CALL_TYPE.DataPropertyName = "CALL_TYPE"
+        Me.DT_CALL_TYPE.HeaderText = "콜타입"
+        Me.DT_CALL_TYPE.Name = "DT_CALL_TYPE"
+        Me.DT_CALL_TYPE.ReadOnly = True
+        '
+        'DT_HANDLE_TYPE
+        '
+        Me.DT_HANDLE_TYPE.DataPropertyName = "HANDLE_TYPE"
+        Me.DT_HANDLE_TYPE.HeaderText = "처리유형"
+        Me.DT_HANDLE_TYPE.Name = "DT_HANDLE_TYPE"
+        Me.DT_HANDLE_TYPE.ReadOnly = True
+        Me.DT_HANDLE_TYPE.Visible = False
+        '
+        'DT_PREV_TONG_DD
+        '
+        Me.DT_PREV_TONG_DD.DataPropertyName = "PREV_TONG_DD"
+        Me.DT_PREV_TONG_DD.HeaderText = "이전통화일자"
+        Me.DT_PREV_TONG_DD.Name = "DT_PREV_TONG_DD"
+        Me.DT_PREV_TONG_DD.ReadOnly = True
+        Me.DT_PREV_TONG_DD.Visible = False
+        '
+        'DT_PREV_TONG_TIME
+        '
+        Me.DT_PREV_TONG_TIME.DataPropertyName = "PREV_TONG_TIME"
+        Me.DT_PREV_TONG_TIME.HeaderText = "이전통화시간"
+        Me.DT_PREV_TONG_TIME.Name = "DT_PREV_TONG_TIME"
+        Me.DT_PREV_TONG_TIME.ReadOnly = True
+        Me.DT_PREV_TONG_TIME.Visible = False
+        '
+        'DT_PREV_TONG_USER
+        '
+        Me.DT_PREV_TONG_USER.DataPropertyName = "PREV_TONG_USER"
+        Me.DT_PREV_TONG_USER.HeaderText = "이전통화자"
+        Me.DT_PREV_TONG_USER.Name = "DT_PREV_TONG_USER"
+        Me.DT_PREV_TONG_USER.ReadOnly = True
+        Me.DT_PREV_TONG_USER.Visible = False
+        Me.DT_PREV_TONG_USER.Width = 90
+        '
+        'DC_CUSTOMER_ID
+        '
+        Me.DC_CUSTOMER_ID.DataPropertyName = "CUSTOMER_ID"
+        Me.DC_CUSTOMER_ID.HeaderText = "고객아이디"
+        Me.DC_CUSTOMER_ID.Name = "DC_CUSTOMER_ID"
+        Me.DC_CUSTOMER_ID.ReadOnly = True
+        '
+        'DC_CUSTOMER_NM
+        '
+        Me.DC_CUSTOMER_NM.DataPropertyName = "CUSTOMER_NM"
+        Me.DC_CUSTOMER_NM.HeaderText = "고객명"
+        Me.DC_CUSTOMER_NM.Name = "DC_CUSTOMER_NM"
+        Me.DC_CUSTOMER_NM.ReadOnly = True
+        '
+        'DC_TONG_DD
+        '
+        Me.DC_TONG_DD.DataPropertyName = "TONG_DD"
+        Me.DC_TONG_DD.HeaderText = "통화일자"
+        Me.DC_TONG_DD.Name = "DC_TONG_DD"
+        Me.DC_TONG_DD.ReadOnly = True
+        '
+        'DC_TONG_TIME
+        '
+        Me.DC_TONG_TIME.DataPropertyName = "TONG_TIME"
+        Me.DC_TONG_TIME.HeaderText = "통화시간"
+        Me.DC_TONG_TIME.Name = "DC_TONG_TIME"
+        Me.DC_TONG_TIME.ReadOnly = True
+        '
+        'DC_TONG_TELNO
+        '
+        Me.DC_TONG_TELNO.DataPropertyName = "TONG_TELNO"
+        Me.DC_TONG_TELNO.HeaderText = "전화번호"
+        Me.DC_TONG_TELNO.Name = "DC_TONG_TELNO"
+        Me.DC_TONG_TELNO.ReadOnly = True
+        '
+        'DC_CALL_BACK_RESULT
+        '
+        Me.DC_CALL_BACK_RESULT.DataPropertyName = "CALL_BACK_RESULT"
+        Me.DC_CALL_BACK_RESULT.HeaderText = "콜백처리결과"
+        Me.DC_CALL_BACK_RESULT.Name = "DC_CALL_BACK_RESULT"
+        Me.DC_CALL_BACK_RESULT.ReadOnly = True
+        '
+        'DC_CONSULT_TYPE
+        '
+        Me.DC_CONSULT_TYPE.DataPropertyName = "CONSULT_TYPE"
+        Me.DC_CONSULT_TYPE.HeaderText = "상담유형"
+        Me.DC_CONSULT_TYPE.Name = "DC_CONSULT_TYPE"
+        Me.DC_CONSULT_TYPE.ReadOnly = True
+        '
+        'DC_CONSULT_RESULT
+        '
+        Me.DC_CONSULT_RESULT.DataPropertyName = "CONSULT_RESULT"
+        Me.DC_CONSULT_RESULT.HeaderText = "상담결과"
+        Me.DC_CONSULT_RESULT.Name = "DC_CONSULT_RESULT"
+        Me.DC_CONSULT_RESULT.ReadOnly = True
+        '
+        'DC_TONG_USER
+        '
+        Me.DC_TONG_USER.DataPropertyName = "TONG_USER"
+        Me.DC_TONG_USER.HeaderText = "통화자"
+        Me.DC_TONG_USER.Name = "DC_TONG_USER"
+        Me.DC_TONG_USER.ReadOnly = True
+        '
+        'DC_CALL_TYPE
+        '
+        Me.DC_CALL_TYPE.DataPropertyName = "CALL_TYPE"
+        Me.DC_CALL_TYPE.HeaderText = "콜타입"
+        Me.DC_CALL_TYPE.Name = "DC_CALL_TYPE"
+        Me.DC_CALL_TYPE.ReadOnly = True
+        '
+        'DC_TONG_CONTENTS
+        '
+        Me.DC_TONG_CONTENTS.DataPropertyName = "TONG_CONTENTS"
+        Me.DC_TONG_CONTENTS.HeaderText = "상담내용"
+        Me.DC_TONG_CONTENTS.Name = "DC_TONG_CONTENTS"
+        Me.DC_TONG_CONTENTS.ReadOnly = True
+        Me.DC_TONG_CONTENTS.Visible = False
+        '
+        'DC_HANDLE_TYPE
+        '
+        Me.DC_HANDLE_TYPE.DataPropertyName = "HANDLE_TYPE"
+        Me.DC_HANDLE_TYPE.HeaderText = "처리유형"
+        Me.DC_HANDLE_TYPE.Name = "DC_HANDLE_TYPE"
+        Me.DC_HANDLE_TYPE.ReadOnly = True
+        Me.DC_HANDLE_TYPE.Visible = False
         '
         'FRM_MONITOR
         '
@@ -692,55 +768,60 @@ Partial Class FRM_MONITOR
     Friend WithEvents Label43 As System.Windows.Forms.Label
     Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
     Friend WithEvents Label16 As System.Windows.Forms.Label
-    Friend WithEvents ToggleButton1 As Elegant.Ui.ToggleButton
+    Friend WithEvents ToggleButton01 As Elegant.Ui.ToggleButton
     Friend WithEvents btnGrpConsult As Elegant.Ui.ButtonGroup
-    Friend WithEvents ToggleButton2 As Elegant.Ui.ToggleButton
-    Friend WithEvents ToggleButton3 As Elegant.Ui.ToggleButton
+    Friend WithEvents ToggleButton02 As Elegant.Ui.ToggleButton
     Friend WithEvents dgViewMain As System.Windows.Forms.DataGridView
-    Friend WithEvents Column1 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn1 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn2 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn3 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn4 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn5 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn6 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn7 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Column2 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents dgViewTrans As System.Windows.Forms.DataGridView
     Friend WithEvents Label22 As System.Windows.Forms.Label
-    Friend WithEvents ToggleButton6 As Elegant.Ui.ToggleButton
+    Friend WithEvents ToggleButton07 As Elegant.Ui.ToggleButton
     Friend WithEvents btnGrpCallback As Elegant.Ui.ButtonGroup
-    Friend WithEvents ToggleButton7 As Elegant.Ui.ToggleButton
-    Friend WithEvents ToggleButton8 As Elegant.Ui.ToggleButton
-    Friend WithEvents ToggleButton9 As Elegant.Ui.ToggleButton
+    Friend WithEvents ToggleButton21 As Elegant.Ui.ToggleButton
+    Friend WithEvents ToggleButton22 As Elegant.Ui.ToggleButton
+    Friend WithEvents ToggleButton27 As Elegant.Ui.ToggleButton
     Friend WithEvents btnGrpTrans As Elegant.Ui.ButtonGroup
-    Friend WithEvents ToggleButton10 As Elegant.Ui.ToggleButton
     Friend WithEvents ToggleButton11 As Elegant.Ui.ToggleButton
     Friend WithEvents ToggleButton12 As Elegant.Ui.ToggleButton
-    Friend WithEvents ToggleButton15 As Elegant.Ui.ToggleButton
+    Friend WithEvents ToggleButton17 As Elegant.Ui.ToggleButton
     Friend WithEvents dgViewCallback As System.Windows.Forms.DataGridView
-    Friend WithEvents dgColCustomerId As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents dgColCustomerName As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents dgColTongDate As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents dgColTongTime As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents dgColTongNo As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents dgColCallBackResult As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents dgColConsultType As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents dgColConsultResult As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents dgColTongUser As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents dgColCallType As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn8 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn9 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn10 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn11 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn12 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn13 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn14 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn15 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn16 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn17 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn18 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn19 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents ToggleButton4 As Elegant.Ui.ToggleButton
-    Friend WithEvents ToggleButton5 As Elegant.Ui.ToggleButton
+    Friend WithEvents DM_CUSTOMER_ID As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DM_CUSTOMER_NM As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DM_TONG_DD As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DM_TONG_TIME As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DM_TONG_TELNO As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DM_CONSULT_TYPE As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DM_CONSULT_RESULT As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DM_TONG_USER As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DM_TONG_CONTENTS As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DM_CALL_TYPE As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DM_HANDLE_TYPE As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DM_PREV_TONG_DD As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DM_PREV_TONG_TIME As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DM_PREV_TONG_USER As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DT_CUSTOMER_ID As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DT_CUSTOMER_NM As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DT_TONG_DD As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DT_TONG_TIME As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DT_TONG_TELNO As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DT_CONSULT_TYPE As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DT_CONSULT_RESULT As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DT_TONG_USER As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DT_TONG_CONTENTS As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DT_CALL_TYPE As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DT_HANDLE_TYPE As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DT_PREV_TONG_DD As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DT_PREV_TONG_TIME As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DT_PREV_TONG_USER As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DC_CUSTOMER_ID As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DC_CUSTOMER_NM As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DC_TONG_DD As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DC_TONG_TIME As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DC_TONG_TELNO As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DC_CALL_BACK_RESULT As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DC_CONSULT_TYPE As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DC_CONSULT_RESULT As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DC_TONG_USER As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DC_CALL_TYPE As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DC_TONG_CONTENTS As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DC_HANDLE_TYPE As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class
