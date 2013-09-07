@@ -1073,6 +1073,177 @@ Public Class FRM_MAIN
             PATCH_HISTORY.ShowDialog()
         End If
     End Sub
+
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        Dim sql As String = "select * from t_user where user_id = @userId and com_cd = @comCd"
+        Dim handler As New MySQLHandler(sql)
+        handler.Parameters("@userId", "0002")
+        handler.Parameters("@comCd", "8888")
+        Dim dataTable As DataTable = handler.DoQuery()
+        Dim userId As String = ""
+        Dim userName As String = ""
+
+        If dataTable.Rows.Count > 0 Then
+            Dim i As Integer
+            For i = 0 To dataTable.Rows.Count - 1
+
+                userId = dataTable.Rows.Item(i).Item("USER_ID").ToString()
+                userName = dataTable.Rows.Item(i).Item("user_nm").ToString()
+
+            Next
+        End If
+
+        WriteLog("userId[" & userId & "] userName[" & userName & "]")
+
+
+        dataTable = Nothing
+
+        sql = "INSERT INTO t_user" & _
+  "(COM_CD, USER_ID, USER_NM, USR_HP, ADDR1, WOO_NO, H_TELNO, DEPART_CD, GRADE, EXTENSION_NO, WORK_TYPE, ENTERING_DD, RETIRE_DD, USER_EMAIL, DEPART_NM, USER_PWD, WORK_AREA, TEAM_CD, TEAM_NM, MOBILE_USE_YN, EXCEL_USE_YN) " & _
+  " VALUES " & _
+  " ('8888', @userId, @userNm, '', '', '', '', '', '01', '', '', '20120716', '', '', '', '0001', '01', '01', @teamName, '', '');"
+        handler.SetQuery(sql)
+        handler.ClearParameters()
+        handler.Parameters("@userId", "5555")
+        handler.Parameters("@userNm", "최진원")
+        handler.Parameters("@teamName", "21세기전략부")
+        Dim returnCount As Integer = handler.Execute()
+
+        WriteLog("returnCount[" & returnCount & "] 입력되었습니다.")
+
+        handler.Close()
+
+    End Sub
+
+    ''' <summary>
+    ''' select 문 샘플
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        Dim handler As MySQLHandler = Nothing
+        Dim dataTable As DataTable = Nothing
+        Dim userId As String = ""
+        Dim userName As String = ""
+        Dim sql As String = ""
+        Try
+            handler = New MySQLHandler()
+            sql = "select * from t_user where user_id = @userId% and com_cd = @comCd"
+
+            handler.SetQuery(sql)
+            handler.Parameters("@userId", "000")
+            handler.Parameters("@comCd", "8888")
+
+            dataTable = handler.DoQuery()
+
+            If dataTable.Rows.Count > 0 Then
+                Dim i As Integer
+                For i = 0 To dataTable.Rows.Count - 1
+
+                    userId = dataTable.Rows.Item(i).Item("USER_ID").ToString()
+                    userName = dataTable.Rows.Item(i).Item("user_nm").ToString()
+
+                Next
+            End If
+
+            WriteLog("userId[" & userId & "] userName[" & userName & "]")
+        Catch ex As Exception
+            WriteLog(Me.Name.ToString & " OpenCustomerPopupMod : " & ex.ToString)
+        Finally
+            dataTable = Nothing
+            If Not handler Is Nothing Then
+                handler.Close()
+            End If
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' insert 문 샘플
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        Dim handler As MySQLHandler = Nothing
+        Dim userId As String = ""
+        Dim userName As String = ""
+        Dim sql As String = ""
+        Try
+            handler = New MySQLHandler()
+
+            sql = "INSERT INTO T_USER " & _
+                  "(COM_CD, USER_ID, USER_NM, USR_HP, ADDR1, WOO_NO, H_TELNO, DEPART_CD, GRADE, EXTENSION_NO, " & _
+                  "WORK_TYPE, ENTERING_DD, RETIRE_DD, USER_EMAIL, DEPART_NM, USER_PWD, WORK_AREA, TEAM_CD, TEAM_NM, MOBILE_USE_YN, EXCEL_USE_YN) " & _
+                  " VALUES " & _
+                  " ('8888', @userId, @userNm, '', '', '', '', '', '01', '', '', '20120716', '', '', '', '0001', '01', '01', @teamName, '', '');"
+
+            handler.SetQuery(sql)
+            handler.ClearParameters()
+            handler.Parameters("@userId", "5555")
+            handler.Parameters("@userNm", "최진원")
+            handler.Parameters("@teamName", "21세기전략부")
+
+            Dim returnCount As Integer = handler.Execute()
+
+            WriteLog("returnCount[" & returnCount & "] 입력되었습니다.")
+
+        Catch ex As Exception
+            WriteLog(Me.Name.ToString & " OpenCustomerPopupMod : " & ex.ToString)
+        Finally
+            If Not handler Is Nothing Then
+                handler.Close()
+            End If
+        End Try
+    End Sub
+
+    ''' <summary>
+    ''' select like...
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        Dim handler As MySQLHandler = Nothing
+        Dim dataTable As DataTable = Nothing
+        Dim userId As String = ""
+        Dim userName As String = ""
+        Dim sql As String = ""
+        Try
+            handler = New MySQLHandler()
+            sql = "select * from t_user where user_id like concat(@userId,'%') and com_cd = @comCd"
+
+            handler.SetQuery(sql)
+            handler.Parameters("@userId", "001")
+            handler.Parameters("@comCd", "8888")
+
+            dataTable = handler.DoQuery()
+
+            'If dataTable.Rows.Count > 0 Then
+            '    Dim i As Integer
+            '    For i = 0 To dataTable.Rows.Count - 1
+
+            '        userId = dataTable.Rows.Item(i).Item("USER_ID").ToString()
+            '        userName = dataTable.Rows.Item(i).Item("user_nm").ToString()
+
+            '    Next
+            'End If
+            For Each row As DataRow In dataTable.Rows
+                userId = row("USER_ID").ToString()
+                userName = row.Item("user_nm").ToString()
+            Next
+            
+
+            WriteLog("userId[" & userId & "] userName[" & userName & "]")
+        Catch ex As Exception
+            WriteLog(Me.Name.ToString & " OpenCustomerPopupMod : " & ex.ToString)
+        Finally
+            dataTable = Nothing
+            If Not handler Is Nothing Then
+                handler.Close()
+            End If
+        End Try
+    End Sub
 End Class
 
 

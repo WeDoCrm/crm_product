@@ -54,37 +54,52 @@
     End Sub
 
     Public Sub getConsultStatus()
+        Dim handler As MySQLHandler = Nothing
+        Dim dataTable As DataTable = Nothing
+        Dim sql As String = ""
+        Dim strNow As String = Format(Now, "yyyyMMdd")
+
         Try
-            Dim SQL As String
-            Dim strNow As String = Format(Now, "yyyyMMdd")
-            SQL = "select consult_result, count(*) "
-            SQL = SQL & " from t_customer_history  "
-            If isTest = True Then
-                SQL = SQL & " where tond_dd like '" & Format(Now, "yyyyMM") & "%' "
-            Else
-                SQL = SQL & " where tond_dd =  '" & strNow & "' "
-            End If
+            handler = New MySQLHandler()
 
-            SQL = SQL & " and com_cd ='" & gsCOM_CD & "'"
-            SQL = SQL & " and trans_yn is null"
-            SQL = SQL & " and consult_result <> '06'"
-            SQL = SQL & " group by consult_result "
+            sql = "select consult_result, count(*) " & _
+                  "  from t_customer_history  " & _
+                  " where tond_dd =  @strNow " & _
+                  " and com_cd = @gsCOM_CD " & _
+                  " and trans_yn is null" & _
+                  " and consult_result <> '06'" & _
+                  " group by consult_result "
 
-            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
+            handler.SetQuery(sql)
+            handler.Parameters("@strNow", strNow)
+            handler.Parameters("@gsCOM_CD", gsCOM_CD)
 
-            If dt1.Rows.Count > 0 Then
-                Dim i As Integer
+            dataTable = handler.DoQuery()
+
+            If dataTable.Rows.Count > 0 Then
                 Dim iAll As Integer = 0
-                For i = 0 To dt1.Rows.Count - 1
-
-                    Dim flag As String = dt1.Rows(i).Item(0).ToString()
+                For Each row As DataRow In dataTable.Rows
+                    Dim flag As String = row.Item(0).ToString()
 
                     If flag = ConsultResult_Completed Then '상담완료"01"
-                        ToggleButton01.Text = "상담완료( " & dt1.Rows(i).Item(1).ToString() & " )"
+                        ToggleButton01.Text = "상담완료( " & row.Item(1).ToString() & " )"
                     ElseIf flag = ConsultResult_UnDone Then '미처리"02"
-                        ToggleButton02.Text = "미처리(" & dt1.Rows(i).Item(1).ToString() & " )"
+                        ToggleButton02.Text = "미처리(" & row.Item(1).ToString() & " )"
                     End If
-                    iAll += dt1.Rows(i).Item(1).ToString
+                    iAll += row.Item(1).ToString
+
+                Next row
+
+                For Each row As DataRow In dataTable.Rows
+
+                    Dim flag As String = row.Item(0).ToString()
+
+                    If flag = ConsultResult_Completed Then '상담완료"01"
+                        ToggleButton01.Text = "상담완료( " & row.Item(1).ToString() & " )"
+                    ElseIf flag = ConsultResult_UnDone Then '미처리"02"
+                        ToggleButton02.Text = "미처리(" & row.Item(1).ToString() & " )"
+                    End If
+                    iAll += row.Item(1).ToString
                 Next
                 ToggleButton07.Text = "전체( " & iAll & " )"
 
@@ -92,65 +107,73 @@
                 Call gsInit(SELECT_INIT.CONSULT)
             End If
 
-            dt1 = Nothing
-
         Catch ex As Exception
             Call gsInit(SELECT_INIT.CONSULT)
             Call WriteLog("getConsultStatus : " & ex.ToString)
+        Finally
+            dataTable = Nothing
+            If Not handler Is Nothing Then
+                handler.Close()
+            End If
         End Try
 
     End Sub
 
     Public Sub getTransStatus()
+
+        Dim handler As MySQLHandler = Nothing
+        Dim dataTable As DataTable = Nothing
+        Dim sql As String = ""
         Try
-            Dim SQL As String
+            handler = New MySQLHandler()
             Dim strNow As String = Format(Now, "yyyyMMdd")
-            SQL = "SELECT CONSULT_RESULT, COUNT(*) "
-            SQL = SQL & " FROM T_CUSTOMER_HISTORY a "
-            If isTest = True Then
-                SQL = SQL & " WHERE TOND_DD LIKE '" & Format(Now, "yyyyMM") & "%' "
-            Else
-                SQL = SQL & " WHERE TOND_DD =  '" & strNow & "' "
-            End If
+            sql = "SELECT CONSULT_RESULT, COUNT(*) "
+            sql = sql & " FROM T_CUSTOMER_HISTORY a "
+            sql = sql & " WHERE TOND_DD =  @strNow "
+            sql = sql & " AND COM_CD = @gsCOM_CD "
+            sql = sql & " AND ( TRANS_YN = 'Y'"  '이관건중 처리완료건
+            sql = sql & "  OR CONSULT_RESULT = @ConsultResult_Transfered  )"  '이관한 건 '06'
+            sql = sql & " AND NOT EXISTS (SELECT * FROM T_CUSTOMER_HISTORY b "
+            sql = sql & " WHERE b.COM_CD = @gsCOM_CD "
+            sql = sql & " AND b.TOND_DD =  @strNow  "
+            sql = sql & " AND b.TRANS_YN = 'Y'"
+            sql = sql & " AND b.PREV_TONG_DD = a.TOND_DD"
+            sql = sql & " AND b.PREV_TONG_TIME = a.TONG_TIME"
+            sql = sql & " )"
+            sql = sql & " group by consult_result "
 
-            SQL = SQL & " AND COM_CD ='" & gsCOM_CD & "'"
-            SQL = SQL & " AND ( TRANS_YN = 'Y'"  '이관건중 처리완료건
-            SQL = SQL & "  OR CONSULT_RESULT ='" & ConsultResult_Transfered & "' )"  '이관한 건 '06'
+            handler.SetQuery(sql)
+            handler.Parameters("@strNow", strNow)
+            handler.Parameters("@gsCOM_CD", gsCOM_CD)
+            handler.Parameters("@ConsultResult_Transfered", ConsultResult_Transfered)
 
-            SQL = SQL & " AND NOT EXISTS (SELECT * FROM T_CUSTOMER_HISTORY b "
-            SQL = SQL & " WHERE b.COM_CD = '" & gsCOM_CD & "'"
-            SQL = SQL & " AND b.TOND_DD =  '" & strNow & "' "
-            SQL = SQL & " AND b.TRANS_YN = 'Y'"
-            SQL = SQL & " AND b.PREV_TONG_DD = a.TOND_DD"
-            SQL = SQL & " AND b.PREV_TONG_TIME = a.TONG_TIME"
-            SQL = SQL & " )"
+            dataTable = handler.DoQuery()
 
-            SQL = SQL & " group by consult_result "
+            If dataTable.Rows.Count > 0 Then
 
-            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
-
-            If dt1.Rows.Count > 0 Then
-                Dim i As Integer
                 Dim iAll As Integer = 0
                 Dim iCompleted As Integer = 0
                 Dim iUndone As Integer = 0
-                For i = 0 To dt1.Rows.Count - 1
 
-                    Dim flag As String = dt1.Rows(i).Item(0).ToString()
+                For Each row As DataRow In dataTable.Rows
+
+                    Dim flag As String = row.Item(0).ToString()
 
                     '상담완료는 처리완료로 집계
                     '미처리는 이관대기건+처리미완료건 즉 이관한건'06'-상담완료건'01'
                     '이관시 : 최초건 '06'으로만 처리
                     '이관후 상담시 : 이관건 '01'/'02' transfer="Y"로 하나더 만들어짐.
                     If flag = ConsultResult_Completed Then '상담완료"01"
-                        iCompleted = dt1.Rows(i).Item(1).ToString
+                        iCompleted = row.Item(1).ToString
                         'ElseIf flag = ConsultResult_UnDone Then '미처리"02"
                         '    iUnDone = dt1.Rows(i).Item(1).ToString
                     Else '상담완료가 아닌 건 Null or 02
-                        iUndone += dt1.Rows(i).Item(1).ToString
+                        iUndone += row.Item(1).ToString
                     End If
-                    iAll += dt1.Rows(i).Item(1).ToString
+                    iAll += row.Item(1).ToString
+
                 Next
+
                 ToggleButton12.Text = "미처리(" & iUndone & " )"
                 ToggleButton11.Text = "처리완료( " & iCompleted & " )"
                 ToggleButton17.Text = "전체( " & iAll & " )"
@@ -159,58 +182,68 @@
                 Call gsInit(SELECT_INIT.TRANS)
             End If
 
-            dt1 = Nothing
-
         Catch ex As Exception
             Call gsInit(SELECT_INIT.TRANS)
             Call WriteLog("getTransStatus : " & ex.ToString)
+        Finally
+            dataTable = Nothing
+            If Not handler Is Nothing Then
+                handler.Close()
+            End If
         End Try
 
     End Sub
 
 
     Public Sub getCallbackStatus()
+        Dim handler As MySQLHandler = Nothing
+        Dim dataTable As DataTable = Nothing
+        Dim sql As String = ""
+        Dim strNow As String = Format(Now, "yyyyMMdd")
+
         Try
-            Dim SQL As String
-            Dim strNow As String = Format(Now, "yyyyMMdd")
-            SQL = "select call_back_result, count(*) "
-            SQL = SQL & " from t_customer_history  "
-            If isTest = True Then
-                SQL = SQL & " where tond_dd like '" & Format(Now, "yyyyMM") & "%' "
-            Else
-                SQL = SQL & " where tond_dd =  '" & strNow & "' "
-            End If
-            SQL = SQL & " and com_cd ='" & gsCOM_CD & "'"
-            SQL = SQL & " and call_back_yn ='Y'"
-            SQL = SQL & " group by call_back_result "
+            handler = New MySQLHandler()
 
-            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
+            sql = "select call_back_result, count(*) " & _
+                  "  from t_customer_history  " & _
+                  " where tond_dd =  @strNow " & _
+                  "   and com_cd = @gsCOM_CD " & _
+                  "   and call_back_yn ='Y'" & _
+                  " group by call_back_result "
 
-            If dt1.Rows.Count > 0 Then
-                Dim i As Integer
+            handler.SetQuery(sql)
+            handler.Parameters("@strNow", strNow)
+            handler.Parameters("@gsCOM_CD", gsCOM_CD)
+
+            dataTable = handler.DoQuery()
+
+            If dataTable.Rows.Count > 0 Then
                 Dim iAll As Integer = 0
-                For i = 0 To dt1.Rows.Count - 1
+                For Each row As DataRow In dataTable.Rows
 
-                    Dim flag As String = dt1.Rows(i).Item(0).ToString()
+                    Dim flag As String = row.Item(0).ToString()
 
                     If flag = "1" Then '처리완료
-                        ToggleButton21.Text = "처리완료( " & dt1.Rows(i).Item(1).ToString() & " )"
+                        ToggleButton21.Text = "처리완료( " & row.Item(1).ToString() & " )"
                     ElseIf flag = "2" Then '미처리
-                        ToggleButton22.Text = "미처리( " & dt1.Rows(i).Item(1).ToString() & " )"
+                        ToggleButton22.Text = "미처리( " & row.Item(1).ToString() & " )"
                     End If
-                    iAll += dt1.Rows(i).Item(1).ToString
-                Next
+                    iAll += row.Item(1).ToString
+                Next row
                 ToggleButton27.Text = "전체( " & iAll & " )"
 
             Else
                 Call gsInit(SELECT_INIT.CALLBACK)
             End If
 
-            dt1 = Nothing
-
         Catch ex As Exception
             Call gsInit(SELECT_INIT.CALLBACK)
             Call WriteLog("getConsultStatus : " & ex.ToString)
+        Finally
+            dataTable = Nothing
+            If Not handler Is Nothing Then
+                handler.Close()
+            End If
         End Try
 
     End Sub
@@ -236,78 +269,85 @@
     ''' <param name="dgView"></param>
     ''' <remarks></remarks>
     Public Sub gsSelect(ByVal sConsultType As String, ByVal selectMode As SELECT_TYPE1, ByRef dgView As System.Windows.Forms.DataGridView)
+        Dim handler As MySQLHandler = Nothing
+        Dim dataTable As DataTable = Nothing
+        Dim sql As String = ""
 
         Try
+            handler = New MySQLHandler()
             Dim strNow As String = Format(Now, "yyyyMMdd")
-            Dim SQL As String = "Select CUSTOMER_ID,CUSTOMER_NM "
-            SQL = SQL & " ,CONCAT(SUBSTRING(TOND_DD,1,4) , '-' , SUBSTRING(TOND_DD,5,2) , '-' , SUBSTRING(TOND_DD,7,2)) TONG_DD "
-            SQL = SQL & " ,CONCAT(SUBSTRING(TONG_TIME,1,2) , ':' , SUBSTRING(TONG_TIME,3,2), ':' , SUBSTRING(TONG_TIME,5,2)) TONG_TIME "
-            SQL = SQL & " ,TONG_TELNO"
-            SQL = SQL & " ,CONCAT(CONSULT_TYPE , '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = '" & gsCOM_CD & "' AND L_MENU_CD = '003' AND S_MENU_CD = CONSULT_TYPE )) CONSULT_TYPE "
-            SQL = SQL & " ,CONCAT(CONSULT_RESULT , '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = '" & gsCOM_CD & "' AND L_MENU_CD = '004' AND S_MENU_CD = CONSULT_RESULT )) CONSULT_RESULT"
-            SQL = SQL & " ,TONG_USER,TONG_CONTENTS "
-            SQL = SQL & " ,CONCAT(CALL_TYPE , '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = '" & gsCOM_CD & "' AND L_MENU_CD = '005' AND S_MENU_CD = CALL_TYPE )) CALL_TYPE "
-            SQL = SQL & " ,CONCAT(HANDLE_TYPE , '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = '" & gsCOM_CD & "' AND L_MENU_CD = '012' AND S_MENU_CD = HANDLE_TYPE )) HANDLE_TYPE "
+
+            sql = "Select CUSTOMER_ID,CUSTOMER_NM "
+            sql = sql & " ,CONCAT(SUBSTRING(TOND_DD,1,4) , '-' , SUBSTRING(TOND_DD,5,2) , '-' , SUBSTRING(TOND_DD,7,2)) TONG_DD "
+            sql = sql & " ,CONCAT(SUBSTRING(TONG_TIME,1,2) , ':' , SUBSTRING(TONG_TIME,3,2), ':' , SUBSTRING(TONG_TIME,5,2)) TONG_TIME "
+            sql = sql & " ,TONG_TELNO"
+            sql = sql & " ,CONCAT(CONSULT_TYPE , '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = @gsCOM_CD AND L_MENU_CD = '003' AND S_MENU_CD = CONSULT_TYPE )) CONSULT_TYPE "
+            sql = sql & " ,CONCAT(CONSULT_RESULT , '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = @gsCOM_CD AND L_MENU_CD = '004' AND S_MENU_CD = CONSULT_RESULT )) CONSULT_RESULT"
+            sql = sql & " ,TONG_USER,TONG_CONTENTS "
+            sql = sql & " ,CONCAT(CALL_TYPE , '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = @gsCOM_CD AND L_MENU_CD = '005' AND S_MENU_CD = CALL_TYPE )) CALL_TYPE "
+            sql = sql & " ,CONCAT(HANDLE_TYPE , '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = @gsCOM_CD AND L_MENU_CD = '012' AND S_MENU_CD = HANDLE_TYPE )) HANDLE_TYPE "
 
             If selectMode = SELECT_TYPE1.TRANS Then
-                SQL = SQL & " ,CONCAT(SUBSTRING(PREV_TONG_DD,1,4) , '-' , SUBSTRING(PREV_TONG_DD,5,2) , '-' , SUBSTRING(PREV_TONG_DD,7,2)) PREV_TONG_DD "
-                SQL = SQL & " ,CONCAT(SUBSTRING(PREV_TONG_TIME,1,2) , ':' , SUBSTRING(PREV_TONG_TIME,3,2), ':' , SUBSTRING(PREV_TONG_TIME,5,2)) PREV_TONG_TIME "
-                SQL = SQL & " ,PREV_TONG_USER "
+                sql = sql & " ,CONCAT(SUBSTRING(PREV_TONG_DD,1,4) , '-' , SUBSTRING(PREV_TONG_DD,5,2) , '-' , SUBSTRING(PREV_TONG_DD,7,2)) PREV_TONG_DD "
+                sql = sql & " ,CONCAT(SUBSTRING(PREV_TONG_TIME,1,2) , ':' , SUBSTRING(PREV_TONG_TIME,3,2), ':' , SUBSTRING(PREV_TONG_TIME,5,2)) PREV_TONG_TIME "
+                sql = sql & " ,PREV_TONG_USER "
             End If
 
-            SQL = SQL & " FROM T_CUSTOMER_HISTORY a"
-            SQL = SQL & " WHERE COM_CD = '" & gsCOM_CD & "'"
+            sql = sql & " FROM T_CUSTOMER_HISTORY a"
+            sql = sql & " WHERE COM_CD = @gsCOM_CD "
 
-            If isTest = True Then
-                SQL = SQL & " AND tond_dd like '" & Format(Now, "yyyyMM") & "%' "
-            Else
-                SQL = SQL & " AND tond_dd =  '" & strNow & "' "
-            End If
-
+            sql = sql & " AND tond_dd = @strNow "
+            
             If selectMode = SELECT_TYPE1.NORMAL Then '상담결과
-                SQL = SQL & " AND CONSULT_RESULT <> '06'" '이관처리아닌 경우
-                SQL = SQL & " AND TRANS_YN IS NULL " '이관처리아닌 경우
+                sql = sql & " AND CONSULT_RESULT <> '06'" '이관처리아닌 경우
+                sql = sql & " AND TRANS_YN IS NULL " '이관처리아닌 경우
 
                 If sConsultType = "all" Then '상담 - 전체
                     ' all
                 Else '상담 - 상담완료/미처리
-                    SQL = SQL & " AND CONSULT_RESULT = '" & sConsultType & "'"
+                    sql = sql & " AND CONSULT_RESULT = @sConsultType "
                 End If
 
             Else '이관후 상담결과
-                SQL = SQL & " AND ( TRANS_YN = 'Y' OR CONSULT_RESULT = '" & ConsultResult_Transfered & "')" '이관처리
+                sql = sql & " AND ( TRANS_YN = 'Y' OR CONSULT_RESULT = @ConsultResult_Transfered )" '이관처리
 
-                SQL = SQL & " AND NOT EXISTS (SELECT * FROM T_CUSTOMER_HISTORY b "
-                SQL = SQL & " WHERE b.COM_CD = '" & gsCOM_CD & "'"
-
-                If isTest = True Then
-                    SQL = SQL & " AND b.tond_dd like '" & Format(Now, "yyyyMM") & "%' "
-                Else
-                    SQL = SQL & " AND b.tond_dd =  '" & strNow & "' "
-                End If
-                SQL = SQL & " AND b.TRANS_YN = 'Y'"
-                SQL = SQL & " AND b.PREV_TONG_DD = a.TOND_DD"
-                SQL = SQL & " AND b.PREV_TONG_TIME = a.TONG_TIME"
-                SQL = SQL & " )"
+                sql = sql & " AND NOT EXISTS (SELECT * FROM T_CUSTOMER_HISTORY b "
+                sql = sql & " WHERE b.COM_CD = @gsCOM_CD "
+                sql = sql & " AND b.tond_dd =  @strNow "
+                sql = sql & " AND b.TRANS_YN = 'Y'"
+                sql = sql & " AND b.PREV_TONG_DD = a.TOND_DD"
+                sql = sql & " AND b.PREV_TONG_TIME = a.TONG_TIME"
+                sql = sql & " )"
 
                 If sConsultType = ConsultResult_All Then   '이관 - 전체
                     ' all
                 ElseIf sConsultType = ConsultResult_UnDone Then '이관 - 미처리
-                    SQL = SQL & " AND CONSULT_RESULT <> '" & ConsultResult_Completed & "'"
+                    sql = sql & " AND CONSULT_RESULT <> @ConsultResult_Completed "
                 ElseIf sConsultType = ConsultResult_Completed Then '이관 - 처리완료
-                    SQL = SQL & " AND CONSULT_RESULT = '" & ConsultResult_Completed & "'"
+                    sql = sql & " AND CONSULT_RESULT = @ConsultResult_Completed "
                 End If
             End If
 
-            SQL = SQL & " ORDER BY CONCAT(TOND_DD, TONG_TIME) DESC "
+            sql = sql & " ORDER BY CONCAT(TOND_DD, TONG_TIME) DESC "
 
-            '************************************ 체크하자
-            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
-            dgView.DataSource = dt1
-            dt1 = Nothing
+            handler.SetQuery(sql)
+            handler.Parameters("@gsCOM_CD", gsCOM_CD)
+            handler.Parameters("@strNow", strNow)
+            handler.Parameters("@ConsultResult_Completed", ConsultResult_Completed)
+            handler.Parameters("@ConsultResult_Transfered", ConsultResult_Transfered)
+            handler.Parameters("@sConsultType", sConsultType)
+
+            dataTable = handler.DoQuery()
+
+            dgView.DataSource = dataTable
 
         Catch ex As Exception
             Call WriteLog("FRM_MONITOR : " & ex.ToString)
+        Finally
+            dataTable = Nothing
+            If Not handler Is Nothing Then
+                handler.Close()
+            End If
         End Try
     End Sub
 
@@ -318,45 +358,56 @@
     End Enum
 
     Public Sub gsSelectCallback(ByVal selectMode As SELECT_TYPE, ByRef dgView As System.Windows.Forms.DataGridView)
-        Try
-            Dim strNow As String = Format(Now, "yyyyMMdd")
-            Dim SQL As String = "Select CUSTOMER_ID,CUSTOMER_NM "
-            SQL = SQL & " ,CONCAT(SUBSTRING(TOND_DD,1,4) , '-' , SUBSTRING(TOND_DD,5,2) , '-' , SUBSTRING(TOND_DD,7,2)) TONG_DD "
-            SQL = SQL & " ,CONCAT(SUBSTRING(TONG_TIME,1,2) , ':' , SUBSTRING(TONG_TIME,3,2), ':' , SUBSTRING(TONG_TIME,5,2)) TONG_TIME "
-            SQL = SQL & " ,TONG_TELNO"
-            SQL = SQL & " ,CONCAT(CALL_BACK_RESULT , '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = '" & gsCOM_CD & "' AND L_MENU_CD = '014' AND S_MENU_CD = CALL_BACK_RESULT )) CALL_BACK_RESULT "
-            SQL = SQL & " ,CONCAT(CONSULT_TYPE , '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = '" & gsCOM_CD & "' AND L_MENU_CD = '003' AND S_MENU_CD = CONSULT_TYPE )) CONSULT_TYPE "
-            SQL = SQL & " ,CONCAT(CONSULT_RESULT , '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = '" & gsCOM_CD & "' AND L_MENU_CD = '004' AND S_MENU_CD = CONSULT_RESULT )) CONSULT_RESULT"
-            SQL = SQL & " ,TONG_USER,TONG_CONTENTS "
-            SQL = SQL & " ,CONCAT(CALL_TYPE , '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = '" & gsCOM_CD & "' AND L_MENU_CD = '005' AND S_MENU_CD = CALL_TYPE )) CALL_TYPE "
-            SQL = SQL & " ,CONCAT(HANDLE_TYPE , '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = '" & gsCOM_CD & "' AND L_MENU_CD = '012' AND S_MENU_CD = HANDLE_TYPE )) HANDLE_TYPE "
-            SQL = SQL & " FROM T_CUSTOMER_HISTORY "
-            SQL = SQL & " WHERE COM_CD = '" & gsCOM_CD & "'"
 
-            If isTest = True Then
-                SQL = SQL & " AND tond_dd like '" & Format(Now, "yyyyMM") & "%' "
-            Else
-                SQL = SQL & " AND tond_dd =  '" & strNow & "' "
-            End If
+        Dim handler As MySQLHandler = Nothing
+        Dim dataTable As DataTable = Nothing
+        Dim sql As String = ""
+
+        Try
+            handler = New MySQLHandler()
+            Dim strNow As String = Format(Now, "yyyyMMdd")
+
+            sql = "Select CUSTOMER_ID,CUSTOMER_NM "
+            sql = sql & " ,CONCAT(SUBSTRING(TOND_DD,1,4) , '-' , SUBSTRING(TOND_DD,5,2) , '-' , SUBSTRING(TOND_DD,7,2)) TONG_DD "
+            sql = sql & " ,CONCAT(SUBSTRING(TONG_TIME,1,2) , ':' , SUBSTRING(TONG_TIME,3,2), ':' , SUBSTRING(TONG_TIME,5,2)) TONG_TIME "
+            sql = sql & " ,TONG_TELNO"
+            sql = sql & " ,CONCAT(CALL_BACK_RESULT , '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = @gsCOM_CD AND L_MENU_CD = '014' AND S_MENU_CD = CALL_BACK_RESULT )) CALL_BACK_RESULT "
+            sql = sql & " ,CONCAT(CONSULT_TYPE , '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = @gsCOM_CD AND L_MENU_CD = '003' AND S_MENU_CD = CONSULT_TYPE )) CONSULT_TYPE "
+            sql = sql & " ,CONCAT(CONSULT_RESULT , '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = @gsCOM_CD AND L_MENU_CD = '004' AND S_MENU_CD = CONSULT_RESULT )) CONSULT_RESULT"
+            sql = sql & " ,TONG_USER,TONG_CONTENTS "
+            sql = sql & " ,CONCAT(CALL_TYPE , '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = @gsCOM_CD AND L_MENU_CD = '005' AND S_MENU_CD = CALL_TYPE )) CALL_TYPE "
+            sql = sql & " ,CONCAT(HANDLE_TYPE , '.' , (SELECT LTRIM(RTRIM(S_MENU_NM)) FROM T_S_CODE WHERE COM_CD = @gsCOM_CD AND L_MENU_CD = '012' AND S_MENU_CD = HANDLE_TYPE )) HANDLE_TYPE "
+            sql = sql & " FROM T_CUSTOMER_HISTORY "
+            sql = sql & " WHERE COM_CD = @gsCOM_CD "
+            sql = sql & " AND tond_dd =  @strNow "
 
             If selectMode = SELECT_TYPE.CALLBACK_DONE Then
-                SQL = SQL & " AND CALL_BACK_YN = 'Y'"
-                SQL = SQL & " AND CALL_BACK_RESULT = '1'" '처리완료
+                sql = sql & " AND CALL_BACK_YN = 'Y'"
+                sql = sql & " AND CALL_BACK_RESULT = '1'" '처리완료
             ElseIf selectMode = SELECT_TYPE.CALLBACK_UNDONE Then
-                SQL = SQL & " AND CALL_BACK_YN = 'Y'"
-                SQL = SQL & " AND CALL_BACK_RESULT = '2'" '미처리
+                sql = sql & " AND CALL_BACK_YN = 'Y'"
+                sql = sql & " AND CALL_BACK_RESULT = '2'" '미처리
             ElseIf selectMode = SELECT_TYPE.CALLBACK_ALL Then
-                SQL = SQL & " AND CALL_BACK_YN = 'Y'"     '콜백전체
+                sql = sql & " AND CALL_BACK_YN = 'Y'"     '콜백전체
             End If
 
-            SQL = SQL & " ORDER BY CONCAT(TOND_DD, TONG_TIME) DESC "
+            sql = sql & " ORDER BY CONCAT(TOND_DD, TONG_TIME) DESC "
 
-            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
-            dgView.DataSource = dt1
-            dt1 = Nothing
+            handler.SetQuery(sql)
+            handler.Parameters("@gsCOM_CD", gsCOM_CD)
+            handler.Parameters("@strNow", strNow)
+
+            dataTable = handler.DoQuery()
+
+            dgView.DataSource = dataTable
 
         Catch ex As Exception
             Call WriteLog("FRM_MONITOR : " & ex.ToString)
+        Finally
+            dataTable = Nothing
+            If Not handler Is Nothing Then
+                handler.Close()
+            End If
         End Try
     End Sub
 

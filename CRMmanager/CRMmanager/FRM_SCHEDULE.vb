@@ -661,7 +661,10 @@ Public Class FRM_SCHEDULE
     End Sub
 
     Public Sub gsSave()
-        Dim dt As DataTable
+
+        Dim handler As MySQLHandler = Nothing
+        Dim sql As String = ""
+
         Dim i As Short
         Dim users As String = ""
         Dim sqlStr As String = ""
@@ -678,6 +681,7 @@ Public Class FRM_SCHEDULE
         Try
             '고객일정관리
             If tabScheduleDetail.SelectedTabPage.TabIndex = 0 Then
+
                 If txtTitleCustSchedule.Text.Trim = "" Then
                     MsgBox("제목을 입력하십시오.", MsgBoxStyle.OkOnly, "정보")
                     txtTitleCustSchedule.Focus()
@@ -709,37 +713,44 @@ Public Class FRM_SCHEDULE
                 'End If
 
                 ''동일한 내용이 등록되었는지 확인
+
                 startTime = dtpDateCustSchedule.Text.Replace("-", "").Replace("/", "") _
                             & cboHourCustSchedule.Text _
                             & cboMinCustSchedule.Text
+
                 users = cboUserCustSchedule.Text.Trim
-                title = MiniCTI.ToQuotedStr(txtTitleCustSchedule.Text)
-                desc = MiniCTI.ToQuotedStr(txtDescCustSchedule.Text)
-                reason = MiniCTI.ToQuotedStr(cboWReasonCustSchedule.SelectedValue.ToString)
-                location = MiniCTI.ToQuotedStr(txtWLocCustSchedule.Text)
+                title = txtTitleCustSchedule.Text
+                desc = txtDescCustSchedule.Text
+                reason = cboWReasonCustSchedule.SelectedValue.ToString
+                location = txtWLocCustSchedule.Text
                 sharingType = ConstDef.SharingType_O
 
             Else '내부일정관리
+
                 If txtTitleInternal.Text.Trim = "" Then
                     MsgBox("제목을 입력하십시오.", MsgBoxStyle.OkOnly, "정보")
                     txtTitleInternal.Focus()
                     Exit Try
                 End If
+
                 If cboHourStartInternal.Text.Trim = "" Then
                     MsgBox("시작시간을 선택하십시오.", MsgBoxStyle.OkOnly, "정보")
                     cboHourStartInternal.Focus()
                     Exit Try
                 End If
+
                 If cboMinStartInternal.Text.Trim = "" Then
                     MsgBox("시작시간을 선택하십시오.", MsgBoxStyle.OkOnly, "정보")
                     cboMinStartInternal.Focus()
                     Exit Try
                 End If
+
                 If cboHourEndInternal.Text.Trim = "" Then
                     MsgBox("종료시간을 선택하십시오.", MsgBoxStyle.OkOnly, "정보")
                     cboHourEndInternal.Focus()
                     Exit Try
                 End If
+
                 If cboMinEndInternal.Text.Trim = "" Then
                     MsgBox("종료시간을 선택하십시오.", MsgBoxStyle.OkOnly, "정보")
                     cboMinEndInternal.Focus()
@@ -755,54 +766,87 @@ Public Class FRM_SCHEDULE
                     Exit Try
                 End If
 
-
                 For i = 0 To lboTeamUserSelected.Items.Count - 1
                     users &= lboTeamUserSelected.Items(i).ToString.Split(".")(0) & ","
                 Next
+
                 If users.Trim.Length > 0 Then users = users.Substring(0, users.Trim.Length - 1)
-                title = MiniCTI.ToQuotedStr(txtTitleInternal.Text)
-                desc = MiniCTI.ToQuotedStr(txtDescInternal.Text)
+
+                title = txtTitleInternal.Text
+                desc = txtDescInternal.Text
                 reason = ""
                 location = ""
+
                 sharingType = If(ckbSharing.Checked = False, ConstDef.SharingType_P, ConstDef.SharingType_S)
 
             End If
 
-            whereStr = " Where COM_CD='" & gsCOM_CD & "'" & _
-                       "   AND S_START_TIME='" & startTime & "'" & _
-                       "   AND REGISTRANT LIKE '" & gsUSER_ID.Trim & "'" & _
-                       "   AND S_COMPANY_COWORKER LIKE '" & users & "'" & _
-                       "   AND SHARING_TYPE='" & sharingType & "'" & _
-                       "   AND S_TITLE='" & title & "' "
-
-
             Dim userName As String = gsUSER_ID & "." & gsUSER_NM
 
-            sqlStr = "Update t_schedule " & _
-                    "set S_END_TIME='" & endTime & "' " & _
-                    ",S_COMPANY_COWORKER='" & users & "'" & _
-                    ",S_DESC='" & desc & "'" & _
-                    ",S_WORKOUT_REASON='" & reason & "'" & _
-                    ",S_WORKOUT_LOC='" & location & "' " & _
-                    whereStr
-            txCnt = MiniCTI.DoExecuteNonQuery(gsConString, sqlStr)
+            handler = New MySQLHandler()
+
+            sql = "Update t_schedule " & _
+                     "set S_END_TIME = @endTime " & _
+                     ",S_COMPANY_COWORKER = @users " & _
+                     ",S_DESC = @desc " & _
+                     ",S_WORKOUT_REASON = @reason " & _
+                     ",S_WORKOUT_LOC = @location " & _
+                     " Where COM_CD =  @gsCOM_CD " & _
+                     "   AND S_START_TIME = @startTime  " & _
+                     "   AND REGISTRANT LIKE concat(@gsUSER_ID, '%') " & _
+                     "   AND S_COMPANY_COWORKER LIKE concat(@users,'%')" & _
+                     "   AND SHARING_TYPE = @sharingType " & _
+                     "   AND S_TITLE = @title "
+
+            handler.SetQuery(sql)
+            handler.ClearParameters()
+            handler.Parameters("@endTime", endTime)
+            handler.Parameters("@users", users)
+            handler.Parameters("@desc", desc)
+
+            handler.Parameters("@reason", reason)
+            handler.Parameters("@location", location)
+            handler.Parameters("@gsCOM_CD", gsCOM_CD)
+            handler.Parameters("@startTime", startTime)
+            handler.Parameters("@gsUSER_ID", gsUSER_ID)
+            handler.Parameters("@sharingType", sharingType)
+            handler.Parameters("@title", title)
+
+            txCnt = handler.Execute()
+
+            WriteLog("일정[" & txCnt & "]이 입력되었습니다.")
 
             If txCnt = 0 Then
-                sqlStr = "Insert into t_schedule(" & _
+                sql = "Insert into t_schedule(" & _
                        "COM_CD,S_START_TIME,S_END_TIME" & _
                        ",REGISTRANT,SHARING_TYPE " & _
                        ",S_TITLE,S_COMPANY_COWORKER" & _
                        ",S_DESC,S_WORKOUT_REASON,S_WORKOUT_LOC " & _
                        ",DELAY_MINUTE " & _
                        ") values(" & _
-                        "'" & gsCOM_CD & "','" & startTime & "','" & endTime & "'" & _
-                        ",'" & userName & "','" & sharingType & "'" & _
-                        ",'" & title & "','" & users & "'" & _
-                        ",'" & desc & "'" & _
-                        ",'" & reason & "'" & _
-                        ",'" & location & _
-                        ",'" & gbAlarmInfo.AlarmPeriod & "') "
-                txCnt = MiniCTI.DoExecuteNonQuery(gsConString, sqlStr)
+                        " @gsCOM_CD, @startTime, @endTime " & _
+                        ",@userName, @sharingType " & _
+                        ",@title,@users " & _
+                        ",@desc, @reason, @location " & _
+                        ",@gbAlarmInfo) "
+
+                handler.SetQuery(sql)
+                handler.ClearParameters()
+                handler.Parameters("@gsCOM_CD", gsCOM_CD)
+                handler.Parameters("@startTime", startTime)
+                handler.Parameters("@endTime", endTime)
+                handler.Parameters("@userName", userName)
+                handler.Parameters("@sharingType", sharingType)
+                handler.Parameters("@title", title)
+                handler.Parameters("@users", users)
+                handler.Parameters("@desc", desc)
+
+                handler.Parameters("@reason", reason)
+                handler.Parameters("@location", location)
+                handler.Parameters("@gbAlarmInfo", gbAlarmInfo.AlarmPeriod)
+
+                txCnt = handler.Execute()
+
             End If
 
             If txCnt > 0 Then
@@ -818,12 +862,15 @@ Public Class FRM_SCHEDULE
         Catch ex As Exception
             WriteLog(Me.Name & " : " & ex.ToString)
         Finally
-            dt = Nothing
+            If Not handler Is Nothing Then
+                handler.Close()
+            End If
         End Try
     End Sub
 
     Public Sub gsDelete()
-        Dim dt As DataTable
+        Dim handler As MySQLHandler = Nothing
+        Dim dataTable As DataTable = Nothing
         Dim selectStr As String
         Dim deleteStr As String
         Dim whereStr As String
@@ -838,7 +885,7 @@ Public Class FRM_SCHEDULE
                 Exit Try
             End If
 
-            selectStr = "SELECT count(S_START_TIME) From t_schedule "
+            handler = New MySQLHandler()
 
             '고객일정
             If tabScheduleDetail.SelectedTabPage.TabIndex = 0 Then
@@ -847,42 +894,65 @@ Public Class FRM_SCHEDULE
                                             & cboHourCustSchedule.Text _
                                             & cboMinCustSchedule.Text
                 users = cboUserCustSchedule.Text.Trim
-                title = MiniCTI.ToQuotedStr(txtTitleCustSchedule.Text)
+                title = txtTitleCustSchedule.Text
                 sharingType = ConstDef.SharingType_O
 
             Else '내부일정관리
 
                 startTime = dtpStartInternal.Text.Replace("-", "").Replace("/", "") & cboHourStartInternal.Text & cboMinStartInternal.Text
+
                 users = ""
+
                 For i = 0 To lboTeamUserSelected.Items.Count - 1
                     users &= lboTeamUserSelected.Items(i).ToString.Split(".")(0) & ","
                 Next
+
                 If users.Trim.Length > 0 Then users = users.Substring(0, users.Trim.Length - 1)
-                title = MiniCTI.ToQuotedStr(txtTitleInternal.Text)
+
+                title = txtTitleInternal.Text
                 sharingType = If(ckbSharing.Checked = False, ConstDef.SharingType_P, ConstDef.SharingType_S)
 
             End If
 
-            selectStr = selectStr & _
-                   " Where COM_CD='" & gsCOM_CD & "'" & _
-                   "   AND S_START_TIME='" & startTime & "'" & _
-                   "   AND REGISTRANT LIKE '" & gsUSER_ID.Trim & ".%" & _
-                   "   AND S_COMPANY_COWORKER LIKE '%" & users & "%" & _
-                   "   AND SHARING_TYPE='" & sharingType & "'" & _
-                   "   AND S_TITLE='" & title & "' "
+            selectStr = "SELECT count(S_START_TIME) From t_schedule "
 
-            dt = MiniCTI.DoQuery(gsConString, selectStr)
+            whereStr = " Where COM_CD = @gsCOM_CD " & _
+                   "   AND S_START_TIME = @startTime " & _
+                   "   AND REGISTRANT LIKE concat(@gsUSER_ID, '.%') " & _
+                   "   AND S_COMPANY_COWORKER LIKE concat('%',@users, '%') " & _
+                   "   AND SHARING_TYPE = @sharingType " & _
+                   "   AND S_TITLE = @title "
 
-            If dt.Rows(0).Item(0).ToString.Trim = "0" Then
+            handler.SetQuery(selectStr & whereStr)
+
+            handler.Parameters("@gsCOM_CD", gsCOM_CD)
+            handler.Parameters("@startTime", startTime)
+            handler.Parameters("@gsUSER_ID", gsUSER_ID)
+            handler.Parameters("@users", users)
+            handler.Parameters("@sharingType", sharingType)
+            handler.Parameters("@title", title)
+
+            dataTable = handler.DoQuery()
+
+            If dataTable.Rows(0).Item(0).ToString.Trim = "0" Then
                 MsgBox("삭제할 일정을 다시 선택하십시오.", MsgBoxStyle.OkOnly, "정보")
                 Exit Try
             End If
 
-            dt.Reset()
             MsgBox(txtTitleInternal.Text.Trim & " 일정을 삭제하시겠습니까?", MsgBoxStyle.YesNo, "확인")
 
-            deleteStr = "Delete from t_schedule "
-            Dim deleteCnt As Integer = MiniCTI.DoExecuteNonQuery(gsConString, deleteStr & whereStr)
+            deleteStr = "delete from t_schedule "
+
+            handler.SetQuery(deleteStr & whereStr)
+            handler.ClearParameters()
+            handler.Parameters("@gsCOM_CD", gsCOM_CD)
+            handler.Parameters("@startTime", startTime)
+            handler.Parameters("@gsUSER_ID", gsUSER_ID)
+            handler.Parameters("@users", users)
+            handler.Parameters("@sharingType", sharingType)
+            handler.Parameters("@title", title)
+
+            Dim deleteCnt As Integer = handler.Execute()
 
             If deleteCnt > 0 Then
                 MsgBox("처리되었습니다.", MsgBoxStyle.OkOnly, "정보")
@@ -893,10 +963,14 @@ Public Class FRM_SCHEDULE
                 MsgBox("장애가 발생하여 처리되지 않았습니다.", MsgBoxStyle.OkOnly, "정보")
                 Throw New Exception("트랜잭션 오류발생")
             End If
+
         Catch ex As Exception
             WriteLog(Me.Name & " : " & ex.ToString)
         Finally
-            dt = Nothing
+            dataTable = Nothing
+            If Not handler Is Nothing Then
+                handler.Close()
+            End If
         End Try
     End Sub
 

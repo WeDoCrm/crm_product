@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,88 +117,35 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="RichTextBox1.Text" xml:space="preserve">
-    <value>2013-09-06 v.2.2.1.1
-일정관리 등록/삭제 오류 수정
-
-2013-08-25 v.2.2.1.0
-1. 실행할때마다 패치이력 팝업뜸: 
-  메신저의 자동업데이트기능 제거로 수정
-
-2. 오늘의 콜현황
-  * 각 파트마다 말풍선을 추가.
-  - 인입호 : 전화벨이 울린 건수
-  - 응대호 : 전화응답한 건수
-  - 상담건수: 메인상담팝업창에서 상담저장 버튼을 누른 건수
-  - 이관건수: 메인상담팝업창에서 이관자에게 업무이관한 건수
-  - 콜백건수: 고객에게 다시 전화를 해야 하는 건수
-
-3. 업무진행현황
-  - 더블클릭시 고객상담화면 팝업 대신 미니 저장화면을 띄움.
-     고객명/전화번호/[상담|이관|콜백]결과/상담내용/[완료]/[취소]
-        * 콜백완료시 상담결과도 완료로 처리
-  - 상담진행현황: 상담완료/미처리/전체    *이관처리제외
-  - 이관업무 진행현황: 처리완료/미처리/전체
-  - 콜백업무 진행현황: 처리완료/미처리/전체
-
-4. 콜백결과처리:
-  고객상담화면 하단 처리유형제외하고 콜백결과를 추가
-  * 콜백완료시 상담결과도 완료로 처리
-
-5. 코드 관리
- - 상담결과는 미처리/완료 2개로만 고정.
-
-6. 수발신목록
-  - 고객명안보이는 경우 수정
-
-7. 조회메뉴 닫기
- - 다른 메뉴창띄울때 조회창 안닫히도록 처리
-
-2013-06-26 v.2.2.0.2
-1. 상담이력 핸드폰번호 상세조회 문제 수정
-
-2013-06-18 v.2.2.0.1
-1. 일정관리
-- 외부업무-&gt;고객예약으로 명칭변경
-
-2. 외근관리 메뉴없앰
-
-3. 상담이력조회 상세조회기능 추가
-
-4. 긴급처리조회/콜백조회 메뉴 없앰
-
-5. 옵션메뉴 추가
- - 알람설정
- - 엑셀버튼활성화(관리자기능)
- - 고객별 담당자 지정기능 활성화
- - 고객정보 비고항목 활성화
- - 상담저장후 자동 창닫기 활성화
-6. 미리알림기능 추가
- - 알람활성화 설정시 실행</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="Label46.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgICAgEB
-        AQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8P
-        DxMEBAQFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AACoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAQA==
+        R0lGODlhBAAIAIIAAAAAAP///57F3CGIsk+fwv///wAAAAAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQB
+        AAAFACwAAAAABAAIAAAIFgAFECAgcMCAgQYJDhRQoKHDhxALBAQAOw==
+</value>
+  </data>
+  <data name="Label41.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        R0lGODlhBAAIAIIAAAAAAP///57F3CGIsk+fwv///wAAAAAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQB
+        AAAFACwAAAAABAAIAAAIFgAFECAgcMCAgQYJDhRQoKHDhxALBAQAOw==
+</value>
+  </data>
+  <data name="Label39.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        R0lGODlhBAAIAIIAAAAAAP///57F3CGIsk+fwv///wAAAAAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQB
+        AAAFACwAAAAABAAIAAAIFgAFECAgcMCAgQYJDhRQoKHDhxALBAQAOw==
+</value>
+  </data>
+  <data name="Label36.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        R0lGODlhBAAIAIIAAAAAAP///57F3CGIsk+fwv///wAAAAAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQB
+        AAAFACwAAAAABAAIAAAIFgAFECAgcMCAgQYJDhRQoKHDhxALBAQAOw==
+</value>
+  </data>
+  <data name="Label34.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        R0lGODlhBAAIAIIAAAAAAP///57F3CGIsk+fwv///wAAAAAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQB
+        AAAFACwAAAAABAAIAAAIFgAFECAgcMCAgQYJDhRQoKHDhxALBAQAOw==
 </value>
   </data>
 </root>

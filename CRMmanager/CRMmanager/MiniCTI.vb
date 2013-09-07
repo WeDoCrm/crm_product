@@ -36,7 +36,7 @@ Module MiniCTI
     Public gsConString As String                  ' DB Con String
     Public Const file_path As String = "C:\MiniCTI"
     Public config_file As String = "\config\MiniCTI_config.xml"
-    Public gsAppVersion As String = "Ver 2.2.1.0" ' 배너변경
+    Public gsAppVersion As String = "Ver 2.2.1.1" ' 배너변경
 
     Public gsPopUpOption As String = "MDI"
 
@@ -363,6 +363,51 @@ Module MiniCTI
         End Try
 
         Return bol
+
+    End Function
+
+    Public Function DoQueryParam2(ByVal conString As String, ByVal sqlText As String, ByVal parameters() As MySqlParameter) As DataTable
+
+        Dim connection As MySqlConnection = Nothing
+        Dim cmd As MySqlCommand
+        Dim dataAdapter As MySqlDataAdapter
+        Dim dataTable As New DataTable
+
+        Try
+            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+            connection = New MySqlConnection(conString)
+            connection.Open()
+
+            cmd = New MySqlCommand(sqlText, connection)
+            cmd.Prepare()
+
+            dataAdapter = New MySqlDataAdapter(cmd)
+
+            dataAdapter.MissingSchemaAction = MissingSchemaAction.AddWithKey
+
+            For Each parameter In parameters
+                dataAdapter.SelectCommand.Parameters.AddWithValue(parameter.ParameterName, parameter.Value)
+            Next
+
+            Dim queryMessage As String = ""
+            Dim i As Integer
+            For i = 0 To cmd.Parameters.Count - 1
+                queryMessage += cmd.Parameters(i).ToString() & ControlChars.Cr
+            Next i
+            WriteLog("query Parameter:" & queryMessage)
+            dataAdapter.Fill(dataTable)
+
+        Catch ex As Exception
+            WriteLog(ex.ToString)
+            Throw ex 'New Exception("쿼리문 오류발생", ex)
+        Finally
+            If Not (connection Is Nothing) Then
+                connection.Close()
+            End If
+            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+        End Try
+
+        Return dataTable
 
     End Function
 
