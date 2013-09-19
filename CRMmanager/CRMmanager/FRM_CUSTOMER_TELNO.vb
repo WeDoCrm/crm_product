@@ -24,17 +24,21 @@
     End Function
 
     Private Sub selectId()
+        Dim dt1 As DataTable = Nothing
+
         Try
             txtFindTelNo.Text = ""
             mSelectedTelNo = ""
 
-            Dim SQL As String = " select TELNO from t_customer_telno WHERE COM_CD = '" & gsCOM_CD & "'"
-            SQL = SQL & " AND CUSTOMER_ID like '%" & mCustomerId.Trim & "%'"
+            Dim sql As String = " select TELNO from t_customer_telno " & _
+                                "  WHERE COM_CD = @gsComCd" & _
+                                "    AND CUSTOMER_ID like @customerId"
 
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+            Dim parameters As Hashtable = New Hashtable
+            parameters.Add("@gsComCd", gsCOM_CD)
+            parameters.Add("@customerId", "%" & mCustomerId.Trim & "%")
 
-            '************************************ 체크하자
-            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
+            dt1 = DoQuery(sql, parameters)
             DataGridView1.DataSource = Nothing
 
 
@@ -45,12 +49,11 @@
             DataGridView1.Columns.Item(0).Width = 120
             DataGridView1.Columns.Item(0).HeaderText = "전화번호"
             DataGridView1.Columns.Item(0).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
-            dt1 = Nothing
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
 
         Catch ex As Exception
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
             Call WriteLog(Me.Name & ":" & ex.ToString)
+        Finally
+            dt1 = Nothing
         End Try
 
     End Sub
@@ -71,6 +74,8 @@
 
     Private Sub btnModify_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnModify.Click
         Dim IsInsert As Boolean = False
+        Dim dt1 As DataTable = Nothing
+
         Try
             If mSelectedTelNo.Trim = "" Then
                 IsInsert = True
@@ -92,35 +97,29 @@
 
             'select COM_CD,CUSTOMER_ID,TELNO_TYPE,TELNO from t_customer_telno
 
-            Dim SQL As String = " SELECT COUNT(*) FROM t_customer_telno "
-            SQL = SQL & " WHERE COM_CD ='" & gsCOM_CD & "'"
-            SQL = SQL & " AND CUSTOMER_ID = " & mCustomerId
-            SQL = SQL & " AND TELNO = '" & txtFindTelNo.Text.Trim.Replace("-", "") & "'"
+            Dim sql As String = " SELECT COUNT(*) FROM t_customer_telno " & _
+                                "  WHERE COM_CD = @gsComCd" & _
+                                "    AND CUSTOMER_ID = @customerId" & _
+                                "    AND TELNO = @telNo"
 
-            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
-            Dim CNT As String = "0"
+            Dim parameters As Hashtable = New Hashtable
+            parameters.Add("@gsComCd", gsCOM_CD)
+            parameters.Add("@customerId", mCustomerId.Trim)
+            parameters.Add("@telNo", txtFindTelNo.Text.Trim.Replace("-", ""))
 
+            dt1 = DoQuery(sql, parameters)
+            Dim recCount As Integer = 0
 
-            If dt1.Rows.Count > 0 Then
+            For Each row As DataRow In dt1.Rows
+                recCount = row.Item(0)
+            Next
 
-                Dim i As Integer
-                Dim CntString As String = "0"
-
-                For i = 0 To dt1.Rows.Count - 1
-                    CNT = dt1.Rows(i).Item(0).ToString
-                Next
-            Else
-                MsgBox("전화번호를 저장할 수 없습니다.", MsgBoxStyle.OkOnly, "알림")
-                Exit Sub
-            End If
-
-            If IsInsert And CNT > 0 Then
+            If IsInsert And recCount > 0 Then
                 MsgBox("등록할 전화번호가 이미 존재합니다.", MsgBoxStyle.OkOnly, "알림")
                 Exit Sub
             End If
 
-            dt1 = Nothing
-
+            '수정은 삭제후 입력으로 한다.
             If Not IsInsert Then
                 If Not DeleteTelNo() Then
                     MsgBox("전화번호를 변경하지 못했습니다..", MsgBoxStyle.OkOnly, "알림")
@@ -144,29 +143,32 @@
             End If
             Call selectId()
         Catch ex As Exception
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
             Call WriteLog(Me.Name & ":btnModify_Click:" & mCustomerId & ":" & txtFindTelNo.Text & ex.ToString)
+        Finally
+            dt1 = Nothing
         End Try
     End Sub
 
     Private Function InsertTelNo()
+        Dim result As Boolean = True
         Try
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+            Dim sql As String = "Insert Into t_customer_telno " & _
+                                "       (COM_CD, CUSTOMER_ID, TELNO, TELNO_TYPE) " & _
+                                "Values (@gsComCd ,@customerId ,@telNo ,'')"
 
-            Dim Sql As String = "Insert Into t_customer_telno (COM_CD, CUSTOMER_ID, TELNO, TELNO_TYPE) Values("
-            Sql = Sql & " '" & gsCOM_CD & "'"
-            Sql = Sql & " ,'" & mCustomerId & "'"
-            Sql = Sql & " ,'" & txtFindTelNo.Text.Trim & "','')"
+            Dim parameters As Hashtable = New Hashtable
+            parameters.Add("@gsComCd", gsCOM_CD)
+            parameters.Add("@customerId", mCustomerId.Trim)
+            parameters.Add("@telNo", txtFindTelNo.Text.Trim.Replace("-", ""))
 
-            Dim dt As DataTable = DoQueryParam(gsConString, Sql)
-
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
-            Return True
+            If DoExecuteNonQuery(sql, parameters) < 1 Then
+                result = False
+            End If
         Catch ex As Exception
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
             Call WriteLog(Me.Name.ToString & ":InsertTelNo:" & mCustomerId & ":" & txtFindTelNo.Text & ex.ToString)
-            Return False
+            result = False
         End Try
+        Return result
 
     End Function
 
@@ -184,27 +186,32 @@
         End If
     End Sub
 
+    ''' <summary>
+    ''' 고객정보삭제
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Private Function DeleteTelNo() As Boolean
-        '고객정보삭제
+        Dim result As Boolean = True
         Try
+            Dim sql As String = " DELETE FROM T_CUSTOMER_TELNO WHERE COM_CD = @gsComCd" & _
+                                "' AND CUSTOMER_ID = @customerId" & _
+                                "' AND TELNO = @telNo"
 
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+            Dim parameters As Hashtable = New Hashtable
+            parameters.Add("@gsComCd", gsCOM_CD)
+            parameters.Add("@customerId", mCustomerId.Trim)
+            parameters.Add("@telNo", mSelectedTelNo.Trim)
 
-            Dim SQL As String = " DELETE FROM T_CUSTOMER_TELNO WHERE COM_CD = '" & gsCOM_CD & _
-                                "' AND CUSTOMER_ID = '" & mCustomerId.Trim & _
-                                "' AND TELNO = '" & mSelectedTelNo.Trim & "'"
-            Dim dt As DataTable = DoQueryParam(gsConString, SQL)
+            If (DoExecuteNonQuery(sql, parameters) < 1) Then
+                result = False
+            End If
 
-            dt = Nothing
-
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
-            Return True
         Catch ex As Exception
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
             Call WriteLog(Me.Name.ToString & ":DeleteTelNo:" & mCustomerId & ":" & txtFindTelNo.Text & ex.ToString)
-            Return False
+            result = False
         End Try
-
+        Return result
     End Function
 
     Private Sub FRM_CUSTOMER_TELNO_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load

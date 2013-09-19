@@ -29,12 +29,7 @@
             txtScode.MaxLength = 4
             txtScodenm.MaxLength = 30
 
-            temp = "SELECT a.l_menu_cd, a.l_menu_nm, b.s_menu_cd, b.s_menu_nm, b.modify_yn " & _
-                    "From t_l_code a left JOIN t_s_code b " & _
-                    "ON b.COM_CD=a.COM_CD and b.l_menu_cd=a.l_menu_cd " & _
-                    "Where a.COM_CD='" & gsCOM_CD & "' " & _
-                    "order by a.l_menu_cd, b.s_menu_cd"
-            CodeList_TreeView_Setting(temp)
+            CodeList_TreeView_Setting()
             drpMod.Text = "Y"
         Catch ex As Exception
             Call WriteLog(Me.Name & " : " & ex.ToString)
@@ -42,13 +37,15 @@
     End Sub
 
 
-    Private Sub CodeList_TreeView_Setting(ByVal sqltext As String)
+    Private Sub CodeList_TreeView_Setting()
 
         Dim i, k As Integer
         Dim _tnRoot As TreeNode         ' root node
         Dim Lcode As String = ""
         Dim Scode As String = ""
+        Dim sql As String = ""
         Dim dt1 As DataTable
+        Dim parameters As Hashtable = New Hashtable
 
         Try
             k = 0
@@ -60,7 +57,14 @@
             _tnRoot.Tag = gsCOM_CD & "^^^Y"
             TreeView1.Nodes.Add(_tnRoot)
 
-            dt1 = MiniCTI.DoQuery(gsConString, sqltext)
+            sql = "SELECT a.l_menu_cd, a.l_menu_nm, b.s_menu_cd, b.s_menu_nm, b.modify_yn " & _
+                  "  FROM t_l_code a left JOIN t_s_code b " & _
+                  "    ON b.COM_CD=a.COM_CD and b.l_menu_cd=a.l_menu_cd " & _
+                  " Where a.COM_CD=@gsComCd " & _
+                  " order by a.l_menu_cd, b.s_menu_cd"
+            parameters.Add("@gsComCd", gsCOM_CD)
+
+            dt1 = MiniCTI.DoQuery(sql, parameters)
 
             If dt1.Rows.Count > 0 Then
                 For i = 0 To dt1.Rows.Count - 1
@@ -179,6 +183,9 @@
 
     Public Sub gsSave()
         Dim dt As DataTable
+        Dim sql As String = ""
+        Dim parameters As Hashtable = New Hashtable
+        Dim isInsert As Boolean = True
         Dim temp11 As String = ""
         Dim temp12 As String = ""
         Try
@@ -203,18 +210,26 @@
 
             '대항목 처리
             If T_LCode.Contains(param(1).Trim & "^" & txtLcode.Text.Trim & "^,") = True Then '수정
-                temp = "Update t_l_code set L_MENU_NM='" & txtLcodenm.Text.Trim & "' Where COM_CD='" & param(1).Trim & "' and l_menu_cd='" & txtLcode.Text.Trim & "' "
+                temp = "Update t_l_code set L_MENU_NM=@lMenuNm Where COM_CD=@gsComCd and l_menu_cd=@lMenuCd "
 
-                temp12 = "UPDATE"
+                parameters.Add("@gsComCd", param(1).Trim)
+                parameters.Add("@lMenuNm", txtLcodenm.Text.Trim)
+                parameters.Add("@lMenuCd", txtLcode.Text.Trim)
+
+                isInsert = False
                 temp11 = "LCode," & txtLcode.Text.Trim & "," & "," & txtLcodenm.Text.Trim
             Else  '추가
-                temp = "Insert into t_l_code(COM_CD,L_MENU_CD,L_MENU_NM) values('" & param(1).Trim & "','" & txtLcode.Text.Trim & "','" & txtLcodenm.Text.Trim & "') "
+                temp = "Insert into t_l_code(COM_CD,L_MENU_CD,L_MENU_NM) values(@gsComCd,@lMenuCd,@lMenuNm) "
 
-                temp12 = "ADD"
+                parameters.Add("@gsComCd", param(1).Trim)
+                parameters.Add("@lMenuNm", txtLcodenm.Text.Trim)
+                parameters.Add("@lMenuCd", txtLcode.Text.Trim)
+
+                isInsert = True
                 temp11 = "LCode," & txtLcode.Text.Trim & "," & "," & txtLcodenm.Text.Trim
             End If
 
-            dt = MiniCTI.DoQueryParam(gsConString, temp)
+            dt = MiniCTI.DoQuery(temp, parameters)
 
             If txtScode.Text.Trim = "" AndAlso txtScodenm.Text.Trim = "" Then
                 MsgBox("처리되었습니다", MsgBoxStyle.OkOnly, "정보")
@@ -232,21 +247,33 @@
 
             '소항목 처리
             If T_SCode.Contains(param(1).Trim & "^" & txtLcode.Text.Trim & "^" & txtScode.Text.Trim & ",") = True Then '수정
-                temp = "Update t_s_code set S_MENU_NM='" & txtScodenm.Text.Trim & "', MODIFY_YN='" & drpMod.Text.Trim & "' " & _
-                      "Where COM_CD='" & param(1).Trim & "' and l_menu_cd='" & txtLcode.Text.Trim & "' and s_menu_cd='" & txtScode.Text.Trim & "' "
+                temp = "Update t_s_code set S_MENU_NM=@sMenuNm, MODIFY_YN=@modifyYN " & _
+                      "Where COM_CD=@gsComCd and l_menu_cd=@lMenuCd and s_menu_cd=@sMenuCd "
 
-                temp12 = "UPDATE"
+                parameters.Add("@gsComCd", param(1).Trim)
+                parameters.Add("@sMenuCd", txtScode.Text.Trim)
+                parameters.Add("@lMenuCd", txtLcode.Text.Trim)
+                parameters.Add("@sMenuNm", txtScodenm.Text.Trim)
+                parameters.Add("@modifyYN", drpMod.Text.Trim)
+
+                isInsert = False
                 temp11 = "SCode," & txtLcode.Text.Trim & "," & txtScode.Text.Trim & "," & txtScodenm.Text.Trim
 
             Else  '추가
                 temp = "Insert into t_s_code(COM_CD,L_MENU_CD,S_MENU_CD,S_MENU_NM,MODIFY_YN) " & _
-                      "values('" & param(1).Trim & "','" & txtLcode.Text.Trim & "','" & txtScode.Text.Trim & "','" & txtScodenm.Text.Trim & "','" & drpMod.Text.Trim & "') "
+                      "values(@gsComCd, @lMenuCd, @sMenuCd, @sMenuNm, @modifyYN) "
 
-                temp12 = "ADD"
+                parameters.Add("@gsComCd", param(1).Trim)
+                parameters.Add("@sMenuCd", txtScode.Text.Trim)
+                parameters.Add("@lMenuCd", txtLcode.Text.Trim)
+                parameters.Add("@sMenuNm", txtScodenm.Text.Trim)
+                parameters.Add("@modifyYN", drpMod.Text.Trim)
+
+                isInsert = True
                 temp11 = "SCode," & txtLcode.Text.Trim & "," & txtScode.Text.Trim & "," & txtScodenm.Text.Trim
             End If
 
-            dt = MiniCTI.DoQueryParam(gsConString, temp)
+            dt = MiniCTI.DoQuery(temp, parameters)
             MsgBox("처리되었습니다.", MsgBoxStyle.OkOnly, "정보")
             Controls_Setting()
 
@@ -254,9 +281,9 @@
             Call WriteLog(Me.Name & " : " & ex.ToString)
         Finally
             dt = Nothing
-            If temp12 = "ADD" Then
+            If isInsert Then
                 Call Audit_Log(AUDIT_TYPE.CODE_ADD, temp11)
-            ElseIf temp12 = "UPDATE" Then
+            Else
                 Call Audit_Log(AUDIT_TYPE.CODE_MOD, temp11)
             End If
         End Try
@@ -264,22 +291,37 @@
 
     Public Sub gsDelete()
         Dim dt As DataTable
-        Dim temp11 As String = ""
+        Dim auditMode As String = ""
+        Dim parameters As Hashtable = New Hashtable
+
         Try
             If M_PARAM.Contains("^") = False Then Exit Try
             'M_PARAM= iLevel & "^" & gsCOM_CD & "^" & l_menu_cd & "^" & s_menu_cd & "^" & modify_yn  & "^" & TreeView1.SelectedNode.Text
             Dim param() As String = M_PARAM.Split("^")
+
             If param(0).Trim = "" OrElse param(1).Trim = "" OrElse param(2).Trim = "" Then Exit Try
+
             MsgBox(param(5).Trim & " 코드를 삭제하시겠습니까?", MsgBoxStyle.YesNo, "확인")
+
             If param(0).Trim = "1" Then '대항목 삭제
-                temp = "Delete from t_l_code Where COM_CD='" & param(1).Trim & "' and l_menu_cd='" & param(2).Trim & "' "
-                temp11 = "LCode," & param(2).Trim & "," & "," & param(5)
+                temp = "Delete from t_l_code Where COM_CD=@gsComCd and l_menu_cd=@lMenuCd "
+
+                parameters.Add("@gsComCd", param(1).Trim)
+                parameters.Add("@lMenuCd", param(2).Trim)
+
+                auditMode = "LCode," & param(2).Trim & "," & "," & param(5)
             ElseIf param(0).Trim = "2" Then  '소항목 삭제
-                temp = "Delete from t_s_code Where COM_CD='" & param(1).Trim & "' and l_menu_cd='" & param(2).Trim & "' and s_menu_cd='" & param(3).Trim & "' "
-                temp11 = "SCode," & param(2).Trim & "," & param(3).Trim & "," & param(5)
+                temp = "Delete from t_s_code Where COM_CD=@gsComCd and l_menu_cd=@lMenuCd and s_menu_cd=@sMenuCd "
+
+                parameters.Add("@gsComCd", param(1).Trim)
+                parameters.Add("@lMenuCd", param(2).Trim)
+                parameters.Add("@sMenuCd", param(3).Trim)
+
+                auditMode = "SCode," & param(2).Trim & "," & param(3).Trim & "," & param(5)
             End If
 
-            dt = MiniCTI.DoQueryParam(gsConString, temp)
+            dt = MiniCTI.DoQuery(temp, parameters)
+
             MsgBox("처리되었습니다.", MsgBoxStyle.OkOnly, "정보")
             Controls_Setting()
 
@@ -287,7 +329,7 @@
             Call WriteLog(Me.Name & " : " & ex.ToString)
         Finally
             dt = Nothing
-            If temp11 <> "" Then Call Audit_Log(AUDIT_TYPE.CODE_DEL, temp11)
+            If auditMode <> "" Then Call Audit_Log(AUDIT_TYPE.CODE_DEL, auditMode)
         End Try
     End Sub
 

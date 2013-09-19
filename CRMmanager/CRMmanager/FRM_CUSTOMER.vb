@@ -98,11 +98,7 @@
                 SQL_TEMP = SQL_TEMP & " AND CUSTOMER_TYPE ='" & cboCustomerType2.SelectedValue.ToString.Replace("XXXX", "") & "'" ' CUSTOMER TYPE
             End If
 
-
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
-
-
-            Dim dt2 As DataTable = DoQuery(gsConString, SQL_TEMP)
+            Dim dt2 As DataTable = DoQuery(SQL_TEMP)
             DataGridView1.DataSource = Nothing
 
             DataGridView1.Columns.Clear()
@@ -126,9 +122,7 @@
 
             Call gsInit()
 
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
         Catch ex As Exception
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
             Call WriteLog("FRM_CUSTOMER : " & ex.ToString)
         Finally
             result = 1
@@ -136,6 +130,7 @@
     End Sub
 
     Private Sub gsSubSelect()
+        Dim dt1 As DataTable = Nothing
         Try
             Dim SQL As String = "Select CUSTOMER_NM "
             SQL = SQL & " ,CONCAT(SUBSTRING(TOND_DD,1,4) ,'-', SUBSTRING(TOND_DD,5,2) ,'-' , SUBSTRING(TOND_DD,7,2)) tong_dd "
@@ -148,11 +143,8 @@
             SQL = SQL & " WHERE CUSTOMER_ID = '" & mCustomer.Trim & "'"
             SQL = SQL & " ORDER BY CONCAT(TOND_DD, TONG_TIME) DESC "
 
-
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
-
             '************************************ 체크하자
-            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
+            dt1 = DoQuery(SQL)
             DataGridView2.DataSource = Nothing
 
 
@@ -170,12 +162,10 @@
             DataGridView2.Columns.Item(6).HeaderText = "통화자"
             DataGridView2.Columns.Item(7).HeaderText = "통화내용"
 
-            dt1 = Nothing
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
-
         Catch ex As Exception
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
             Call WriteLog("FRM_CUSTOMER : " & ex.ToString)
+        Finally
+            dt1 = Nothing
         End Try
     End Sub
 
@@ -185,8 +175,6 @@
             MsgBox("고객을 신규 등록 할 수 없습니다.먼저 초기화 시킨후 신규 등록 하세요.", MsgBoxStyle.OkOnly, "알림")
             Exit Sub
         End If
-
-        Dim SQL As String = ""
 
         If txtWorkTelNo1.Text.Trim <> "" Then
             If Not IsNumeric(txtWorkTelNo1.Text.Trim) Then
@@ -280,59 +268,58 @@
             Exit Sub
         End If
 
-        SQL = " INSERT INTO T_CUSTOMER( COM_CD,CUSTOMER_NM,C_TELNO,H_TELNO,FAX_NO,CUSTOMER_TYPE,WOO_NO,CUSTOMER_ADDR"
-        SQL = SQL & ",CUSTOMER_ETC, UPDATE_DATE "
-        SQL = SQL & ",COMPANY, DEPARTMENT, JOB_TITLE, EMAIL "
-        SQL = SQL & ") values( '" & gsCOM_CD & "'"
-        SQL = SQL & ",'" & txtCustomerName.Text.Trim & "'"
-        SQL = SQL & ",'" & txtWorkTelNo1.Text.Trim + txtWorkTelNo2.Text.Trim + txtWorkTelNo3.Text.Trim & "'"
-
-        If cboHP.SelectedIndex < 0 Then
-            SQL = SQL & ",'" & "" & "'"
-        Else
-            SQL = SQL & ",'" & cboHP.SelectedItem.ToString.Trim.Replace("XXXX", "") + txtHP1.Text.Trim + txtHP2.Text.Trim & "'"
-        End If
-
-        SQL = SQL & ",'" & txtFaxNo1.Text.Trim + txtFaxNo2.Text.Trim + txtFaxNo3.Text.Trim & "'"
-
-        If cboCustomerType.SelectedIndex < 0 Then
-            SQL = SQL & ",'" & "" & "'" ' CUSTOMER TYPE
-        Else
-            SQL = SQL & ",'" & cboCustomerType.SelectedValue.ToString.Replace("XXXX", "") & "'" ' CUSTOMER TYPE
-        End If
-
-        SQL = SQL & ",'" & txtWP1.Text.Trim & txtWP2.Text.Trim & "'"
-        SQL = SQL & ",'" & txtAddress.Text.Trim & "'"
-        SQL = SQL & ",'" & txtEtcInfo.Text.Trim & "'"
-
-        SQL = SQL & ",'" & Format(Now, "yyyyMMddHHmmss") & "'"
-        SQL = SQL & ",'" & txtCompany.Text.Trim & "'"
-        SQL = SQL & ",'" & txtDepartment.Text.Trim & "'"
-        SQL = SQL & ",'" & txtJobTitle.Text.Trim & "'"
-        SQL = SQL & ",'" & txtEmail.Text.Trim & "'"
-        SQL = SQL & ")"
-
-
+        Dim cTelNo As String = txtWorkTelNo1.Text.Trim + txtWorkTelNo2.Text.Trim + txtWorkTelNo3.Text.Trim
+        Dim hTelNo As String = If(cboHP.SelectedIndex < 0, "" _
+                                  , cboHP.SelectedItem.ToString.Trim.Replace("XXXX", "") + txtHP1.Text.Trim + txtHP2.Text.Trim)
+        Dim faxNo As String = txtFaxNo1.Text.Trim + txtFaxNo2.Text.Trim + txtFaxNo3.Text.Trim
+        Dim customerType As String = If(cboCustomerType.SelectedIndex < 0, "" _
+                                  , cboCustomerType.SelectedValue.ToString.Replace("XXXX", ""))
 
         Try
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+            Dim parameters As Hashtable = New Hashtable
 
-            Dim dt As DataTable = DoQueryParam(gsConString, SQL)
+            Dim sql As String = _
+                " INSERT INTO T_CUSTOMER(" & _
+                "           COM_CD  ,CUSTOMER_NM  ,C_TELNO  ,H_TELNO  ,FAX_NO " & _
+                "          ,CUSTOMER_TYPE  ,WOO_NO,CUSTOMER_ADDR  ,CUSTOMER_ETC  ,UPDATE_DATE " & _
+                "          ,COMPANY ,DEPARTMENT   ,JOB_TITLE ,EMAIL " & _
+                ") values( " & _
+                "          @gsComCd ,@customerNm  ,@cTelNo  ,@hTelNo  ,@faxNo" & _
+                "         ,@customerType ,@wooNo  ,@customerAddr  ,@customerEtc  ,@updateDate" & _
+                "         ,@company ,@department  ,@jobTitle ,@email)"
 
-            dt = Nothing
+            parameters.Add("@gsComCd", gsCOM_CD)
+            parameters.Add("@customerNm", txtCustomerName.Text.Trim)
+            parameters.Add("@cTelNo", cTelNo)
+            parameters.Add("@hTelNo", hTelNo)
+            parameters.Add("@faxNo", faxNo)
+            parameters.Add("@customerType", customerType)
+            parameters.Add("@wooNo", txtWP1.Text.Trim & txtWP2.Text.Trim)
+            parameters.Add("@customerAddr", txtAddress.Text.Trim)
+            parameters.Add("@customerEtc", txtEtcInfo.Text.Trim)
+            parameters.Add("@updateDate", Format(Now, "yyyyMMddHHmmss"))
+            parameters.Add("@company", txtCompany.Text.Trim)
+            parameters.Add("@department", txtDepartment.Text.Trim)
+            parameters.Add("@jobTitle", txtJobTitle.Text.Trim)
+            parameters.Add("@email", txtEmail.Text.Trim)
+
+            If DoExecuteNonQuery(sql, parameters) < 1 Then
+                MsgBox("고객정보 등록에 실패하였습니다.", MsgBoxStyle.OkOnly, "알림")
+                Throw New Exception("고객정보 등록 실패")
+            End If
+
             ' 삭제된 데이터를 refresh 한다
             Call gsSelect()
             Call gsInit()
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+
         Catch ex As Exception
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
             Call WriteLog("FRM_CUSTOMER : " & ex.ToString)
         End Try
 
     End Sub
 
     Public Sub gsDelete()
-        '
+        Dim dt As DataTable = Nothing
         Try
             If txtCustomerID.Text.Trim = "" Then
                 MsgBox("삭제할 데이터를 위데이터 목록에서 선택 하세요.", MsgBoxStyle.OkOnly, "알림")
@@ -340,20 +327,25 @@
                 Exit Sub
             End If
 
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+            Dim parameters As Hashtable = New Hashtable
+            Dim sql As String = " DELETE FROM T_CUSTOMER WHERE COM_CD = @gsComCd AND CUSTOMER_ID = @customerId"
 
-            Dim SQL As String = " DELETE FROM T_CUSTOMER WHERE COM_CD = '" & gsCOM_CD & "' AND CUSTOMER_ID = " & txtCustomerID.Text.Trim
-            Dim dt As DataTable = DoQueryParam(gsConString, SQL)
+            parameters.Add("@customerId", txtCustomerID.Text.Trim)
+            parameters.Add("@gsComCd", gsCOM_CD)
 
-            dt = Nothing
+            If DoExecuteNonQuery(sql, parameters) < 1 Then
+                MsgBox("고객정보 삭제에 실패하였습니다.", MsgBoxStyle.OkOnly, "알림")
+                Throw New Exception("고객정보 삭제 실패")
+            End If
+
             ' 삭제된 데이터를 refresh 한다
             Call gsSelect()
             Call gsInit()
 
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
         Catch ex As Exception
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
             Call WriteLog("FRM_CUSTOMER : " & ex.ToString)
+        Finally
+            dt = Nothing
         End Try
 
     End Sub
@@ -411,7 +403,7 @@
 
     Private Sub btnModify_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnModify.Click
         ' 수정
-        Dim SQL As String = ""
+        Dim sql As String = ""
 
         If txtCustomerID.Text.Trim = "" Then
             MsgBox("수정할 데이터를 선택하세요.", MsgBoxStyle.OkOnly, "알림")
@@ -505,54 +497,63 @@
         End If
 
 
+        Dim cTelNo As String = txtWorkTelNo1.Text.Trim + txtWorkTelNo2.Text.Trim + txtWorkTelNo3.Text.Trim
+        Dim hTelNo As String = If(cboHP.SelectedIndex < 0, "" _
+                                  , cboHP.SelectedItem.ToString.Trim.Replace("XXXX", "") + txtHP1.Text.Trim + txtHP2.Text.Trim)
+        Dim faxNo As String = txtFaxNo1.Text.Trim + txtFaxNo2.Text.Trim + txtFaxNo3.Text.Trim
+        Dim customerType As String = If(cboCustomerType.SelectedIndex < 0, "" _
+                                  , cboCustomerType.SelectedValue.ToString.Replace("XXXX", ""))
+        Dim wooNo As String = txtWP1.Text.Trim & txtWP2.Text.Trim
+            ' 업데이트
+        sql = " UPDATE T_CUSTOMER " & _
+              "    SET CUSTOMER_NM = @customerNm" & _
+              "       ,C_TELNO= @cTelNo " & _
+              "       ,H_TELNO= @hTelNo " & _
+              "       ,FAX_NO= @faxNo " & _
+              "       ,COMPANY= @company " & _
+              "       ,DEPARTMENT= @department" & _
+              "       ,JOB_TITLE= @jobTitle" & _
+              "       ,EMAIL= @email" & _
+              "       ,CUSTOMER_TYPE= @customerType " & _
+              "       ,WOO_NO= @wooNo " & _
+              "       ,CUSTOMER_ADDR= @customerAddr" & _
+              "       ,CUSTOMER_ETC= @customerEtc" & _
+              "       ,UPDATE_DATE=@updateDate" & _
+              " WHERE COM_CD = @gsComCd" & _
+              "   AND CUSTOMER_ID = @customerId "
 
-        ' 업데이트
-        SQL = " UPDATE T_CUSTOMER SET CUSTOMER_NM = '" & txtCustomerName.Text.Trim & "'"
-        SQL = SQL & ",C_TELNO= '" & txtWorkTelNo1.Text.Trim + txtWorkTelNo2.Text.Trim + txtWorkTelNo3.Text.Trim & "'"
-
-
-        If cboHP.SelectedIndex < 0 Then
-            SQL = SQL & ",H_TELNO= '" & "" & "'"
-        Else
-            SQL = SQL & ",H_TELNO= '" & cboHP.SelectedItem.ToString.Trim.Replace("XXXX", "") + txtHP1.Text.Trim + txtHP2.Text.Trim & "'"
-        End If
-
-        SQL = SQL & ",FAX_NO='" & txtFaxNo1.Text.Trim + txtFaxNo2.Text.Trim + txtFaxNo3.Text.Trim & "'"
-
-        SQL = SQL & ",COMPANY= '" & txtCompany.Text.Trim & "'"
-        SQL = SQL & ",DEPARTMENT= '" & txtDepartment.Text.Trim & "'"
-        SQL = SQL & ",JOB_TITLE= '" & txtJobTitle.Text.Trim & "'"
-        SQL = SQL & ",EMAIL= '" & txtEmail.Text.Trim & "'"
-
-        If cboCustomerType.SelectedIndex < 0 Then
-            SQL = SQL & ",CUSTOMER_TYPE= '" & "" & "'" ' CUSTOMER TYPE
-        Else
-            SQL = SQL & ",CUSTOMER_TYPE= '" & cboCustomerType.SelectedValue.ToString.Replace("XXXX", "") & "'" ' CUSTOMER TYPE
-        End If
-
-        SQL = SQL & ",WOO_NO= '" & txtWP1.Text.Trim & txtWP2.Text.Trim & "'"
-        SQL = SQL & ",CUSTOMER_ADDR= '" & txtAddress.Text.Trim & "'"
-        SQL = SQL & ",CUSTOMER_ETC= '" & txtEtcInfo.Text.Trim & "'"
-
-        SQL = SQL & ",UPDATE_DATE='" & Format(Now, "yyyyMMddHHmmss") & "'"
-
-
-        SQL = SQL & " WHERE COM_CD = '" & gsCOM_CD & "'"
-        SQL = SQL & " AND CUSTOMER_ID = " & txtCustomerID.Text.Trim
+        Dim parameters As Hashtable = New Hashtable
 
         Try
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
-            Dim dt As DataTable = DoQueryParam(gsConString, SQL)
+            parameters.Add("@customerNm", txtCustomerName.Text.Trim)
+            parameters.Add("@cTelNo", cTelNo)
+            parameters.Add("@hTelNo", hTelNo)
+            parameters.Add("@faxNo", faxNo)
+            parameters.Add("@company", txtCompany.Text.Trim)
+            parameters.Add("@department", txtDepartment.Text.Trim)
+            parameters.Add("@jobTitle", txtJobTitle.Text.Trim)
+            parameters.Add("@email", txtEmail.Text.Trim)
+            parameters.Add("@customerType", customerType)
+            parameters.Add("@wooNo", wooNo)
+            parameters.Add("@customerAddr", txtAddress.Text.Trim)
+            parameters.Add("@customerEtc", txtEtcInfo.Text.Trim)
+            parameters.Add("@updateDate", Format(Now, "yyyyMMddHHmmss"))
+            parameters.Add("@gsComCd", gsCOM_CD)
+            parameters.Add("@customerId", txtCustomerID.Text.Trim)
 
-            dt = Nothing
+
+            If DoExecuteNonQuery(sql, parameters) < 1 Then
+                MsgBox("고객정보 수정에 실패하였습니다.", MsgBoxStyle.OkOnly, "알림")
+                Throw New Exception("고객정보 수정 실패")
+            End If
+
             ' 삭제된 데이터를 refresh 한다
             btnTelNoAdd.Enabled = False
             Call gsSelect()
             Call gsInit()
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+
         Catch ex As Exception
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
             Call WriteLog("FRM_CUSTOMER : " & ex.ToString)
         End Try
     End Sub

@@ -281,6 +281,43 @@ Module MiniCTI
     '**********************************************************************************************************
     '****************************** 모두 이함수 사용합시다 ****************************************************
     '**********************************************************************************************************
+    Public Function DoQuery(ByVal sql As String) As DataTable
+        Return DoQuery(sql, New Hashtable)
+    End Function
+
+    Public Function DoQuery(ByVal sql As String, ByVal parameters As Hashtable) As DataTable
+
+        Dim handler As MySQLHandler = Nothing
+        Dim dataTable As DataTable = Nothing
+
+        Try
+            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+
+            handler = New MySQLHandler()
+
+            handler.SetQuery(sql)
+
+            For Each element As DictionaryEntry In parameters
+                handler.Parameters(element.Key, element.Value)
+            Next
+
+            dataTable = handler.DoQuery()
+
+        Catch ex As Exception
+            WriteLog("DoQuery : " & ex.ToString)
+            Throw ex
+        Finally
+            'dataTable = Nothing
+            If Not handler Is Nothing Then
+                handler.Close()
+            End If
+            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+        End Try
+
+        Return dataTable
+
+    End Function
+
     Public Function DoQuery(ByVal constring As String, ByVal strSql As String) As DataTable
 
         Dim con As MySqlConnection
@@ -320,134 +357,101 @@ Module MiniCTI
     End Function
 
 
-    Public Function ExecuteProcedure(ByVal constring As String, ByVal procedurename As String, ByVal ParamArray parameters() As String) As Boolean
 
-        Dim bol As Boolean = True
-        Dim s_dbcon As String = constring
-        Dim con As SqlClient.SqlConnection
-        Dim com As SqlClient.SqlCommand
-        Dim da As SqlClient.SqlDataAdapter
-        Dim ds As DataSet
-        Dim querystring As String = "Exec "     '프로시져 실행구문을 작성한다.
-        Dim i As Integer
+    'Public Function DoQueryParam2(ByVal conString As String, ByVal sqlText As String, ByVal parameters() As MySqlParameter) As DataTable
 
+    '    Dim connection As MySqlConnection = Nothing
+    '    Dim cmd As MySqlCommand
+    '    Dim dataAdapter As MySqlDataAdapter
+    '    Dim dataTable As New DataTable
 
-        Try
+    '    Try
+    '        Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+    '        connection = New MySqlConnection(conString)
+    '        connection.Open()
 
-            con = New SqlClient.SqlConnection(s_dbcon)
-            com = New SqlClient.SqlCommand
-            da = New SqlClient.SqlDataAdapter(com)
-            ds = New DataSet
+    '        cmd = New MySqlCommand(sqlText, connection)
+    '        cmd.Prepare()
 
-            querystring = querystring & procedurename & " "     '프로시져의 명을 실행구문에 추가한다.
+    '        dataAdapter = New MySqlDataAdapter(cmd)
 
-            If parameters.Length > 0 Then
-                querystring = querystring & "'" & parameters(0).Replace("'", "''") & "'"        '첫번째 파라메터를 실행구문에 추가한다.
-            End If
+    '        dataAdapter.MissingSchemaAction = MissingSchemaAction.AddWithKey
 
-            For i = 1 To parameters.Length - 1
-                querystring = querystring & ", '" & parameters(i).Replace("'", "''") & "'"      '두번째 이후 파라메터들을 실행구문에 추가한다.
-            Next
+    '        For Each parameter In parameters
+    '            dataAdapter.SelectCommand.Parameters.AddWithValue(parameter.ParameterName, parameter.Value)
+    '        Next
 
-            com.CommandText = querystring
+    '        Dim queryMessage As String = ""
+    '        Dim i As Integer
+    '        For i = 0 To cmd.Parameters.Count - 1
+    '            queryMessage += cmd.Parameters(i).ToString() & ControlChars.Cr
+    '        Next i
+    '        WriteLog("query Parameter:" & queryMessage)
+    '        dataAdapter.Fill(dataTable)
 
-            com.Connection = con
-            con.Open()
+    '    Catch ex As Exception
+    '        WriteLog(ex.ToString)
+    '        Throw ex 'New Exception("쿼리문 오류발생", ex)
+    '    Finally
+    '        If Not (connection Is Nothing) Then
+    '            connection.Close()
+    '        End If
+    '        Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+    '    End Try
 
-            Dim j As Integer = com.ExecuteNonQuery()
-            con.Close()
+    '    Return dataTable
 
-        Catch ex As Exception
-            bol = False
-            Call WriteLog("Exception : " & ex.ToString)
-        End Try
+    'End Function
 
-        Return bol
-
+    ''' <summary>
+    ''' 쿼리이외의 insert/update/delete용도로 사용
+    ''' </summary>
+    ''' <param name="sql"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function DoExecuteNonQuery(ByVal sql As String) As Integer
+        Return DoExecuteNonQuery(sql, New Hashtable)
     End Function
 
-    Public Function DoQueryParam2(ByVal conString As String, ByVal sqlText As String, ByVal parameters() As MySqlParameter) As DataTable
+    ''' <summary>
+    ''' 쿼리이외의 insert/update/delete용도로 사용
+    ''' </summary>
+    ''' <param name="sql"></param>
+    ''' <param name="parameters"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function DoExecuteNonQuery(ByVal sql As String, ByVal parameters As Hashtable) As Integer
 
-        Dim connection As MySqlConnection = Nothing
-        Dim cmd As MySqlCommand
-        Dim dataAdapter As MySqlDataAdapter
-        Dim dataTable As New DataTable
-
+        Dim handler As MySQLHandler = Nothing
+        Dim returnCount As Integer = 0
         Try
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
-            connection = New MySqlConnection(conString)
-            connection.Open()
 
-            cmd = New MySqlCommand(sqlText, connection)
-            cmd.Prepare()
+            handler = New MySQLHandler()
 
-            dataAdapter = New MySqlDataAdapter(cmd)
+            handler.SetQuery(sql)
+            handler.ClearParameters()
 
-            dataAdapter.MissingSchemaAction = MissingSchemaAction.AddWithKey
-
-            For Each parameter In parameters
-                dataAdapter.SelectCommand.Parameters.AddWithValue(parameter.ParameterName, parameter.Value)
+            For Each element As DictionaryEntry In parameters
+                handler.Parameters(element.Key, element.Value)
             Next
 
-            Dim queryMessage As String = ""
-            Dim i As Integer
-            For i = 0 To cmd.Parameters.Count - 1
-                queryMessage += cmd.Parameters(i).ToString() & ControlChars.Cr
-            Next i
-            WriteLog("query Parameter:" & queryMessage)
-            dataAdapter.Fill(dataTable)
+            returnCount = handler.Execute()
+
+            WriteLog("returnCount[" & returnCount & "] 입력되었습니다.")
 
         Catch ex As Exception
-            WriteLog(ex.ToString)
-            Throw ex 'New Exception("쿼리문 오류발생", ex)
+            WriteLog("DoExecuteNonQuery : " & ex.ToString)
+            Throw ex
         Finally
-            If Not (connection Is Nothing) Then
-                connection.Close()
+            If Not handler Is Nothing Then
+                handler.Close()
             End If
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+
         End Try
 
-        Return dataTable
-
-    End Function
-
-
-
-    Public Function DoQueryParam(ByVal constring As String, ByVal sqltext As String, ByVal ParamArray parameters() As String) As DataTable
-
-        Dim con As MySqlConnection
-        Dim com As MySqlCommand
-        Dim da As MySqlDataAdapter
-        Dim dt As New DataTable
-        Dim temp As String = ""
-
-        Try
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
-            con = New MySqlConnection(constring)
-            com = New MySqlCommand(sqltext, con)
-            da = New MySqlDataAdapter(com)
-
-            'com.CommandText = sqltext     '쿼리 실행구문
-
-            con.Open()
-            If sqltext.Trim.ToLower.StartsWith("select") = True Then
-                da.Fill(dt)
-            Else
-                Dim j As Integer = com.ExecuteNonQuery()
-            End If
-            com.Parameters.Clear()
-        Catch ex As Exception
-            Call WriteLog(ex.ToString)
-            Throw New Exception("쿼리문 오류발생", ex)
-        Finally
-            DoQueryParam = dt
-            con.Close()
-            dt = Nothing
-            da = Nothing
-            com = Nothing
-            con = Nothing
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
-        End Try
+        Return returnCount
 
     End Function
 
@@ -459,55 +463,55 @@ Module MiniCTI
     ''' <param name="parameters"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function DoExecuteNonQuery(ByVal constring As String, ByVal sqltext As String, ByVal ParamArray parameters() As String) As Integer
+    'Public Function DoExecuteNonQuery(ByVal constring As String, ByVal sqltext As String, ByVal ParamArray parameters() As String) As Integer
 
-        Dim con As MySqlConnection
-        Dim com As MySqlCommand
-        Dim da As MySqlDataAdapter
-        Dim dt As New DataTable
-        Dim temp As String = ""
-        Dim iRow As Integer = 0
+    '    Dim con As MySqlConnection
+    '    Dim com As MySqlCommand
+    '    Dim da As MySqlDataAdapter
+    '    Dim dt As New DataTable
+    '    Dim temp As String = ""
+    '    Dim iRow As Integer = 0
 
-        Try
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
-            con = New MySqlConnection(constring)
-            com = New MySqlCommand(sqltext, con)
-            da = New MySqlDataAdapter(com)
+    '    Try
+    '        Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+    '        con = New MySqlConnection(constring)
+    '        com = New MySqlCommand(sqltext, con)
+    '        da = New MySqlDataAdapter(com)
 
-            con.Open()
-            If sqltext.Trim.ToLower.StartsWith("select") = True Then
-                Throw New Exception("쿼리문은 사용불가.")
-            Else
-                iRow = com.ExecuteNonQuery()
-            End If
-            com.Parameters.Clear()
-        Catch ex As Exception
-            Call WriteLog(ex.ToString)
-            Throw New Exception("SQL문 오류발생", ex)
-        Finally
-            DoExecuteNonQuery = iRow
+    '        con.Open()
+    '        If sqltext.Trim.ToLower.StartsWith("select") = True Then
+    '            Throw New Exception("쿼리문은 사용불가.")
+    '        Else
+    '            iRow = com.ExecuteNonQuery()
+    '        End If
+    '        com.Parameters.Clear()
+    '    Catch ex As Exception
+    '        Call WriteLog(ex.ToString)
+    '        Throw New Exception("SQL문 오류발생", ex)
+    '    Finally
+    '        DoExecuteNonQuery = iRow
 
-            con.Close()
-            da = Nothing
-            com = Nothing
-            con = Nothing
+    '        con.Close()
+    '        da = Nothing
+    '        com = Nothing
+    '        con = Nothing
 
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
-        End Try
-    End Function
+    '        Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+    '    End Try
+    'End Function
 
-    Public Function DoCommandSql(ByVal Sql As String) As Boolean
+    Public Function DoCommandSql(ByVal sql As String) As Boolean
         Dim isGood As Boolean = False
         Try
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
 
-            If DoExecuteNonQuery(gsConString, Sql) >= 0 Then
+            If DoExecuteNonQuery(sql) >= 0 Then
                 isGood = True
             End If
 
 
         Catch ex As Exception
-            Call WriteLog(Sql & " : " & ex.ToString)
+            Call WriteLog(sql & " : " & ex.ToString)
         Finally
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
         End Try
@@ -542,11 +546,22 @@ Module MiniCTI
         Return isExist
     End Function
 
-
-    Public Sub CB_Set(ByVal constring As String, ByVal sqltext As String, ByVal obj As Object, ByVal TextField As String, ByVal ValueField As String, ByVal SelectValue As Object, ByVal ParamArray parameters() As String)
+    ''' <summary>
+    ''' 콤보박스, 드롭박스, 리스트박스등 코드성데이터를 조회해서 콘트롤에 값을 리스트로 생성해줌.
+    ''' </summary>
+    ''' <param name="constring"></param>
+    ''' <param name="sqltext"></param>
+    ''' <param name="obj"></param>
+    ''' <param name="TextField"></param>
+    ''' <param name="ValueField">코드필드</param>
+    ''' <param name="SelectValue">선택값</param>
+    ''' <param name="parameters">쿼리 parameter값.-안쓰임</param>
+    ''' <remarks></remarks>
+    Public Sub CB_Set(ByVal constring As String, ByVal sqltext As String, ByVal obj As Object, _
+                      ByVal TextField As String, ByVal ValueField As String, ByVal SelectValue As Object, ByVal ParamArray parameters() As String)
         Dim dt As DataTable
         Try
-            dt = DoQueryParam(constring, sqltext, parameters)
+            dt = DoQuery(sqltext)
             obj.DataSource = dt
             obj.DisplayMember = TextField
             obj.ValueMember = ValueField
@@ -562,7 +577,19 @@ Module MiniCTI
         End Try
     End Sub
 
-    Public Sub CB_Set2(ByVal obj As ComboBox, ByVal type As String, ByVal iSTART As Short, ByVal iEND As Short, ByVal iInterval As Short, ByVal SelectText As String, ByVal ParamArray parameters() As String)
+    ''' <summary>
+    ''' 영역값, 단위값을 주고 콤보박스 목록 생성해주고, 선택값을 선택함.
+    ''' </summary>
+    ''' <param name="obj"></param>
+    ''' <param name="type"></param>
+    ''' <param name="iSTART"></param>
+    ''' <param name="iEND"></param>
+    ''' <param name="iInterval"></param>
+    ''' <param name="SelectText"></param>
+    ''' <param name="parameters">영역값외에 값을 추가. 실제로 쓰이지않는다.</param>
+    ''' <remarks></remarks>
+    Public Sub CB_Set2(ByVal obj As ComboBox, ByVal type As String, ByVal iSTART As Short, ByVal iEND As Short, ByVal iInterval As Short, _
+                       ByVal SelectText As String, ByVal ParamArray parameters() As String)
 
         Dim i As Short = iEND - iSTART '+ 1
         Dim j As Short = 0
@@ -623,7 +650,7 @@ Module MiniCTI
         Try
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
             obj.AutoGenerateColumns = False
-            dt = DoQueryParam(constring, sqltext, parameters)
+            dt = DoQuery(sqltext)
             If dt.Rows.Count = 1 AndAlso dt.Rows(0).Item(0).ToString = "합계" Then  '데이타가 없는 경우 합계도 안보여주기.
                 obj.DataSource = Nothing
             Else

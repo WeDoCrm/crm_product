@@ -65,6 +65,7 @@
     End Function
 
     Private Sub btnSaveTelNo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveTelNo.Click
+        Dim dt As DataTable
         Try
             If txtFrmTelNo.Text.Trim = "" Then
                 MsgBox("등록할 전화번호를 입력하세요.", MsgBoxStyle.OkOnly, "알림")
@@ -77,34 +78,41 @@
             End If
             'select COM_CD,CUSTOMER_ID,TELNO_TYPE,TELNO from t_customer_telno
 
-            Dim SQL As String = " SELECT COUNT(*) FROM t_customer_telno  WHERE COM_CD ='" & gsCOM_CD & "'"
-            SQL = SQL & " AND CUSTOMER_ID = " & txtFrmTelNoID.Text.Trim
-            SQL = SQL & " AND TELNO = '" & txtFrmTelNo.Text.Trim.Replace("-", "") & "'"
+            Dim SQL As String = " SELECT COUNT(*) FROM t_customer_telno  WHERE COM_CD = @gsComCd "
+            SQL = SQL & " AND CUSTOMER_ID = @customerId"
+            SQL = SQL & " AND TELNO = @telNo"
 
-            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
+            Dim parameters As Hashtable = New Hashtable
+            parameters.Add("@gsComCd", gsCOM_CD)
+            parameters.Add("@customerId", txtFrmTelNoID.Text.Trim)
+            parameters.Add("@telNo", txtFrmTelNo.Text.Trim.Replace("-", ""))
+
+            dt = DoQuery(SQL, parameters)
             Dim CNT As String = "0"
 
 
-            If dt1.Rows.Count > 0 Then
+            If dt.Rows.Count > 0 Then
 
                 Dim i As Integer
                 Dim CntString As String = "0"
 
-                For i = 0 To dt1.Rows.Count - 1
-                    CNT = dt1.Rows(i).Item(0).ToString
+                For i = 0 To dt.Rows.Count - 1
+                    CNT = dt.Rows(i).Item(0).ToString
                 Next
             Else
                 CNT = "0"
             End If
 
-            dt1 = Nothing
+            Dim paramInsert As Hashtable = New Hashtable
 
             If CNT = "0" Then
-                SQL = " INSERT INTO t_customer_telno( COM_CD,CUSTOMER_ID,TELNO) VALUES( "
-                SQL = SQL & "'" & gsCOM_CD & "'"
-                SQL = SQL & "," & txtFrmTelNoID.Text.Trim
+                SQL = " INSERT INTO t_customer_telno " & _
+                      "         ( COM_CD,CUSTOMER_ID,TELNO) " & _
+                      "  VALUES ( @gsComCd, @customerId, @telNo)"
 
-                SQL = SQL & ",'" & txtFrmTelNo.Text.Trim & "')"
+                paramInsert.Add("@gsComCd", gsCOM_CD)
+                paramInsert.Add("@customerId", txtFrmTelNoID.Text.Trim)
+                paramInsert.Add("@telNo", txtFrmTelNo.Text.Trim.Replace("-", ""))
 
             ElseIf CNT > "0" Then
                 MsgBox("이미 등록되어 있는 전화 번호입니다.다른 번호를 등록하세요.", MsgBoxStyle.OkOnly, "알림")
@@ -112,34 +120,42 @@
 
             End If
 
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+            If DoExecuteNonQuery(SQL, paramInsert) < 1 Then
+                MsgBox("고객정보 등록에 실패하였습니다.", MsgBoxStyle.OkOnly, "알림")
+                Throw New Exception("고객정보 등록 실패")
+            End If
 
-            Dim dt As DataTable = DoQueryParam(gsConString, SQL)
+            MsgBox("고객정보가 저장됐습니다.", MsgBoxStyle.OkOnly, "알림")
 
-            dt = Nothing
-            MsgBox("데이터가 저장 됐습니다.", MsgBoxStyle.OkOnly, "알림")
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
             Call gsSelect()
 
         Catch ex As Exception
             Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
             Call WriteLog("btnDelTelNo : " & ex.ToString)
+        Finally
+            dt = Nothing
         End Try
     End Sub
 
 
     Private Sub gsSelect()
+        Dim dt1 As DataTable = Nothing
         Try
-            Dim SQL As String = " select  y.CUSTOMER_nm ,x.TELNO,x.CUSTOMER_ID from t_customer_telno x,t_customer y  WHERE x.COM_CD = '" & gsCOM_CD & "'"
-            SQL = SQL & " AND x.CUSTOMER_ID =" & Me.Tag.ToString
-            SQL = SQL & " AND x.CUSTOMER_ID = y.CUSTOMER_ID "
+            Dim SQL As String = _
+            "select y.CUSTOMER_nm ,x.TELNO,x.CUSTOMER_ID " & _
+            "  from t_customer_telno x,t_customer y " & _
+            " WHERE x.COM_CD = @gsComCd" & _
+            "   AND x.CUSTOMER_ID = @customerId" & _
+            "   AND x.CUSTOMER_ID = y.CUSTOMER_ID "
 
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+            Dim parameters As Hashtable = New Hashtable
+            parameters.Add("@customerId", Me.Tag.ToString)
+            parameters.Add("@gsComCd", gsCOM_CD)
 
             '************************************ 체크하자
-            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
-            DataGridView1.DataSource = Nothing
+            dt1 = DoQuery(SQL, parameters)
 
+            DataGridView1.DataSource = Nothing
 
             DataGridView1.Columns.Clear()
 
@@ -148,13 +164,10 @@
             DataGridView1.Columns.Item(1).HeaderText = "전화번호"
             DataGridView1.Columns.Item(2).HeaderText = "고객아이디"
 
-
-            dt1 = Nothing
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
-
         Catch ex As Exception
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
             Call WriteLog("FRM_CUSTOMER : " & ex.ToString)
+        Finally
+            dt1 = Nothing
         End Try
     End Sub
 
@@ -183,21 +196,26 @@
             End If
             'select COM_CD,CUSTOMER_ID,TELNO_TYPE,TELNO from t_customer_telno
 
-            Dim SQL As String = " DELETE FROM t_customer_telno WHERE COM_CD ='" & gsCOM_CD & "'"
-            SQL = SQL & " AND CUSTOMER_ID = " & txtFrmTelNoID.Text.Trim
-            SQL = SQL & " AND TELNO = '" & txtFrmTelNo.Text.Trim.Replace("-", "") & "'"
+            Dim sql As String = " DELETE FROM t_customer_telno " & _
+                                "  WHERE COM_CD =@gsComCd" & _
+                                "    AND CUSTOMER_ID = @customerId " & _
+                                "    AND TELNO = @telNo"
 
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+            Dim parameters As Hashtable = New Hashtable
 
-            Dim dt As DataTable = DoQueryParam(gsConString, SQL)
+            parameters.Add("@gsComCd", gsCOM_CD)
+            parameters.Add("@customerId", txtFrmTelNoID.Text.Trim)
+            parameters.Add("@telNo", txtFrmTelNo.Text.Trim.Replace("-", ""))
 
-            dt = Nothing
-            MsgBox("데이터가 삭제 됐습니다.", MsgBoxStyle.OkOnly, "알림")
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+            If DoExecuteNonQuery(sql, parameters) < 1 Then
+                MsgBox("고객정보 삭제에 실패하였습니다.", MsgBoxStyle.OkOnly, "알림")
+                Throw New Exception("고객정보 삭제 실패")
+            End If
+
+            MsgBox("고객정보가 삭제됐습니다.", MsgBoxStyle.OkOnly, "알림")
             Call gsSelect()
 
         Catch ex As Exception
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
             Call WriteLog("btnDelTelNo : " & ex.ToString)
         End Try
 
@@ -215,15 +233,10 @@
                 txtFrmTelNo.Text = .Cells(1).Value.ToString
             End With
 
-
         Catch ex As Exception
             Call WriteLog(ex.ToString)
         End Try
 
-
     End Sub
 
-    Private Sub DataGridView1_CellContentClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
-
-    End Sub
 End Class

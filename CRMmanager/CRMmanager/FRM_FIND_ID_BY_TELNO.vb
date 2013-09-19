@@ -33,7 +33,7 @@
     Public Function Setting_CustomerId() As String
         Try
             If mCustomerId.Trim = "" Then
-                Call WriteLog(Me.Name & " : customer id doesn't exist")
+                Call WriteLog(Me.Name & " : customerId 없음")
                 Exit Try
             End If
         Catch ex As Exception
@@ -44,14 +44,19 @@
     End Function
 
     Private Sub selectId()
+        Dim dt1 As DataTable = Nothing
         Try
-            Dim SQL As String = " select CUSTOMER_ID,CUSTOMER_NM,C_TELNO,H_TELNO from t_customer WHERE COM_CD = '" & gsCOM_CD & "'"
-            SQL = SQL & " AND CUSTOMER_NM like '%" & txtCMName1.Text.Trim & "%'"
+            Dim sql As String = _
+            " select CUSTOMER_ID,CUSTOMER_NM,C_TELNO,H_TELNO " & _
+              " from t_customer " & _
+              "WHERE COM_CD = @gsComCd" & _
+              "  AND CUSTOMER_NM like @customerNm"
 
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+            Dim parameters As Hashtable = New Hashtable
+            parameters.Add("@gsComCd", gsCOM_CD)
+            parameters.Add("@customerNm", "%" & txtCMName1.Text.Trim & "%")
 
-            '************************************ 체크하자
-            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
+            dt1 = DoQuery(sql, parameters)
             DataGridView1.DataSource = Nothing
 
 
@@ -63,12 +68,10 @@
             DataGridView1.Columns.Item(2).HeaderText = "전화번호"
             DataGridView1.Columns.Item(3).HeaderText = "핸드폰번호"
 
-            dt1 = Nothing
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
-
         Catch ex As Exception
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
             Call WriteLog(Me.Name & ":" & ex.ToString)
+        Finally
+            dt1 = Nothing
         End Try
 
     End Sub
@@ -85,7 +88,6 @@
             If e.RowIndex < 0 Then Exit Try
             Dim i As Integer = e.RowIndex
 
-
             With DataGridView1.Rows(i)
                 mCustomerId = .Cells(0).Value.ToString
                 txtFindCmName1.Text = .Cells(1).Value.ToString
@@ -97,6 +99,8 @@
     End Sub
 
     Private Sub btnTelAdd1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTelAdd1.Click
+
+        Dim dt1 As DataTable
 
         Try
             If txtEnteringNo.Text.Trim = "" Then
@@ -115,51 +119,45 @@
 
             'select COM_CD,CUSTOMER_ID,TELNO_TYPE,TELNO from t_customer_telno
 
-            Dim SQL As String = " SELECT COUNT(*) FROM t_customer_telno  WHERE COM_CD ='" & gsCOM_CD & "'"
-            SQL = SQL & " AND CUSTOMER_ID = " & mCustomerId.Trim
-            SQL = SQL & " AND TELNO = '" & txtEnteringNo.Text.Trim.Replace("-", "") & "'"
+            Dim sql As String = _
+            " SELECT COUNT(*) FROM t_customer_telno " & _
+            "  WHERE COM_CD = @gsComCd" & _
+            "    AND CUSTOMER_ID = @customerId" & _
+            "    AND TELNO = @telNo"
 
-            Dim dt1 As DataTable = DoQuery(gsConString, SQL)
-            Dim CNT As String = "0"
+            Dim parameters As Hashtable = New Hashtable
+            parameters.Add("@gsComCd", gsCOM_CD)
+            parameters.Add("@customerId", mCustomerId.Trim)
+            parameters.Add("@telNo", txtEnteringNo.Text.Trim.Replace("-", ""))
 
+            dt1 = DoQuery(sql, parameters)
 
-            If dt1.Rows.Count > 0 Then
+            Dim recCnt As Integer = 0
 
-                Dim i As Integer
-                Dim CntString As String = "0"
+            For Each row As DataRow In dt1.Rows
+                recCnt = row.Item(0)
+            Next
 
-                For i = 0 To dt1.Rows.Count - 1
-                    CNT = dt1.Rows(i).Item(0).ToString
-                Next
+            If recCnt <= 0 Then
+                sql = " INSERT INTO t_customer_telno " & _
+                      "             ( COM_CD,CUSTOMER_ID,TELNO) " & _
+                      "      VALUES ( @gsComCd, @customerId, @telNo)"
             Else
-                CNT = "0"
-            End If
-
-            dt1 = Nothing
-
-            If CNT = "0" Then
-                SQL = " INSERT INTO t_customer_telno( COM_CD,CUSTOMER_ID,TELNO) VALUES( "
-                SQL = SQL & "'" & gsCOM_CD & "'"
-                SQL = SQL & "," & mCustomerId.Trim
-
-                SQL = SQL & ",'" & txtEnteringNo.Text.Trim & "')"
-
-            ElseIf CNT > "0" Then
                 MsgBox("이미 등록되어 있는 전화 번호입니다.다른 번호를 등록하세요.", MsgBoxStyle.OkOnly, "알림")
                 Exit Sub
             End If
 
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
-
-            Dim dt As DataTable = DoQueryParam(gsConString, SQL)
-
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+            If DoExecuteNonQuery(sql, parameters) < 1 Then
+                MsgBox("전화번호 등록에 실패하였습니다.", MsgBoxStyle.OkOnly, "알림")
+                Throw New Exception("전화번호 등록 실패")
+            End If
 
             MsgBox("선택한 번호가 추가되었습니다.", MsgBoxStyle.OkOnly, "알림")
 
         Catch ex As Exception
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
             Call WriteLog(Me.Name & ":" & ex.ToString)
+        Finally
+            dt1 = Nothing
         End Try
     End Sub
 
@@ -171,19 +169,24 @@
                 Exit Sub
             End If
 
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+            Dim SQL As String = " DELETE FROM T_CUSTOMER_TELNO " & _
+                                "  WHERE COM_CD = @gsComCd" & _
+                                "    AND CUSTOMER_ID = @customerId" & _
+                                "    AND TELNO = @telNo"
 
-            Dim SQL As String = " DELETE FROM T_CUSTOMER_TELNO WHERE COM_CD = '" & gsCOM_CD & _
-                                "' AND CUSTOMER_ID = '" & mCustomerId.Trim & _
-                                "' AND TELNO = '" & txtEnteringNo.Text.Trim & "'"
-            Dim dt As DataTable = DoQueryParam(gsConString, SQL)
+            Dim parameters As Hashtable = New Hashtable
+            parameters.Add("@gsComCd", gsCOM_CD)
+            parameters.Add("@customerId", mCustomerId.Trim)
+            parameters.Add("@telNo", txtEnteringNo.Text.Trim)
 
-            dt = Nothing
+            If DoExecuteNonQuery(SQL, parameters) < 1 Then
+                MsgBox("비밀번호 변경에 실패하였습니다.", MsgBoxStyle.OkOnly, "알림")
+                Throw New Exception("비밀번호 변경 실패")
+            End If
+
             MsgBox("데이터가 삭제 됐습니다.", MsgBoxStyle.OkOnly, "알림")
 
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
         Catch ex As Exception
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
             Call WriteLog(Me.Name.ToString & ":" & ex.ToString)
         End Try
     End Sub

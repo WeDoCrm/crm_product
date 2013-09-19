@@ -163,18 +163,6 @@
     <Compile Include="FRM_CUSTOMER.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FRM_CUSTOMER_FIND.Designer.vb">
-      <DependentUpon>FRM_CUSTOMER_FIND.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FRM_CUSTOMER_FIND.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FRM_CUSTOMER_HISTORY_MODIFY.Designer.vb">
-      <DependentUpon>FRM_CUSTOMER_HISTORY_MODIFY.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FRM_CUSTOMER_HISTORY_MODIFY.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="FRM_CUSTOMER_POPUP1.Designer.vb">
       <DependentUpon>FRM_CUSTOMER_POPUP1.vb</DependentUpon>
     </Compile>
@@ -340,14 +328,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FRM_CUSTOMER.resx">
       <DependentUpon>FRM_CUSTOMER.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FRM_CUSTOMER_FIND.resx">
-      <DependentUpon>FRM_CUSTOMER_FIND.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FRM_CUSTOMER_HISTORY_MODIFY.resx">
-      <DependentUpon>FRM_CUSTOMER_HISTORY_MODIFY.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FRM_CUSTOMER_POPUP1.resx">

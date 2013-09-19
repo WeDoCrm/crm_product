@@ -120,12 +120,14 @@ Public Class FRM_SCHEDULE_ALARM
     ''' <summary>
     ''' 해당건에 대해 미리알림건 해제
     ''' ALARM_MINUTE = -1로 설정
+    ''' DELAY_MINUTE은 선언은 했으나 현재 사용하지 않음 0으로 설정
     ''' </summary>
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Private Sub btnRelease_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRelease.Click
         mAlarmSchedule.JobDone = True
+
         mScheduler.UpdateAlarmSchedule(mAlarmSchedule)
         'RefreshAlarmList()
         Me.Close()

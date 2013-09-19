@@ -23,6 +23,11 @@
         CALLBACK = 2
     End Enum
 
+    Enum TrnxMode
+        INSERT = 0
+        UPDATE = 1
+    End Enum
+
     Public Structure AlarmSchedule
         Public ComCd As String               'COM_CD
         Public StartTime As String           'S_START_TIME 

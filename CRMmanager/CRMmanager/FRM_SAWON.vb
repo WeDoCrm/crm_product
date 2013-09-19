@@ -108,22 +108,27 @@
 
     Private Sub TabPage1_Setting(ByVal info As String)
         Dim dt As DataTable
+        Dim parameters As Hashtable = New Hashtable
+
         Try
             'info = .Cells("COM_CD").ToString & "^" & .Cells("USER_ID").ToString 
             If info.Trim = "" OrElse info.Contains("^") = False Then Exit Try
             Dim tmp() As String = info.Split("^")
 
             temp = "SELECT a.COM_CD, a.USER_ID, a.USER_NM, a.USER_PWD, a.H_TELNO, a.USR_HP " & _
-                  ",if (length(a.WOO_NO) = 6, substring(a.WOO_NO,1,3),'') WOO_NO1, if (length(a.WOO_NO) = 6, substring(a.WOO_NO,4,3),'') WOO_NO2 " & _
-                  ",a.EXTENSION_NO, a.ADDR1, a.USER_EMAIL, a.DEPART_CD, a.DEPART_NM, a.GRADE, a.WORK_AREA, a.TEAM_CD " & _
-                  ",if (length(a.ENTERING_DD) = 8, CONCAT(SUBSTRING(a.ENTERING_DD,1,4) , '-' , SUBSTRING(a.ENTERING_DD,5,2) , '-' , SUBSTRING(a.ENTERING_DD,7,2)),'') ENTERING_DD " & _
-                  ",if (length(a.RETIRE_DD) = 8, CONCAT(SUBSTRING(a.RETIRE_DD,1,4) , '-' , SUBSTRING(a.RETIRE_DD,5,2) , '-' , SUBSTRING(a.RETIRE_DD,7,2)),'') RETIRE_DD " & _
-                  ",IFNULL(MOBILE_USE_YN,'N') MOBILE_USE_YN ,IFNULL(EXCEL_USE_YN,'N') EXCEL_USE_YN " & _
-                  "From t_user a " & _
-                  "Where a.COM_CD='" & tmp(0).Trim & "' " & _
-                  "and a.USER_ID = '" & tmp(1).Trim & "' "
+                  "       ,if (length(a.WOO_NO) = 6, substring(a.WOO_NO,1,3),'') WOO_NO1, if (length(a.WOO_NO) = 6, substring(a.WOO_NO,4,3),'') WOO_NO2 " & _
+                  "       ,a.EXTENSION_NO, a.ADDR1, a.USER_EMAIL, a.DEPART_CD, a.DEPART_NM, a.GRADE, a.WORK_AREA, a.TEAM_CD " & _
+                  "       ,if (length(a.ENTERING_DD) = 8, CONCAT(SUBSTRING(a.ENTERING_DD,1,4) , '-' , SUBSTRING(a.ENTERING_DD,5,2) , '-' , SUBSTRING(a.ENTERING_DD,7,2)),'') ENTERING_DD " & _
+                  "       ,if (length(a.RETIRE_DD) = 8, CONCAT(SUBSTRING(a.RETIRE_DD,1,4) , '-' , SUBSTRING(a.RETIRE_DD,5,2) , '-' , SUBSTRING(a.RETIRE_DD,7,2)),'') RETIRE_DD " & _
+                  "       ,IFNULL(MOBILE_USE_YN,'N') MOBILE_USE_YN ,IFNULL(EXCEL_USE_YN,'N') EXCEL_USE_YN " & _
+                  "  From t_user a " & _
+                  " Where a.COM_CD = @gsComCd " & _
+                  "   and a.USER_ID = @gsUserId "
 
-            dt = MiniCTI.DoQuery(gsConString, temp)
+            parameters.Add("@gsComCd", tmp(0).Trim)
+            parameters.Add("@gsUserId", tmp(1).Trim)
+
+            dt = MiniCTI.DoQuery(temp, parameters)
 
             If dt.Rows.Count > 0 Then
                 With dt.Rows(0)
@@ -197,6 +202,7 @@
     Public Sub gsSave()
         Dim dt As DataTable
         Dim dt2 As DataTable
+
         Try
             If txtId.Text.Trim = "" Then
                 MsgBox("사원번호를 입력하십시오.", MsgBoxStyle.OkOnly, "정보")
@@ -225,52 +231,129 @@
 
             ''처리
             temp = "SELECT count(*) From t_user a " & _
-                  "Where a.COM_CD='" & gsCOM_CD & "' and a.USER_ID='" & txtId.Text.Trim & "' "
-            dt = MiniCTI.DoQuery(gsConString, temp)
+                  "Where a.COM_CD= @comCd and a.USER_ID=@userId "
+
+            Dim paramCount As Hashtable = New Hashtable
+
+            paramCount.Add("@comCd", gsCOM_CD)
+            paramCount.Add("@userId", txtId.Text.Trim)
+
+            dt = MiniCTI.DoQuery(temp, paramCount)
 
             Dim hpNo As String = cboHP.Text.Trim & txtHP1.Text & txtHP2.Text
             Dim telNo As String = txtWorkTelNo1.Text.Trim & txtWorkTelNo2.Text.Trim & txtWorkTelNo3.Text.Trim
 
             '모바일사용자인 경우 동일 핸드폰번호가 중복이면 에러
             temp = "SELECT count(a.USER_ID) From t_user a " & _
-                  "Where a.COM_CD='" & gsCOM_CD & "' and a.USR_HP='" & hpNo & "' and a.USER_ID<>'" & txtId.Text.Trim & "' "
-            dt2 = MiniCTI.DoQuery(gsConString, temp)
+                  "Where a.COM_CD= @comCd and a.USR_HP=@userHP and a.USER_ID<> @userId "
+
+            Dim paramCountByHP As Hashtable = New Hashtable
+
+            paramCountByHP.Add("@comCd", gsCOM_CD)
+            paramCountByHP.Add("@userHP", hpNo)
+            paramCountByHP.Add("@userId", txtId.Text.Trim)
+
+            dt2 = MiniCTI.DoQuery(temp, paramCountByHP)
 
             Dim userCount As Integer = Integer.Parse(dt.Rows(0).Item(0).ToString.Trim)
             Dim hpCount As Integer = Integer.Parse(dt2.Rows(0).Item(0).ToString.Trim)
             Dim isMobileUser As Boolean = ckbMobileUser.Checked
             Dim useExcel As Boolean = ckbExcelUseYN.Checked
 
+            Dim paramTrnx As Hashtable = New Hashtable
+
             If (userCount = 0) Then ' Insert
                 If (Not isMobileUser Or hpCount = 0) Then
-                    temp = "Insert into t_user(COM_CD,USER_ID,USER_NM,USR_HP,ADDR1,WOO_NO,H_TELNO,GRADE,EXTENSION_NO,WORK_TYPE,ENTERING_DD,RETIRE_DD,USER_EMAIL,USER_PWD,WORK_AREA,TEAM_CD,TEAM_NM, MOBILE_USE_YN, EXCEL_USE_YN) " & _
-                           " values('" & gsCOM_CD & "','" & txtId.Text.Trim & "','" & txtName.Text.Trim & "','" & hpNo & "','" & txtAddress.Text.Trim & "','" & txtWP1.Text.Trim & txtWP2.Text.Trim & _
-                           "','" & telNo & "','" & cboPosition.SelectedValue.ToString.Trim & "','" & txtExt.Text.Trim & "','','" & _
-                           DPDate1.Text.Replace("-", "").Replace("/", "").Trim & "','" & If(ckbRetire.Checked = False, "", DPDate2.Text.Replace("-", "").Replace("/", "").Trim) & "','" & txtEmail.Text.Trim & _
-                           "','" & txtPW.Text.Trim & "','" & cboGrade.SelectedValue.ToString.Trim & "','" & cboTeam.SelectedValue.ToString.Trim & _
-                           "','" & If(cboTeam.Text.Trim = "-", "", cboTeam.Text.Trim) & "','" & If(isMobileUser, "Y", "N") & "','" & If(useExcel, "Y", "N") & "') "
+                    'temp = "Insert into t_user(COM_CD,USER_ID,USER_NM,USR_HP,ADDR1,WOO_NO,H_TELNO,GRADE,EXTENSION_NO,WORK_TYPE,ENTERING_DD,RETIRE_DD,USER_EMAIL,USER_PWD,WORK_AREA,TEAM_CD,TEAM_NM, MOBILE_USE_YN, EXCEL_USE_YN) " & _
+                    '       " values('" & gsCOM_CD & "','" & txtId.Text.Trim & "','" & txtName.Text.Trim & "','" & hpNo & "','" & txtAddress.Text.Trim & "','" & txtWP1.Text.Trim & txtWP2.Text.Trim & _
+                    '       "','" & telNo & "','" & cboPosition.SelectedValue.ToString.Trim & "','" & txtExt.Text.Trim & "','','" & _
+                    '       DPDate1.Text.Replace("-", "").Replace("/", "").Trim & "','" & If(ckbRetire.Checked = False, "", DPDate2.Text.Replace("-", "").Replace("/", "").Trim) & "','" & txtEmail.Text.Trim & _
+                    '       "','" & txtPW.Text.Trim & "','" & cboGrade.SelectedValue.ToString.Trim & "','" & cboTeam.SelectedValue.ToString.Trim & _
+                    '       "','" & If(cboTeam.Text.Trim = "-", "", cboTeam.Text.Trim) & "','" & If(isMobileUser, "Y", "N") & "','" & If(useExcel, "Y", "N") & "') "
+                    temp = "Insert into t_user(COM_CD,USER_ID,USER_NM,USR_HP,ADDR1" & _
+                            "     ,WOO_NO,H_TELNO,GRADE,EXTENSION_NO,WORK_TYPE           " & _
+                            "     ,ENTERING_DD,RETIRE_DD,USER_EMAIL                      " & _
+                            "     ,USER_PWD,WORK_AREA,TEAM_CD,TEAM_NM                    " & _
+                            "     ,MOBILE_USE_YN, EXCEL_USE_YN)                          " & _
+                            " values(@gsComCd,@userId, @userNm, @userHP, @addr1    " & _
+                            "     ,@wooNo, @hTelNo, @grade, @extensionNo,@workType      " & _
+                            "     ,@enteringDD, @retireDD, @userEmail                   " & _
+                            "     ,@userPwd, @workArea,@teamCd,@teamNm                  " & _
+                            "     ,@mobileUseYn, @excelUseYn)                           "
+
+                    paramTrnx.Add("@gsComCd", gsCOM_CD)
+                    paramTrnx.Add("@userId", txtId.Text.Trim)
+                    paramTrnx.Add("@userNm", txtName.Text.Trim)
+                    paramTrnx.Add("@userHP", hpNo)
+                    paramTrnx.Add("@addr1", txtAddress.Text.Trim)
+                    paramTrnx.Add("@wooNo", txtWP1.Text.Trim & txtWP2.Text.Trim)
+                    paramTrnx.Add("@hTelNo", telNo)
+                    paramTrnx.Add("@grade", cboPosition.SelectedValue.ToString.Trim)
+                    paramTrnx.Add("@extensionNo", txtExt.Text.Trim)
+                    paramTrnx.Add("@workType", "")
+                    paramTrnx.Add("@enteringDD", DPDate1.Text.Replace("-", "").Replace("/", "").Trim)
+                    paramTrnx.Add("@retireDD", If(ckbRetire.Checked = False, "", DPDate2.Text.Replace("-", "").Replace("/", "").Trim))
+                    paramTrnx.Add("@userEmail", txtEmail.Text.Trim)
+                    paramTrnx.Add("@userPwd", txtPW.Text.Trim)
+                    paramTrnx.Add("@workArea", cboGrade.SelectedValue.ToString.Trim)
+                    paramTrnx.Add("@teamCd", cboTeam.SelectedValue.ToString.Trim)
+                    paramTrnx.Add("@teamNm", If(cboTeam.Text.Trim = "-", "", cboTeam.Text.Trim))
+                    paramTrnx.Add("@mobileUseYn", If(isMobileUser, "Y", "N"))
+                    paramTrnx.Add("@excelUseYn", If(useExcel, "Y", "N"))
+
                 Else
                     MsgBox("이미 등록된 핸드폰 번호입니다." & vbCrLf & "모바일앱사용자는 다른 사용자와 핸드폰번호를 중복등록할 수 없습니다.", MsgBoxStyle.Critical, "정보")
                     Return
                 End If
             ElseIf (userCount = 1) Then
                 If (Not isMobileUser Or hpCount = 0) Then
-                    temp = "Update t_user set USER_ID='" & txtId.Text.Trim & "',USER_NM='" & txtName.Text.Trim & "',USR_HP='" & hpNo & "',ADDR1='" & txtAddress.Text.Trim & "',WOO_NO='" & txtWP1.Text.Trim & txtWP2.Text.Trim & _
-                           "',H_TELNO='" & telNo & "',GRADE='" & cboPosition.SelectedValue.ToString.Trim & "',EXTENSION_NO='" & txtExt.Text.Trim & _
-                           "',ENTERING_DD='" & DPDate1.Text.Replace("-", "").Replace("/", "").Trim & "',RETIRE_DD='" & If(ckbRetire.Checked = False, "", DPDate2.Text.Replace("-", "").Replace("/", "").Trim) & _
-                           "',USER_EMAIL='" & txtEmail.Text.Trim & "',USER_PWD='" & txtPW.Text.Trim & _
-                           "',WORK_AREA='" & cboGrade.SelectedValue.ToString.Trim & "',TEAM_CD='" & cboTeam.SelectedValue.ToString.Trim & _
-                           "',TEAM_NM='" & If(cboTeam.Text.Trim = "-", "", cboTeam.Text.Trim) & _
-                           "',MOBILE_USE_YN='" & If(isMobileUser, "Y", "N") & _
-                           "',EXCEL_USE_YN='" & If(useExcel, "Y", "N") & _
-                           "' Where COM_CD='" & gsCOM_CD & "' and USER_ID='" & txtId.Text.Trim & "' "
+
+                    'temp = "Update t_user set USER_ID='" & txtId.Text.Trim & "',USER_NM='" & txtName.Text.Trim & "',USR_HP='" & hpNo & "',ADDR1='" & txtAddress.Text.Trim & "',WOO_NO='" & txtWP1.Text.Trim & txtWP2.Text.Trim & _
+                    '       "',H_TELNO='" & telNo & "',GRADE='" & cboPosition.SelectedValue.ToString.Trim & "',EXTENSION_NO='" & txtExt.Text.Trim & _
+                    '       "',ENTERING_DD='" & DPDate1.Text.Replace("-", "").Replace("/", "").Trim & "',RETIRE_DD='" & If(ckbRetire.Checked = False, "", DPDate2.Text.Replace("-", "").Replace("/", "").Trim) & _
+                    '       "',USER_EMAIL='" & txtEmail.Text.Trim & "',USER_PWD='" & txtPW.Text.Trim & _
+                    '       "',WORK_AREA='" & cboGrade.SelectedValue.ToString.Trim & "',TEAM_CD='" & cboTeam.SelectedValue.ToString.Trim & _
+                    '       "',TEAM_NM='" & If(cboTeam.Text.Trim = "-", "", cboTeam.Text.Trim) & _
+                    '       "',MOBILE_USE_YN='" & If(isMobileUser, "Y", "N") & _
+                    '       "',EXCEL_USE_YN='" & If(useExcel, "Y", "N") & _
+                    '       "' Where COM_CD='" & gsCOM_CD & "' and USER_ID='" & txtId.Text.Trim & "' "
+
+                    temp = "Update t_user set USER_ID=@userId  ,USER_NM=@userNm ,USR_HP=@usrHP ,ADDR1=@addr1 ,WOO_NO=@wooNo " & _
+                           " ,H_TELNO=@hTelNo ,GRADE=@grade ,EXTENSION_NO=@extensionNo " & _
+                           " ,ENTERING_DD=@enteringDD ,RETIRE_DD=@retireDD" & _
+                           " ,USER_EMAIL=@userEmail ,USER_PWD=@userPwd " & _
+                           " ,WORK_AREA=@workArea ,TEAM_CD=@teamCd " & _
+                           " ,TEAM_NM=@teamNm " & _
+                           " ,MOBILE_USE_YN=@mobileUseYn " & _
+                           " ,EXCEL_USE_YN=@excelUseYn " & _
+                           "  Where COM_CD=@gsComCd and USER_ID=@userId "
+
+                    paramTrnx.Add("@userId", txtId.Text.Trim)
+                    paramTrnx.Add("@userNm", txtName.Text.Trim)
+                    paramTrnx.Add("@usrHP", hpNo)
+                    paramTrnx.Add("@addr1", txtAddress.Text.Trim)
+                    paramTrnx.Add("@wooNo", txtWP1.Text.Trim & txtWP2.Text.Trim)
+                    paramTrnx.Add("@hTelNo", telNo)
+                    paramTrnx.Add("@grade", cboPosition.SelectedValue.ToString.Trim)
+                    paramTrnx.Add("@extensionNo", txtExt.Text.Trim)
+                    paramTrnx.Add("@enteringDD", DPDate1.Text.Replace("-", "").Replace("/", "").Trim)
+                    paramTrnx.Add("@retireDD", If(ckbRetire.Checked = False, "", DPDate2.Text.Replace("-", "").Replace("/", "").Trim))
+                    paramTrnx.Add("@userEmail", txtEmail.Text.Trim)
+                    paramTrnx.Add("@userPwd", txtPW.Text.Trim)
+                    paramTrnx.Add("@workArea", cboGrade.SelectedValue.ToString.Trim)
+                    paramTrnx.Add("@teamCd", cboTeam.SelectedValue.ToString.Trim)
+                    paramTrnx.Add("@teamNm", If(cboTeam.Text.Trim = "-", "", cboTeam.Text.Trim))
+                    paramTrnx.Add("@mobileUseYn", If(isMobileUser, "Y", "N"))
+                    paramTrnx.Add("@excelUseYn", If(useExcel, "Y", "N"))
+                    paramTrnx.Add("@gsComCd", gsCOM_CD)
+
                 Else
                     MsgBox("이미 등록된 핸드폰 번호입니다." & vbCrLf & "모바일앱사용자는 다른 사용자와 핸드폰번호를 중복등록할 수 없습니다.", MsgBoxStyle.Critical, "정보")
                     Return
                 End If
             End If
 
-            Dim iReturn As Integer = DoExecuteNonQuery(gsConString, temp)
+            Dim iReturn As Integer = DoExecuteNonQuery(temp, paramTrnx)
 
             If iReturn > 0 Then
                 If temp.StartsWith("Insert") Then
@@ -296,6 +379,8 @@
 
     Public Sub gsDelete()
         Dim dt As DataTable
+        Dim parameters As Hashtable = New Hashtable
+
         Try
             If txtId.Text.Trim = "" Then
                 MsgBox("삭제할 사용자를 선택하십시오.", MsgBoxStyle.OkOnly, "정보")
@@ -303,8 +388,13 @@
             End If
 
             MsgBox(txtId.Text.Trim & "." & txtName.Text.Trim & " 사용자를 삭제하시겠습니까?", MsgBoxStyle.YesNo, "확인")
-            temp = "Delete from t_user Where COM_CD='" & gsCOM_CD & "' and USER_ID='" & txtId.Text.Trim & "' "
-            Dim iReturn As Integer = DoExecuteNonQuery(gsConString, temp)
+
+            temp = "Delete from t_user Where COM_CD=@gsComCd and USER_ID=@gsUserId "
+
+            parameters.Add("@gsUserId", txtId.Text.Trim)
+            parameters.Add("@gsComCd", gsCOM_CD)
+
+            Dim iReturn As Integer = DoExecuteNonQuery(temp, parameters)
 
             If iReturn > 0 Then
                 Call Audit_Log(AUDIT_TYPE.USER_DEL, "ID:" & txtId.Text.Trim & ", Name:" & txtName.Text.Trim)

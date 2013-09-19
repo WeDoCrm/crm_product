@@ -16,6 +16,8 @@
         Dim sqlStr As String
         Dim dt As New DataTable
         Dim result As Boolean = False
+        Dim parameters As Hashtable = New Hashtable
+
         Try
             'StartTime,EndTime, Users,Title, Description, Location,TimeGap,RegName, SharingType, ShareTypeName, 
             sqlStr = "SELECT S_START_TIME " & _
@@ -34,21 +36,28 @@
                      " , REGISTRANT RegName,SHARING_TYPE SharingType" & _
                      " , case sharing_type when 'S' then '내부일정(공유)' when 'P' then '내부일정(개인)' when 'O' then '고객응대' end ShareTypeName" & _
                      "  From t_schedule " & _
-                     " Where COM_CD='" & gsCOM_CD & "'" & _
-                     " AND S_START_TIME <=  date_format(now() + interval (" & gbAlarmInfo.AlarmStart & "- IFNULL(DELAY_MINUTE,0)) minute, '%Y%m%d%H%i') " & _
+                     " Where COM_CD=@gsComCd " & _
+                     " AND S_START_TIME <=  date_format(now() + interval (@sStartTime - IFNULL(DELAY_MINUTE,0)) minute, '%Y%m%d%H%i') " & _
                      " AND S_START_TIME >= concat(date_format(now(),'%Y%m%d'),'0000') " & _
                      " AND JOB_DONE = 'N' " & _
-                     " AND S_COMPANY_COWORKER LIKE '%" & gsUSER_ID & "%'" & _
+                     " AND S_COMPANY_COWORKER LIKE @gsUserId" & _
                      " order by s_start_time "
 
-            dt = MiniCTI.DoQuery(gsConString, sqlStr)
-            Return dt
+            parameters.Add("@gsUserId", "%" & gsUSER_ID & "%")
+            parameters.Add("@gsComCd", gsCOM_CD)
+            parameters.Add("@sStartTime", gbAlarmInfo.AlarmStart)
+
+            dt = MiniCTI.DoQuery(sqlStr, parameters)
+
         Catch ex As Exception
             Call WriteLog("미리알림 목록 조회 실패:" & ex.Message)
             Return Nothing
         Finally
             dt = Nothing
         End Try
+
+        Return dt
+
     End Function
 
     ''' <summary>
@@ -62,21 +71,40 @@
         Dim result As Boolean = True
         Dim sqlStr As String = ""
         Dim resultCnt As Integer
+        Dim parameters As Hashtable = New Hashtable
 
         Try
             Dim userName As String = gsUSER_ID & "." & gsUSER_NM
 
+            'sqlStr = "Update t_schedule " & _
+            '        "set JOB_DONE ='" & If(alarmSchedule.JobDone, "Y", "N") & "' " & _
+            '        ",DELAY_MINUTE='" & alarmSchedule.DelayMinute & "'" & _
+            '       " Where COM_CD='" & gsCOM_CD & "'" & _
+            '       "   AND S_START_TIME='" & alarmSchedule.StartTime & "'" & _
+            '       "   AND REGISTRANT LIKE '" & gsUSER_ID.Trim & ".%'" & _
+            '       "   AND S_COMPANY_COWORKER LIKE '" & alarmSchedule.CompanyCoworker & "%'" & _
+            '       "   AND SHARING_TYPE='" & alarmSchedule.SharingType & "'" & _
+            '       "   AND S_TITLE='" & MiniCTI.ToQuotedStr(alarmSchedule.Title) & "' "
             sqlStr = "Update t_schedule " & _
-                    "set JOB_DONE ='" & If(alarmSchedule.JobDone, "Y", "N") & "' " & _
-                    ",DELAY_MINUTE='" & alarmSchedule.DelayMinute & "'" & _
-                   " Where COM_CD='" & gsCOM_CD & "'" & _
-                   "   AND S_START_TIME='" & alarmSchedule.StartTime & "'" & _
-                   "   AND REGISTRANT LIKE '" & gsUSER_ID.Trim & ".%'" & _
-                   "   AND S_COMPANY_COWORKER LIKE '" & alarmSchedule.CompanyCoworker & "%'" & _
-                   "   AND SHARING_TYPE='" & alarmSchedule.SharingType & "'" & _
-                   "   AND S_TITLE='" & MiniCTI.ToQuotedStr(alarmSchedule.Title) & "' "
+                    "set JOB_DONE =@jobDone " & _
+                    ",DELAY_MINUTE=@delayMinute " & _
+                   " Where COM_CD=@gsComCd " & _
+                   "   AND S_START_TIME= @sStartTime " & _
+                   "   AND REGISTRANT LIKE @registrant " & _
+                   "   AND S_COMPANY_COWORKER LIKE @sCompanyCoWorker " & _
+                   "   AND SHARING_TYPE=@sharingType " & _
+                   "   AND S_TITLE=@sTitle "
 
-            resultCnt = MiniCTI.DoExecuteNonQuery(gsConString, sqlStr)
+            parameters.Add("@jobDone", If(alarmSchedule.JobDone, "Y", "N"))
+            parameters.Add("@delayMinute", alarmSchedule.DelayMinute)
+            parameters.Add("@gsComCd", gsCOM_CD)
+            parameters.Add("@sStartTime", alarmSchedule.StartTime)
+            parameters.Add("@registrant", gsUSER_ID.Trim & ".%")
+            parameters.Add("@sCompanyCoWorker", alarmSchedule.CompanyCoworker & "%")
+            parameters.Add("@sharingType", alarmSchedule.SharingType)
+            parameters.Add("@sTitle", alarmSchedule.Title)
+
+            resultCnt = MiniCTI.DoExecuteNonQuery(sqlStr, parameters)
 
         Catch ex As Exception
             Call WriteLog("미리알림 일정 변경 실패:" & ex.Message)

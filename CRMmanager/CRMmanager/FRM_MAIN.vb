@@ -989,7 +989,7 @@ Public Class FRM_MAIN
         ' Do some time-consuming work on this thread.
         While True
             Try
-                If gbAlarmInfo.Enabled AndAlso DateTime.Now.Second Mod 60 < 1 Then '매분 체크 '60
+                If gbAlarmInfo.Enabled AndAlso DateTime.Now.Second Mod 60 < 10 Then '매분 체크 '60
                     If gbAlarmInfo.AlarmPeriodCount = gbAlarmInfo.AlarmPeriod Then
                         WriteLog(Me.Name.ToString & "알림 체크 실행")
                         gbAlarmInfo.AlarmPeriodCount = 0
@@ -1129,7 +1129,7 @@ Public Class FRM_MAIN
         Dim sql As String = ""
         Try
             handler = New MySQLHandler()
-            sql = "select * from t_user where user_id = @userId% and com_cd = @comCd"
+            sql = "select * from t_user where user_id = @userId and com_cd = @comCd"
 
             handler.SetQuery(sql)
             handler.Parameters("@userId", "000")
@@ -1203,7 +1203,7 @@ Public Class FRM_MAIN
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     ''' <remarks></remarks>
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         Dim handler As MySQLHandler = Nothing
         Dim dataTable As DataTable = Nothing
         Dim userId As String = ""
@@ -1211,10 +1211,11 @@ Public Class FRM_MAIN
         Dim sql As String = ""
         Try
             handler = New MySQLHandler()
-            sql = "select * from t_user where user_id like concat(@userId,'%') and com_cd = @comCd"
+            'sql = "select * from t_user where user_id like concat(@userId,'%') and com_cd = @comCd"
+            sql = "select * from t_user where user_id like @userId and com_cd = @comCd"
 
             handler.SetQuery(sql)
-            handler.Parameters("@userId", "001")
+            handler.Parameters("@userId", "001%")
             handler.Parameters("@comCd", "8888")
 
             dataTable = handler.DoQuery()
@@ -1232,7 +1233,7 @@ Public Class FRM_MAIN
                 userId = row("USER_ID").ToString()
                 userName = row.Item("user_nm").ToString()
             Next
-            
+
 
             WriteLog("userId[" & userId & "] userName[" & userName & "]")
         Catch ex As Exception
@@ -1243,6 +1244,19 @@ Public Class FRM_MAIN
                 handler.Close()
             End If
         End Try
+    End Sub
+
+    Public Sub HandleParametersByExample()
+        Dim parameters As Hashtable = New Hashtable
+
+        parameters.Add("test1Key", "test1Val")
+        parameters.Add("test2Key", "test2Val")
+        parameters.Add("test3Key", "test3Val")
+        parameters.Add("test4Key", "test4Val")
+
+        For Each element As DictionaryEntry In parameters
+            Console.WriteLine("key[" & element.Key & "] value[" & element.Value & "]")
+        Next
     End Sub
 End Class
 

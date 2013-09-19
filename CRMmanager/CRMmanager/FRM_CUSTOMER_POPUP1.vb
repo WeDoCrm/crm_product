@@ -883,59 +883,54 @@ Public Class FRM_CUSTOMER_POPUP1
                 Exit Sub
             End If
 
-            sql = "UPDATE T_CUSTOMER_HISTORY SET CALL_TYPE = '" & txtCallType4.Tag & "'"
+            sql = "UPDATE T_CUSTOMER_HISTORY SET CALL_TYPE = @callType"
+            sql = sql & " ,CALL_BACK_YN = @callBackYn"    ' 콜백여부
+            sql = sql & " ,CALL_BACK_RESULT= @callBackResult "   ' 콜백처리결과
+            sql = sql & " ,CONSULT_RESULT = @consultResult "   ' 상담결과
+            sql = sql & " ,CONSULT_TYPE = @consultType "    ' 상담유형
+            sql = sql & " ,TONG_CONTENTS = @tongContents "    ' 통화내용
+            sql = sql & " ,TONG_USER = @tongUser "    ' 통화자
+            sql = sql & " ,CUSTOMER_NM = @customerNm "    ' 통화자
+            sql = sql & " ,TONG_TELNO = @tongTelNo "    ' 통화자
+            sql = sql & " ,HANDLE_TYPE = @handleType "    ' 처리유형
+            sql = sql & " ,UPDATE_DATE= @updateDate "
+            sql = sql & " WHERE COM_CD = @gsComCd"
+            sql = sql & " AND CUSTOMER_ID =  @customerId "
+            sql = sql & " AND TOND_DD = @tongDD "
+            sql = sql & " AND TONG_TIME = @tongTime "
 
-            If chCallBack4.Checked Then
-                sql = sql & " ,CALL_BACK_YN = 'Y'"    ' 콜백여부
-            Else
-                sql = sql & " ,CALL_BACK_YN = 'N'"    ' 콜백여부
+            Dim parameters As Hashtable = New Hashtable
+
+            parameters.Add("@callType", txtCallType4.Tag)
+            parameters.Add("@callBackYn", If(chCallBack4.Checked, "Y", "N"))    ' 콜백여부   
+            parameters.Add("@callBackResult", cboCallbackResult4.SelectedValue.ToString.Trim.Replace("XXXX", ""))    ' 콜백처리결과
+            parameters.Add("@consultResult", cboConsultResult4.SelectedValue.ToString.Trim.Replace("XXXX", ""))    ' 상담결과
+            parameters.Add("@consultType", cboConsultType4.SelectedValue.ToString.Trim.Replace("XXXX", ""))    ' 상담유형
+            parameters.Add("@tongContents", txtTongEtcInfo4.Text.Trim)    ' 통화내용
+            parameters.Add("@tongUser", txtTongUser4.Text.Trim)    ' 통화자  
+            parameters.Add("@customerNm", txtSubCustomerName4.Text.Trim)    ' 통화자  
+            parameters.Add("@tongTelNo", txtTongNo4.Text.Trim.Replace("-", ""))    ' 통화자  
+            parameters.Add("@handleType", cboHandleType4.SelectedValue.ToString.Trim.Replace("XXXX", "0"))    ' 처리유형
+            parameters.Add("@updateDate", Format(Now, "yyyyMMddHHmmss"))
+            parameters.Add("@gsComCd", gsCOM_CD)
+            parameters.Add("@customerId", If(txtCCId4.Text.Trim = "", "0", txtCCId4.Text.Trim))
+            parameters.Add("@tongDD", txtDate4.Text.Trim.Replace("-", ""))
+            parameters.Add("@tongTime", txtTongTime4.Text.Trim.Replace(":", ""))
+
+            If DoExecuteNonQuery(sql, parameters) < 1 Then
+                MsgBox("상담이력 변경에 실패하였습니다.", MsgBoxStyle.OkOnly, "알림")
+                Throw New Exception("상담이력 변경 실패")
             End If
 
-            'If cboConsultResult4.SelectedIndex < 0 Then
-            '    sql = sql & " ,CONSULT_RESULT =''"
-            'Else
-            'End If
-            sql = sql & ",CALL_BACK_RESULT= '" & cboCallbackResult4.SelectedValue.ToString.Trim.Replace("XXXX", "") & "'"   ' 콜백처리결과
-
-            sql = sql & " ,CONSULT_RESULT = '" & cboConsultResult4.SelectedValue.ToString.Trim.Replace("XXXX", "") & "'"   ' 상담결과
-
-            sql = sql & " ,CONSULT_TYPE ='" & cboConsultType4.SelectedValue.ToString.Trim.Replace("XXXX", "") & "'"    ' 상담유형
-            
-            sql = sql & " ,TONG_CONTENTS = '" & txtTongEtcInfo4.Text.Trim & "'"    ' 통화내용
-            sql = sql & " ,TONG_USER = '" & txtTongUser4.Text.Trim & "'"    ' 통화자
-            sql = sql & " ,CUSTOMER_NM = '" & txtSubCustomerName4.Text.Trim & "'"    ' 통화자
-            sql = sql & " ,TONG_TELNO = '" & txtTongNo4.Text.Trim.Replace("-", "") & "'"    ' 통화자
-
-            sql = sql & " ,HANDLE_TYPE ='" & cboHandleType4.SelectedValue.ToString.Trim.Replace("XXXX", "0") & "'"    ' 처리유형
-            
-            sql = sql & ",UPDATE_DATE= '" & Format(Now, "yyyyMMddHHmmss") & "'"
-
-
-            sql = sql & " WHERE COM_CD =  '" & gsCOM_CD & "'"
-
-            If txtCCId4.Text.Trim = "" Then
-                sql = sql & " AND CUSTOMER_ID =  0 "
-            Else
-                sql = sql & " AND CUSTOMER_ID =  " & txtCCId4.Text.Trim
-            End If
-            sql = sql & " AND TOND_DD =  '" & txtDate4.Text.Trim.Replace("-", "") & "'"
-            sql = sql & " AND TONG_TIME =  '" & txtTongTime4.Text.Trim.Replace(":", "") & "'"
-
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
-
-            Dim dt As DataTable = MiniCTI.DoQueryParam(gsConString, sql)
-
-            dt = Nothing
             MsgBox("데이터가 수정되었습니다.", MsgBoxStyle.OkOnly, "알림")
+
             Call gsSubSelect(txtCCId4.Text.Trim)
             Call Call_history_Init()
             txtCCId4.Text = ""
+
         Catch ex As Exception
             Call WriteLog(Me.Name.ToString & " : " & ex.ToString)
-        Finally
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
         End Try
-
 
     End Sub
 
@@ -999,188 +994,158 @@ Public Class FRM_CUSTOMER_POPUP1
     '************************************************************************************
 
     Private Function CallHistorySave(Optional ByVal flag As String = "") As Boolean
+        Dim dt1 As DataTable = Nothing
+        CallHistorySave = False
+        Dim sql As String = ""
+
+        If txtDate2.Text.Trim.Replace("-", "") = "" _
+           OrElse txtTongTime2.Text.Trim.Replace(":", "") = "" Then
+            MsgBox("저장되지 않았습니다. 통화일자 및 시간이 설정되지 않았습니다.", MsgBoxStyle.OkOnly, "알림")
+            Exit Function
+        End If
+
+        If txtCustomerID.Text.Trim = "" Then
+            MsgBox("확인할 수 없는 고객입니다." & vbCrLf & "고객정보를 신규 등록후 상담이력을 등록하세요.", MsgBoxStyle.OkOnly, "알림")
+            Exit Function
+        End If
+
         Try
-            CallHistorySave = False
-            'Dim NeedUpdate As Boolean = False
-            Dim IsManualOutBound As Boolean = False
-            Dim SendUserId As String = ""
 
-            If txtDate2.Text.Trim.Replace("-", "") = "" Then
-                MsgBox("저장되지 않았습니다. 통화일자 및 시간이 설정되지 않았습니다.", MsgBoxStyle.OkOnly, "알림")
-                Exit Function
-            End If
+            sql = " SELECT count(*) FROM T_CUSTOMER_HISTORY "
+            sql = sql & " WHERE COM_CD = @gsComCd"
+            sql = sql & " AND CUSTOMER_ID = @customerId"
+            sql = sql & " AND TOND_DD = @tongDD"
+            sql = sql & " AND TONG_TIME = @tongTime"  ' 통화시간
+            sql = sql & " AND TONG_USER = @tongUser"  ' 통화유저
 
-            If txtTongTime2.Text.Trim.Replace(":", "") = "" Then
-                MsgBox("저장되지 않았습니다. 통화일자 및 시간이 설정되지 않았습니다.", MsgBoxStyle.OkOnly, "알림")
-                Exit Function
-            End If
+            Dim parameters As Hashtable = New Hashtable
+            parameters.Add("@gsComCd", gsCOM_CD)
+            parameters.Add("@customerId", txtCustomerID.Text.Trim)
+            parameters.Add("@tongDD", txtDate2.Text.Trim.Replace("-", ""))
+            parameters.Add("@tongTime", txtTongTime2.Text.Trim.Replace(":", ""))
+            parameters.Add("@tongUser", txtTongUser2.Text.Trim)
 
-            Dim SQL As String = ""
+            dt1 = DoQuery(sql, parameters)
 
-            If txtCustomerID.Text.Trim = "" Then
-                'If flag <> "trans" Then  '<==dead code
-                MsgBox("확인할 수 없는 고객입니다." & vbCrLf & "고객정보를 신규 등록후 상담이력을 등록하세요.", MsgBoxStyle.OkOnly, "알림")
-                'End If
+            Dim recCount As Integer = 0
 
-                Exit Function
-            End If
-
-            Try
-                SQL = " SELECT count(*) FROM T_CUSTOMER_HISTORY  WHERE COM_CD ='" & gsCOM_CD & "'"
-                SQL = SQL & " AND CUSTOMER_ID = '" & txtCustomerID.Text.Trim & "'"
-                SQL = SQL & " AND TOND_DD = '" & txtDate2.Text.Trim.Replace("-", "") & "'"
-                SQL = SQL & " AND TONG_TIME = '" & txtTongTime2.Text.Trim.Replace(":", "") & "'"  ' 통화시간
-                SQL = SQL & " AND TONG_USER = '" & txtTongUser2.Text.Trim & "'"  ' 통화유저
-
-                Dim dt1 As DataTable = DoQuery(gsConString, SQL)
-
-                Dim CNT As String = "0"
-                Dim i As Integer
-
-                If dt1.Rows.Count > 0 Then
-                    For i = 0 To dt1.Rows.Count - 1
-                        CNT = dt1.Rows(i).Item(0).ToString
-                    Next
+            For Each row As DataRow In dt1.Rows
+                recCount = row.Item(0)
+            Next
+            
+            If recCount > 0 Then
+                If mIsTransfered Then
+                    '이관넘어온 경우
+                    '이관처리건, 이관넘어온 건은 새로운 통화시간으로 별개건으로 처리하므로, 정상처리함.
+                Else
+                    '이관건이 아니고 수정하려고 할때
+                    MsgBox("이미 데이터가 저장 되어 있습니다." & vbCrLf & "이력 수정은 하단 상세내역에서만 수정하세요.", MsgBoxStyle.OkOnly, "알림")
+                    Call gsSubSelect(txtCustomerID.Text.Trim)
+                    Exit Function
                 End If
+            End If
 
-                dt1 = Nothing
+            Dim tm As String = Format(Now, "yyyyMMddHHmmss")
 
-                If CNT <> "0" Then
-                    If mIsTransfered Then
-                        '이관넘어온 경우
-                        '이관처리건, 이관넘어온 건은 새로운 통화시간으로 별개건으로 처리하므로, 정상처리함.
-                    Else
-                        '일반인 경우 오류처리
-                        '==> dead code
-                        'If flag = "trans" Then '이관처리할 경우 
-                        '    ''
-                        'Else '이관건이 아니고 수정하려고 할때
-                        '    MsgBox("이미 데이터가 저장 되어 있습니다.상담이력건을 선택한후 하단 통화이력 상세내역에서 수정하세요.", MsgBoxStyle.OkOnly, "알림")
-                        'End If
-                        MsgBox("이미 데이터가 저장 되어 있습니다." & vbCrLf & "이력 수정은 하단 상세내역에서만 수정하세요.", MsgBoxStyle.OkOnly, "알림")
-                        Call gsSubSelect(txtCustomerID.Text.Trim)
-                        Exit Function
-                    End If
-                End If
-
-
-            Catch ex As Exception
-                Call WriteLog(Me.Name.ToString & " Select1 : " & ex.ToString)
-
-            End Try
-
-            SQL = "INSERT INTO T_CUSTOMER_HISTORY(COM_CD,CUSTOMER_ID,TOND_DD,TONG_TIME,CALL_TYPE,CONSULT_RESULT, CONSULT_TYPE, TONG_CONTENTS,TONG_USER,CUSTOMER_NM,TONG_TELNO,HANDLE_TYPE,CALL_BACK_YN,UPDATE_DATE, PREV_TONG_DD, PREV_TONG_TIME, PREV_TONG_USER, TRANS_YN) "
-            SQL = SQL & " values( '" & gsCOM_CD & "'"
-
-            '==>dead code
-            'If txtCustomerID.Text.Trim = "" Then
-            '    SQL = SQL & " ,'0'"
-            'Else
-            '    SQL = SQL & " ," & txtCustomerID.Text.Trim
-            'End If
-            SQL = SQL & " ," & txtCustomerID.Text.Trim
+            Dim tongDD As String
+            Dim tongTime As String
 
             If mIsTransfered Then '이관된 건은 이관후 통화시간으로 변경함
-                Dim tm As String = Format(Now, "yyyyMMddHHmmss")
-                SQL = SQL & " ,'" & tm.Substring(0, 8) & "'"   ' 변경된 통화일자
-                SQL = SQL & " ,'" & tm.Substring(8, 6) & "'"  '  변경된 통화시간
+                tongDD = tm.Substring(0, 8)    ' 변경된 통화일자
+                tongTime = tm.Substring(8, 6)  '  변경된 통화시간
             Else
-                SQL = SQL & " ,'" & txtDate2.Text.Trim.Replace("-", "") & "'"   ' 통화일자
-                SQL = SQL & " ,'" & txtTongTime2.Text.Trim.Replace(":", "") & "'"  ' 통화시간
+                tongDD = txtDate2.Text.Trim.Replace("-", "")   ' 통화일자
+                tongTime = txtTongTime2.Text.Trim.Replace(":", "")  ' 통화시간
             End If
 
-            If cboCallType2.SelectedIndex < 0 Then
-                SQL = SQL & " ,'" & "" & "'"    ' 콜타입
-            Else
-                SQL = SQL & " ,'" & cboCallType2.SelectedValue.ToString.Trim.Replace("XXXX", "") & "'"    ' 콜타입
+            Dim callType As String = ""
+            If cboCallType2.SelectedIndex >= 0 Then
+                callType = cboCallType2.SelectedValue.ToString.Trim.Replace("XXXX", "")  ' 콜타입
             End If
 
-
+            Dim consultResult As String = ""
             If flag = "trans" Then '이관하는 경우 "이관처리"로 등록
-                SQL = SQL & " ,'06'"   ' 상담결과 = "이관처리"
+                consultResult = ConsultResult_Transfered '"06" => 상담결과 = "이관처리"
             Else
-                If cboConsultResult2.SelectedIndex < 0 Then
-                    SQL = SQL & " ,'" & "" & "'"    ' 상담결과
-                Else
-                    SQL = SQL & " ,'" & cboConsultResult2.SelectedValue.ToString.Trim.Replace("XXXX", "") & "'"   ' 상담결과
-                End If
+                consultResult = cboConsultResult2.SelectedValue.ToString.Trim.Replace("XXXX", "")  ' 상담결과
             End If
 
+            Dim consultType As String = ""
+            consultType = cboConsultType2.SelectedValue.ToString.Trim.Replace("XXXX", "")
 
-            If cboConsultType2.SelectedIndex < 0 Then
-                SQL = SQL & " ,'" & "" & "'"    ' 상담유형
-            Else
-                SQL = SQL & " ,'" & cboConsultType2.SelectedValue.ToString.Trim.Replace("XXXX", "") & "'"    ' 상담유형
-            End If
-
-            SQL = SQL & " ,'" & MiniCTI.ToQuotedStr(txtTongEtcInfo2.Text.Trim) & "'"    ' 통화내용
+            Dim tongUser As String = ""
             If mIsTransfered Then
-                SQL = SQL & " ,'" & gsUSER_ID & "." & gsUSER_NM & "'"    ' 통화자(이관받은자)
+                tongUser = gsUSER_ID & "." & gsUSER_NM  ' 통화자(이관받은자)
             Else
-                SQL = SQL & " ,'" & txtTongUser2.Text.Trim & "'"    ' 통화자
+                tongUser = txtTongUser2.Text.Trim       ' 통화자
             End If
 
-            '==>dead code
-            'If txtCustomerID.Text.Trim = "" Then
-            '    SQL = SQL & " ,'미등록고객'"    ' 고객명
-            'Else
-            '    SQL = SQL & " ,'" & txtCustomerName.Text.Trim & "'"    ' 고객명
-            'End If
-            SQL = SQL & " ,'" & txtCustomerName.Text.Trim & "'"    ' 고객명
-
-            SQL = SQL & " ,'" & txtEnteringNo.Text.Trim.Replace("-", "") & "'"    ' 통화전화번호
-
+            Dim handleType As String = ""
             If cboHandleType2.SelectedIndex < 0 Then
-                SQL = SQL & " ,'0'"    ' 처리유형
+                handleType = "0"    ' 처리유형
             Else
-                SQL = SQL & " ,'" & cboHandleType2.SelectedValue.ToString.Trim.Replace("XXXX", "") & "'"    ' 처리유형
+                handleType = cboHandleType2.SelectedValue.ToString.Trim.Replace("XXXX", "")  ' 처리유형
             End If
 
-            If chCallBack2.Checked = True Then
-                SQL = SQL & " ,'Y'"    ' 콜백여부
+            Dim callBack As String = ""
+            If chCallBack2.Checked Then
+                callBack = "Y"    ' 콜백여부
             Else
-                SQL = SQL & " ,'N'"    ' 콜백여부
+                callBack = "N"    ' 콜백여부
             End If
-            SQL = SQL & ",'" & Format(Now, "yyyyMMddHHmmss") & "'"
+
+            Dim prevTongDD As String = ""
+            Dim prevTongTime As String = ""
+            Dim prevTongUser As String = ""
+            Dim transYN As String = ""
             If mIsTransfered Then
-                SQL = SQL & " ,'" & txtDate2.Text.Trim.Replace("-", "") & "'"   ' 이전통화일자
-                SQL = SQL & " ,'" & txtTongTime2.Text.Trim.Replace(":", "") & "'"  ' 이전통화시간
-                SQL = SQL & " ,'" & txtTongUser2.Text.Trim & "'"    ' 통화자
-                SQL = SQL & " ,'Y'"    ' 이관처리여부
-            Else
-                SQL = SQL & " ,NULL"   ' 이전통화일자
-                SQL = SQL & " ,NULL"  ' 이전통화시간
-                SQL = SQL & " ,NULL"    ' 통화자
-                SQL = SQL & " ,NULL"    ' 이관처리여부
+                prevTongDD = txtDate2.Text.Trim.Replace("-", "")        ' 이전통화일자
+                prevTongTime = txtTongTime2.Text.Trim.Replace(":", "")  ' 이전통화시간
+                prevTongUser = txtTongUser2.Text.Trim  ' 통화자
+                transYN = "Y"    ' 이관처리여부
             End If
 
-            SQL = SQL & ")"
+            sql = "INSERT INTO T_CUSTOMER_HISTORY "
+            sql = sql & " (COM_CD,CUSTOMER_ID,TOND_DD,TONG_TIME,CALL_TYPE,CONSULT_RESULT, CONSULT_TYPE "
+            sql = sql & ", TONG_CONTENTS,TONG_USER,CUSTOMER_NM,TONG_TELNO,HANDLE_TYPE "
+            sql = sql & ", CALL_BACK_YN,UPDATE_DATE "
+            sql = sql & ", PREV_TONG_DD, PREV_TONG_TIME, PREV_TONG_USER, TRANS_YN) "
+            sql = sql & "values "
+            sql = sql & " (@gsComCd, @customerId,@tongDD,@tongTime,@callType,@consultResult, @consultType "
+            sql = sql & ", @tongContents,@tongUser,@customerNm,@tongTelNo,@handleType "
+            sql = sql & ", @callBackYN,@updateDate "
+            sql = sql & ", @prevTongDD, @prevTongTime, @prevTongUser, @transYN)"
 
+            Dim paramIns As Hashtable = New Hashtable
+            paramIns.Add("@gsComCd", gsCOM_CD)
+            paramIns.Add("@customerId   ", txtCustomerID.Text.Trim)
+            paramIns.Add("@tongDD       ", tongDD)   ' 통화일자
+            paramIns.Add("@tongTime     ", tongTime) ' 통화시간
+            paramIns.Add("@callType     ", callType) ' 콜타입
+            paramIns.Add("@consultResult", consultResult)  ' 상담결과
+            paramIns.Add("@consultType  ", consultType) ' 상담유형
+            paramIns.Add("@tongContents ", txtTongEtcInfo2.Text.Trim) ' 통화내용
+            paramIns.Add("@tongUser     ", tongUser) ' 통화자
+            paramIns.Add("@customerNm   ", txtCustomerName.Text.Trim) ' 고객명
+            paramIns.Add("@tongTelNo    ", txtEnteringNo.Text.Trim.Replace("-", ""))    ' 통화전화번호
+            paramIns.Add("@handleType   ", handleType)
+            paramIns.Add("@callBackYN   ", callBack)
+            paramIns.Add("@updateDate   ", Format(Now, "yyyyMMddHHmmss"))
+            paramIns.Add("@prevTongDD   ", prevTongDD)
+            paramIns.Add("@prevTongTime ", prevTongTime)
+            paramIns.Add("@prevTongUser ", prevTongUser)
+            paramIns.Add("@transYN      ", transYN)
 
-            Try
-                Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+            DoExecuteNonQuery(sql, paramIns)
 
-                Dim dt As DataTable = DoQueryParam(gsConString, SQL)
-                dt = Nothing
+            CallHistorySave = True
 
-                '==>dead code
-                '이관인 경우 창을 닫아야 하고 아닌 경우 상세화면조회
-                'If flag <> "trans" Then
-                '    Call gsSubSelect(txtCustomerID.Text.Trim)
-                'End If
-
-                Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
-                'btnContentsSave.Enabled = False
-            Catch ex As Exception
-                Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
-                Call WriteLog(Me.Name.ToString & ":" & ex.ToString)
-            End Try
         Catch ex As Exception
             Call WriteLog(Me.Name.ToString & " CallHistorySave : " & ex.ToString)
-
+        Finally
+            dt1 = Nothing
         End Try
-        CallHistorySave = True
-
+        Return CallHistorySave
     End Function
 
     Private Sub chModification1_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chModification1.CheckedChanged
@@ -1231,10 +1196,12 @@ Public Class FRM_CUSTOMER_POPUP1
     Private Sub btnSave1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSave1.Click
         Call CustomerInfoSave()
     End Sub
+
     Private Sub CustomerInfoSave()
 
         ' 고객정보저장
         Dim SQL As String = ""
+        Dim parameters As Hashtable = New Hashtable
 
         If txtTelInfo1.Text.Trim = "" And txtHP1.Text.Trim = "" Then
             MsgBox("전화 번호를 입력하세요.", MsgBoxStyle.OkOnly, "알림")
@@ -1274,12 +1241,11 @@ Public Class FRM_CUSTOMER_POPUP1
             End If
         End If
 
-        If txtFaxNo1.Text.Trim <> "" Then
-            If Not IsNumeric(txtFaxNo1.Text.Trim) Then
-                MsgBox("팩스 번호를 숫자로 입력하세요.", MsgBoxStyle.OkOnly, "알림")
-                txtFaxNo1.Focus()
-                Exit Sub
-            End If
+        If txtFaxNo1.Text.Trim <> "" _
+            AndAlso Not IsNumeric(txtFaxNo1.Text.Trim) Then
+            MsgBox("팩스 번호를 숫자로 입력하세요.", MsgBoxStyle.OkOnly, "알림")
+            txtFaxNo1.Focus()
+            Exit Sub
         End If
 
         If txtCustomerName.Text.Trim = "" Then
@@ -1288,114 +1254,97 @@ Public Class FRM_CUSTOMER_POPUP1
             Exit Sub
         End If
 
-        Dim chk As String
+        Dim isInsert As Boolean = False
 
         If txtCustomerID.Text.Trim = "" Then       ' 입력
-            chk = "I"
-            SQL = " INSERT INTO T_CUSTOMER( COM_CD,CUSTOMER_NM,C_TELNO,H_TELNO,FAX_NO,CUSTOMER_TYPE,WOO_NO,CUSTOMER_ADDR,CUSTOMER_ETC, UPDATE_DATE, COMPANY, DEPARTMENT, JOB_TITLE, EMAIL,TONG_USER, USER_DEF ) "
-            SQL = SQL & "values( '" & gsCOM_CD & "'"
-            SQL = SQL & ",'" & txtCustomerName.Text.Trim & "'"
-
-            If txtTelInfo1.Text.Trim <> "" And txtTelInfo1.Text.Trim.Length >= 8 Then
-                SQL = SQL & ",'" & txtTelInfo1.Text.Trim & "'"
-            Else
-                SQL = SQL & ",''"
-            End If
-
-            If txtHP1.Text.Trim <> "" And txtHP1.Text.Trim.Length >= 8 Then
-                SQL = SQL & ",'" & txtHP1.Text.Trim & "'"
-            Else
-                SQL = SQL & ",''"
-            End If
-
-            SQL = SQL & ",'" & txtFaxNo1.Text.Trim & "'"
-
-            If cboCustomerType.SelectedIndex < 0 Then
-                SQL = SQL & ",'" & "" & "'" ' CUSTOMER TYPE
-            Else
-                SQL = SQL & ",'" & cboCustomerType.SelectedValue.ToString.Replace("XXXX", "") & "'" ' CUSTOMER TYPE
-            End If
-
-            SQL = SQL & ",'" & mWoopyonNumber.Trim & "'"
-            SQL = SQL & ",'" & MiniCTI.ToQuotedStr(txtAddress1.Text.Trim) & "'"
-            SQL = SQL & ",'" & MiniCTI.ToQuotedStr(txtEtcInfo1.Text.Trim) & " '"
-
-            SQL = SQL & ",'" & Format(Now, "yyyyMMddHHmmss") & "'"
-            SQL = SQL & ",'" & txtCompany.Text.Trim & " '"
-            SQL = SQL & ",'" & txtDepartment.Text.Trim & " '"
-            SQL = SQL & ",'" & txtJobTitle.Text.Trim & " '"
-            SQL = SQL & ",'" & txtEmail.Text.Trim & " '"
-
-            '옵션지정부분
-            If cboTongUser.SelectedIndex < 0 Then
-                SQL = SQL & ",'" & "" & "'" ' TONG_USER
-            Else
-                SQL = SQL & ",'" & cboTongUser.SelectedValue.ToString.Replace("XXXX", "") & "'"
-            End If
-            SQL = SQL & ",'" & txtUserDef1.Text.Trim & txtUserDef2.Text.Trim & "'"
-
-            SQL = SQL & ")"
+            isInsert = True
+            SQL = " INSERT INTO T_CUSTOMER "
+            SQL = SQL & "( COM_CD,CUSTOMER_NM,C_TELNO,H_TELNO,FAX_NO,CUSTOMER_TYPE "
+            SQL = SQL & ",WOO_NO,CUSTOMER_ADDR,CUSTOMER_ETC, UPDATE_DATE"
+            SQL = SQL & ", COMPANY, DEPARTMENT, JOB_TITLE, EMAIL,TONG_USER, USER_DEF ) "
+            SQL = SQL & "values "
+            SQL = SQL & "(@gsComCd ,@customerNm ,@cTelNo ,@hTelNo ,@faxNo ,@customerType "
+            SQL = SQL & ",@wooNo ,@customerAddr ,@customerEtc ,@updateDate "
+            SQL = SQL & ",@company ,@department, @jobTitle, @email, @tongUser ,@userDef)"
         Else                                       ' 업데이트
-            chk = "U"
-            SQL = " UPDATE T_CUSTOMER SET CUSTOMER_NM = '" & txtCustomerName.Text.Trim & "'"
+            isInsert = False
 
-            If txtTelInfo1.Text.Trim <> "" And txtTelInfo1.Text.Trim.Length >= 8 Then
-                SQL = SQL & ",C_TELNO= '" & txtTelInfo1.Text.Trim & "'"
-            End If
-            If txtHP1.Text.Trim <> "" And txtHP1.Text.Trim.Length >= 8 Then
-                SQL = SQL & ",H_TELNO='" & txtHP1.Text.Trim & "'"
-            End If
+            SQL = " UPDATE T_CUSTOMER SET CUSTOMER_NM = @customerNm "
+            SQL = SQL & ",C_TELNO=@cTelNo "
+            SQL = SQL & ",H_TELNO=@hTelNo "
 
-            SQL = SQL & ",FAX_NO='" & txtFaxNo1.Text.Trim & "'"
-
-            If cboCustomerType.SelectedIndex < 0 Then
-                SQL = SQL & ",CUSTOMER_TYPE= '" & "" & "'" ' CUSTOMER TYPE
-            Else
-                SQL = SQL & ",CUSTOMER_TYPE= '" & cboCustomerType.SelectedValue.ToString.Replace("XXXX", "") & "'" ' CUSTOMER TYPE
-            End If
-
-            SQL = SQL & ",WOO_NO= '" & mWoopyonNumber.Trim & "'"
-            SQL = SQL & ",CUSTOMER_ADDR= '" & txtAddress1.Text.Trim & "'"
-            SQL = SQL & ",CUSTOMER_ETC= '" & MiniCTI.ToQuotedStr(txtEtcInfo1.Text.Trim) & "'"
-
-            SQL = SQL & ",UPDATE_DATE= '" & Format(Now, "yyyyMMddHHmmss") & "'"
-
-            SQL = SQL & ",COMPANY= '" & txtCompany.Text.Trim & "'"
-            SQL = SQL & ",DEPARTMENT= '" & txtDepartment.Text.Trim & "'"
-            SQL = SQL & ",JOB_TITLE= '" & txtJobTitle.Text.Trim & "'"
-            SQL = SQL & ",EMAIL= '" & txtEmail.Text.Trim & "'"
-
+            SQL = SQL & ",FAX_NO=@faxNo"
+            SQL = SQL & ",CUSTOMER_TYPE=@customerType " ' CUSTOMER TYPE
+            SQL = SQL & ",WOO_NO=@wooNo"
+            SQL = SQL & ",CUSTOMER_ADDR=@customerAddr"
+            SQL = SQL & ",CUSTOMER_ETC=@customerEtc"
+            SQL = SQL & ",UPDATE_DATE=@updateDate"
+            SQL = SQL & ",COMPANY=@company"
+            SQL = SQL & ",DEPARTMENT=@department"
+            SQL = SQL & ",JOB_TITLE=@jobTitle"
+            SQL = SQL & ",EMAIL=@email"
             '옵션지정부분
-            If cboTongUser.SelectedIndex < 0 Then
-                SQL = SQL & ",TONG_USER= '" & "" & "'" ' TONG_USER
-            Else
-                SQL = SQL & ",TONG_USER= '" & cboTongUser.SelectedValue.ToString.Replace("XXXX", "") & "'" ' TONG_USER
-            End If
-            SQL = SQL & ",USER_DEF= '" & txtUserDef1.Text.Trim & txtUserDef2.Text.Trim & "'"
+            SQL = SQL & ",TONG_USER=@tongUser" ' TONG_USER
+            SQL = SQL & ",USER_DEF=@userDef"
+            SQL = SQL & " WHERE COM_CD=@gsComCd"
+            SQL = SQL & "   AND CUSTOMER_ID=@customerId"
 
-
-            SQL = SQL & " WHERE COM_CD = '" & gsCOM_CD & "'"
-            SQL = SQL & " AND CUSTOMER_ID = " & txtCustomerID.Text.Trim
+            parameters.Add("@customerId", txtCustomerID.Text.Trim)
         End If
+
+        Dim cTelNo As String = ""
+        If txtTelInfo1.Text.Trim <> "" And txtTelInfo1.Text.Trim.Length >= 8 Then
+            cTelNo = txtTelInfo1.Text.Trim
+        End If
+
+        Dim hTelNo As String = ""
+        If txtHP1.Text.Trim <> "" And txtHP1.Text.Trim.Length >= 8 Then
+            hTelNo = txtHP1.Text.Trim
+        End If
+
+        Dim customerType As String = ""
+        If cboCustomerType.SelectedIndex >= 0 Then
+            customerType = cboCustomerType.SelectedValue.ToString.Replace("XXXX", "") ' CUSTOMER TYPE
+        End If
+
+        '옵션지정부분
+        Dim tongUser As String = ""
+        If cboTongUser.SelectedIndex >= 0 Then
+            tongUser = cboTongUser.SelectedValue.ToString.Replace("XXXX", "") ' TONG_USER
+        End If
+
+        parameters.Add("@gsComCd", gsCOM_CD)
+        parameters.Add("@customerNm", txtCustomerName.Text.Trim)
+        parameters.Add("@cTelNo", cTelNo)
+        parameters.Add("@hTelNo", hTelNo)
+        parameters.Add("@faxNo", txtFaxNo1.Text.Trim)
+        parameters.Add("@customerType", customerType)
+        parameters.Add("@wooNo", mWoopyonNumber.Trim)
+        parameters.Add("@customerAddr", txtAddress1.Text.Trim)
+        parameters.Add("@customerEtc", txtEtcInfo1.Text.Trim)
+        parameters.Add("@updateDate", Format(Now, "yyyyMMddHHmmss"))
+        parameters.Add("@company", txtCompany.Text.Trim)
+        parameters.Add("@department", txtDepartment.Text.Trim)
+        parameters.Add("@jobTitle", txtJobTitle.Text.Trim)
+        parameters.Add("@email", txtEmail.Text.Trim)
+        parameters.Add("@tongUser", tongUser)
+        parameters.Add("@userDef", txtUserDef1.Text.Trim & txtUserDef2.Text.Trim)
 
 
         Try
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+            If DoExecuteNonQuery(SQL, parameters) < 1 Then
+                MsgBox("고객정보 등록에 실패하였습니다.", MsgBoxStyle.OkOnly, "알림")
+                Throw New Exception("고객정보 등록 실패")
+            End If
 
-            Dim dt As DataTable = DoQueryParam(gsConString, SQL)
-
-            dt = Nothing
-
-            If chk = "I" Then
-                MsgBox("데이터가 등록되었습니다.", MsgBoxStyle.OkOnly, "알림")
-            ElseIf chk = "U" Then
-                MsgBox("데이터가 변경되었습니다.", MsgBoxStyle.OkOnly, "알림")
+            If isInsert Then
+                MsgBox("고객정보가 등록되었습니다.", MsgBoxStyle.OkOnly, "알림")
+            Else
+                MsgBox("고객정보가 변경되었습니다.", MsgBoxStyle.OkOnly, "알림")
             End If
             Call gsSelectPopUp()
         Catch ex As Exception
             Call WriteLog(Me.Name.ToString & ":" & ex.ToString)
-        Finally
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
         End Try
     End Sub
 
@@ -1415,19 +1364,20 @@ Public Class FRM_CUSTOMER_POPUP1
                 Exit Sub
             End If
 
+            Dim SQL As String = " DELETE FROM T_CUSTOMER WHERE COM_CD = @gsComCd AND CUSTOMER_ID = @customerId"
 
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+            Dim parameters As Hashtable = New Hashtable
+            parameters.Add("@gsComCd", gsCOM_CD)
+            parameters.Add("@customerId", txtCustomerID.Text.Trim)
 
-            Dim SQL As String = " DELETE FROM T_CUSTOMER WHERE COM_CD = '" & gsCOM_CD & "' AND CUSTOMER_ID = " & txtCustomerID.Text.Trim
-            Dim dt As DataTable = DoQueryParam(gsConString, SQL)
+            If DoExecuteNonQuery(SQL, parameters) < 1 Then
+                MsgBox("고객정보 삭제에 실패하였습니다.", MsgBoxStyle.OkOnly, "알림")
+                Throw New Exception("고객정보 삭제 실패")
+            End If
 
-            dt = Nothing
-            MsgBox("데이터가 삭제되었습니다.", MsgBoxStyle.OkOnly, "알림")
+            MsgBox("고객정보가 삭제되었습니다.", MsgBoxStyle.OkOnly, "알림")
             Call gsSelect()
-
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
         Catch ex As Exception
-            Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
             Call WriteLog(Me.Name.ToString & ":" & ex.ToString)
         End Try
     End Sub
@@ -1528,9 +1478,10 @@ Public Class FRM_CUSTOMER_POPUP1
     ''' <remarks></remarks>
     Private Sub btnSave3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSave3.Click
 
+        Dim temp As String
+        Dim dt As DataTable = Nothing
+
         Try
-            Dim temp As String
-            Dim dt As DataTable
 
             If txtCustomerID.Text.Trim = "" Then
                 MsgBox("확인할 수 없는 고객입니다." & vbCrLf & "고객정보를 신규 등록후 예약을 등록하세요.", MsgBoxStyle.OkOnly, "알림")
@@ -1564,13 +1515,19 @@ Public Class FRM_CUSTOMER_POPUP1
 
             '같은시간대 동일인이 등록한 약속이 있는지 확인
             temp = "SELECT count(S_START_TIME) From t_schedule  " & _
-                   " Where COM_CD='" & gsCOM_CD & "'" & _
-                   " AND S_START_TIME='" & dpt333.Text.ToString.Replace("-", "") & drpHour3.Text & drpMin3.Text & "'" & _
-                   " AND REGISTRANT LIKE '" & gsUSER_ID & ".%" & "'" & _
-                   " AND S_COMPANY_COWORKER LIKE '%" & cboCoWorker3.SelectedIndex.ToString & "%'" & _
+                   " Where COM_CD=@gsComCd" & _
+                   " AND S_START_TIME=@sStartTime" & _
+                   " AND REGISTRANT LIKE @registrant " & _
+                   " AND S_COMPANY_COWORKER LIKE @sCompanyCoWorker " & _
                    " AND SHARING_TYPE='O'"
 
-            dt = MiniCTI.DoQuery(gsConString, temp)
+            Dim parameters As Hashtable = New Hashtable
+            parameters.Add("@gsComCd", gsCOM_CD)
+            parameters.Add("@sStartTime", dpt333.Text.ToString.Replace("-", "") & drpHour3.Text & drpMin3.Text)
+            parameters.Add("@registrant", gsUSER_ID & ".%")
+            parameters.Add("@sCompanyCoWorker", "%" & cboCoWorker3.SelectedIndex.ToString & "%")
+
+            dt = MiniCTI.DoQuery(temp, parameters)
 
             Dim workReason As String = ""
             If cboWorkReason3.SelectedValue.ToString.Replace("XXXX", "") <> "" Then
@@ -1582,41 +1539,69 @@ Public Class FRM_CUSTOMER_POPUP1
             'desc           - 약속상세
             'workout_reason - 약속사유
             'workout_loc    - 약속장소
+            Dim paramIns As Hashtable = New Hashtable
+
             If dt.Rows(0).Item(0).ToString.Trim = "0" Then
-                temp = "Insert into t_schedule(COM_CD,S_START_TIME" & _
+
+                temp = "Insert into t_schedule " & _
+                        " (COM_CD,S_START_TIME" & _
                         ",S_END_TIME" & _
                         ",REGISTRANT, SHARING_TYPE " & _
                         ",S_COMPANY_COWORKER,S_TITLE" & _
                         ",S_DESC,S_WORKOUT_REASON,S_WORKOUT_LOC " & _
-                        ",JOB_DONE, CUSTOMER_ID, DELAY_MINUTE " & _
-                        ") values('" & _
-                        gsCOM_CD & "','" & dpt333.Text.ToString.Replace("-", "") & drpHour3.Text & drpMin3.Text & "'" & _
-                        ",'" & dpt333.Text.ToString.Replace("-", "") & "2359" & "'" & _
-                        ",'" & gsUSER_ID.Trim & "." & gsUSER_NM.Trim & "','O'" & _
-                        ",'" & cboCoWorker3.SelectedValue.ToString & "','고객약속'" & _
-                        ",'" & MiniCTI.ToQuotedStr(txtWorkContents3.Text.Trim) & "','" & workReason & "','" & txtWorkArea3.Text.Trim & "' " & _
-                        ",'N'," & txtCustomerID.Text.Trim & "," & gbAlarmInfo.AlarmPeriod & ") "
+                        ",JOB_DONE, CUSTOMER_ID, DELAY_MINUTE) " & _
+                        "values " & _
+                        " (@gsComCd, @sStartTime" & _
+                        ",@sEndTime" & _
+                        ",@registrant, @sharingType " & _
+                        ",@sCompanyCoWorker,@sTitle" & _
+                        ",@sDesc, @sWorkOutReason ,@sWorkOutLoc" & _
+                        ",@jobDone ,@customerId ,@delayMinute) "
+
+                paramIns.Add("@gsComCd", gsCOM_CD)
+                paramIns.Add("@sStartTime", dpt333.Text.ToString.Replace("-", "") & drpHour3.Text & drpMin3.Text)
+                paramIns.Add("@sEndTime", dpt333.Text.ToString.Replace("-", "") & "2359")
+                paramIns.Add("@registrant", gsUSER_ID.Trim & "." & gsUSER_NM.Trim)
+                paramIns.Add("@sharingType", "O")
+                paramIns.Add("@sCompanyCoWorker", cboCoWorker3.SelectedValue.ToString)
+                paramIns.Add("@sTitle", "고객약속")
+                paramIns.Add("@sDesc", txtWorkContents3.Text.Trim)
+                paramIns.Add("@sWorkOutReason", workReason)
+                paramIns.Add("@sWorkOutLoc", txtWorkArea3.Text.Trim)
+                paramIns.Add("@jobDone", "N")
+                paramIns.Add("@customerId", txtCustomerID.Text.Trim)
+                paramIns.Add("@delayMinute", gbAlarmInfo.AlarmPeriod)
+
             Else
-                temp = " UPDATE t_schedule SET S_WORKOUT_LOC = '" & txtWorkArea3.Text.Trim & "'" & _
-                       " , S_DESC ='" & MiniCTI.ToQuotedStr(txtWorkContents3.Text.Trim) & "'" & _
-                       " , S_WORKOUT_REASON =  '" & workReason & "'" & _
-                       " Where COM_CD='" & gsCOM_CD & "'" & _
-                       " AND S_START_TIME='" & dpt333.Text.ToString.Replace("-", "") & drpHour3.Text & drpMin3.Text & "'" & _
-                       " AND REGISTRANT LIKE '" & gsUSER_ID & ".%" & "'" & _
-                       " AND S_COMPANY_COWORKER LIKE '%" & cboCoWorker3.SelectedIndex.ToString & "%'" & _
+                temp = " UPDATE t_schedule SET S_WORKOUT_LOC = @sWorkOutLoc" & _
+                       " , S_DESC = @sDesc" & _
+                       " , S_WORKOUT_REASON = @sWorkOutReason" & _
+                       " Where COM_CD=@gsComCd" & _
+                       " AND S_START_TIME=@sStartTime" & _
+                       " AND REGISTRANT LIKE @registrant " & _
+                       " AND S_COMPANY_COWORKER LIKE @sCompanyCoWorker " & _
                        " AND SHARING_TYPE='O'"
+
+                paramIns.Add("@sWorkOutLoc", txtWorkArea3.Text.Trim)
+                paramIns.Add("@sDesc", txtWorkContents3.Text.Trim)
+                paramIns.Add("@sWorkOutReason", workReason)
+                paramIns.Add("@gsComCd", gsCOM_CD)
+                paramIns.Add("@sStartTime", dpt333.Text.ToString.Replace("-", "") & drpHour3.Text & drpMin3.Text)
+                paramIns.Add("@registrant", gsUSER_ID & ".%")
+                paramIns.Add("@sCompanyCoWorker", "%" & cboCoWorker3.SelectedIndex.ToString & "%")
+
             End If
 
-            dt.Reset()
+            If DoExecuteNonQuery(temp, parameters) < 1 Then
+                MsgBox("고객약속 등록에 실패하였습니다.", MsgBoxStyle.OkOnly, "알림")
+                Throw New Exception("고객약속 등록 실패")
+            End If
 
-            dt = MiniCTI.DoQueryParam(gsConString, temp)
-            MsgBox("처리되었습니다.", MsgBoxStyle.OkOnly, "정보")
-            dt = Nothing
-
+            MsgBox("고객약속이 등록 되었습니다.", MsgBoxStyle.OkOnly, "알림")
         Catch ex As Exception
-            Call WriteLog("외부업무 등록 실패:" & ex.Message)
-
-            MsgBox("등록에 실패했습니다.", MsgBoxStyle.OkOnly, "정보")
+            Call WriteLog("고객약속 등록 실패:" & ex.Message)
+        Finally
+            dt = Nothing
         End Try
     End Sub
 

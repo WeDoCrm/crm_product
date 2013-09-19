@@ -105,6 +105,7 @@ Partial Class FRM_MAIN
         Me.btnRefresh = New System.Windows.Forms.Button
         Me.BackgroundWorkerMain = New System.ComponentModel.BackgroundWorker
         Me.ScreenTip1 = New Elegant.Ui.ScreenTip(Me.components)
+        Me.Button1 = New System.Windows.Forms.Button
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GroupedNavigationBar1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NavigationBarGroupItemsContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -825,6 +826,16 @@ Partial Class FRM_MAIN
         'BackgroundWorkerMain
         '
         '
+        'Button1
+        '
+        Me.Button1.Font = New System.Drawing.Font("굴림", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Button1.Location = New System.Drawing.Point(885, 2)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(57, 21)
+        Me.Button1.TabIndex = 257
+        Me.Button1.Text = "새로고침"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'FRM_MAIN
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -832,6 +843,7 @@ Partial Class FRM_MAIN
         Me.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.BackgroundImage = Global.CRMmanager.My.Resources.Resources.img_back_form
         Me.ClientSize = New System.Drawing.Size(1076, 728)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.btnRefresh)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.PictureBox2)
@@ -960,5 +972,6 @@ Partial Class FRM_MAIN
     Friend WithEvents BackgroundWorkerMain As System.ComponentModel.BackgroundWorker
     Friend WithEvents PatchHistoryToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ScreenTip1 As Elegant.Ui.ScreenTip
+    Friend WithEvents Button1 As System.Windows.Forms.Button
 
 End Class

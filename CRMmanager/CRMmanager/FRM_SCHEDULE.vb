@@ -291,7 +291,7 @@ Public Class FRM_SCHEDULE
                    " ,SHARING_TYPE " & _
                    " FROM t_schedule  " & _
                    " WHERE COM_CD='" & gsCOM_CD & _
-                   "' AND ( S_START_TIME between '" & DPYear.Text & DPMonth.Text & "320000' and '" & DPYear.Text & DPMonth.Text & "000000'" & _
+                   "' AND ( S_START_TIME between '" & DPYear.Text & DPMonth.Text & "000000' and '" & DPYear.Text & DPMonth.Text & "320000'" & _
                    "     OR ( S_START_TIME <= '" & DPYear.Text & DPMonth.Text & "320000' and  S_END_TIME >= '" & DPYear.Text & DPMonth.Text & "000000'))" & _
                    " AND ((SHARING_TYPE = '" & ConstDef.SharingType_P & "' AND REGISTRANT LIKE '" & gsUSER_ID.Trim & ".%')" & _
                    "      OR SHARING_TYPE = '" & ConstDef.SharingType_S & "' OR SHARING_TYPE = '" & ConstDef.SharingType_O & "')" & _
@@ -304,8 +304,10 @@ Public Class FRM_SCHEDULE
                         obj = ctrl
                         tmpDate = DPYear.Text & DPMonth.Text & If(obj.Text.Length = 2, obj.Text, "0" & obj.Text)
                         tmpDate = If(tmpDate.Length = 8, tmpDate, "")
+                        '일정기간이 오늘을 포함하거나, 약속이 오늘이거나
                         If obj.Text.Trim <> "" AndAlso _
-                            dt.Rows(i).Item(0).ToString <= tmpDate AndAlso dt.Rows(i).Item(1).ToString >= tmpDate Then
+                            ((dt.Rows(i).Item(0).ToString <= tmpDate AndAlso dt.Rows(i).Item(1).ToString >= tmpDate) _
+                             OrElse (dt.Rows(i).Item(0).ToString = tmpDate AndAlso dt.Rows(i).Item(1).ToString.Trim() = "")) Then
                             'obj.Image = Image.FromFile(tmpPath)
                             ' obj.Image = PictureBox2.Image  '20*20
                             obj.Image = PictureBox2.Image  '15*15
