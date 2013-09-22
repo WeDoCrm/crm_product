@@ -455,51 +455,6 @@ Module MiniCTI
 
     End Function
 
-    ''' <summary>
-    ''' 쿼리이외의 insert/update/delete용도로 사용
-    ''' </summary>
-    ''' <param name="constring"></param>
-    ''' <param name="sqltext"></param>
-    ''' <param name="parameters"></param>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    'Public Function DoExecuteNonQuery(ByVal constring As String, ByVal sqltext As String, ByVal ParamArray parameters() As String) As Integer
-
-    '    Dim con As MySqlConnection
-    '    Dim com As MySqlCommand
-    '    Dim da As MySqlDataAdapter
-    '    Dim dt As New DataTable
-    '    Dim temp As String = ""
-    '    Dim iRow As Integer = 0
-
-    '    Try
-    '        Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
-    '        con = New MySqlConnection(constring)
-    '        com = New MySqlCommand(sqltext, con)
-    '        da = New MySqlDataAdapter(com)
-
-    '        con.Open()
-    '        If sqltext.Trim.ToLower.StartsWith("select") = True Then
-    '            Throw New Exception("쿼리문은 사용불가.")
-    '        Else
-    '            iRow = com.ExecuteNonQuery()
-    '        End If
-    '        com.Parameters.Clear()
-    '    Catch ex As Exception
-    '        Call WriteLog(ex.ToString)
-    '        Throw New Exception("SQL문 오류발생", ex)
-    '    Finally
-    '        DoExecuteNonQuery = iRow
-
-    '        con.Close()
-    '        da = Nothing
-    '        com = Nothing
-    '        con = Nothing
-
-    '        Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
-    '    End Try
-    'End Function
-
     Public Function DoCommandSql(ByVal sql As String) As Boolean
         Dim isGood As Boolean = False
         Try
@@ -1261,6 +1216,34 @@ Module MiniCTI
             If Not CheckDDL("t_schedule", "DELAY_MINUTE") Then
                 Call DoCommandSql(sqlUpdate10)
             End If
+
+            Dim sqlUpdate11 As String = _
+            "CREATE TABLE `t_call_history_stat` (                        " & _
+            "  `COM_CD` varchar(10) NOT NULL,                            " & _
+            "  `CALL_ID` varchar(50) NOT NULL,                           " & _
+            "  `ANI` varchar(20) DEFAULT NULL,                           " & _
+            "  `EXTENSION_NO` varchar(20) NOT NULL,                      " & _
+            "  `TONG_USER` varchar(45) DEFAULT NULL,                     " & _
+            "  `TONG_START_TIME` varchar(14) NOT NULL,                   " & _
+            "  `TONG_END_TIME` varchar(14) DEFAULT NULL,                 " & _
+            "  `TONG_DURATION` int(11) DEFAULT NULL,                     " & _
+            "  `CALL_TYPE` varchar(1) DEFAULT NULL,                      " & _
+            "  `CALL_RESULT` varchar(4) NOT NULL,                        " & _
+            "  `PBX_TYPE` varchar(1) DEFAULT NULL,                       " & _
+            "  `CUSTOMER_ID` bigint(20) unsigned DEFAULT NULL,           " & _
+            "  `CUSTOMER_NM` varchar(20) DEFAULT NULL,                   " & _
+            "  `CONSULT_DD` varchar(8) DEFAULT NULL,                     " & _
+            "  `CONSULT_TIME` varchar(6) DEFAULT NULL,                   " & _
+            "  PRIMARY KEY (`CALL_ID`),                                  " & _
+            "  KEY `idx_T_CALL_HISTORY_STAT01` (`ANI`,`TONG_START_TIME`)," & _
+            "  KEY `idx_T_CALL_HISTORY_STAT02` (`ANI`,`EXTENSION_NO`),   " & _
+            "  KEY `idx_T_CALL_HISTORY_STAT03` (`CALL_RESULT`),          " & _
+            "  KEY `idx_T_CALL_HISTORY_STAT04` (`TONG_USER`) USING BTREE " & _
+            ") ENGINE=InnoDB DEFAULT CHARSET=euckr;                      "
+
+            If Not CheckDDL("t_call_history_stat", "") Then
+                Call DoCommandSql(sqlUpdate11)
+            End If
         Catch ex As Exception
             Call WriteLog("UpdateDBVersion:" & ex.ToString)
         Finally
@@ -1268,10 +1251,6 @@ Module MiniCTI
         End Try
 
     End Sub
-
-    Public Function ToQuotedStr(ByVal value As String) As String
-        Return value.Trim.Replace("'", "''")
-    End Function
 
     Public Function GetCode(ByVal value As String) As String
         Dim result As String = value

@@ -1138,10 +1138,59 @@ Public Class FRM_CUSTOMER_POPUP1
 
             DoExecuteNonQuery(sql, paramIns)
 
+            WriteLog(" CallHistorySave 상담이력등록: tongDD[" & tongDD & "] tongTime[" & tongTime & "]" & _
+                     " tongUser[" & tongUser & "] tongTelNo[" & txtEnteringNo.Text.Trim.Replace("-", "") & "]")
+
+            '콜통계 상담이력 반영
+            '------------
+            '콜통계 처리(수발신목록)
+            '------------
+            '1. ringing -> 정상등록(customer_id, customer_nm포함)
+            '2. abandon -> SIP :  call_result update (call_id가 키)
+            '3. answer  -> SIP :  start_time , call_result, tong_user update (call_id가 키)
+            '              KP  :  start_time , call_result, tong_user, ext update (ani,start_time이 키, 가장 최근것) 
+            '              CID :  start_time , call_result   update (ani,start_time이 키, 가장 최근것) 
+            '4. hangup  -> SIP :  start_time , end_time, duration, call_result update (call_id가 키)              
+            '5. 상담완료-> *   :  consult_dd, consult_time update (ani, start_time이 키, answer인것 가장 최근것)
+            ' 이관건은 콜통계에 포함하지 않는다.
+            '--------------------------------
+            Dim paramUpdate As Hashtable = New Hashtable
+
+            If mIsTransfered Then
+                paramUpdate.Add("@consult_dd", tongDD)
+                paramUpdate.Add("@consult_time", tongTime)
+                paramUpdate.Add("@ani", txtEnteringNo.Text.Trim.Replace("-", ""))
+                paramUpdate.Add("@tong_start_tiime", prevTongDD & prevTongTime)
+                paramUpdate.Add("@tongUser     ", tongUser) ' 통화자
+            Else
+                paramUpdate.Add("@consult_dd", tongDD)
+                paramUpdate.Add("@consult_time", tongTime)
+                paramUpdate.Add("@ani", txtEnteringNo.Text.Trim.Replace("-", ""))
+                paramUpdate.Add("@tong_start_tiime", tongDD & tongTime)
+                paramUpdate.Add("@tongUser     ", tongUser) ' 통화자
+            End If
+
+
+            sql = "Update T_CALL_HISTORY_STAT " & _
+                  "   SET CONSULT_DD=@consult_dd " & _
+                  "      ,CONSULT_TIME=@consult_time " & _
+                  "      ,TONG_USER=@tongUser " & _
+                  " WHERE ANI=@ani " & _
+                  "   AND TONG_START_TIME = (SELECT max(TONG_START_TIME)  " & _
+                  "                            FROM T_CALL_HISTORY_STAT " & _
+                  "                           WHERE ANI=@ani  " & _
+                  "                             AND CALL_RESULT in (3,5) " & _
+                  "                             AND TONG_START_TIME <@tong_start_tiime ) "
+
+            DoExecuteNonQuery(sql, paramIns)
+            WriteLog(" CallHistorySave 콜통계등록: tongDD[" & tongDD & "] tongTime[" & tongTime & "]" & _
+                     " tongUser[" & tongUser & "] tongTelNo[" & txtEnteringNo.Text.Trim.Replace("-", "") & "]")
+
+
             CallHistorySave = True
 
         Catch ex As Exception
-            Call WriteLog(Me.Name.ToString & " CallHistorySave : " & ex.ToString)
+            WriteLog(Me.Name.ToString & " CallHistorySave : " & ex.ToString)
         Finally
             dt1 = Nothing
         End Try
